@@ -20,6 +20,7 @@ rec_block.cpp
 #    foo.cpp
 #table_dim.cpp
 transform_pass.cpp
+tostring.cpp
     )
 
 ADD_CUSTOM_TARGET(sandbox)
