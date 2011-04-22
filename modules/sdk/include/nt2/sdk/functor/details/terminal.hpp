@@ -18,24 +18,31 @@ namespace nt2
   {
     template<class Sig> struct result;
 
-    template<class This, class Value, class State, class Data>
-    struct result<This(Value, State, Data)>
-    {
-      typedef typename
-      meta::dispatch_call<tag::terminal_(Value,State,Data),Site>::type  callee;
-      typedef typename
-      std::tr1::result_of<callee(Value, State, Data)>::type             type;
-    };
+    #define M0(z,n,t)                                                             \
+    template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >                        \
+    struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                                \
+    {                                                                             \
+      typedef typename meta::                                                     \
+      dispatch_call<tag::terminal_(BOOST_PP_ENUM_PARAMS(n,A)),Site>::type callee; \
+      typedef typename                                                            \
+      std::tr1::result_of<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type  type;         \
+    };                                                                            \
+                                                                                  \
+    template<BOOST_PP_ENUM_PARAMS(n,class A)> inline                              \
+    typename meta::                                                               \
+    enable_call<tag::terminal_(BOOST_PP_ENUM_PARAMS(n,A)),Site>::type             \
+    operator()( BOOST_PP_ENUM_BINARY_PARAMS(n,A,& a)  ) const                     \
+    {                                                                             \
+      typename meta::                                                             \
+      dispatch_call<tag::terminal_(BOOST_PP_ENUM_PARAMS(n,A)),Site>::type callee; \
+      return callee( BOOST_PP_ENUM_PARAMS(n,a) );                                 \
+    }                                                                             \
+    /**/
 
-    template<class Value, class State, class Data> inline
-    typename meta::enable_call<tag::terminal_(Value,State,Data)>::type
-    operator()( Value& v, State& s, Data& d ) const
-    {
-      typename
-      meta::dispatch_call<tag::terminal_(Value,State,Data),Site>::type callee;
-      return callee(v,s,d);
-    }
-  };
+    BOOST_PP_REPEAT_FROM_TO(1,4,M0,~)
+
+    #undef M0
+	};
 }
 
 #endif
