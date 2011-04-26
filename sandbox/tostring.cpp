@@ -103,10 +103,63 @@ namespace nt2 { namespace ext
     template<class Value, class State> inline
     result_type operator()( Value& v, State const& s ) const
     {
-      return s.get().first[s.get().second++];
+      BOOST_ASSERT(s.get().find(boost::addressof(v)) != s.get().end());
+        
+      return "a" + boost::lexical_cast<std::string>(s.get().find(boost::addressof(v))->second);
     }
   };
 } }
+
+struct terminal_do : boost::proto::callable
+{
+    template<typename Sig>
+    struct result;
+    
+    template<typename This, typename T, typename State>
+    struct result<This(T, State)>
+    {
+        typedef State& type;
+    };
+    
+    template<typename T, typename State>
+    typename boost::result_of<terminal_do(T const&, State&)>::type
+    operator()(T& t, State& state)
+    {
+        const void* addr = boost::addressof(t);
+        typename State::iterator it = state.find(addr);
+        if(it == state.end())
+        {
+            std::cout << "input a" << state.size() << ": " << nt2::type_id<T>() << " " << t << std::endl;
+            
+            state.insert(std::make_pair(addr, state.size()));
+        }
+            
+        return state;
+    }
+};
+
+struct find_terminals : boost::proto::or_<
+    boost::proto::when<
+        boost::proto::terminal<boost::proto::_>,
+        terminal_do(boost::proto::_value, boost::proto::_state)
+    >,
+    boost::proto::otherwise<
+        boost::proto::fold<boost::proto::_, boost::proto::_state, find_terminals>
+    >
+>
+{
+};
+
+template<typename Expr>
+void make_kernel(Expr const& expr)
+{
+    std::map<const void*, size_t> map;
+    
+    find_terminals()(expr, map);
+    
+    std::cout << "expression: \n";
+    std::cout << nt2::meta::compile< nt2::meta::tostring_<boost::mpl::_1> >()(expr, boost::ref(map)) << std::endl;
+}
 
 int main()
 {
@@ -115,22 +168,7 @@ int main()
 
     pack<float> a, b, c, d;
     
-    boost::array<const char*, 6> m = {
-		"d",
-		"c",
-		"j",
-		"c",
-		"i",
-		"a"
-	};
-	
-	std::pair< boost::array<const char*, 6>, int > state(m, 0);
-    
-    std::cout << nt2::meta::compile<
-      nt2::meta::tostring_<boost::mpl::_1>
-    >()
-    (
-      !(a + 3*~c)+4*nt2::div(c,d),
-      boost::ref(state)
-    ) << std::endl;
+    make_kernel(
+      !(a + 3*~c)+4*nt2::div(c,d)
+    );
 }
