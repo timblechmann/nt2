@@ -22,6 +22,7 @@
 #include <nt2/sdk/config/compiler.hpp>
 #include <nt2/sdk/config/attributes.hpp>
 #include <nt2/sdk/config/type_lists.hpp>
+#include <nt2/sdk/types/dual_types.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // External NT2 configuration files

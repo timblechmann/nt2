@@ -43,6 +43,13 @@ namespace nt2 { namespace details
   struct hierarchy_of<float, Enable>   { typedef meta::float_<float>   type; };
   template<class Enable>
   struct hierarchy_of<double, Enable>  { typedef meta::double_<double> type; };
+  //////////////////////////////////////////////////////////////////////////////
+  // Overload for non integral dual types
+  //////////////////////////////////////////////////////////////////////////////
+  // TOOOO DOOOO
+  //   template<class Enable, class T>
+  //   struct hierarchy_of<T, Enable>       { typedef meta::d_real_<T>      type; };
+
 
   //////////////////////////////////////////////////////////////////////////////
   // Overload for types with a nt2_hierarchy_tag

@@ -8,6 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_SDK_META_DETAILS_HIERARCHY_HPP_INCLUDED
 #define NT2_SDK_META_DETAILS_HIERARCHY_HPP_INCLUDED
+/// added 128 bits types tags + d_float_ and d_double 5/2/2011 jt
 
 namespace nt2 { namespace tag
 {
@@ -42,7 +43,7 @@ namespace nt2 { namespace tag
   struct integer_     {}; struct real_        {};
 
   //////////////////////////////////////////////////////////////////////////////
-  // Tag for native signed adn unsigned types
+  // Tag for native signed and unsigned types
   //////////////////////////////////////////////////////////////////////////////
   struct signed_      {}; struct unsigned_    {};
 
@@ -56,29 +57,34 @@ namespace nt2 { namespace tag
   //////////////////////////////////////////////////////////////////////////////
   struct type8_       {}; struct type16_      {};
   struct type32_      {}; struct type64_      {};
-
+  struct type128_     {};
+  
   //////////////////////////////////////////////////////////////////////////////
   // Tag for native floating point types sorted by byte size
   //////////////////////////////////////////////////////////////////////////////
   struct float_       {}; struct double_      {};
+  struct d_float_     {}; struct d_double_    {};
   struct long_double_ {};
+  
   //////////////////////////////////////////////////////////////////////////////
   // Tag for native integral types sorted by byte size
   //////////////////////////////////////////////////////////////////////////////
   struct ints8_       {}; struct ints16_      {};
   struct ints32_      {}; struct ints64_      {};
-
+  struct ints128_     {};
   //////////////////////////////////////////////////////////////////////////////
   // Tag for native signed integral types sorted by byte size
   //////////////////////////////////////////////////////////////////////////////
   struct int8_        {}; struct int16_       {};
   struct int32_       {}; struct int64_       {};
-
+  struct int128_      {};
+  
   //////////////////////////////////////////////////////////////////////////////
   // Tag for native unsigned integral types sorted by byte size
   //////////////////////////////////////////////////////////////////////////////
   struct uint8_       {}; struct uint16_      {};
   struct uint32_      {}; struct uint64_      {};
+  struct uint128_     {};
 } }
 
 #endif
