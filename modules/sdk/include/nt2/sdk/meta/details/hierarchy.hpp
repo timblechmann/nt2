@@ -8,7 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_SDK_META_DETAILS_HIERARCHY_HPP_INCLUDED
 #define NT2_SDK_META_DETAILS_HIERARCHY_HPP_INCLUDED
-/// added 128 bits types tags + d_float_ and d_double 5/2/2011 jt
+/// added 128 bits types tags  5/2/2011 jt
 
 namespace nt2 { namespace tag
 {
@@ -63,7 +63,6 @@ namespace nt2 { namespace tag
   // Tag for native floating point types sorted by byte size
   //////////////////////////////////////////////////////////////////////////////
   struct float_       {}; struct double_      {};
-  struct d_float_     {}; struct d_double_    {};
   struct long_double_ {};
   
   //////////////////////////////////////////////////////////////////////////////

@@ -184,8 +184,6 @@ namespace nt2 { namespace meta
   NT2_HIERARCHY_CLASS_TPL(double_       , type64_<T>      );
   NT2_HIERARCHY_CLASS_TPL(float_        , type32_<T>      );
   NT2_HIERARCHY_CLASS_TPL(long_double_  , fundamental_<T> );
-  NT2_HIERARCHY_CLASS_TPL(d_float_      , type64_<T>      );
-  NT2_HIERARCHY_CLASS_TPL(d_double_     , type128_<T>     );
 
   //////////////////////////////////////////////////////////////////////////////
   // Boolean type hierarchy
