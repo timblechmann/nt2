@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_DUAL_FUNCTION_SCALAR_TWO_SPLIT_HPP_INCLUDED
 #include <iostream>
 #include <nt2/toolbox/dual/specific/constants.hpp>
-
+#include <nt2/include/functions/ldexp.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is real_

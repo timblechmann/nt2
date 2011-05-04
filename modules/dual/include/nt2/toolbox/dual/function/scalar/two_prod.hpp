@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_DUAL_FUNCTION_SCALAR_TWO_PROD_HPP_INCLUDED
 #define NT2_TOOLBOX_DUAL_FUNCTION_SCALAR_TWO_PROD_HPP_INCLUDED
-#include <nt2/include/functions/two_split.hpp>
+#include <nt2/toolbox/dual/include/two_split.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
