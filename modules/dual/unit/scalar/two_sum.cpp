@@ -39,5 +39,7 @@ NT2_TEST_CASE_TPL ( two_sum_real__2_0,  NT2_REAL_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  r_t res;
+  res = two_sum(nt2::One<T>(), nt2::Eps<T>()/nt2::Two<T>());
+  std::cout << boost::fusion::at_c<0>(res)<< ", " << boost::fusion::at_c<1>(res) << std::endl; 
 } // end of test for real_

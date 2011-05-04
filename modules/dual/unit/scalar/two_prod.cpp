@@ -39,6 +39,9 @@ NT2_TEST_CASE_TPL ( two_prod_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
-  ulpd=0.0;
+  ulpd=0.0; 
+  r_t res;
+  res = two_prod(nt2::One<T>()+nt2::Eps<T>(), nt2::One<T>()-nt2::Eps<T>());
+  std::cout << boost::fusion::at_c<0>(res)<< ", " << boost::fusion::at_c<1>(res) << std::endl; 
 
 } // end of test for real_

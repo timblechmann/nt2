@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_DUAL_FUNCTION_SCALAR_TWO_SQR_HPP_INCLUDED
 #define NT2_TOOLBOX_DUAL_FUNCTION_SCALAR_TWO_SQR_HPP_INCLUDED
+#include <nt2/toolbox/dual/function/two_split.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -39,7 +40,7 @@ namespace nt2 { namespace ext
       return res;
     }
   private:
-    template<class A0,class A1,class R0,class R1> inline void
+    template<class A0,class R0,class R1> inline void
       eval(A0 const& a,R0& r0, R1& r1)const
       {
 	typename NT2_RETURN_TYPE(1)::type res;
@@ -47,7 +48,7 @@ namespace nt2 { namespace ext
 	const A0 hi = boost::fusion::at_c<0>(res); 
 	const A0 lo = boost::fusion::at_c<1>(res);   
 	r0 = sqr(a);
-	r1 = ((sqr(hi) - r0) + 2.0 * hi * lo) + sqr(lo);
+	r1 = ((sqr(hi) - r0) + Two<A0>() * hi * lo) + sqr(lo);
       }
   };
 } }

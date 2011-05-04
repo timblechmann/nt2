@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
       const A0 b_hi= boost::fusion::at_c<0>(resb);
       const A0 b_lo= boost::fusion::at_c<1>(resb);
       r0 = a * b;
-      r1 = ((a_hi * b_hi - r1) + a_hi * b_lo + a_lo * b_hi) + a_lo * b_lo;
+      r1 = ((a_hi * b_hi - r0) + a_hi * b_lo + a_lo * b_hi) + a_lo * b_lo;
     }
 
   };
