@@ -68,10 +68,11 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
-      A0 p, rp, s, rs;
-      boost::fusion::tie(p, rp) = two_prod(a0, a1);
-      boost::fusion::tie(s, rs) = two_add(p, a2);
-      return s+(rp+rs);
+//       A0 p, rp, s, rs;
+//       boost::fusion::tie(p, rp) = two_prod(a0, a1);
+//       boost::fusion::tie(s, rs) = two_add(p, a2);
+//       return s+(rp+rs);
+      return Zero<A0>(); 
     }
   };
 } }

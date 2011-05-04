@@ -34,9 +34,9 @@
 #include <nt2/toolbox/arithmetic/include/ceil.hpp>
 #include <nt2/toolbox/arithmetic/include/round.hpp>
 #include <nt2/toolbox/arithmetic/include/floor.hpp>
-#include <nt2/toolbox/arithmetic/include/two_split.hpp>
-#include <nt2/toolbox/arithmetic/include/two_prod.hpp>
-#include <nt2/toolbox/arithmetic/include/two_add.hpp>
+// #include <nt2/toolbox/arithmetic/include/two_split.hpp>
+// #include <nt2/toolbox/arithmetic/include/two_prod.hpp>
+// #include <nt2/toolbox/arithmetic/include/two_add.hpp>
 #include <nt2/toolbox/arithmetic/include/rsqrt.hpp>
 #include <nt2/toolbox/arithmetic/include/sqrt.hpp>
 #include <nt2/toolbox/arithmetic/include/sqr.hpp>
@@ -58,7 +58,7 @@
 #include <nt2/toolbox/arithmetic/include/fma.hpp>
 #include <nt2/toolbox/arithmetic/include/fam.hpp>
 #include <nt2/toolbox/arithmetic/include/dist.hpp>
-#include <nt2/toolbox/arithmetic/include/correct_fma.hpp>
+// #include <nt2/toolbox/arithmetic/include/correct_fma.hpp>
 #include <nt2/toolbox/arithmetic/include/average.hpp>
 #include <nt2/toolbox/arithmetic/include/amul.hpp>
 #include <nt2/toolbox/arithmetic/include/abs.hpp>
