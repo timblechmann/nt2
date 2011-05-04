@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 05/03/2011
 /// modified by jt the 03/05/2011
+#include <nt2/toolbox/dual/dual.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -44,4 +45,12 @@ NT2_TEST_CASE_TPL ( two_prod_real__2_0,  NT2_REAL_TYPES)
   res = two_prod(nt2::One<T>()+nt2::Eps<T>(), nt2::One<T>()-nt2::Eps<T>());
   std::cout << boost::fusion::at_c<0>(res)<< ", " << boost::fusion::at_c<1>(res) << std::endl; 
 
+  nt2::dual<T> a(nt2::One<T>(), nt2::Eps<T>()/4);
+  nt2::dual<T> b(nt2::One<T>(), -nt2::Eps<T>()/4);
+  std::cout << "a = (" << a.hi() << ", " << a.lo() << ")" << std::endl;
+  std::cout << "b = (" << b.hi() << ", " << b.lo() << ")" << std::endl;
+  a *=  b;
+
+  std::cout << "a*b = (" << a.hi() << ", " << a.lo() << ")" << std::endl;
+  
 } // end of test for real_
