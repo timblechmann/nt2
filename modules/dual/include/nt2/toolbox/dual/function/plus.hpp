@@ -6,19 +6,14 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_DUAL_DUAL_HPP_INCLUDED
-#define NT2_TOOLBOX_DUAL_DUAL_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_DUAL_FUNCTION_PLUS_HPP_INCLUDED
+#define NT2_TOOLBOX_DUAL_FUNCTION_PLUS_HPP_INCLUDED
+#include <nt2/include/simd.hpp>
+#include <nt2/include/functor.hpp>
+#include <nt2/toolbox/dual/include.hpp>
 #include <nt2/toolbox/dual/specific/interface.hpp>
 
-//<include> please don't modify between these tags
-#include <nt2/toolbox/dual/include/plus.hpp>
-#include <nt2/toolbox/dual/include/two_sqr.hpp>
-#include <nt2/toolbox/dual/include/two_split.hpp>
-#include <nt2/toolbox/dual/include/two_prod.hpp>
-#include <nt2/toolbox/dual/include/two_sum.hpp>
-#include <nt2/toolbox/dual/include/two_diff.hpp>
-#include <nt2/toolbox/dual/include/quick_two_diff.hpp>
-//#include <nt2/toolbox/dual/include/sqrt.hpp>
-//<\include>
+#include <nt2/toolbox/dual/function/scalar/plus.hpp>
+#include NT2_DUAL_INCLUDE(plus.hpp) 
 
 #endif

@@ -6,33 +6,33 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 dual toolbox - two_sum/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 dual toolbox - plus/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of dual components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 05/03/2011
-/// modified by jt the 03/05/2011
-#include <nt2/toolbox/dual/dual.hpp>
+/// modified by jt the 04/05/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/memory/buffer.hpp> 
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/dual/include/two_sum.hpp>
+#include <nt2/toolbox/dual/include/plus.hpp>
+// specific includes for arity 2 tests
+#include <nt2/toolbox/dual/specific/dual_types.hpp>
 
-NT2_TEST_CASE_TPL ( two_sum_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( plus_dual__2_0,  (nt2::dual < float>)(nt2::dual < double>))
 {
   
-  using nt2::two_sum;
-  using nt2::tag::two_sum_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<two_sum_(T,T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef boost::fusion::tuple<T,T> wished_r_t;
+  using nt2::plus;
+  using nt2::tag::plus_;
+  typedef typename nt2::meta::call<plus_(T,T)>::type r_t;
+  typedef T wished_r_t;
+  typedef typename T::type type; 
 
 
   // return type conformity test 
@@ -40,15 +40,17 @@ NT2_TEST_CASE_TPL ( two_sum_real__2_0,  NT2_REAL_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-  r_t res;
-  res = two_sum(nt2::One<T>(), nt2::Eps<T>()/nt2::Two<T>());
-  std::cout << boost::fusion::at_c<0>(res)<< ", " << boost::fusion::at_c<1>(res) << std::endl;
-
-//   nt2::dual<T> a(nt2::One<T>(), nt2::Eps<T>()/4);
-//   std::cout << "(" << a.hi() << ", " << a.lo() << ")" << std::endl;
-//   a +=  nt2::One<T>();
-//   std::cout << "(" << a.hi() << ", " << a.lo() << ")" << std::endl;
-//   a +=  a;
-//   std::cout << "(" << a.hi() << ", " << a.lo() << ")" << std::endl;
+  T a(nt2::One<type>(), nt2::Zero<type>());
+  T b(nt2::Mone<type>(), nt2::Eps<type>()/16);
+  T c = plus(a, b);
+  c.print(); 
+  T d = (a+b);
+  d.print();
+  T e = b+ nt2::One<type>();
+  e.print();
+  T f = plus(nt2::One<type>(), b);
+  f.print();
+  T g = nt2::One<type>()+b;
+  g.print();
   
-} // end of test for real_
+} // end of test for dual_

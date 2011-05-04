@@ -47,32 +47,29 @@ namespace nt2
   ///  arithmetic package based on Yozo Hida package
   //////////////////////////////////////////////////////////////////////////////
   template<class T,
-	   class ACCURACY = boost::mpl::true_, 
 	   class IS_SCALAR  = typename meta::is_scalar<T>::type>
   class dual;
-  template<class T,
-	   class ACCURACY>
-  class dual < T, ACCURACY, boost::mpl::false_> 
-  {
-    void to_digits(char *s,
-		   int &expn,
-		   int precision) const;
+//  template<class T>
+//   class dual < T, boost::mpl::false_> 
+//   {
+//     void to_digits(char *s,
+// 		   int &expn,
+// 		   int precision) const;
 
-  };
+//   };
 
 
   /// scalar version
-  template<class T,
-	   class ACCURACY>
-  class dual < T, ACCURACY, boost::mpl::true_> 
+  template<class T >
+  class dual<T> 
   {
   public:
     typedef T                                  type;
     typedef typename meta::scalar_of<T>::type  part; 
-    typedef ACCURACY                       accuracy;  
-    typedef dual<type,accuracy>                self;
+    typedef dual<type,boost::mpl::true_>       self;
     typedef self                           floating;
     typedef typename boost::fusion::tuple<T,T>    pair;
+    typedef meta::dual_<typename meta::hierarchy_of<T>::type> nt2_hierarchy_tag;
 
     ////////////////////////////////////////////////////////////////////////////
     /// @brief  Normal form constructor.
@@ -82,7 +79,7 @@ namespace nt2
     dual() {}
 
     ////////////////////////////////////////////////////////////////////////////
-    /// @brief Destructor - nothing special,  it's a pod
+    /// @brief Destructor - nothing special
     ////////////////////////////////////////////////////////////////////////////
     ~dual() {}
 
@@ -94,7 +91,7 @@ namespace nt2
     /// @param z the dual to be copied
     ////////////////////////////////////////////////////////////////////////////
     dual(const self& z)
-      : mhilo(z.mhilo()) {}
+      : mhilo(z.mhilo) {}
 
  
     ////////////////////////////////////////////////////////////////////////////
@@ -107,16 +104,16 @@ namespace nt2
     ////////////////////////////////////////////////////////////////////////////
     explicit dual(const type& a,  const type& b) : mhilo(boost::fusion::make_tuple(a, b)) {}
 
-    dual(const double& a){
-      hi() = static_cast < type > (a); 
-      lo() = static_cast < type > (a-static_cast<double>(hi())); 
-      //        std::cout <<  std::setprecision(15) << a << std::endl;
-      //        std::cout <<  std::setprecision(7)  << mhi <<  " -- " << mlo <<  std::endl;
-    }
+//     dual(const double& a){
+//       hi() = static_cast < type > (a); 
+//       lo() = static_cast < type > (a-static_cast<double>(hi())); 
+//       //        std::cout <<  std::setprecision(15) << a << std::endl;
+//       //        std::cout <<  std::setprecision(7)  << mhi <<  " -- " << mlo <<  std::endl;
+//     }
 
-    dual(const float& a): mhilo(boost::fusion::make_tuple(a, Zero<type>())){}
+//     dual(const float& a): mhilo(boost::fusion::make_tuple(a, Zero<type>())){}
 
-    explicit dual(const int&a): mhilo(boost::fusion::make_tuple(type(a), Zero<type>())) {}
+//    explicit dual(const int&a): mhilo(boost::fusion::make_tuple(type(a), Zero<type>())) {}
 
     ////////////////////////////////////////////////////////////////////////////
     /// @brief  affectation from an other dual.
@@ -176,7 +173,10 @@ namespace nt2
     ////////////////////////////////////////////////////////////////////////////
     pair& hilo()       { return mhilo; }
 
-
+    void print()
+    {
+      std::cout << "(" << hi() << ", " << lo() << ")" << std::endl;
+    }
 //     ////////////////////////////////////////////////////////////////////////////
 //     /// @brief  ! true if non 0
 //     ////////////////////////////////////////////////////////////////////////////

@@ -8,8 +8,10 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_DUAL_SPECIFIC_INTERFACE_HPP_INCLUDED
 #define NT2_TOOLBOX_DUAL_SPECIFIC_INTERFACE_HPP_INCLUDED
+#include <nt2/toolbox/dual/specific/category.hpp>
 #include <nt2/toolbox/dual/specific/dual_types.hpp>
-
+#include <nt2/sdk/functor/operators.hpp>
+#include <nt2/toolbox/dual/specific/operators.hpp>
 #endif
 
 // /////////////////////////////////////////////////////////////////////////////

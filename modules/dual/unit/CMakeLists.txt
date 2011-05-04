@@ -20,3 +20,4 @@ ADD_DEPENDENCIES(dual.unit dual.scalar.unit dual.simd.unit)
 
 nt2_module_use_modules(unit ieee arithmetic exponential hyperbolic)
 ADD_SUBDIRECTORY(scalar)
+ADD_SUBDIRECTORY(simd)

@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  plus.cpp
   two_sqr.cpp
   two_split.cpp
   two_prod.cpp
