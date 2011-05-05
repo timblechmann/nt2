@@ -565,7 +565,7 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
     
 if __name__ == "__main__" :
     tb_name = "dual"
-    fcts = ["unary_minus"]
+    fcts = ["bitwise_and","bitwise_or","bitwise_xor"]
     for fct_name in fcts :
         print fct_name
         afs = Add_functor_skel(tb_name,fct_name,no_simd=False)

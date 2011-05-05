@@ -11,6 +11,9 @@
 #include <nt2/toolbox/dual/specific/interface.hpp>
 
 //<include> please don't modify between these tags
+#include <nt2/toolbox/dual/include/bitwise_xor.hpp>
+#include <nt2/toolbox/dual/include/bitwise_or.hpp>
+#include <nt2/toolbox/dual/include/bitwise_and.hpp>
 #include <nt2/toolbox/dual/include/unary_minus.hpp>
 #include <nt2/toolbox/dual/include/logical_not.hpp>
 #include <nt2/toolbox/dual/include/complement.hpp>

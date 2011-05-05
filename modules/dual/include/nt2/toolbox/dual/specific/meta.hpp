@@ -6,15 +6,30 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_DUAL_SPECIFIC_INTERFACE_HPP_INCLUDED
-#define NT2_TOOLBOX_DUAL_SPECIFIC_INTERFACE_HPP_INCLUDED
-#include <nt2/toolbox/dual/specific/category.hpp>
-#include <nt2/toolbox/dual/specific/dual_types.hpp>
-#include <nt2/sdk/functor/operators.hpp>
-#include <nt2/toolbox/dual/specific/operators.hpp>
-#include <nt2/toolbox/dual/specific/meta.hpp>
+#ifndef NT2_TOOLBOX_DUAL_SPECIFIC_META_HPP_INCLUDED
+#define NT2_TOOLBOX_DUAL_SPECIFIC_META_HPP_INCLUDED
+#include <nt2/sdk/meta/factory_of.hpp>
+#include <nt2/sdk/meta/primitive_of.hpp>
+
+
+namespace nt2 {namespace meta
+{
+  template<class Type>
+  struct factory_of< dual<Type> >
+  {
+    typedef dual<boost::mpl::_> type;
+  };
+  template<class Type>
+  struct primitive_of< dual<Type> >
+  {
+    typedef Type type;
+  };  
+
+} }
+
+
 #endif
 
 // /////////////////////////////////////////////////////////////////////////////
-// End of interface.hpp
+// End of meta.hpp
 // /////////////////////////////////////////////////////////////////////////////

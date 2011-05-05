@@ -8,6 +8,9 @@
 ##############################################################################
 
 SET( SOURCES
+  bitwise_xor.cpp
+  bitwise_or.cpp
+  bitwise_and.cpp
   unary_minus.cpp
   logical_not.cpp
   complement.cpp
