@@ -1,0 +1,76 @@
+\begin{thebibliography}{10}
+
+\bibitem{bai-dd}
+David~H. Bailey.
+\newblock A fortran-90 double-double library.
+\newblock Available at {\tt http://www.nersc.gov/\linebreak\~{
+  }dhbailey/mpdist/mpdist.html}.
+
+\bibitem{bai-mp}
+David~H. Bailey.
+\newblock A fortran-90 based multiprecision system.
+\newblock {\em ACM Transactions on Mathematical Software}, 21(4):379--387,
+  1995.
+\newblock Software available at {\tt http://www.nersc.gov/\linebreak\~{
+  }dhbailey/mpdist/mpdist.html}.
+
+\bibitem{brent}
+R.~Brent.
+\newblock A {Fortran} multiple precision arithmetic package.
+\newblock {\em {ACM} Trans. Math. Soft.}, 4:57--70, 1978.
+
+\bibitem{kbriggs97}
+K.~Briggs.
+\newblock Doubledouble floating point arithmetic.
+\newblock {\tt http://www-epidem.plantsci.cam.ac.uk\linebreak[0]
+  /$\sim$kbriggs/doubledouble.html}, 1998.
+
+\bibitem{cha98}
+Siddhardtha Chatterjee.
+\newblock {MPFUN++}: A multiple precision floating point computation package in
+  {C}++, 1998.
+\newblock Available at {\tt http://www.cs.unc.edu/Research/HARPOON/mpfun++/}.
+
+\bibitem{dek71}
+T.J. Dekker.
+\newblock A floating-point technique for extending the available precision.
+\newblock {\em Numerische Mathematik}, 18:224--242, 1971.
+
+\bibitem{gnu-mp}
+{GMP}.
+\newblock {\tt http://www.swox.com/gmp/}.
+
+\bibitem{hida00}
+Yozo Hida, Xiaoye~S. Li, and David~H. Bailey.
+\newblock Quad-double arithmetic: Algorithms, implementation, and application.
+\newblock Technical Report LBNL-46996, Lawrence Berkeley National Laboratory,
+  Berkeley, CA 94720, October 2000.
+\newblock Available at {\tt http://www.nersc.gov/\~{
+  }dhbailey/mpdist/mpdist.html}.
+
+\bibitem{knu81}
+Donald~E. Knuth.
+\newblock {\em The Art of Computer Programming: Seminumerical Algorithms},
+  volume~2.
+\newblock Addison Wesley, Reading, Massachusetts, 1981.
+
+\bibitem{pri92}
+Douglas~M. Priest.
+\newblock {\em On Properties of Floating Point Arithmetics: Numerical Stability
+  and the Cost of Accurate Computations}.
+\newblock PhD thesis, University of California, Berkeley, November 1992.
+\newblock Available by anonymous FTP at {\tt ftp.icsi.berkeley.edu/pub/theory/
+  \linebreak[0]priest-thesis.ps.Z}.
+
+\bibitem{she97}
+Jonathan~R. Shewchuk.
+\newblock Adaptive precision floating-point arithmetic and fast robust
+  geometric predicates.
+\newblock {\em Discrete \& Computational Geometry}, 18(3):305--363, 1997.
+
+\bibitem{c++}
+Bjarne Stroustrup.
+\newblock {\em The C++ Programming Language}.
+\newblock Addison Wesley, Reading Massachusetts, 1997.
+
+\end{thebibliography}

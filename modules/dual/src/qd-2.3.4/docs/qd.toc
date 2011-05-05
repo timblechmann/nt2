@@ -1,0 +1,31 @@
+\contentsline {section}{\numberline {1}Introduction}{3}
+\contentsline {section}{\numberline {2}Preliminaries}{3}
+\contentsline {section}{\numberline {3}Basic Operations}{5}
+\contentsline {subsection}{\numberline {3.1}Renormalization}{5}
+\contentsline {subsection}{\numberline {3.2}Addition}{7}
+\contentsline {subsubsection}{\numberline {3.2.1}Quad-Double + Double}{7}
+\contentsline {subsubsection}{\numberline {3.2.2}Quad-Double + Quad-Double}{7}
+\contentsline {subsection}{\numberline {3.3}Subtraction}{11}
+\contentsline {subsection}{\numberline {3.4}Multiplication}{11}
+\contentsline {subsubsection}{\numberline {3.4.1}Quad-Double $\times $ Double}{11}
+\contentsline {subsubsection}{\numberline {3.4.2}Quad-Double $\times $ Quad-Double}{11}
+\contentsline {subsection}{\numberline {3.5}Division}{16}
+\contentsline {section}{\numberline {4}Algebraic Operations}{16}
+\contentsline {subsection}{\numberline {4.1}$N$-th Power}{16}
+\contentsline {subsection}{\numberline {4.2}Square Root}{16}
+\contentsline {subsection}{\numberline {4.3}$N$-th Root}{16}
+\contentsline {section}{\numberline {5}Transcendental Operations}{17}
+\contentsline {subsection}{\numberline {5.1}Exponential}{17}
+\contentsline {subsection}{\numberline {5.2}Logarithm}{17}
+\contentsline {subsection}{\numberline {5.3}Trigonometrics}{17}
+\contentsline {subsection}{\numberline {5.4}Inverse Trigonometrics}{18}
+\contentsline {subsection}{\numberline {5.5}Hyperbolic Functions}{18}
+\contentsline {section}{\numberline {6}Miscellaneous Routines}{18}
+\contentsline {subsection}{\numberline {6.1}Input / Output}{18}
+\contentsline {subsection}{\numberline {6.2}Comparisons}{18}
+\contentsline {subsection}{\numberline {6.3}Random Number Generator}{18}
+\contentsline {section}{\numberline {7}C++ Implementation}{18}
+\contentsline {section}{\numberline {8}Performance}{20}
+\contentsline {section}{\numberline {9}Future Work}{21}
+\contentsline {section}{\numberline {10}Acknowledgements}{21}
+\contentsline {section}{\numberline {A}Proof of Quad-Double Addition Error Bound (Lemma 12\hbox {})}{22}

@@ -46,9 +46,9 @@ namespace nt2
   ///  Double-double precision (>= 106-bit significand) floating point
   ///  arithmetic package based on Yozo Hida package
   //////////////////////////////////////////////////////////////////////////////
-  template<class T,
-	   class IS_SCALAR  = typename meta::is_scalar<T>::type>
-  class dual;
+//   template<class T,
+// 	   class IS_SCALAR  = typename meta::is_scalar<T>::type>
+//   class dual;
 //  template<class T>
 //   class dual < T, boost::mpl::false_> 
 //   {
@@ -61,12 +61,12 @@ namespace nt2
 
   /// scalar version
   template<class T >
-  class dual<T> 
+  class dual
   {
   public:
     typedef T                                  type;
     typedef typename meta::scalar_of<T>::type  part; 
-    typedef dual<type,boost::mpl::true_>       self;
+    typedef dual<type>       self;
     typedef self                           floating;
     typedef typename boost::fusion::tuple<T,T>    pair;
     typedef meta::dual_<typename meta::hierarchy_of<T>::type> nt2_hierarchy_tag;
@@ -93,6 +93,9 @@ namespace nt2
     dual(const self& z)
       : mhilo(z.mhilo) {}
 
+    dual(const pair& z)
+      : mhilo(z) {}
+
  
     ////////////////////////////////////////////////////////////////////////////
     /// @brief  constructor from two IEEE
@@ -103,6 +106,7 @@ namespace nt2
     /// @param b the lo part  (default 0)
     ////////////////////////////////////////////////////////////////////////////
     explicit dual(const type& a,  const type& b) : mhilo(boost::fusion::make_tuple(a, b)) {}
+    explicit dual(const type& a) : mhilo(boost::fusion::make_tuple(a, Zero<type>())) {}
 
 //     dual(const double& a){
 //       hi() = static_cast < type > (a); 
@@ -176,6 +180,10 @@ namespace nt2
     void print()
     {
       std::cout << "(" << hi() << ", " << lo() << ")" << std::endl;
+    }
+    void print(const char* m)
+    {
+      std::cout << m << " = (" << hi() << ", " << lo() << ")" << std::endl;
     }
 //     ////////////////////////////////////////////////////////////////////////////
 //     /// @brief  ! true if non 0
@@ -319,32 +327,40 @@ namespace nt2
     {
       type p2;
       pair p = two_prod(hi(), a.hi());
-      bf::get<1>(p) += a.lo() * lo();
       bf::get<1>(p) += a.lo() * hi();
       bf::get<1>(p) += a.hi() * lo();
+      bf::get<1>(p) += a.lo() * lo();
       hilo() = quick_two_sum(bf::get<0>(p), bf::get<1>(p));
       return *this;
      }
-      
-//     ////////////////////////////////////////////////////////////////////////////
-//     /// @brief  self type /= 
-//     ///
-//     /// @param s value to be divided by
-//     ////////////////////////////////////////////////////////////////////////////
-//     self& operator/=(const T& a)
-//     {
-//       return *this = *this / self(a);
-//     }
     
-//     ////////////////////////////////////////////////////////////////////////////
-//     /// @brief  self type /= 
-//     ///
-//     /// @param s value to be divided by
-//     ////////////////////////////////////////////////////////////////////////////
-//     self& operator/=(const self& a)
-//     {
-//       return *this = (*this)/ a;
-//     }
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief  self type / 
+    ///
+    /// @param b value to be divided by
+    ////////////////////////////////////////////////////////////////////////////
+    self div(const self& b)const; 
+    self div(const type& b)const; 
+      
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief  self type /= 
+    ///
+    /// @param s value to be divided by
+    ////////////////////////////////////////////////////////////////////////////
+    self& operator/=(const T& a)
+    {
+      return *this = *this / self(a);
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief  self type /= 
+    ///
+    /// @param s value to be divided by
+    ////////////////////////////////////////////////////////////////////////////
+    self& operator/=(const self& a)
+    {
+      return *this = (*this)/ a;
+    }
     
 //     ////////////////////////////////////////////////////////////////////////////
 //     /// @brief  normalization 
@@ -381,13 +397,46 @@ namespace nt2
 //     static const self& inf (){static self z(Inf<type>(),Zero<type>());  return z; }
     
   private:
-    mutable pair mhilo;
+    mutable pair mhilo; //perhaps normalization capability is not useful
     //    int read(const char *s);
     
 
   };
   
 }
+
+#include <nt2/toolbox/dual/include/plus.hpp>
+#include <nt2/toolbox/dual/include/minus.hpp>
+#include <nt2/toolbox/dual/include/multiplies.hpp>
+
+namespace nt2
+{
+  template < class T> 
+  dual<T> inline dual<T>::div(const dual<T>& b) const
+  {
+    type q1, q2, q3;
+    self r = *this;
+    q1 = hi() / b.hi();  /* approximate quotient */
+    r -= b*q1;
+    q2 = r.hi() / b.hi();
+    r -= q2*b;
+    q3 = r.hi() / b.hi();
+    r = self(quick_two_sum(q1, q2))+ q3;
+    return r; 
+  } 
+  template < class T> 
+  dual<T> inline dual<T>::div(const typename dual<T>::type & b) const
+  {
+    type q1 = hi() / b;  /* approximate quotient */
+    pair p =  two_prod(q1, b);
+    pair s =  two_diff(hi(), bf::get<0>(p));
+    bf::get<1>(s) += lo();
+    bf::get<1>(s) -= bf::get<1>(p);
+    type q2 = (bf::get<0>(s)+bf::get<1>(s))/b; 
+    return self(quick_two_sum(q1, q2)); 
+  } 
+}
+
 // #include <nt2/sdk/types/details/dual_values.hpp>
 // //#include <nt2/sdk/types/dual_constants.hpp>
 // #include <nt2/sdk/types/dual_op.hpp>

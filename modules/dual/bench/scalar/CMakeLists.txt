@@ -8,6 +8,13 @@
 ##############################################################################
 
 SET( SOURCES
+  unary_minus.cpp
+  logical_not.cpp
+  complement.cpp
+  unary_plus.cpp
+  multiplies.cpp
+  divides.cpp
+  minus.cpp
   plus.cpp
   two_sqr.cpp
   two_prod.cpp

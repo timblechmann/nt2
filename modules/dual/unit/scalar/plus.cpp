@@ -42,15 +42,17 @@ NT2_TEST_CASE_TPL ( plus_dual__2_0,  (nt2::dual < float>)(nt2::dual < double>))
   ulpd=0.0;
   T a(nt2::One<type>(), nt2::Zero<type>());
   T b(nt2::Mone<type>(), nt2::Eps<type>()/16);
+  a.print("a"); 
+  b.print("b"); 
   T c = plus(a, b);
-  c.print(); 
+  c.print("a+b"); 
   T d = (a+b);
-  d.print();
+  d.print("a+b");
   T e = b+ nt2::One<type>();
-  e.print();
+  e.print("b+1");
   T f = plus(nt2::One<type>(), b);
-  f.print();
+  f.print("1+b");
   T g = nt2::One<type>()+b;
-  g.print();
+  g.print("1+b");
   
 } // end of test for dual_

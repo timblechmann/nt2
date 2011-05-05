@@ -11,6 +11,7 @@
 #include <iostream>
 #include <nt2/toolbox/dual/specific/constants.hpp>
 #include <nt2/include/functions/ldexp.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is real_

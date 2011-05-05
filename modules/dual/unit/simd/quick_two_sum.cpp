@@ -28,8 +28,8 @@
 
 NT2_TEST_CASE_TPL ( quick_two_sum_real__2_0,  NT2_REAL_TYPES)
 {
-  using nt2::dual::quick_two_sum;
-  using nt2::dual::tag::quick_two_sum_;
+  using nt2::quick_two_sum;
+  using nt2::tag::quick_two_sum_;
   using nt2::load; 
   using nt2::simd::native;
   using nt2::meta::cardinal_of;

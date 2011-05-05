@@ -1,0 +1,81 @@
+Revised 13 May 2009
+
+Note on Compiler Optimizations
+==============================
+
+This library is quite sensitive to the various optimization flags
+passed to the C++ compiler, both in terms of speed and correctness.
+In general, you should not turn on optimization that weakens the
+floating point numerics.  For the more recent GNU C++ compiler (4.x
+series), I use '-O3 -funroll-all-loops', along with some architecture
+specifier, such as '-march=nocona'.  By default the configure script
+will choose something fairly benign, such as '-O2', along with
+certain flags known to the author to disable optimzation that changes
+the floating point semantics (such as -mp on Intel compilers).
+
+When tinkering with optimization flags, it is advised to 
+
+  - check the correctness of the library by running 
+    "make check", and 
+  - do "make time" to perform some timings to see that the 
+    optimization is actually helpful.
+
+Note that since many functions are implemented as inline functions
+in the header files, same optimization precautions apply to any 
+program that uses the QD library headers.
+
+Installation Instructions
+=========================
+
+To build the qd library, follow the following steps.
+
+  1. You need to figure out which C++, C, (and optionally Fortran 95) 
+     compiler you will be using.  Run the configure script by typing
+
+       ./configure CXX=<your C++ compiler> CC=<your C compiler> FC=<your Fortran 95 compiler>
+
+     The script will attempt to automatically detect various 
+     system-dependent features used during compilation (such as 
+     C++ / C / Fortran compiler characteristics and availability of 
+     certain system headers).
+
+     If you want to specify a particular C++ / Fortran-90 compiler 
+     flags, you can set them using CXXFLAGS and FCFLAGS.  For example:
+
+       CXX=icpc CXXFLAGS='-O2 -mp' FC=ifort FCFLAGS='-O2 -mp' ./configure
+
+     Some variable of interests are
+
+       CXX       C++ compiler to use
+       CXXFLAGS  C++ compiler flags to use
+       CC        C compiler to use
+       FC        Fortran 90 compiler
+       FCFLAGS   Fortran 90 compiler flags to use
+       FCLIBS    Fortran 90 libraries needed to to link with C++ code
+       LDFLAGS   Linker flags
+
+     For more build options, type "./configure --help".  In particular, 
+     if you want to install to a custom path, do something like
+
+       ./configure --prefix=/custom/path
+
+  3. Type "make".  This will build the qd library.
+
+  4. Optionally, one can build and run some simple test programs.
+     To do this, type "make check".  Some programs run during this
+     phase (especially qd_test and pslq_test in tests directory) is
+     a good demonstration of how to use the qd library in C++.
+
+     There are two other programs qd_timer and quadt_test that can be
+     built inside tests directory using "make qd_timer" and "make 
+     quadt_test".  The program qd_timer times the basic operations in 
+     double-double and quad-double.  The program quadt_test is another
+     demo program that computes quadratures of various functions.
+
+  5. If you want to build some sample programs written in Fortran 90, 
+     you can type "make fortran-demo".
+
+  6. Type "make install" to install the quad-double library to
+     the location specified (through --prefix option) to the configure 
+     script (default is "/usr/local").
+

@@ -1,0 +1,22 @@
+fpu.o: fpu.cpp ../config.h ../include/qd/fpu.h ../include/qd/qd_config.h \
+  /usr/include/fpu_control.h /usr/include/features.h \
+  /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
+  /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+
+../config.h:
+
+../include/qd/fpu.h:
+
+../include/qd/qd_config.h:
+
+/usr/include/fpu_control.h:
+
+/usr/include/features.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/bits/wordsize.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/gnu/stubs-32.h:

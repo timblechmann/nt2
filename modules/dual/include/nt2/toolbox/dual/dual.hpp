@@ -11,6 +11,13 @@
 #include <nt2/toolbox/dual/specific/interface.hpp>
 
 //<include> please don't modify between these tags
+#include <nt2/toolbox/dual/include/unary_minus.hpp>
+#include <nt2/toolbox/dual/include/logical_not.hpp>
+#include <nt2/toolbox/dual/include/complement.hpp>
+#include <nt2/toolbox/dual/include/unary_plus.hpp>
+#include <nt2/toolbox/dual/include/multiplies.hpp>
+#include <nt2/toolbox/dual/include/divides.hpp>
+#include <nt2/toolbox/dual/include/minus.hpp>
 #include <nt2/toolbox/dual/include/plus.hpp>
 #include <nt2/toolbox/dual/include/two_sqr.hpp>
 #include <nt2/toolbox/dual/include/two_split.hpp>
