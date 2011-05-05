@@ -97,7 +97,7 @@ class Bench_gen() :
                 tpl = d["functor"].get("tpl","")
                 call =  "  NT2_TIMING(%s_%s,%s)" % (name,tpl,"%s")
                 variety = { 'real_'         : ["float","double"],
-                            'dual_'         : ["float","double"],  
+                            'dual_'         : ["nt2::dual<float>","nt2::dual<double>"],  
                             'signed_int_'   : ["int8_t","int16_t","int32_t","int64_t"],
                             'unsigned_int_' : ["uint8_t","uint16_t","uint32_t","uint64_t"],
                             'float'         : ["float"],

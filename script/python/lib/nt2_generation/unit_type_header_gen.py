@@ -101,6 +101,7 @@ class Type_header_test_gen() :
        "gt_16_"       : "(int32_t)(uint32_t)(int64_t)(uint64_t)(float)(double)",
        "sintgt_16_"   : "(int32_t)(int64_t)",
        "uintgt_16_"   : "(uint32_t)(uint64_t)",
+       'dual_'         :"(nt2::dual<float>)(nt2::dual<double>)",  
         }
 
     def __init__(self,base_gen,d,typ,rank) :
