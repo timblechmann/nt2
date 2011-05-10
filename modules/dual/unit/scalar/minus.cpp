@@ -15,12 +15,12 @@
 /// modified by jt the 05/05/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests.hpp> 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/ulpdist.hpp>  
 #include <nt2/toolbox/dual/include/minus.hpp>
 // specific includes for arity 2 tests
 #include <nt2/toolbox/dual/specific/dual_types.hpp>
@@ -33,6 +33,7 @@ NT2_TEST_CASE_TPL ( minus_dual__2_0,  (nt2::dual<float>)(nt2::dual<double>))
   typedef typename nt2::meta::call<minus_(T,T)>::type r_t;
   typedef T wished_r_t;
   typedef typename T::type type; 
+  typedef typename T::part stype; 
 
 
   // return type conformity test 
@@ -58,4 +59,7 @@ NT2_TEST_CASE_TPL ( minus_dual__2_0,  (nt2::dual<float>)(nt2::dual<double>))
   h.print("h");
   T i = h-h;
   i.print("h-h");
+  T j = h-nt2::One<stype>(); 
+  j.print("h-1");
+  std::cout << nt2::get<0>(a) << " --- " << nt2::get<1>(a) <<  std::endl; 
 } // end of test for dual_

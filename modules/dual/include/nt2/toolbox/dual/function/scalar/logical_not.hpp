@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return (!a0.hi()) && (!a0.lo()); 
+      return (!nt2::get<0>(a0)) && (!nt2::get<1>(a0)); 
     }
   };
 } }

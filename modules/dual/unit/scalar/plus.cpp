@@ -21,7 +21,7 @@
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/dual/include/plus.hpp>
+#include <nt2/toolbox/dual/include/plus.hpp> 
 // specific includes for arity 2 tests
 #include <nt2/toolbox/dual/specific/dual_types.hpp>
 

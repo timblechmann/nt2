@@ -31,7 +31,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return A0(b_xor(a0.hi(), a1.hi()), b_xor(a0.lo(), a1.lo())); 
+      return A0(b_xor(nt2::get<0>(a0), nt2::get<0>(a1)),
+		b_xor(nt2::get<1>(a0), nt2::get<1>(a1))); 
     }
   };
 } }
@@ -57,7 +58,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 t(b_xor(a0.hi(), a1),b_xor(a0.lo(), Zero<A1>()));
+      A0 t(b_xor(nt2::get<0>(a0), a1),
+	   b_xor(nt2::get<1>(a0), Zero<A1>()));
       return t; 	   
     }
   };
@@ -85,7 +87,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return A0(b_xor(a1.hi(), a0),b_xor(a1.lo(), Zero<A0>())); 
+      return A0(b_xor(nt2::get<0>(a1), a0),
+		b_xor(nt2::get<1>(a1), Zero<A0>())); 
     }
   };
 } }
