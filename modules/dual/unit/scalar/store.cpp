@@ -6,39 +6,40 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 dual toolbox - plus/simd Mode"
+#define NT2_UNIT_MODULE "nt2 dual toolbox - store/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of dual components in simd mode
+// Test behavior of dual components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 05/03/2011
-/// modified by jt the 04/05/2011
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/sdk/memory/load.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+/// modified by jt the 10/05/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/dual/include/plus.hpp>
-#include <nt2/toolbox/dual/include/splat.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/toolbox/dual/include/store.hpp>
+// specific includes for arity 3 tests
+#include <nt2/toolbox/dual/specific/dual_types.hpp>
 
-NT2_TEST_CASE_TPL ( plus_dual__2_0,  (nt2::dual < float>))
+NT2_TEST_CASE_TPL ( store_dual__3_0,  (nt2::dual<float>)(nt2::dual<double>))
 {
-  using nt2::plus;
-  using nt2::tag::plus_;
-  using nt2::load;  
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename T::part stype; 
+  
+  using nt2::store;
+  using nt2::tag::store_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<store_(T,T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
 
-  typedef native<nt2::dual<stype>,ext_t>                          type;
-  type a =  nt2::splat<type>(nt2::dual<stype>(nt2::One<stype>(), nt2::Zero<stype>()));
-  type b; //(nt2::One<vT>(), nt2::Zero<vT>());
-  type c =  nt2::plus(a, b); 
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+  ulpd=0.0;
+
 } // end of test for dual_

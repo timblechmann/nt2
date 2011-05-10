@@ -11,6 +11,9 @@
 #include <nt2/toolbox/dual/specific/interface.hpp>
 
 //<include> please don't modify between these tags
+#include <nt2/toolbox/dual/include/store.hpp>
+#include <nt2/toolbox/dual/include/load.hpp>
+#include <nt2/toolbox/dual/include/splat.hpp>
 #include <nt2/toolbox/dual/include/bitwise_xor.hpp>
 #include <nt2/toolbox/dual/include/bitwise_or.hpp>
 #include <nt2/toolbox/dual/include/bitwise_and.hpp>

@@ -8,6 +8,9 @@
 ##############################################################################
 
 SET( SOURCES
+  store.cpp
+  load.cpp
+  splat.cpp
   bitwise_xor.cpp
   bitwise_or.cpp
   bitwise_and.cpp
