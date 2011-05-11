@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_DUAL_FUNCTION_SCALAR_MINUS_HPP_INCLUDED
 #define NT2_TOOLBOX_DUAL_FUNCTION_SCALAR_MINUS_HPP_INCLUDED
+#include <nt2/toolbox/dual/specific/dual_types.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 and A1 are dual
@@ -92,8 +93,8 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(2)::type type;
       typename A1::pair s; 
-      s = two_diff(a0, a1.hi());
-      bf::get<1>(s) -= a1.lo();
+      s = two_diff(a0,nt2::get<0>(a1)); 
+      bf::get<1>(s) -=nt2::get<1>(a1); 
       s = quick_two_sum( bf::get<0>(s),  bf::get<1>(s));
       return A1(s); 
     }

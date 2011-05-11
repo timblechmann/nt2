@@ -25,23 +25,20 @@
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/dual/include/plus.hpp>
+#include <nt2/toolbox/dual/include/splat.hpp>
 
-// NT2_TEST_CASE_TPL ( plus_dual__2_0,  (nt2::dual < float>))
-// {
-//   using nt2::plus;
-//   using nt2::tag::plus_;
-//   using nt2::load; 
-//   using nt2::simd::native;
-//   using nt2::meta::cardinal_of;
-//   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-//   typedef typename T::type type; 
+NT2_TEST_CASE_TPL ( plus_dual__2_0,  (nt2::dual < float>))
+{
+  using nt2::plus;
+  using nt2::tag::plus_;
+  using nt2::load;  
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename T::part stype; 
 
-//   typedef native<type,ext_t>                           n_t;
-//   typedef dual<n_t>                                     vT;
-//   typedef typename nt2::meta::call<plus_(vT,vT)>::type r_t;
-//   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-//   double ulpd;
-//   ulpd=0.0;
-//   //  T a(nt2::One<type>(), nt2::Zero<type>());
-
-// } // end of test for dual_
+  typedef native<nt2::dual<stype>,ext_t>                          type;
+  type a =  nt2::splat<type>(nt2::dual<stype>(nt2::One<stype>(), nt2::Zero<stype>()));
+  type b; //(nt2::One<vT>(), nt2::Zero<vT>());
+  type c =  nt2::plus(a, b); 
+} // end of test for dual_

@@ -8,33 +8,36 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_DUAL_FUNCTION_SIMD_COMMON_MINUS_HPP_INCLUDED
 #define NT2_TOOLBOX_DUAL_FUNCTION_SIMD_COMMON_MINUS_HPP_INCLUDED
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/toolbox/dual/specific/interface.hpp>
 
-// /////////////////////////////////////////////////////////////////////////////
-// // Implementation when type A0 is arithmetic_
-// /////////////////////////////////////////////////////////////////////////////
-// NT2_REGISTER_DISPATCH(tag::minus_, tag::cpu_,
-//                        (A0)(X),
-//                        ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
-//                       );
+/////////////////////////////////////////////////////////////////////////////
+//Implementation when type A0 is dual_<real_ > 
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::minus_, tag::cpu_,
+		      (A0)(X),
+		      ((simd_<dual_<real_<A0> > ,X>))
+		      ((simd_<dual_<real_<A0> > ,X>))
+                      );
 
-// namespace nt2 { namespace ext
-// {
-//   template<class X, class Dummy>
-//   struct call<tag::minus_(tag::simd_<tag::arithmetic_, X>,tag::simd_<tag::arithmetic_, X>),
-//               tag::cpu_, Dummy> : callable
-//   {
-//     template<class Sig> struct result;
-//     template<class This,class A0,class A1>
-//     struct result<This(A0,A1)> : meta::as_real<A0>{};
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::minus_(tag::simd_<tag::dual_ <tag::real_>, X>,
+			  tag::simd_<tag::dual_ <tag::real_>, X>),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : meta::strip<A0>{};
 
-//     NT2_FUNCTOR_CALL(2)
-//     {
-//       typedef typename NT2_RETURN_TYPE(2)::type type;
-//       // CODE HERE
-//       return WHATEVER
-//     }
-//   };
-// } }
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      type res =  a0;
+      res -= a1;
+      return res;
+    }
+  };
+} }
 
 #endif

@@ -6,70 +6,24 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_DUAL_SPECIFIC_DUAL_TYPES_HPP_INCLUDED
-#define NT2_TOOLBOX_DUAL_SPECIFIC_DUAL_TYPES_HPP_INCLUDED
-#include <nt2/toolbox/dual/function/two_sum.hpp>
-#include <nt2/toolbox/dual/function/quick_two_sum.hpp>
-#include <nt2/toolbox/dual/function/two_diff.hpp>
-#include <nt2/toolbox/dual/function/two_prod.hpp>
+#ifndef NT2_TOOLBOX_DUAL_SPECIFIC_DUAL_SIMD_TYPES_HPP_INCLUDED
+#define NT2_TOOLBOX_DUAL_SPECIFIC_DUAL_SIMD_TYPES_HPP_INCLUDED
 
-// #include <string>
-// #include <nt2/sdk/meta/is_scalar.hpp>
-// #include <nt2/include/functions/is_inf.hpp>
-// #include <nt2/include/functions/is_finite.hpp>
-// #include <nt2/include/functions/is_nan.hpp>
-// #include <nt2/include/functions/is_eqz.hpp>
-// #include <nt2/include/functions/is_ltz.hpp>
-// #include <nt2/include/functions/ldexp.hpp>
-// #include <nt2/include/functions/floor.hpp>
-// #include <nt2/include/functions/log10.hpp>
 
-// #include <nt2/sdk/types/details/dual_low_level.hpp>
-namespace bf = boost::fusion;
 
 namespace nt2
 {
-  //////////////////////////////////////////////////////////////////////////////
-  /// @class dual
-  ///
-  ///  A dual number is an unevaluated sum of two numbers of type T
-  ///  T being IEEE float or double precision numbers, able to handle 
-  ///  at least 43 bits (for floats) and 106 bits of significand (for double)
-  ///  but with the same exponent precision.
-  ///
-  ///  the package is based on Yozo Hida work on double double
-  ///
-  ///  dual<float> can look ugly but on architectures as cell for which float
-  ///  computation are more than 10 times faster than double 43 bits, can be
-  ///  worthy
-  //////////////////////////////////////////////////////////////////////////////
-  ///  Double-double precision (>= 106-bit significand) floating point
-  ///  arithmetic package based on Yozo Hida package
-  //////////////////////////////////////////////////////////////////////////////
-//   template<class T,
-// 	   class IS_SCALAR  = typename meta::is_scalar<T>::type>
-//   class dual;
-//  template<class T>
-//   class dual < T, boost::mpl::false_> 
-//   {
-//     void to_digits(char *s,
-// 		   int &expn,
-// 		   int precision) const;
-
-//   };
-
-
-  /// scalar version
-  template<class T >
-  class dual
+  /// simd version
+  template<class T,  class X>
+  class dual < simd::native < T, X > > 
   {
   public:
-    typedef T                                  type;
-    typedef typename meta::scalar_of<T>::type  part; 
-    typedef dual<type>                         self;
-    typedef self                           floating;
-    typedef typename boost::fusion::tuple<T,T>    pair;
-    typedef meta::dual_<typename meta::hierarchy_of<T>::type> nt2_hierarchy_tag;
+    typedef typename simd::native<T,X>                          type;
+    typedef typename meta::scalar_of<type>::type                part; 
+    typedef dual<type>                                          self;
+    typedef self                                            floating;
+    typedef typename boost::fusion::tuple<type, type>           pair;
+    typedef meta::dual_<typename meta::hierarchy_of<type>::type> nt2_hierarchy_tag;
 
     ////////////////////////////////////////////////////////////////////////////
     /// @brief  Normal form constructor.
@@ -402,61 +356,13 @@ namespace nt2
     
 
   };
-  template <int I, class T> const T& get(const dual<T> & d){return bf::get<I>(d.hilo()); }
-  template <int I, class T>       T& get(      dual<T> & d){return bf::get<I>(d.hilo()); }
   
+
 }
-
-#include <nt2/toolbox/dual/specific/dual_simd_types.hpp>
-
-#include <nt2/toolbox/dual/include/plus.hpp>
-#include <nt2/toolbox/dual/include/minus.hpp>
-#include <nt2/toolbox/dual/include/multiplies.hpp>
-
-namespace nt2
-{
-  template < class T> 
-  dual<T> inline dual<T>::div(const dual<T>& b) const
-  {
-    type q1, q2, q3;
-    self r = *this;
-    q1 = hi() / b.hi();  /* approximate quotient */
-    r -= b*q1;
-    q2 = r.hi() / b.hi();
-    r -= q2*b;
-    q3 = r.hi() / b.hi();
-    r = self(quick_two_sum(q1, q2))+ q3;
-    return r; 
-  } 
-  template < class T> 
-  dual<T> inline dual<T>::div(const typename dual<T>::type & b) const
-  {
-    type q1 = hi() / b;  /* approximate quotient */
-    pair p =  two_prod(q1, b);
-    pair s =  two_diff(hi(), bf::get<0>(p));
-    bf::get<1>(s) += lo();
-    bf::get<1>(s) -= bf::get<1>(p);
-    type q2 = (bf::get<0>(s)+bf::get<1>(s))/b; 
-    return self(quick_two_sum(q1, q2)); 
-  }
-
-//   template <int I, class T> const T& get(const dual<T> & d){return bf::get<I>(d.hilo()); }
-//   template <int I, class T>       T& get(      dual<T> & d){return bf::get<I>(d.hilo()); }
-  
-}
-
-// #include <nt2/sdk/types/details/dual_values.hpp>
-// //#include <nt2/sdk/types/dual_constants.hpp>
-// #include <nt2/sdk/types/dual_op.hpp>
-// #include <nt2/sdk/types/dual_funcs.hpp>
-// #include <nt2/sdk/types/details/dual_low_level_io.hpp>
-// #include <nt2/sdk/types/dual_impl.hpp>
-// #include <nt2/sdk/types/dual_io.hpp>
-
 
 
 #endif
 
 // /////////////////////////////////////////////////////////////////////////////
-// End of dual_types.hpp
+// End of dual_simd_types.hpp
 // /////////////////////////////////////////////////////////////////////////////

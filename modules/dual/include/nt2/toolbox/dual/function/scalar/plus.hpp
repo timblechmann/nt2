@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_DUAL_FUNCTION_SCALAR_PLUS_HPP_INCLUDED
 #define NT2_TOOLBOX_DUAL_FUNCTION_SCALAR_PLUS_HPP_INCLUDED
 #include <nt2/toolbox/dual/specific/interface.hpp>
+#include <nt2/toolbox/dual/specific/dual_types.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 and A1 are dual
