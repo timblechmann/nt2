@@ -68,7 +68,7 @@ namespace nt2
     typedef typename meta::scalar_of<T>::type  part; 
     typedef dual<type>                         self;
     typedef self                           floating;
-    typedef typename boost::fusion::tuple<T,T>    pair;
+    typedef boost::fusion::tuple<T,T>    pair;
     typedef meta::dual_<typename meta::hierarchy_of<T>::type> nt2_hierarchy_tag;
 
     ////////////////////////////////////////////////////////////////////////////
