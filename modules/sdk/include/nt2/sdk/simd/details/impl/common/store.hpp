@@ -6,28 +6,33 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_SIMD_DETAILS_IMPL_NONE_SPLAT_HPP_INCLUDED
-#define NT2_SDK_SIMD_DETAILS_IMPL_NONE_SPLAT_HPP_INCLUDED
+#ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_STORE_HPP_INCLUDED
+#define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_STORE_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// splat for SIMD types
+// store for SIMD types
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/meta/as.hpp>
-#include <nt2/sdk/simd/category.hpp>
+#include <nt2/sdk/memory/details/category.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <cstring>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Register dispatches over splat_
+// Register dispatch over store for SIMD types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::splat_, tag::cpu_, (A0)(A1)
-                      , (unspecified_<A0>)
-                        ((target_< simd_< unspecified_<A1>, tag::none_> >))
+NT2_REGISTER_DISPATCH ( tag::store_
+                      , tag::cpu_
+                      , (A0)(A1)(A2)(X)
+                      , ((simd_< fundamental_<A0>, X >))
+                        (iterator_< fundamental_<A1> >)
+                        (integer_<A2>)
                       )
+
 namespace nt2 { namespace ext
 {
-  template<class Dummy>
-  struct  call< tag::splat_ ( tag::unspecified_
-                            , tag::target_<tag::simd_<tag::unspecified_, tag::none_> >
+  template<class X, class Dummy>
+  struct  call< tag::store_ ( tag::simd_<tag::fundamental_, X >
+                            , tag::iterator_<tag::fundamental_>
+                            , tag::integer_
                             )
               , tag::cpu_
               , Dummy
@@ -35,14 +40,13 @@ namespace nt2 { namespace ext
         : callable
   {
     template<class Sig> struct result;
-    template<class This, class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A1>::type {};
+    template<class This, class A0,class A1,class A2>
+    struct result<This(A0,A1,A2)> : meta::strip<A0> {};
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL(3)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      type that = { a0 };
-      return that;
+      std::memcpy(reinterpret_cast<A0*>(a1) + a2, &a0, sizeof a0);
+      return a0;
     }
   };
 } }
