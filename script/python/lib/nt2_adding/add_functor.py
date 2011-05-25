@@ -25,15 +25,22 @@ import sys
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"utils"))
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"nt2_basics"))
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"nt2_generation"))
+<<<<<<< HEAD
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"bench_generation"))
 from unit_creation     import create_unit
 from bench_creation     import create_bench
+=======
+>>>>>>> 9e17bad0a2af94dc625a1c22cdac4107696f1a35
 
 import re
 import shutil
 from display_utils                   import show
 from files_utils                     import write, exist, read
+<<<<<<< HEAD
 ##from nt2_base_struct                 import Nt2_base_struct
+=======
+from nt2_base_struct                 import Nt2_base_struct
+>>>>>>> 9e17bad0a2af94dc625a1c22cdac4107696f1a35
 from nt2_tb_props                    import Nt2_tb_props
 from nt2_fct_props                   import Nt2_fct_props
 from pprint                          import PrettyPrinter
@@ -50,6 +57,7 @@ sys.path.pop(0)
 sys.path.pop(0)
 sys.path.pop(0)
 
+<<<<<<< HEAD
 ##def create_unit(tb_name,fct_name,mode) :
 ##    bg = Base_gen(tb_name,fct_name,mode)
 ##    ghg = Global_header_gen(bg)
@@ -72,6 +80,30 @@ sys.path.pop(0)
 ##                    r += vtg. get_gen_result()
 ##                r+=thg.get_gen_end()
 ##        return r
+=======
+def create_unit(tb_name,fct_name,mode) :
+    bg = Base_gen(tb_name,fct_name,mode)
+    ghg = Global_header_gen(bg)
+    r = ghg.get_gen_result()
+    if True:#    try :
+        dl = bg.get_fct_dict_list()
+        for  rank, d in enumerate(dl) :
+            origin ="types" if mode == 'scalar' else 'simd_types'
+            types = bg.recover(origin,d["functor"],["real_convert_"])
+            ret_arity = int(d["functor"]["ret_arity"])
+            d_unit = d["unit"]
+            for typ in types :
+                thg = Type_header_test_gen(bg,d,typ,rank)
+                r+=thg.get_gen_beg()
+                if d_unit.get("specific_values",None) :
+                    svt = Specific_values_test_gen(bg,d,typ,ret_arity,mode)
+                    r += svt. get_gen_result()
+                if d_unit.get("verif_test",None) :
+                    vtg = Random_verif_test_gen(bg,d,typ,mode)
+                    r += vtg. get_gen_result()
+                r+=thg.get_gen_end()
+        return r
+>>>>>>> 9e17bad0a2af94dc625a1c22cdac4107696f1a35
 ##    except :
 ##        return None
 
@@ -93,10 +125,16 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
                 self.create_include('../../include',fil)
             else :    
                 for pattern in self.Required_tree :
+<<<<<<< HEAD
                     prelude = os.path.join("include","nt2","toolbox",self.get_tb_name())
                     if  len(pattern)>1 and pattern ==fil[len(prelude)+1:len(prelude)+len(pattern)+1] :
                         print("--->%s ## %s"%('create_'+pattern,fil))
                         Add_functor_skel.__getattribute__(self,'create_'+pattern)(pattern,fil[len(prelude)+1:])
+=======
+                    if  pattern ==fil[0:len(pattern)] :
+                        print("--->%s ## %s"%('create_'+pattern,fil))
+                        Add_functor_skel.__getattribute__(self,'create_'+pattern)(pattern,fil)
+>>>>>>> 9e17bad0a2af94dc625a1c22cdac4107696f1a35
                         break
         print("--->%s ## %s"%('update_benches_and_units',fil))
         self.update_benches_and_units()
@@ -120,13 +158,18 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
              os.path.join("unit","scalar"),
              os.path.join("unit","simd")]
         for p in l :
+<<<<<<< HEAD
             path = os.path.join(self.get_md_path(),os.path.join(p,'CMakeLists.txt'))
+=======
+            path = os.path.join(self.get_tb_path(),os.path.join(p,'CMakeLists.txt'))
+>>>>>>> 9e17bad0a2af94dc625a1c22cdac4107696f1a35
             txt_orig = read(path)
             txt = "  %s.cpp"%fct_name
             done, new_txt = self.insert_after("SET\( SOURCES",txt_orig,txt)
             if not done :
                 print("Warning : line\n  %s\nis already in CMakelist.txt file"%txt ) 
             else :
+<<<<<<< HEAD
                 print("Adding line\n  %s\n in %s/CMakelist.txt file"%(txt,p) ) 
                 self.finalize(path,new_txt,"update")
             fil =  os.path.join(self.get_md_path(),os.path.join(p,name+'.cpp'))
@@ -153,6 +196,11 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
                         backup_on_write=False
                     )               
                     
+=======
+                self.finalize(path,new_txt,"update")
+
+
+>>>>>>> 9e17bad0a2af94dc625a1c22cdac4107696f1a35
     def update_global_includes(self,option="update") :
         """ the files to be updated is: ./$tb_name$.hpp
         ../$tb_name$.hpp' and ./include.hpp, are not to be modified after creation
@@ -175,22 +223,35 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
             also create the local toolbox functor include file if pattern is
             'include'
         """
+<<<<<<< HEAD
         path = os.path.join(self.get_md_path(),fil)
+=======
+        path = os.path.join(self.get_tb_path(),fil)
+>>>>>>> 9e17bad0a2af94dc625a1c22cdac4107696f1a35
         sys = self.get_tb_style()
         name = self.get_fct_name()
         tb_name = self.get_tb_name()
         done = True
+<<<<<<< HEAD
 ##        if sys == 'sys' and pattern=='../../include' :
 ##            txt = ["#include <nt2/toolbox/%s/include/%s.hpp>"%(tb_name,name)]
 ##        el
         if pattern =='include' :
+=======
+        if sys == 'sys' and pattern=='../../include' :
+            txt = ["#include <nt2/toolbox/%s/include/%s.hpp>"%(tb_name,name)]
+        elif pattern =='include' :
+>>>>>>> 9e17bad0a2af94dc625a1c22cdac4107696f1a35
             txt = ["#include <nt2/toolbox/%s/function/%s.hpp>"%(tb_name,name)]
         else :
             done = False
         print("done = %s"%done)
         if done :    
             new_txt = Headers(self.get_nt2_rel_tb_path(self.get_tb_name())+fil[:-4],"",inner=txt).txt()
+<<<<<<< HEAD
             print("path%s"%path)
+=======
+>>>>>>> 9e17bad0a2af94dc625a1c22cdac4107696f1a35
             self.finalize(path,new_txt,option)
         
     def create_function(self,pattern,fil,option="create") :
@@ -199,7 +260,10 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
         """
         f1 = fil[len(pattern)+1:]
         d,f = os.path.split(f1)
+<<<<<<< HEAD
         print ("d = %s"%d)
+=======
+>>>>>>> 9e17bad0a2af94dc625a1c22cdac4107696f1a35
         if d == "" :
             print("------------->%s"%"gen_def")
             self.gen_def(fil,option)
@@ -210,8 +274,12 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
         elif d == "scalar" :
             print("------------->%s"%"gen_scalar")
             self.gen_scalar(fil,option)
+<<<<<<< HEAD
         else :
             print("don't know what to do for %s and %s"%(d,f))
+=======
+
+>>>>>>> 9e17bad0a2af94dc625a1c22cdac4107696f1a35
  
     def create_doc(self,pattern,fil,option="create") :
         if fil[-3:] == '.py' :
@@ -226,7 +294,11 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
         """ create the unit tests for scalar
         (and simd version)
         """
+<<<<<<< HEAD
         path = os.path.join(self.get_md_path(),fil)
+=======
+        path = os.path.join(self.get_tb_path(),fil)
+>>>>>>> 9e17bad0a2af94dc625a1c22cdac4107696f1a35
         name = self.get_fct_name()
         tb_name = self.get_tb_name()
         mode = 'scalar' if re.search('scalar',fil) else 'simd'
@@ -240,7 +312,11 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
         """ create the benches for scalar
         (and simd version)
         """
+<<<<<<< HEAD
         path = os.path.join(self.get_md_path(),fil)
+=======
+        path = os.path.join(self.get_tb_path(),fil)
+>>>>>>> 9e17bad0a2af94dc625a1c22cdac4107696f1a35
         mode = 'scalar' if re.search('scalar',fil) else 'simd'
         new_txt = self.gen_bench(mode)
         self.finalize(path,new_txt,option)
@@ -418,11 +494,15 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
 ##            print("path %s"%(l[2]+'/'+l[3]))
 ##            print("prev %s"%rppath)
             txt = ["#include <nt2/toolbox/%s/function/simd/%s/%s.hpp>" %(self.get_tb_name(),rppath,self.get_fct_name())]
+<<<<<<< HEAD
         print("zzz  %s"%self.get_nt2_rel_tb_path(self.get_tb_name())+fil[:-4])
         print("zzz1 %s"%self.get_nt2_rel_tb_path(""))
         prelude = os.path.join("include","nt2","toolbox",self.get_tb_name())
         new_txt = Headers(self.get_nt2_rel_tb_path(self.get_tb_name())+fil[:-4],"",inner=txt).txt()
         print("path%s"%path)
+=======
+        new_txt = Headers(self.get_nt2_rel_tb_path(self.get_tb_name())+fil[:-4],"",inner=txt).txt()
+>>>>>>> 9e17bad0a2af94dc625a1c22cdac4107696f1a35
         self.finalize(path,new_txt,option)
 
     def gen_scalar(self,fil,option="create") :
@@ -518,12 +598,18 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
             if exist(path) :
                 if verbose : print("file\n  %s\n exists"%path)
             else :
+<<<<<<< HEAD
                 p,n = os.path.split(path)
                 print("p= %s, n= %s"%(p,n))
                 if exist(p) :
                     if verbose : print("file\n  %s\nwill be created"%path)
                     self.create(path,txt)
                     if verbose : print("file\n  %s\nis now created"%path)
+=======
+                if verbose : print("file\n  %s\nwill be created"%path)
+                self.create(path,txt)
+                if verbose : print("file\n  %s\nis now created"%path)
+>>>>>>> 9e17bad0a2af94dc625a1c22cdac4107696f1a35
         elif option == "update" :
             if exist(path) :
                 if verbose : print("file\n  %s\nwill be updated")
@@ -564,8 +650,13 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
 
     
 if __name__ == "__main__" :
+<<<<<<< HEAD
     tb_name = "dual"
     fcts = ["bitwise_and","bitwise_or","bitwise_xor"]
+=======
+    tb_name = "combinatorial"
+    fcts = ["pipo"]
+>>>>>>> 9e17bad0a2af94dc625a1c22cdac4107696f1a35
     for fct_name in fcts :
         print fct_name
         afs = Add_functor_skel(tb_name,fct_name,no_simd=False)

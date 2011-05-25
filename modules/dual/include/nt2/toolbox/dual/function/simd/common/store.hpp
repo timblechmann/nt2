@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_DUAL_FUNCTION_SIMD_COMMON_STORE_HPP_INCLUDED
 #define NT2_TOOLBOX_DUAL_FUNCTION_SIMD_COMMON_STORE_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/toolbox/dual/specific/interface.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -24,8 +25,8 @@ NT2_REGISTER_DISPATCH ( tag::store_
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct  call< tag::store_ ( tag::simd_<tag::dual__,X>
-			      , tag::iterator_<tag::dual_>
+  struct  call< tag::store_ ( tag::simd_<tag::dual_ <tag::real_> ,X>
+			      , tag::iterator_<tag::dual_ <tag::real_> >
 			      , tag::integer_
 			      )
                 , tag::cpu_
@@ -42,7 +43,7 @@ namespace nt2 { namespace ext
       typedef typename NT2_RETURN_TYPE(3)::type type;
       type res(store(nt2::get<0>(a0), nt2::get<0>(a1), a2),
 	       store(nt2::get<1>(a0), nt2::get<1>(a1), a2)
-	       )
+	       ); 
 	}
   };
 } }

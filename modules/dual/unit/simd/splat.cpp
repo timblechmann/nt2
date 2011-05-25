@@ -39,6 +39,6 @@ NT2_TEST_CASE_TPL ( splat_dual__1_0,  (nt2::dual<float>))//(nt2::dual<double>))
   typedef native<nt2::dual<stype>,ext_t>                          type;
   nt2::dual<stype> o(nt2::One<stype>());
   type a; 
-  a =   nt2::splat<type>(o);
+  //  nt2::splat<type>(o);
 
 } // end of test for dual_

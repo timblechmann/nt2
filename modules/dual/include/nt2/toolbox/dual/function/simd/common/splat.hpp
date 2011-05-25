@@ -16,15 +16,14 @@
 NT2_REGISTER_DISPATCH(tag::splat_, tag::cpu_,
                        (A0)(A1)(X),
 		       (dual_<real_<A0> >)
-                       ((simd_<dual_<real_<A1> >,X >))
+		      ((target_<  simd_< dual_<real_<A1> > , X > >))
                       );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
   struct call<tag::splat_(tag::dual_ <tag::real_>,
-			  tag::target_<tag::simd_<tag::dual_<tag::real_>,X> >
-                            ),
+			  tag::target_<tag::simd_<tag::dual_<tag::real_>, X > > ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

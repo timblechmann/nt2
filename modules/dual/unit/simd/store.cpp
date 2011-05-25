@@ -39,10 +39,10 @@ NT2_TEST_CASE_TPL ( store_dual__3_0,  (nt2::dual<float>)(nt2::dual<double>))
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<store_(vT,vT,vT)>::type r_t;
-  typedef typename nt2::meta::call<store_(T,T,T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+//   typedef typename nt2::meta::call<store_(vT,vT,vT)>::type r_t;
+//   typedef typename nt2::meta::call<store_(T,T,T)>::type sr_t;
+//   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+//   double ulpd;
+//   ulpd=0.0;
 
 } // end of test for dual_

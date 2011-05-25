@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_DUAL_FUNCTION_SIMD_COMMON_LOAD_HPP_INCLUDED
 #define NT2_TOOLBOX_DUAL_FUNCTION_SIMD_COMMON_LOAD_HPP_INCLUDED
+#include <nt2/toolbox/dual/specific/interface.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -25,7 +26,7 @@ namespace nt2 { namespace ext
   template<class Dummy, class X>
   struct  call< tag::load_( tag::iterator_<tag::fundamental_>
 			    , tag::fundamental_
-			    , tag::target_< tag::simd_<tag::dual_ <tag::real_,X> >
+			    , tag::target_< tag::simd_<tag::dual_ <tag::real_ > ,X> >
                           )
               , tag::cpu_
               , Dummy
