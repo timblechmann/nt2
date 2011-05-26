@@ -36,12 +36,29 @@ NT2_TEST_CASE_TPL ( splat_dual__1_0,  (nt2::dual<float>))//(nt2::dual<double>))
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename T::part stype; 
-
+ 
   typedef native<nt2::dual<stype>,ext_t>   type;
-  typedef nt2::dual<native<stype,ext_t> >   rtype;
-  nt2::dual<stype> o(nt2::One<stype>()); 
-  rtype a = nt2::splat<type>(o);
-  a.print(); 
+  //  typedef nt2::dual<native<stype,ext_t> >   rtype;
+  nt2::dual<stype> o(nt2::One<stype>());
+  o.print();
+  std::cout << nt2::type_id < type > () << std::endl;
+  std::cout << nt2::type_id <stype > () << std::endl;
+
+  typedef typename type::vtype   vtype;
+  vtype oo =  nt2::One<vtype>(); 
+  vtype zz =  nt2::Zero<vtype>();
+  type a = type(oo, zz);
+  a.print();
+  type b = a+a;
+  b.print();
+  std::cout << nt2::type_id < type > () << std::endl;
+  std::cout << nt2::type_id < typename type::type > () << std::endl;
+  std::cout << nt2::type_id < typename type::vtype > () << std::endl;
+  
+//   type c =
+  nt2::splat<type>(o);
+//   c.print();
+  
     //  std::cout << o << " --> " << a << std::endl; 
 } // end of test for dual_
   

@@ -35,7 +35,13 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)> : meta::strip<A2>{};
+      struct result<This(A0, A1)>
+      {
+	typedef typename meta::strip<A2>::type sA2; 
+	typedef nt2::simd::native<typename sA2::type, X> outer_type;
+	typedef nt2::dual < outer_type >  type;
+      }; 
+    //    struct result<This(A0,A1,A2)> : meta::strip<A2>{};
 
     NT2_FUNCTOR_CALL(3)
     {

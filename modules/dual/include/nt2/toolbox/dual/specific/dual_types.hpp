@@ -407,7 +407,7 @@ namespace nt2
   
 }
 
-#include <nt2/toolbox/dual/specific/dual_simd_types.hpp>
+#include <nt2/toolbox/dual/specific/simd_dual_types.hpp>
 
 #include <nt2/toolbox/dual/include/plus.hpp>
 #include <nt2/toolbox/dual/include/minus.hpp>
