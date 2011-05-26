@@ -15,16 +15,17 @@
 /// modified by jt the 10/05/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/sdk/memory/load.hpp>
+//#include <nt2/sdk/memory/load.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
+//#include <nt2/sdk/constant/real.hpp>
+//#include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/dual/include/splat.hpp>
+#include <nt2/include/functions/splat.hpp>
+#include <nt2/toolbox/dual/include/splat.hpp>  
 
 NT2_TEST_CASE_TPL ( splat_dual__1_0,  (nt2::dual<float>))//(nt2::dual<double>))
 {
@@ -36,9 +37,11 @@ NT2_TEST_CASE_TPL ( splat_dual__1_0,  (nt2::dual<float>))//(nt2::dual<double>))
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename T::part stype; 
 
-  typedef native<nt2::dual<stype>,ext_t>                          type;
-  nt2::dual<stype> o(nt2::One<stype>());
-  type a; 
-  //  nt2::splat<type>(o);
-
+  typedef native<nt2::dual<stype>,ext_t>   type;
+  typedef nt2::dual<native<stype,ext_t> >   rtype;
+  nt2::dual<stype> o(nt2::One<stype>()); 
+  rtype a = nt2::splat<type>(o);
+  a.print(); 
+    //  std::cout << o << " --> " << a << std::endl; 
 } // end of test for dual_
+  

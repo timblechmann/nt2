@@ -177,11 +177,11 @@ namespace nt2
     ////////////////////////////////////////////////////////////////////////////
     pair& hilo()       { return mhilo; }
 
-    void print()
+    void print() const
     {
       std::cout << "(" << hi() << ", " << lo() << ")" << std::endl;
     }
-    void print(const char* m)
+    void print(const char* m) const
     {
       std::cout << m << " = (" << hi() << ", " << lo() << ")" << std::endl;
     }

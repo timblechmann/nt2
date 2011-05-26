@@ -9,8 +9,8 @@
 #ifndef NT2_TOOLBOX_DUAL_SPECIFIC_CONSTANTS_HPP_INCLUDED
 #define NT2_TOOLBOX_DUAL_SPECIFIC_CONSTANTS_HPP_INCLUDED
 
-#include <nt2/sdk/constant/constant.hpp>
-#include <nt2/sdk/constant/real.hpp>
+//#include <nt2/constant/constant.hpp>
+#include <nt2/include/constants/real.hpp>
 
 namespace nt2 { namespace tag
 {
