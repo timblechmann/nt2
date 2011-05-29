@@ -24,9 +24,8 @@ namespace nt2
       typedef type                                                              part; 
       typedef simd::native<dual<T>,X>                                           self;
       typedef typename boost::fusion::tuple<vtype, vtype>                       pair;
-      typedef meta::dual_<typename meta::hierarchy_of<type>::type> nt2_hierarchy_tag;
-      
-      
+
+      typedef nt2::dual<T> value_type;
     ////////////////////////////////////////////////////////////////////////////
     /// @brief  Normal form constructor.
     ///
