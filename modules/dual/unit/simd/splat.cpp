@@ -13,21 +13,21 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 05/03/2011
 /// modified by jt the 10/05/2011
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
+// #include <nt2/sdk/memory/is_aligned.hpp>
+// #include <nt2/sdk/memory/aligned_type.hpp>
 //#include <nt2/sdk/memory/load.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+//#include <nt2/sdk/memory/buffer.hpp>
+// #include <boost/type_traits/is_same.hpp>
+// #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-//#include <nt2/sdk/constant/real.hpp>
+//#include <nt2/toolbox/constant/include/real.hpp>
 //#include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/include/functions/splat.hpp>
+//#include <nt2/include/functions/max.hpp>
+//#include <nt2/include/functions/splat.hpp>
 #include <nt2/toolbox/dual/include/splat.hpp>  
 
-NT2_TEST_CASE_TPL ( splat_dual__1_0,  (nt2::dual<float>))//(nt2::dual<double>))
+NT2_TEST_CASE_TPL ( splat_dual__1_0,  (nt2::dual<float>)(nt2::dual<double>))
 {
   using nt2::splat;
   using nt2::tag::splat_;
@@ -39,8 +39,7 @@ NT2_TEST_CASE_TPL ( splat_dual__1_0,  (nt2::dual<float>))//(nt2::dual<double>))
  
   typedef native<nt2::dual<stype>,ext_t>   type;
   //  typedef nt2::dual<native<stype,ext_t> >   rtype;
-  nt2::dual<stype> o(nt2::One<stype>());
-  o.print();
+  nt2::dual<stype> o(nt2::One<stype>(), nt2::Eps<stype>());
   std::cout << nt2::type_id < typename nt2::meta::hierarchy_of<nt2::dual<stype> >::type > () << std::endl;
   std::cout << nt2::type_id < typename nt2::meta::hierarchy_of<type>::type > () << std::endl;
 
@@ -51,14 +50,14 @@ NT2_TEST_CASE_TPL ( splat_dual__1_0,  (nt2::dual<float>))//(nt2::dual<double>))
   a.print();
   type b = a+a;
   b.print();
-  std::cout << nt2::type_id < type > () << std::endl;
-  std::cout << nt2::type_id < typename type::type > () << std::endl;
-  std::cout << nt2::type_id < typename type::vtype > () << std::endl;
+//   std::cout << nt2::type_id < type > () << std::endl;
+//   std::cout << nt2::type_id < typename type::type > () << std::endl;
+//   std::cout << nt2::type_id < typename type::vtype > () << std::endl;
+   
+  o.print("o(nt2::One<stype>()) = ");
+  type c = nt2::splat<type>(o);
+  c.print("nt2::splat<type>(o) =  ");
   
-   type c =
-  nt2::splat<type>(o);
-   c.print();
-  
-    //  std::cout << o << " --> " << a << std::endl; 
+      //  std::cout << o << " --> " << a << std::endl; 
 } // end of test for dual_
   

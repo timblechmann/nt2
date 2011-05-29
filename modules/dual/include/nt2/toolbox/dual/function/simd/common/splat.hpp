@@ -37,23 +37,17 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename A1::type ntype;
-      typedef typename meta::scalar_of<ntype>::type sA1;
+//       typedef typename A1::type ntype;
+//       typedef typename meta::scalar_of<ntype>::type sA1;
 
-//      typedef typename NT2_RETURN_TYPE(2)::type type;
-//       typedef typename A0::type inner_type;
-//       typedef nt2::simd::native<typename A0::type, X> outer_type;
-//       a0.print(); 
-//       std::cout << type_id < A1 >() << std::endl;
-//       std::cout << type_id < A0 >() << std::endl;
-//       std::cout << type_id < outer_type  >() << std::endl;  
-//       std::cout << type_id < type  >() << std::endl;  
-//       outer_type i0 = nt2::splat<outer_type>(get<0>(a0));
-//       outer_type i1 = nt2::splat<outer_type>(get<1>(a0));
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      typedef nt2::simd::native<typename A0::type, X> v_type;
+//        outer_type i0 = nt2::splat<v_type>(get<0>(a0));
+//        outer_type i1 = nt2::splat<v_type>(get<1>(a0));
 //       type res(i0, i1); 
-//       std::cout << i0 << "  " << i1 << std::endl; //(splat<inner_type>(get<0>(a0)),splat<inner_type>(get<1>(a0)));
-      ntype res;
-      return res; 
+//        std::cout << i0 << "  " << i1 << std::endl; //(splat<inner_type>(get<0>(a0)),splat<inner_type>(get<1>(a0)));
+//      ntype res;
+      return type(nt2::splat<v_type>(get<0>(a0)),nt2::splat<v_type>(get<1>(a0))); 
     }
   };
 } }
