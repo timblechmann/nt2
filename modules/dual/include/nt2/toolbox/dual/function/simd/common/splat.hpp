@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
 //       outer_type i1 = nt2::splat<outer_type>(get<1>(a0));
 //       type res(i0, i1); 
 //       std::cout << i0 << "  " << i1 << std::endl; //(splat<inner_type>(get<0>(a0)),splat<inner_type>(get<1>(a0)));
-      A1 res; 
+      ntype res;
       return res; 
     }
   };

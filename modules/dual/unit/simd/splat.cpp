@@ -41,8 +41,8 @@ NT2_TEST_CASE_TPL ( splat_dual__1_0,  (nt2::dual<float>))//(nt2::dual<double>))
   //  typedef nt2::dual<native<stype,ext_t> >   rtype;
   nt2::dual<stype> o(nt2::One<stype>());
   o.print();
-  std::cout << nt2::type_id < type > () << std::endl;
-  std::cout << nt2::type_id <stype > () << std::endl;
+  std::cout << nt2::type_id < typename nt2::meta::hierarchy_of<nt2::dual<stype> >::type > () << std::endl;
+  std::cout << nt2::type_id < typename nt2::meta::hierarchy_of<type>::type > () << std::endl;
 
   typedef typename type::vtype   vtype;
   vtype oo =  nt2::One<vtype>(); 
@@ -55,9 +55,9 @@ NT2_TEST_CASE_TPL ( splat_dual__1_0,  (nt2::dual<float>))//(nt2::dual<double>))
   std::cout << nt2::type_id < typename type::type > () << std::endl;
   std::cout << nt2::type_id < typename type::vtype > () << std::endl;
   
-//   type c =
+   type c =
   nt2::splat<type>(o);
-//   c.print();
+   c.print();
   
     //  std::cout << o << " --> " << a << std::endl; 
 } // end of test for dual_
