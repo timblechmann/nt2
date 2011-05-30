@@ -12,15 +12,15 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/arithmetic/include.hpp>
 
-// namespace nt2 { namespace tag
-//   {         
-//     struct two_split_ {};
-//   }
-//   NT2_FUNCTION_IMPLEMENTATION(tag::two_split_, two_split, 1)
-// }
+namespace nt2 { namespace tag
+  {         
+    struct two_split_ {};
+  }
+  NT2_FUNCTION_IMPLEMENTATION(tag::two_split_, two_split, 1)
+}
  
-// #include <nt2/toolbox/arithmetic/function/scalar/two_split.hpp>
-// #include NT2_ARITHMETIC_INCLUDE(two_split.hpp) 
+#include <nt2/toolbox/arithmetic/function/scalar/two_split.hpp>
+#include <nt2/toolbox/arithmetic/function/simd/all/two_split.hpp> 
 
  
 #endif
