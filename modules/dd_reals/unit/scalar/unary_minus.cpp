@@ -20,7 +20,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+//#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/dd_reals/include/unary_minus.hpp>
 // specific includes for arity 1 tests
 #include <nt2/toolbox/dd_reals/specific/dd_reals_types.hpp>
