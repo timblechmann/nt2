@@ -12,16 +12,17 @@
 // Test behavior of dual components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 05/03/2011
-/// modified by jt the 03/05/2011
+/// modified by jt the 02/06/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/dual/include/quick_two_diff.hpp>
+#include <boost/fusion/tuple.hpp>
 
 NT2_TEST_CASE_TPL ( quick_two_diff_real__2_0,  NT2_REAL_TYPES)
 {
@@ -39,8 +40,5 @@ NT2_TEST_CASE_TPL ( quick_two_diff_real__2_0,  NT2_REAL_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-  r_t res;
-  res = quick_two_diff(nt2::One<T>(), nt2::Eps<T>()/nt2::Two<T>());
-  std::cout << boost::fusion::at_c<0>(res)<< ", " << boost::fusion::at_c<1>(res) << std::endl; 
 
 } // end of test for real_

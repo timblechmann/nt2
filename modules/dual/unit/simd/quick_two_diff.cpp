@@ -12,19 +12,20 @@
 // Test behavior of dual components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 05/03/2011
-/// modified by jt the 03/05/2011
+/// modified by jt the 02/06/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
-//#include <nt2/sdk/memory/load.hpp>
-//#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/memory/load.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/dual/include/quick_two_diff.hpp>
+#include <boost/fusion/tuple.hpp>
 
 NT2_TEST_CASE_TPL ( quick_two_diff_real__2_0,  NT2_REAL_TYPES)
 {
