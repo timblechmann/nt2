@@ -11,6 +11,7 @@
 SET( SOURCES
   splat.cpp
   unary_minus.cpp
+  unary_plus.cpp
 # List of simd test files for toolbox dd_reals
    )
 

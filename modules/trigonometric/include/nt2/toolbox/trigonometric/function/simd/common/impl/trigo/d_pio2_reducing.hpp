@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_D_PIO2_REDUCING_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_D_PIO2_REDUCING_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_TRIGO_D_PIO2_REDUCING_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_TRIGO_D_PIO2_REDUCING_HPP_INCLUDED
 
 #include <boost/fusion/tuple.hpp>
 #include <nt2/include/functions/toint.hpp>
@@ -21,10 +21,10 @@ namespace nt2
     namespace internal
     {
       // trigonometric double reduction algorithms in the [-pi/4, pi/4] range for double.
-      // this reductions are used in the accurate and fast
+      // this reductions are used in the accurate and fast/common
       // trigonometric functions with different policies
 
-      template<class A0> struct pio2_reducing < A0, tag::not_simd_type, double>
+      template<class A0> struct pio2_reducing < A0, tag::simd_type, double>
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
 
@@ -39,7 +39,7 @@ namespace nt2
 	{
 	  //  std::cout << " straight reduction "  << std::endl; 
 	  // x has to be in [pi/4, pi/2]
-	  xr = x-nt2::Pio_2<A0>(); //single_constant<A0,0x3ff921fb54442d18ll>();
+	  xr = x-single_constant<A0,0x3ff921fb54442d18ll>();
 	  xc = Zero<A0>();
 	  return One<int_type>();
 	}

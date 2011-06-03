@@ -26,7 +26,31 @@ using nt2::tag::sin_;
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, (V1) ,(V2))
+namespace n001 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(sin_,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+}
+namespace n002 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(sin_,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+}
 
+namespace n01 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(sin_,(RS(vT,-nt2::Pi<T>()/2,nt2::Pi<T>()/2)))
+}
+namespace n02 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(sin_,(RS(vT,-nt2::Pi<T>()/2,nt2::Pi<T>()/2)))
+}
 namespace n1 {
   typedef float T;
   typedef nt2::meta::as_integer<T>::type iT;
@@ -39,29 +63,41 @@ namespace n2 {
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(sin_,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
-namespace n3 {
-  typedef int32_t T;
+namespace n11 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT; 
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(sin_,(RS(vT,-200*nt2::Pi<T>(),200*nt2::Pi<T>())))
+}
+namespace n21 {
+  typedef double T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(sin_,(RS(vT,T(-40),T(40))))
+  NT2_TIMING(sin_,(RS(vT,-200*nt2::Pi<T>(),200*nt2::Pi<T>())))
 }
-namespace n4 {
-  typedef int64_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(sin_,(RS(vT,T(-40),T(40))))
-}
-namespace n5 {
-  typedef uint32_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(sin_,(RS(vT,T(0),T(40))))
-}
-namespace n6 {
-  typedef uint64_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(sin_,(RS(vT,T(0),T(40))))
-}
+// namespace n3 {
+//   typedef int32_t T;
+//   typedef nt2::meta::as_integer<T>::type iT;
+//   typedef nt2::simd::native<T,ext_t> vT;
+//   NT2_TIMING(sin_,(RS(vT,T(-40),T(40))))
+// }
+// namespace n4 {
+//   typedef int64_t T;
+//   typedef nt2::meta::as_integer<T>namespace n3 {
+//   typedef nt2::simd::native<T,ext_t> vT;
+//   NT2_TIMING(sin_,(RS(vT,T(-40),T(40))))
+// }
+// namespace n5 {
+//   typedef uint32_t T;
+//   typedef nt2::meta::as_integer<T>::type iT;
+//   typedef nt2::simd::native<T,ext_t> vT;
+//   NT2_TIMING(sin_,(RS(vT,T(0),T(40))))
+// }
+// namespace n6 {
+//   typedef uint64_t T;
+//   typedef nt2::meta::as_integer<T>::type iT;
+//   typedef nt2::simd::native<T,ext_t> vT;
+//   NT2_TIMING(sin_,(RS(vT,T(0),T(40))))
+// }
 
 #undef RS

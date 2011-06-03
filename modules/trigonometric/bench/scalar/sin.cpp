@@ -26,7 +26,26 @@ using nt2::tag::sin_;
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) ,T(V2))
-
+namespace n001 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(sin_,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+}
+namespace n002 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(sin_,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+}
+namespace n01 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(sin_,(RS(T,-nt2::Pi<T>()/2,nt2::Pi<T>()/2)))
+}
+namespace n02 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(sin_,(RS(T,-nt2::Pi<T>()/2,nt2::Pi<T>()/2)))
+}
 namespace n1 {
   typedef float T;
   typedef nt2::meta::as_integer<T>::type iT;
@@ -37,45 +56,45 @@ namespace n2 {
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(sin_,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
-namespace n3 {
-  typedef uint8_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(sin_,(RS(T,T(0),T(40))))
-}
-namespace n4 {
-  typedef uint16_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(sin_,(RS(T,T(0),T(40))))
-}
-namespace n5 {
-  typedef uint32_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(sin_,(RS(T,T(0),T(40))))
-}
-namespace n6 {
-  typedef uint64_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(sin_,(RS(T,T(0),T(40))))
-}
-namespace n7 {
-  typedef int8_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(sin_,(RS(T,T(-40),T(40))))
-}
-namespace n8 {
-  typedef int16_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(sin_,(RS(T,T(-40),T(40))))
-}
-namespace n9 {
-  typedef int32_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(sin_,(RS(T,T(-40),T(40))))
-}
-namespace n10 {
-  typedef int64_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(sin_,(RS(T,T(-40),T(40))))
-}
+// namespace n3 {
+//   typedef uint8_t T;
+//   typedef nt2::meta::as_integer<T>::type iT;
+//   NT2_TIMING(sin_,(RS(T,T(0),T(40))))
+// }
+// namespace n4 {
+//   typedef uint16_t T;
+//   typedef nt2::meta::as_integer<T>::type iT;
+//   NT2_TIMING(sin_,(RS(T,T(0),T(40))))
+// }
+// namespace n5 {
+//   typedef uint32_t T;
+//   typedef nt2::meta::as_integer<T>::type iT;
+//   NT2_TIMING(sin_,(RS(T,T(0),T(40))))
+// }
+// namespace n6 {
+//   typedef uint64_t T;
+//   typedef nt2::meta::as_integer<T>::type iT;
+//   NT2_TIMING(sin_,(RS(T,T(0),T(40))))
+// }
+// namespace n7 {
+//   typedef int8_t T;
+//   typedef nt2::meta::as_integer<T>::type iT;
+//   NT2_TIMING(sin_,(RS(T,T(-40),T(40))))
+// }
+// namespace n8 {
+//   typedef int16_t T;
+//   typedef nt2::meta::as_integer<T>::type iT;
+//   NT2_TIMING(sin_,(RS(T,T(-40),T(40))))
+// }
+// namespace n9 {
+//   typedef int32_t T;
+//   typedef nt2::meta::as_integer<T>::type iT;
+//   NT2_TIMING(sin_,(RS(T,T(-40),T(40))))
+// }
+// namespace n10 {
+//   typedef int64_t T;
+//   typedef nt2::meta::as_integer<T>::type iT;
+//   NT2_TIMING(sin_,(RS(T,T(-40),T(40))))
+// }
 
 #undef RS

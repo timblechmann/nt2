@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_F_PIO2_REDUCING_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_F_PIO2_REDUCING_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_TRIGO_F_PIO2_REDUCING_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_TRIGO_F_PIO2_REDUCING_HPP_INCLUDED
 
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/fast_toint.hpp>
@@ -24,12 +24,9 @@ namespace nt2
       // trigonometric float reduction algoritms in the [-pi/4, pi/4] range.
       // this reductions are used in the accurate and fast
       // trigonometric functions with different policies
-      template < class A0,
-		 class mode, 
-		 class base_A0 = typename meta::scalar_of<A0>::type
-      >  struct pio2_reducing{};
+      //      template < class A0, class base_A0 = typename meta::scalar_of<A0>::type >  struct pio2_reducing{};
 
-      template < class A0>  struct pio2_reducing < A0, tag::not_simd_type, float>
+      template < class A0>  struct pio2_reducing < A0, tag::simd_type, float>
       {
 	typedef typename meta::as_integer<A0, signed>::type int_type;
 	typedef typename meta::scalar_of<int_type>::type   sint_type;
