@@ -11,9 +11,11 @@
 
 #include <boost/fusion/tuple.hpp>
 #include <nt2/include/functions/toint.hpp>
-//#include <nt2/include/functions/rem_pio2.hpp>
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/constants/digits.hpp>
+#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/f_rem_pio2.hpp>
+#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/d_rem_pio2.hpp>
+
 namespace nt2
 {
   namespace details
@@ -39,7 +41,11 @@ namespace nt2
 	{
 	  //  std::cout << " straight reduction "  << std::endl; 
 	  // x has to be in [pi/4, pi/2]
-	  xr = x-nt2::Pio_2<A0>(); //single_constant<A0,0x3ff921fb54442d18ll>();
+          xr = x-double_constant<A0,0x3FF921FB54400000ll>();
+                    // 6.07710050630396597660e-11
+          xr -= double_constant<A0,0x3DD0B4611A600000ll>();
+                    // 2.02226624871116645580e-21
+          xr -= double_constant<A0,0x3BA3198A2E000000ll>();
 	  xc = Zero<A0>();
 	  return One<int_type>();
 	}
@@ -78,11 +84,8 @@ namespace nt2
 
         static inline int_type fdlibm_big_reduction(const A0& t, A0& xr, A0& xc)
         {
-	  ignore_unused(t);
-	  ignore_unused(xr); 
-	  ignore_unused(xc); 
           int_type i;
-          //boost::fusion::tie(xr, xc, i) = nt2::rem_pio2(t);
+          rpio2<A0, double>::rem_pio2(t, i, xr, xc);
           return i;
         }
 	

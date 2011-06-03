@@ -53,12 +53,14 @@ NT2_TEST_CASE_TPL ( cos_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(cos(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cos(nt2::Pi<T>()), nt2::Mone<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cos(nt2::Pi<T>()/2), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(cos(nt2::Pi<T>()/3), nt2::Half<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cos(nt2::Pi<T>()/4), nt2::Sqrt_2o_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cos(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const uint32_t NR = 10000;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, -20*nt2::Pi<T>(), 20*nt2::Pi<T>());
+    //    NT2_CREATE_BUF(tab_a0,T, NR, -20*nt2::Pi<T>(), 20*nt2::Pi<T>());
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Pio_4<T>(), nt2::Pio_2<T>()); 
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     for (uint32_t j =0; j < NR; ++j )

@@ -127,11 +127,11 @@ namespace nt2
         static inline int_type reduce(const A0& x, A0& xr, A0& xc)
         {
           // x is always positive here
-          if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
+          if (isalreadyreduced(x)) // all of x are in [0, pi/4], no reduction
 	    {
 	      return pio2_reducing<A0, tag::not_simd_type>::noreduction(x, xr, xc);
 	    }
-          else if (all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
+          else if (islessthanpi_2(x)) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
 	    {
 	      return pio2_reducing<A0, tag::not_simd_type>::straight_reduction(x, xr, xc);
 	    }
@@ -139,13 +139,12 @@ namespace nt2
 	    {
 	      return pio2_reducing<A0, tag::not_simd_type>::cephes_reduction(x, xr, xc);
 	    }
-          else if (all(ismedium(x))) // all of x are in [0, 2^7*pi/2],  fdlibm medium way
+          else if (ismedium(x)) // all of x are in [0, 2^7*pi/2],  fdlibm medium way
 	    {
 	      return pio2_reducing<A0, tag::not_simd_type>::fdlibm_medium_reduction(x, xr, xc);
 	    }
           else  // all of x are in [0, inf],  standard big way
 	    {
-	      // This is never taken
 	      return pio2_reducing<A0, tag::not_simd_type>::fdlibm_big_reduction(x, xr, xc);
 	    }
         }

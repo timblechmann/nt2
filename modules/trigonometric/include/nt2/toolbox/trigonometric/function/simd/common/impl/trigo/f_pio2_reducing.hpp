@@ -44,7 +44,9 @@ namespace nt2
 	{
 	  //  std::cout << " straight reduction "  << std::endl; 
 	  // x has to be in [pi/4, pi/2]
-	  xr = x-single_constant<A0,0x3fc90fdb>();
+	  xr = x-single_constant<A0,0x3fc90f80>();
+	  xr -= single_constant<A0,0x37354400 >();
+	  xr -= single_constant<A0,0x2e85a300>();
 	  xc = Zero<A0>();
 	  return One<int_type>();
 	}

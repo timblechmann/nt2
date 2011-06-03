@@ -39,8 +39,13 @@ namespace nt2
 	{
 	  //  std::cout << " straight reduction "  << std::endl; 
 	  // x has to be in [pi/4, pi/2]
-	  xr = x-single_constant<A0,0x3ff921fb54442d18ll>();
 	  xc = Zero<A0>();
+          xr = x-double_constant<A0,0x3FF921FB54400000ll>();
+                    // 6.07710050630396597660e-11
+          xr -= double_constant<A0,0x3DD0B4611A600000ll>();
+                    // 2.02226624871116645580e-21
+          xr -= double_constant<A0,0x3BA3198A2E000000ll>();
+          xc = Zero<A0>();
 	  return One<int_type>();
 	}
 

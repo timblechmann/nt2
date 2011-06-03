@@ -14,6 +14,7 @@
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/toolbox/arithmetic/include/toint.hpp>
 #include <nt2/include/constants/digits.hpp>
+#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/f_rem_pio2.hpp>
 
 namespace nt2
 {
@@ -47,8 +48,9 @@ namespace nt2
 	{
 	  //  std::cout << " straight reduction "  << std::endl; 
 	  // x has to be in [pi/4, pi/2]
-	  xr = x-single_constant<A0,0x3fc90fdb>();
-	  xc = Zero<A0>();
+	  xr = x-single_constant<A0,0x3fc90f80>();
+	  xr -= single_constant<A0,0x37354400 >();
+	  xr -= single_constant<A0,0x2e85a300>();
 	  return One<int_type>();
 	}
 
@@ -83,10 +85,10 @@ namespace nt2
 	  return  toint(fn);
 	}
 
-	static inline int_type fdlibm_big_reduction(const A0& /*t*/, A0& /*xr*/, A0& /*xc*/)
+	static inline int_type fdlibm_big_reduction(const A0& t, A0& xr, A0& xc)
 	{
 	  int_type i = Zero<int_type>();
-	  //	  bf::tie(xr, xc, i) = nt2::rem_pio2(t);
+	  rpio2<A0>::rem_pio2(t, i, xr, xc);
 	  return i;
 	}
 

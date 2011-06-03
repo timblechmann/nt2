@@ -56,7 +56,16 @@ namespace n2 {
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(sin_,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
-// namespace n3 {
+namespace n11 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(sin_,(RS(T,nt2::Valmin<T>()/4,nt2::Valmax<T>()/4)))
+}
+namespace n12 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(sin_,(RS(T,nt2::Valmin<T>()/4,nt2::Valmax<T>()/4)))
+}// namespace n3 {
 //   typedef uint8_t T;
 //   typedef nt2::meta::as_integer<T>::type iT;
 //   NT2_TIMING(sin_,(RS(T,T(0),T(40))))

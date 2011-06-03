@@ -24,9 +24,10 @@
 #include <nt2/toolbox/trigonometric/include/sin.hpp>
 // specific includes for arity 1 tests
 #include <nt2/toolbox/trigonometric/include/constants.hpp>
-extern "C" {extern long double cephes_sinl(long double);}
+#include <nt2/toolbox/crlibm/include/sin.hpp>
+//extern "C" {extern long double cephes_sinl(long double);}
 
-NT2_TEST_CASE_TPL ( sin_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( sin_real__1_0,  (float))
 { 
   
   using nt2::sin;
@@ -56,7 +57,7 @@ NT2_TEST_CASE_TPL ( sin_real__1_0,  NT2_REAL_TYPES)
   // random verifications
   static const uint32_t NR = 10000;  
   {     
-    NT2_CREATE_BUF(tab_a0,T, NR, -2*nt2::Pi<T>(), 2*nt2::Pi<T>());
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/4, nt2::Valmax<T>()/4);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     for (uint32_t j =0; j < NR; ++j )   
@@ -64,7 +65,8 @@ NT2_TEST_CASE_TPL ( sin_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::sin(a0),::cephes_sinl(a0),0.5);
+        NT2_TEST_ULP_EQUAL( nt2::sin(a0),::nt2::crlibm::sin <nt2::rn>(a0),0.5);
+	//        NT2_TEST_ULP_EQUAL( nt2::sin(a0),::cephes_sinl(a0),0.5);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
