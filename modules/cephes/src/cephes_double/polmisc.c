@@ -18,7 +18,7 @@ extern void cephes_poladd ( double a[], int na, double b[], int nb, double c[] )
 extern void cephes_polsub ( double a[], int na, double b[], int nb, double c[] );
 extern int cephes_poldiv ( double a[], int na, double b[], int nb, double c[] );
 extern void cephes_polsbt ( double a[], int na, double b[], int nb, double c[] );
-extern void * malloc ( long );
+extern void * malloc ( unsigned int );
 extern void free ( void * );
 #else
 double cephes_atan2(), cephes_sqrt(), fabs(), cephes_sin(), cephes_cos();

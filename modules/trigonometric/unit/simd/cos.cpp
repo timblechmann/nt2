@@ -44,24 +44,24 @@ NT2_TEST_CASE_TPL ( cos_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-  // random verifications
-  static const uint32_t NR = 10000;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-60), T(60));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = cos(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::cos(tab_a0[k])), 0.5);
-          ulp0 = nt2::max(ulpd,ulp0);
-        }
-      }
-    std::cout << "max ulp found is: " << ulp0 << std::endl;
-  }
+  // random verifications  
+//   static const uint32_t NR = 10000;
+//   {
+//     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/4, nt2::Valmax<T>()/4);
+//     double ulp0, ulpd ; ulpd=ulp0=0.0;
+//     for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+//       {
+//         vT a0 = load<vT>(&tab_a0[0],j);
+//         r_t v = cos(a0);
+//         for(int i = 0; i< cardinal_of<n_t>::value; i++)
+//         {
+//           int k = i+j*cardinal_of<n_t>::value;
+//           NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::cos(tab_a0[k])), 0.5);
+//           ulp0 = nt2::max(ulpd,ulp0);
+//         }
+//       }
+//     std::cout << "max ulp found is: " << ulp0 << std::endl;
+//   }
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(cos(-nt2::Pi<vT>())[0], nt2::Mone<sr_t>(), 0.5);
@@ -75,3 +75,4 @@ NT2_TEST_CASE_TPL ( cos_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(cos(nt2::Pi<vT>()/nt2::splat<vT>(4))[0], nt2::Sqrt_2o_2<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cos(nt2::Zero<vT>())[0], nt2::One<sr_t>(), 0.5);
 } // end of test for real_
+ 

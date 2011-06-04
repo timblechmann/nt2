@@ -54,26 +54,22 @@ namespace nt2
             {
               return pio2_reducing<A0, tag::simd_type>::noreduction(x, xr, xc);
             }
-//           else if (all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
-// 	    {
-// 	      return pio2_reducing<A0, tag::simd_type>::straight_reduction(x, xr, xc);
-//	    }
+           else if (all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
+ 	    {
+ 	      return pio2_reducing<A0, tag::simd_type>::straight_reduction(x, xr, xc);
+	    }
           else if (all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
             {
               return pio2_reducing<A0, tag::simd_type>::cephes_reduction(x, xr, xc);
 	    }
-          else// if (all(ismedium(x))) // all of x are is in [0, 2^18*pi],  fdlibm medium way
+          else if (all(ismedium(x))) // all of x are is in [0, 2^18*pi],  fdlibm medium way
 	    {
 	      return pio2_reducing<A0, tag::simd_type>::fdlibm_medium_reduction(x, xr, xc);
 	    }
-      //  	  else  // all of x are in [0, inf],  standard big way
-      // 	    {
-      // 	      if (OUT){
-      // 		std::cout << "large" << std::endl;
-      // 	      }
-      // 	      // This is never taken
-      // 	      return pio2_reducing<A0>::fdlibm_big_reduction(x, xr, xc);
-      // 	    }
+	  else  // all of x are in [0, inf],  standard big way
+       	    {
+       	      return pio2_reducing<A0, tag::simd_type>::fdlibm_big_reduction(x, xr, xc);
+       	    }
         }
       };
      template < class A0 > struct trig_reduction < A0, radian_tag, fast_tag, tag::simd_type, double>

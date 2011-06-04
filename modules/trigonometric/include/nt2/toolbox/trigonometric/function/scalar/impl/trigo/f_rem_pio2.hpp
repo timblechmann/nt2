@@ -44,10 +44,11 @@ namespace nt2 {
     {
       
       template < class A0,
+		 class style, 
 		 class base_A0 = typename meta::scalar_of<A0>::type
       > struct rpio2;
     
-      template < class A0 > struct rpio2 < A0, float > 
+      template < class A0 > struct rpio2 < A0, tag::not_simd_type, float > 
       {
 	static inline void rem_pio2(const A0& x, int32_t &n, A0&xr, A0&xc)
 	{

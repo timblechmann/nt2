@@ -22,42 +22,42 @@
 
 #define EXTRACT_WORDS(ix0,ix1,d)					\
   do {									\
-    A0 f = (d);							\
-    (ix0) = reinterpret_cast<uint32_t*>(&f)[HIGH_WORD_IDX];	\
-    (ix1) = reinterpret_cast<uint32_t*>(&f)[LOW_WORD_IDX];	\
+    A0 f = (d);								\
+    (ix0) = reinterpret_cast<uint32_t*>(&f)[HIGH_WORD_IDX];		\
+    (ix1) = reinterpret_cast<uint32_t*>(&f)[LOW_WORD_IDX];		\
   } while (0)
 
 #define GET_HIGH_WORD(i,d)						\
   do {									\
-    A0 f = (d);							\
-    (i) = reinterpret_cast<uint32_t*>(&f)[HIGH_WORD_IDX];	\
-} while (0)
+    A0 f = (d);								\
+    (i) = reinterpret_cast<uint32_t*>(&f)[HIGH_WORD_IDX];		\
+  } while (0)
 
 #define GET_LOW_WORD(i,d)					      \
   do {								      \
-    A0 f = (d);						      \
-    (i) = reinterpret_cast<uint32_t*>(&f)[LOW_WORD_IDX];    \
+    A0 f = (d);							      \
+    (i) = reinterpret_cast<uint32_t*>(&f)[LOW_WORD_IDX];	      \
   } while (0)
 
 #define INSERT_WORDS(d,ix0,ix1)						\
   do {									\
     A0 f;								\
-    reinterpret_cast<uint32_t*>(&f)[HIGH_WORD_IDX] = (ix0);	\
-    reinterpret_cast<uint32_t*>(&f)[LOW_WORD_IDX] = (ix1);	\
+    reinterpret_cast<uint32_t*>(&f)[HIGH_WORD_IDX] = (ix0);		\
+    reinterpret_cast<uint32_t*>(&f)[LOW_WORD_IDX] = (ix1);		\
     (d) = f;								\
   } while (0)
 
 #define SET_HIGH_WORD(d,v)						\
   do {									\
-    A0 f = (d);							\
-    reinterpret_cast<uint32_t*>(&f)[HIGH_WORD_IDX] = (v);	\
+    A0 f = (d);								\
+    reinterpret_cast<uint32_t*>(&f)[HIGH_WORD_IDX] = (v);		\
     (d) = f;								\
   } while (0)
 
 #define SET_LOW_WORD(d,v)						\
   do {									\
-    A0 f = (d);							\
-    reinterpret_cast<uint32_t*>(&f)[LOW_WORD_IDX] = (v);	\
+    A0 f = (d);								\
+    reinterpret_cast<uint32_t*>(&f)[LOW_WORD_IDX] = (v);		\
     (d) = f;								\
   } while (0)
 
@@ -78,7 +78,7 @@ namespace nt2 {
     namespace internal
     {
       
-      template < class A0 > struct rpio2 < A0, double > 
+      template < class A0 > struct rpio2 < A0, tag::not_simd_type, double > 
       {
 	
 	static inline void rem_pio2(const A0& x, int64_t &n, A0&xr, A0&xc)

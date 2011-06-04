@@ -83,7 +83,7 @@ namespace nt2
         }
 
         static inline logic replacement_available()       { return True<A0>(); }
-        static inline logic isalreadyreduced(const A0&a0) { return le(a0, Pio_4<A0>()); }
+        static inline logic isalreadyreduced(const A0&a0) { return is_ngt(a0, Pio_4<A0>()); }
 
         static inline logic ismedium (const A0&a0)  { return le(a0,single_constant<A0,0x43490fdb>()); }
         static inline logic issmall  (const A0&a0)  { return le(a0,single_constant<A0,0x427b53d1>()); }
