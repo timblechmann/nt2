@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_TRIGO_REM_PIO2_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_TRIGO_REM_PIO2_HPP_INCLUDED
 #include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/f_rem_pio2.hpp>
-
+#include <nt2/sdk/memory/aligned_type.hpp>
 namespace nt2
 {
   namespace details
