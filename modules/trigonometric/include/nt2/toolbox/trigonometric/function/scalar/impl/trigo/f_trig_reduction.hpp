@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_F_TRIG_REDUCTION_HPP_INCLUDED
 
 #include <nt2/sdk/meta/logical.hpp>
+#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/trig_base.hpp>
 #include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/f_pio2_reducing.hpp>
 #include <nt2/toolbox/arithmetic/include/toint.hpp>
 #include <nt2/include/functions/inrad.hpp>
