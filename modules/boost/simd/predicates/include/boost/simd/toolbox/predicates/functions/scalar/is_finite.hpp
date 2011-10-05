@@ -11,7 +11,6 @@
 
 #include <boost/simd/include/constants/true.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
-#include <boost/simd/include/functions/boolean.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

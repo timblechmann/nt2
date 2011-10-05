@@ -26,7 +26,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( minus_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( minus_real__2_0,   BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::minus;
   using boost::simd::tag::minus_;
@@ -52,6 +52,7 @@ NT2_TEST_CASE_TPL ( minus_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(minus(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(minus(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(minus(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+         
   NT2_TEST_EQUAL(minus(boost::simd::Zero<vT>(),boost::simd::One<vT>())[0], boost::simd::Mone<sr_t>());
 } // end of test for floating_
 

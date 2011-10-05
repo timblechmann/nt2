@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::boolean<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return b_not(gt(a0,a1));
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<integer_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::boolean<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return le(a0,a1);

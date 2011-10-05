@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0  that = { _mm_div_pd(a0,a1) };
+      A0  that = { _mm512_div_pd(a0,a1) };
       return b_or(b_and(eq(a0, Zero<A0>()), eq(a1, Zero<A0>())),that);
     }
   };
@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0  that = { _mm_div_ps(a0,a1) };
+      A0  that = { _mm512_div_ps(a0,a1) };
       return  b_or(b_and(eq(a0, Zero<A0>()), eq(a1, Zero<A0>())),that);
     }
   };

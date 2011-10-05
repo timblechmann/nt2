@@ -1,0 +1,1586 @@
+Intel� Software Network
+Communities
+Intel AppUp%G℠%@ developer program
+Visual Computing
+Parallel Programming
+Manageability
+Academic
+Earn Reputation %G—%@ Intel� Black Belt Program
+More...
+Partners
+Intel� Software Partner Program
+Intel� Technologies
+Software Assessment Center
+Resource Library
+Partner Finder
+Software Finder
+Program Overview
+News
+Support
+Tools & Downloads
+Tools
+
+Intel� Software Development Products
+Intel� Parallel Studio
+Free Evaluations
+Tools Knowledge Base
+Academic
+Downloads
+
+Code & Downloads
+Free Non-Commercial
+"WhatIf" Experimental Software
+Drivers
+Intel� Driver Update Utility
+Forums & Support
+Software Forums
+Intel AppUp%G℠%@ developer program Forums
+Knowledge Base
+Support Resources
+Blog
+Intel� Software Network blog
+Intel AppUp%G℠%@ developer program blog
+Resources
+Intel� Software Network TV
+Take-5 Videos
+Events Calendar
+Intel� Software Network Newsletter
+Intel� Press
+Insight Magazine
+Visual Adrenaline
+Language: English
+Share
+Print
+Home %G›%@ Articles
+C++ Larrabee Prototype Library
+Submit New Article
+June 19, 2009 12:00 AM PDT
+
+
+Overview
+This .inl file provides a C++ implementation of the Larrabee new instructions.  It allows developers to experiment with developing Larrabee code without a Larrabee compiler and without Larrabee hardware. It does not attempt to match the Larrabee new instructions with respect to exceptions, flags, bit-precision, or memory alignment restrictions. Disclaimer: the exact syntax and semantics of the functions shown here are not guaranteed to be supported in future Larrabee hardware and software products.
+
+The Larrabee new instructions are extensions of the existing Intel Architecture based vector graphics streaming SIMD instructions. They operate on two new sets of registers:
+
+32 512-bit vector registers (v0-v31) that hold either 16 32-bit values or 8 64-bit values
+8 16-bit vector mask registers (k0-k7) that hold 16 bit masks
+
+The C++ Larrabee Prototype Library supports these data types with the following C objects:
+
+typedef struct { float v[16]; } _M512
+typedef struct { double v[8]; } _M512D
+typedef struct { int   v[16]; } _M512I
+typedef unsigned short __mmask;
+
+Additionally, enumerated types are defined for the instructions that use immediate value operands.  These are listed in the last section of this document.
+
+Vector Operations
+Most Larrabee vector instructions have the form:
+
+vop v1 {k1}, v2, S(v3/m)
+
+where v1 is the destination vector register, k1 is the vector mask register, v2 is the first source vector register, and S(v3/m) is the second source %G–%@ written that way to indicate that it is the result of a swizzle/broadcast/conversion process S on either a memory location m or vector register v3. k1 is a writemask, meaning that only those elements with the corresponding bit set in k1 are computed and stored into v1. Elements in v1 with the corresponding bit clear in k1 retain their previous values, so a merging of the new element values with the previous element values is implied.
+
+The LRB prototype primitive functions take the sources as inputs and return the destination value. To simplify the usage and to enable compiler optimizations, pairs of functions are provided for each vector instruction - the full version that takes a mask and the destination register as arguments, and a short version when operating on the entire vector.  Each Larrabee vector instruction is implemented with two functions like this:
+
+v1 = _mm512_mask_op(v1_old, k1, v2, v3);
+v1 = _mm512_op(v2, v3);
+
+If the destination is required as a source (for example the MADD operation), it is included in the inputs as v1 or v1_old. If the instruction writes to both a vector register and a vector mask register, the vector register is returned and the vector mask is written through a pointer (listed as either k1_res or k2_res). Examples:
+
+_M512I _mm512_adc_pi(_M512I v1, __mmask k2, _M512I v3, __mmask *k2_res)
+_M512  _mm512_mask_add_ps(_M512 v1_old, __mmask k1, _M512 v2, _M512 v3)
+
+Note that because this programming model cannot enforce the same variable be used twice when a single register is both a source and a destination, it allows for constructs that may map to more than a single Larrabee instruction.
+
+Instead of adding the swizzle/broadcast/conversion arguments to the vector functions, the S(v/m) operation is implemented as a set of functions that operate on either a vector register or a memory location and produce a vector result. The output of these swizzle/broadcast/conversion functions can be used as any vector source input, however each Larrabee vector instruction only supports such an operation on the last source operand. While this decoupling creates an easier programming model, it also allows for constructs that may map to more than a single Larrabee instruction.
+
+These functions are used to support the swizzle/broadcast/conversion:
+
+_M512     _mm512_swizzle_r32(_M512 v, _MM_SWIZZLE_ENUM s)
+_M512     _mm512_swizzle_r64(_M512 v, _MM_SWIZZLE_ENUM s)
+_M512I   _mm512_upconv_int32(void *m, _MM_UPCONV_I32_ENUM s, _MM_MEM_HINT_ENUM nt)
+_M512  _mm512_upconv_float32(void *m, _MM_UPCONV_F32_ENUM s, _MM_MEM_HINT_ENUM nt)
+_M512I   _mm512_upconv_int64(void *m, _MM_UPCONV_I64_ENUM s, _MM_MEM_HINT_ENUM nt)
+_M512D _mm512_upconv_float64(void *m, _MM_UPCONV_F64_ENUM s, _MM_MEM_HINT_ENUM nt)
+
+Examples:
+
+vA = _mm512_add_ps(vB, _mm512_swizzle_r32(vC, _MM_SWIZ_REG_AAAA));
+vA = _mm512_mask_add_ps(vA, kAMask, vB, vC);
+vA = _mm512_mask_add_ps(vA, kAMask, vB, _mm512_upconv_float32(pMemory,
+_MM_4X16_F32, _MM_HINT_NONE));
+
+The function names mostly take the form:
+
+_mm512_op<type>
+
+where op is the operation (add, sub, etc), and <type> is the type of vector elements, listed below:
+
+_pu      %G–%@ packed unsigned integer (uint32)
+_pi      %G–%@ packed integer (int32)
+_ps      %G–%@ packed single precision float (float32)
+_pq      %G–%@ packed quadword integer (int64)
+_pd      %G–%@ packed double precision float (float64)
+d          %G–%@ packed doubleword values (uint32, int32, float32)
+q          %G–%@ packed quadword values (int64, float64)
+
+
+ADC_PI %G–%@ Add Int32 Vectors with Carry
+Performs an element-by-element three-input addition between int32 vector v1, int32 vector v3, and the corresponding bit of vector mask k2. The carry from the sum for the nth element is written into the nth bit of vector mask k2_res.
+_M512I      _mm512_adc_pi(_M512I v1, __mmask k2, _M512I v3, __mmask *k2_res)
+_M512I _mm512_mask_adc_pi(_M512I v1, __mmask k1, __mmask k2, _M512I v3, __mmask *k2_res)
+
+ADDN_{PS,PD} %G–%@ Add and Negate Vectors
+Performs an element-by-element addition between vector v2 and vector v3, then negates the result.
+_M512       _mm512_addn_ps(_M512 v2, _M512 v3)
+_M512  _mm512_mask_addn_ps(_M512 v1_old, __mmask k1, _M512 v2, _M512 v3)
+_M512D      _mm512_addn_pd(_M512D v2, _M512D v3)
+_M512D _mm512_mask_addn_pd(_M512D v1_old, __mmask k1, _M512D v2, _M512D v3)
+
+ADD_{PI,PS,PQ,PD} %G–%@ Add Vectors
+Performs an element-by-element addition between vector v2 and vector v3.
+_M512I      _mm512_add_pi(_M512I v2, _M512I v3)
+_M512I _mm512_mask_add_pi(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+_M512       _mm512_add_ps(_M512 v2, _M512 v3)
+_M512  _mm512_mask_add_ps(_M512 v1_old, __mmask k1, _M512 v2, _M512 v3)
+_M512I      _mm512_add_pq(_M512I v2, _M512I v3)
+_M512I _mm512_mask_add_pq(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+_M512D      _mm512_add_pd(_M512D v2, _M512D v3)
+_M512D _mm512_mask_add_pd(_M512D v1_old, __mmask k1, _M512D v2, _M512D v3)
+
+ADDSETC_PI %G–%@ Add Int32 Vectors and Set Mask to Carry
+Performs an element-by-element addition between int32 vector v1 and int32 vector v3. The carry from the sum for the nth element is written into the nth bit of vector mask k2_res.
+_M512I      _mm512_addsetc_pi(_M512I v1, _M512I v3, __mmask *k2_res)
+_M512I _mm512_mask_addsetc_pi(_M512I v1, __mmask k1, __mmask k2_old, _M512I v3, __mmask *k2_res)
+
+ADDSETS_{PI,PS} %G–%@ Add Vectors and Set Mask to Sign
+Performs an element-by-element addition between vector v2 and vector v3.  The sign of the result for the nth element is written into the nth bit of vector mask k1_res.
+_M512I      _mm512_addsets_pi(_M512I v2, _M512I v3, __mmask *k1_res)
+_M512I _mm512_mask_addsets_pi(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3, __mmask *k1_res)
+_M512       _mm512_addsets_ps(_M512 v2, _M512 v3, __mmask *k1_res)
+_M512  _mm512_mask_addsets_ps(_M512 v1_old, __mmask k1, _M512 v2, _M512 v3, __mmask *k1_res)
+
+ANDN_{PI,PQ} %G–%@ Bitwise AND NOT Vectors
+Performs an element-by-element bitwise AND between NOT vector v2 and vector v3.
+_M512I      _mm512_andn_pi(_M512I v2, _M512I v3)
+_M512I _mm512_mask_andn_pi(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+_M512I      _mm512_andn_pq(_M512I v2, _M512I v3)
+_M512I _mm512_mask_andn_pq(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+
+AND_{PI,PQ} %G–%@ Bitwise AND Vectors
+Performs an element-by-element bitwise AND between vector v2 and vector v3.
+_M512I      _mm512_and_pi(_M512I v2, _M512I v3)
+_M512I _mm512_mask_and_pi(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+_M512I      _mm512_and_pq(_M512I v2, _M512I v3)
+_M512I _mm512_mask_and_pq(_M512I v1_old, __mmask k1, M512I v2, _M512I v3)
+
+BITINTERLEAVE11_PI - 1:1 Bit-Interleave Int32 Vectors
+Performs an element-by-element bitwise interleave, using a 1:1 pattern, between int32 vector v2 and int32 vector v3. The low 16 bits from elements in v2 are interleaved with the low 16 bits from elements in v3 to form a vector of 32-bit values. Bits alternate 1:1, so that source elements A and B combine bitwise this way (high to low): A31B31A30B30A29B29 $B!D(B A2B2A1B1A0B0
+_M512I      _mm512_bitinterleave11_pi(_M512I v2, _M512I v3)
+_M512I _mm512_mask_bitinterleave11_pi(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+
+BITINTERLEAVE21_PI - 2:1 Bit-Interleave Int32 Vectors
+Performs an element-by-element bitwise interleave, using a 2:1 pattern, between int32 vector v2 and int32 vector v3. The low 21 bits from elements in v2 are interleaved with the low 11 bits from elements in v3 to form a vector of 32-bit values. Bits alternate 2:1, so that source elements A and B combine bitwise this way (high to low):A20B10A19A18B9A17A16B $B!D(B A5A4B2A3A2B1A1A0B0
+_M512I      _mm512_bitinterleave21_pi(_M512I v2, _M512I v3)
+_M512I _mm512_mask_bitinterleave21_pi(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+
+CLAMPZ_{PI,PS} - Clamp Vectors to [0, max]
+Performs an element-by-element clamp of vector v2 to the range between 0 and vector v3.
+_M512I      _mm512_clampz_pi(_M512I v2, _M512I v3)
+_M512I _mm512_mask_clampz_pi(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+_M512       _mm512_clampz_ps(_M512 v2, _M512 v3)
+_M512  _mm512_mask_clampz_ps(_M512 v1_old, __mmask k1, _M512 v2, _M512 v3)
+
+CMPBMK{EQ,LT,LE,NEQ,NLT,NLE}_PU - Compare Bytemasked Uint32 Vectors and Set Mask
+Performs an element-by-element bytemasked comparison between uint32 vector v1 and uint32 vector v2. One of four available bytemasks is selected by field.
+__mmask       _mm512_cmpbmskeq_pu(_M512I v1, _M512I v2, _MM_BMSK_FIELD_ENUM field)
+__mmask  _mm512_mask_cmpbmskeq_pu(__mmask k1, _M512I v1, _M512I v2, _MM_BMSK_FIELD_ENUM field)
+__mmask       _mm512_cmpbmsklt_pu(_M512I v1, _M512I v2, _MM_BMSK_FIELD_ENUM field)
+__mmask  _mm512_mask_cmpbmsklt_pu(__mmask k1, _M512I v1, _M512I v2, _MM_BMSK_FIELD_ENUM field)
+__mmask       _mm512_cmpbmskle_pu(_M512I v1, _M512I v2, _MM_BMSK_FIELD_ENUM field)
+__mmask  _mm512_mask_cmpbmskle_pu(__mmask k1, M512I v1, _M512I v2, _MM_BMSK_FIELD_ENUM field)
+__mmask      _mm512_cmpbmskneq_pu(_M512I v1, _M512I v2, _MM_BMSK_FIELD_ENUM field)
+__mmask _mm512_mask_cmpbmskneq_pu(__mmask k1, _M512I v1, _M512I v2, _MM_BMSK_FIELD_ENUM field)
+__mmask      _mm512_cmpbmsknlt_pu(_M512I v1, _M512I v2, _MM_BMSK_FIELD_ENUM field)
+__mmask _mm512_mask_cmpbmsknlt_pu(__mmask k1,_M512I v1, _M512I v2, _MM_BMSK_FIELD_ENUM field)
+__mmask      _mm512_cmpbmsknle_pu(_M512I v1, _M512I v2, _MM_BMSK_FIELD_ENUM field)
+__mmask _mm512_mask_cmpbmsknle_pu(__mmask k1, _M512I v1, _M512I v2, _MM_BMSK_FIELD_ENUM field)
+
+CMP{EQ,LT,LE,UNORD,NEQ,NLT,NLE,ORD}_{PS,PD} %G–%@ Compare Vectors and Set Mask
+Performs an element-by-element comparison between vector v1 and vector v2.
+__mmask         _mm512_cmpeq_pd(_M512D v1, _M512D v2)
+__mmask    _mm512_mask_cmpeq_pd(__mmask k1, _M512D v1, _M512D v2)
+__mmask         _mm512_cmplt_pd(_M512D v1, _M512D v2)
+__mmask    _mm512_mask_cmplt_pd(__mmask k1, _M512D v1, _M512D v2)
+__mmask         _mm512_cmple_pd(_M512D v1, _M512D v2)
+__mmask    _mm512_mask_cmple_pd(__mmask k1, _M512D v1, _M512D v2)
+__mmask      _mm512_cmpunord_pd(_M512D v1, _M512D v2)
+__mmask _mm512_mask_cmpunord_pd(__mmask k1, _M512D v1, _M512D v2)
+__mmask        _mm512_cmpneq_pd(_M512D v1, _M512D v2)
+__mmask   _mm512_mask_cmpneq_pd(__mmask k1, _M512D v1, _M512D v2)
+__mmask        _mm512_cmpnlt_pd(_M512D v1, _M512D v2)
+__mmask   _mm512_mask_cmpnlt_pd(__mmask k1, _M512D v1, _M512D v2)
+__mmask        _mm512_cmpnle_pd(_M512D v1, _M512D v2)
+__mmask   _mm512_mask_cmpnle_pd(__mmask k1, _M512D v1, _M512D v2)
+__mmask        _mm512_cmpord_pd(_M512D v1, _M512D v2)
+__mmask   _mm512_mask_cmpord_pd(__mmask k1, _M512D v1, _M512D v2)
+__mmask         _mm512_cmpeq_ps(_M512 v1, _M512 v2)
+__mmask    _mm512_mask_cmpeq_ps(__mmask k1, _M512 v1, _M512 v2)
+__mmask         _mm512_cmplt_ps(_M512 v1, _M512 v2)
+__mmask    _mm512_mask_cmplt_ps(__mmask k1, _M512 v1, _M512 v2)
+__mmask         _mm512_cmple_ps(_M512 v1, _M512 v2)
+__mmask    _mm512_mask_cmple_ps(__mmask k1, _M512 v1, _M512 v2)
+__mmask      _mm512_cmpunord_ps(_M512 v1, _M512 v2)
+__mmask _mm512_mask_cmpunord_ps(__mmask k1, _M512 v1, _M512 v2)
+__mmask        _mm512_cmpneq_ps(_M512 v1, _M512 v2)
+__mmask   _mm512_mask_cmpneq_ps(__mmask k1, _M512 v1, _M512 v2)
+__mmask        _mm512_cmpnlt_ps(_M512 v1, _M512 v2)
+__mmask   _mm512_mask_cmpnlt_ps(__mmask k1, _M512 v1, _M512 v2)
+__mmask        _mm512_cmpnle_ps(_M512 v1, _M512 v2)
+__mmask   _mm512_mask_cmpnle_ps(__mmask k1, _M512 v1, _M512 v2)
+__mmask        _mm512_cmpord_ps(_M512 v1, _M512 v2)
+__mmask   _mm512_mask_cmpord_ps(__mmask k1, _M512 v1, _M512 v2)
+
+CMP{EQ,LT,LE,NEQ,NLT,NLE}_{PU,PI} %G–%@ Compare Vectors and Set Mask
+Performs an element-by-element comparison between vector v1 and vector v2.
+__mmask       _mm512_cmpeq_pi(_M512I v1, _M512I v2)
+__mmask  _mm512_mask_cmpeq_pi(__mmask k1, _M512I v1, _M512I v2)
+__mmask       _mm512_cmplt_pi(_M512I v1, _M512I v2)
+__mmask  _mm512_mask_cmplt_pi(__mmask k1, _M512I v1, _M512I v2)
+__mmask       _mm512_cmple_pi(_M512I v1, _M512I v2);
+__mmask  _mm512_mask_cmple_pi(__mmask k1, _M512I v1, _M512I v2)
+__mmask      _mm512_cmpneq_pi(_M512I v1, _M512I v2)
+__mmask _mm512_mask_cmpneq_pi(__mmask k1, _M512I v1, _M512I v2)
+__mmask      _mm512_cmpnlt_pi(_M512I v1, _M512I v2)
+__mmask _mm512_mask_cmpnlt_pi(__mmask k1, _M512I v1, _M512I v2)
+__mmask      _mm512_cmpnle_pi(_M512I v1, _M512I v2)
+__mmask _mm512_mask_cmpnle_pi(__mmask k1, _M512I v1, _M512I v2)
+__mmask       _mm512_cmpeq_pu(_M512I v1, _M512I v2)
+__mmask  _mm512_mask_cmpeq_pu(__mmask k1, _M512I v1, _M512I v2)
+__mmask       _mm512_cmplt_pu(_M512I v1, _M512I v2)
+__mmask  _mm512_mask_cmplt_pu(__mmask k1, _M512I v1, _M512I v2)
+__mmask       _mm512_cmple_pu(_M512I v1, _M512I v2)
+__mmask  _mm512_mask_cmple_pu(__mmask k1, _M512I v1, _M512I v2)
+__mmask      _mm512_cmpneq_pu(_M512I v1, _M512I v2)
+__mmask _mm512_mask_cmpneq_pu(__mmask k1, _M512I v1, _M512I v2)
+__mmask      _mm512_cmpnlt_pu(_M512I v1, _M512I v2)
+__mmask _mm512_mask_cmpnlt_pu(__mmask k1, _M512I v1, _M512I v2)
+__mmask      _mm512_cmpnle_pu(_M512I v1, _M512I v2)
+__mmask _mm512_mask_cmpnle_pu(__mmask k1, _M512I v1, _M512I v2)
+
+COMPRESS{D,Q} - Pack and Store Vector to Unaligned Memory
+Packs and downconverts the mask-enabled elements of vector v1 into a byte/word/doubleword or quadword stream logically mapped starting at element-aligned address m. The length of the stream depends on the number of enabled masks, as elements disabled by the mask are not added to the stream. For example, a vector being downconverted to 8-bit values with a mask of 0x1010 will result in a contiguous stream of 2 bytes.
+void      _mm512_compressd(void *m, _M512 v1, _MM_DOWNCONV32_ENUM d, _MM_MEM_HINT_ENUM nt)
+void _mm512_mask_compressd(void *m, __mmask k1, _M512 v1, _MM_DOWNCONV32_ENUM d, _MM_MEM_HINT_ENUM nt)
+void      _mm512_compressq(void *m, _M512 v1, _MM_DOWNCONV64_ENUM d, _MM_MEM_HINT_ENUM nt)
+void _mm512_mask_compressq(void *m, __mmask k1, _M512 v1, _MM_DOWNCONV64_ENUM d, _MM_MEM_HINT_ENUM nt)
+
+CVTINS_PS2F11 - Convert and Insert Float32 Vector to Float11:11:10 Vector
+Performs an element-by-element conversion and rounding from the float32 vector v2 to a float11 or float10 vector, depending on the field being inserted.
+_M512      _mm512_cvtins_ps2f11(_M512 v1, _M512 v2, _MM_ROUND_MODE_ENUM rc, _MM_FLOAT11_FIELD_ENUM f)
+_M512 _mm512_mask_cvtins_ps2f11(_M512 v1, __mmask k1, _M512 v2, _MM_ROUND_MODE_ENUM rc,
+_MM_FLOAT11_FIELD_ENUM field)
+
+CVTINS_PS2U10 - Convert and Insert Float32 Vector to Unorm10:10:10:2 Vector
+Performs an element-by-element conversion from the float32 vector v2 to a unorm10 or unorm2 vector, depending on the field being inserted.
+_M512      _mm512_cvtins_ps2u10(_M512 v1, _M512 v2, _MM_UNORM10_FIELD_ENUM field)
+_M512 _mm512_mask_cvtins_ps2u10(_M512 v1, __mmask k1, _M512 v2, _MM_UNORM10_FIELD_ENUM field)
+
+CVTL_PD2{PU,PI,PS} %G–%@ Convert Float64 Vector to Low Half of Vector
+Performs an element-by-element conversion from the float64 vector v2. The result is returned in the lower half of the vector.
+_M512I      _mm512_cvtl_pd2pi(_M512I v1_old, _M512D v2, _MM_ROUND_MODE_ENUM rc)
+_M512I _mm512_mask_cvtl_pd2pi(_M512I v1_old, __mmask k1, _M512D v2, _MM_ROUND_MODE_ENUM rc)
+
+CVTH_PD2{PU,PI,PS} - Convert Float64 Vector to High Half of Vector
+Performs an element-by-element conversion from the float64 vector v2. The result is returned in the higher half of the vector.
+_M512I      _mm512_cvth_pd2pi(_M512I v1_old, _M512D v2, _MM_ROUND_MODE_ENUM rc)
+_M512I _mm512_mask_cvth_pd2pi(_M512I v1_old, __mmask k1, _M512D v2, _MM_ROUND_MODE_ENUM rc)
+
+CVTL_{PU,PI,PS}2PD - Convert Low Half of Vector to Float64 Vector
+Performs an element-by-element conversion from the lower half of vector v2 to a float64 vector.
+_M512D      _mm512_cvtl_pi2pd(_M512I v2)
+_M512D _mm512_mask_cvtl_pi2pd(_M512D v1_old, __mmask k1, _M512I v2)
+
+CVTH_{PU,PI,PS}2PD - Convert High Half of Vector to Float64 Vector
+Performs an element-by-element conversion from the higher half of vector v2 to a float64 vector.
+_M512D      _mm512_cvth_pi2pd(_M512I v2)
+_M512D _mm512_mask_cvth_pi2pd(_M512D v1_old, __mmask k1, _M512I v2)
+
+CVT_{PU,PI}2PS - Convert Vector to Float32 Vector
+Performs an element-by-element conversion from a uint32 or int32 vector v2 to a float32 vector, then performs an optional adjustment to the exponent.
+_M512      _mm512_cvt_pu2ps(_M512I v2, _MM_EXP_ADJ_ENUM expadj)
+_M512 _mm512_mask_cvt_pu2ps(_M512 v1_old, __mmask k1, _M512I v2, _MM_EXP_ADJ_ENUM expadj)
+_M512      _mm512_cvt_pi2ps(_M512I v2, _MM_EXP_ADJ_ENUM expadj)
+_M512 _mm512_mask_cvt_pi2ps(_M512 v1_old, __mmask k1, _M512I v2, _MM_EXP_ADJ_ENUM expadj)
+
+CVT_PS2{PU,PI} - Convert Float32 Vector to Vector
+Performs an element-by-element conversion and rounding from float32 vector v2 to a uint32 or int32 vector, with an optional exponent adjustment before the conversion.
+_M512I      _mm512_cvt_ps2pi(_M512 v2, _MM_ROUND_MODE_ENUM rc, _MM_EXP_ADJ_ENUM expadj)
+_M512I _mm512_mask_cvt_ps2pi(_M512I v1_old, __mmask k1, _M512 v2, _MM_ROUND_MODE_ENUM rc,
+_MM_EXP_ADJ_ENUM expadj)
+
+CVT_PS2SRGB8 - Convert Float32 Vector to SRGB8 Vector
+Performs an element-by-element conversion from the float32 vector v2 to a SRGB8 vector.
+_M512      _mm512_cvt_ps2srgb8(_M512 v2)
+_M512 _mm512_mask_cvt_ps2srgb8(_M512 v1_old, __mmask k1, _M512 v2)
+
+EXP2_PS - Exponential Base-2 of Float32 Vector
+Performs an element-by-element computation of the base-2 exponent of a float32 vector v2.
+_M512      _mm512_exp2_ps(_M512 v2)
+_M512 _mm512_mask_exp2_ps(_M512 v1_old, __mmask k1, _M512 v2)
+
+FIXUP_PS - Fix Up Special Float32 Vector Numbers
+Performs an element-by-element fix-up of various real and special number types in the float32 vector v2, as specified by the constant value fixup.  This value can only be created by the macro _MM_FIXUP().
+_M512      _mm512_fixup_ps(_M512 v1, _M512 v2, _MM_FIXUPTABLE_ENUM fixup)
+_M512 _mm512_mask_fixup_ps(_M512 v1, __mmask k1, _M512 v2, _MM_FIXUPTABLE_ENUM fixup)
+
+GATHERD - Gather Doubleword Vector
+A set of up to 16 memory locations pointed by base address m + index vector index * scale scale are read and converted to a doubleword vector.
+_M512      _mm512_gatherd(_M512I index, void *m, _MM_FULLUP32_ENUM upconv,
+_MM_INDEX_SCALE_ENUM scale, _MM_MEM_HINT_ENUM nt)
+_M512 _mm512_mask_gatherd(_M512 v1_old, __mmask k1, _M512I index, void *m, _MM_FULLUP32_ENUM upconv,
+_MM_INDEX_SCALE_ENUM scale, _MM_MEM_HINT_ENUM nt)
+
+GATHERPFD - Gather Prefetch Doubleword Vector
+A set of up to 16 doubleword memory locations pointed by base address m + index vector index * scale scale are prefetched from memory to L1 level of cache.
+void      _mm512_gatherpfd(_M512I index, void *m, _MM_FULLUP32_ENUM upconv,
+_MM_INDEX_SCALE_ENUM scale, _MM_MEM_HINT_ENUM nt)
+void _mm512_mask_gatherpfd(_M512I index, __mmask k1, void *m, _MM_FULLUP32_ENUM upconv,
+_MM_INDEX_SCALE_ENUM scale, _MM_MEM_HINT_ENUM nt)
+
+GETEXP_PS - Extract Float32 Vector of Exponents
+Performs an element-by-element exponent extraction from the float32 vector v2.
+_M512      _mm512_getexp_ps(_M512 v2)
+_M512 _mm512_mask_getexp_ps(_M512 v1_old, __mmask k1, _M512 v2)
+
+INSERTFIELD_PI - Rotate Int32 Vector and Bitfield-Insert into Vector
+Performs an element-by-element rotation and bitfield insertion from the int32 vector v3 into int32 vector v2.
+_M512I      _mm512_insertfield_pi(_M512I v2, _M512I v3, _MM_BITPOSITION32_ENUM rotation,
+_MM_BITPOSITION32_ENUM low, _MM_BITPOSITION32_ENUM high)
+_M512I _mm512_mask_insertfield_pi(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3,
+_MM_BITPOSITION32_ENUM rotation, _MM_BITPOSITION32_ENUM low,
+_MM_BITPOSITION32_ENUM high)
+
+LOAD{D,Q} - Load Vector from Memory
+The 1, 2, 4, 8, 16, 32, or 64 bytes (depending on the conversion upconv and broadcast arguments) at memory address mare broadcast and/or converted to a doubleword or quadword vector.
+_M512      _mm512_loadd(void *m, _MM_FULLUP32_ENUM upconv, _MM_BROADCAST32_ENUM broadcast,
+_MM_MEM_HINT_ENUM nt)
+_M512 _mm512_mask_loadd(_M512 v1_old, __mmask k1, void *m, _MM_FULLUP32_ENUM upconv,
+_MM_BROADCAST32_ENUM broadcast, _MM_MEM_HINT_ENUM nt)
+_M512      _mm512_loadq(void *m, _MM_FULLUP64_ENUM upconv, _MM_BROADCAST64_ENUM broadcast,
+_MM_MEM_HINT_ENUM nt)
+_M512 _mm512_mask_loadq(_M512 v1_old, __mmask k1, void *m, _MM_FULLUP64_ENUM upconv,
+_MM_BROADCAST64_ENUM broadcast, _MM_MEM_HINT_ENUM nt)
+
+EXPAND{D,Q} - Load Unaligned and Unpack to Vector
+The byte/word/doubleword or quadword stream starting at the element aligned address m is loaded, converted and expanded into the writemask-enabled elements of vector v1. The number of set bits in the writemask determines the length of the converted stream, as each converted element is mapped to exactly one of the elements in v1, skipping over writemasked elements of v1.
+_M512      _mm512_expandd(_M512 v1_old, void *m, _MM_FULLUP32_ENUM upconv, _MM_MEM_HINT_ENUM nt)
+_M512 _mm512_mask_expandd(_M512 v1_old, __mmask k1, void *m, _MM_FULLUP32_ENUM upconv,
+_MM_MEM_HINT_ENUM nt)
+_M512      _mm512_expandq(_M512 v1_old, void *m, _MM_FULLUP32_ENUM upconv, _MM_MEM_HINT_ENUM nt)
+_M512 _mm512_mask_expandq(_M512 v1_old, __mmask k1, void *m, _MM_FULLUP32_ENUM upconv,
+_MM_MEM_HINT_ENUM nt)
+
+LOG2_PS - Logarithm Base-2 of Float32 Vector
+Performs an element-by-element computation of the base-2 logarithm of a float32 vector v2.
+_M512      _mm512_log2_ps(_M512 v2)
+_M512 _mm512_mask_log2_ps(_M512 v1_old, __mmask k1, _M512 v2)
+
+MADDijk functions are named to reflect the operand indices that are first multiplied and then added to form the total:  V1 = Vi * Vj + Vk.
+
+MADD132_{PS,PD} %G–%@ Multiply and Add Vectors
+Performs an element-by-element multiplication between vector v1 and vector v3, then adds the result to vector v2.
+_M512       _mm512_madd132_ps(_M512 v1, _M512 v2, _M512 v3)
+_M512  _mm512_mask_madd132_ps(_M512 v1, __mmask k1, _M512 v2, _M512 v3)
+_M512D      _mm512_madd132_pd(_M512D v1, _M512D v2, _M512D v3)
+_M512D _mm512_mask_madd132_pd(_M512D v1, __mmask k1, _M512D v2, _M512D v3)
+
+MADD213_{PS,PD} %G–%@ Multiply and Add Vectors
+Performs an element-by-element multiplication between vector v2 and vector v1, then adds the result to vector v3.
+_M512       _mm512_madd132_ps(_M512 v1, _M512 v2, _M512 v3)
+_M512  _mm512_mask_madd132_ps(_M512 v1, __mmask k1, _M512 v2, _M512 v3)
+_M512D      _mm512_madd132_pd(_M512D v1, _M512D v2, _M512D v3)
+_M512D _mm512_mask_madd132_pd(_M512D v1, __mmask k1, _M512D v2, _M512D v3)
+
+MADD231_{PS,PD} %G–%@ Multiply and Add Vectors
+Performs an element-by-element multiplication between vector v2 and vector v3, then adds the result to vector v1.
+_M512       _mm512_madd132_ps(_M512 v1, _M512 v2, _M512 v3)
+_M512  _mm512_mask_madd132_ps(_M512 v1, __mmask k1, _M512 v2, _M512 v3)
+_M512D      _mm512_madd132_pd(_M512D v1, _M512D v2, _M512D v3)
+_M512D _mm512_mask_madd132_pd(_M512D v1, __mmask k1, _M512D v2, _M512D v3)
+
+MADDN132_{PS,PD} %G–%@ Multiply, Add and Negate Vectors
+Performs an element-by-element multiplication between vector v1 and vector v3, adds the result to vector v2, and negates the sum.
+_M512       _mm512_madd132_ps(_M512 v1, _M512 v2, _M512 v3)
+_M512  _mm512_mask_madd132_ps(_M512 v1, __mmask k1, _M512 v2, _M512 v3)
+_M512D      _mm512_madd132_pd(_M512D v1, _M512D v2, _M512D v3)
+_M512D _mm512_mask_madd132_pd(_M512D v1, __mmask k1, _M512D v2, _M512D v3)
+
+MADDN213_{PS,PD} %G–%@ Multiply, Add and Negate Vectors
+Performs an element-by-element multiplication between vector v2 and vector v1, adds the result to vector v3, and negates the sum.
+_M512       _mm512_madd132_ps(_M512 v1, _M512 v2, _M512 v3)
+_M512  _mm512_mask_madd132_ps(_M512 v1, __mmask k1, _M512 v2, _M512 v3)
+_M512D      _mm512_madd132_pd(_M512D v1, _M512D v2, _M512D v3)
+_M512D _mm512_mask_madd132_pd(_M512D v1, __mmask k1, _M512D v2, _M512D v3)
+
+MADDN231_{PS,PD} %G–%@ Multiply, Add and Negate Vectors
+Performs an element-by-element multiplication between vector v2 and vector v3, adds the result to vector v1, and negates the sum.
+_M512       _mm512_madd132_ps(_M512 v1, _M512 v2, _M512 v3)
+_M512  _mm512_mask_madd132_ps(_M512 v1, __mmask k1, _M512 v2, _M512 v3)
+_M512D      _mm512_madd132_pd(_M512D v1, _M512D v2, _M512D v3)
+_M512D _mm512_mask_madd132_pd(_M512D v1, __mmask k1, _M512D v2, _M512D v3)
+
+MADD233_{PI,PS} %G–%@ Multiply and Add Vectors
+This instruction is built around the concept of 4-element sets, of which there are four: elements 0-3, 4-7, 8-11, and 12-15.
+Each element 0-3 of vector v2 is multiplied by element 1 of vector v3, the result is added to element 0 of vector v3, and the final sum is returned in the corresponding element 0-3.
+Each element 4-7 of vector v2 is multiplied by element 5 of vector v3, the result is added to element 4 of vector v3, and the final sum is returned in the corresponding element 4-7.
+Each element 8-11 of vector v2 is multiplied by element 9 of vector v3, the result is added to element 8 of vector v3, and the final sum is returned in the corresponding element 8-11.
+Each element 12-15 of vector v2 is multiplied by element 13 of vector v3, the result is added to element 12 of vector v3, and the final sum is returned in the corresponding element 12-15.
+_M512I      _mm512_madd233_pi(_M512I v2, _M512I v3)
+_M512I _mm512_mask_madd233_pi(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+_M512       _mm512_madd233_ps(_M512 v2, _M512 v3)
+_M512  _mm512_mask_madd233_ps(_M512 v1_old, __mmask k1, _M512 v2, _M512 v3)
+
+MADD231_PI %G–%@ Multiply and Add Int32 Vectors
+Performs an element-by-element multiplication between int32 vector v2 and int32 vector v3, then adds the result to int32 vector v1.
+_M512I      _mm512_madd231_pi(_M512I v1, _M512I v2, _M512I v3)
+_M512I _mm512_mask_madd231_pi(_M512I v1, __mmask k1, _M512I v2, _M512I v3)
+
+MAXABS_PS - Absolute Maximum of Float32 Vectors
+Determines the maximum of the absolute values of each pair of corresponding elements in float32 vector v2 and float32 vector v3.
+_M512       _mm512_maxabs_ps(_M512 v2, _M512 v3);
+_M512  _mm512_mask_maxabs_ps(_M512 v1_old, __mmask k1, _M512 v2, _M512 v3)
+
+MAX_{PU,PI,PS,PD} - Maximum of Vectors
+Determines the maximum value of each pair of corresponding elements in vector v2 and vector v3.
+_M512I      _mm512_max_pu(_M512I v2, _M512I v3)
+_M512I _mm512_mask_max_pu(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+_M512I      _mm512_max_pi(_M512I v2, _M512I v3)
+_M512I _mm512_mask_max_pi(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+_M512       _mm512_max_ps(_M512 v2, _M512 v3)
+_M512  _mm512_mask_max_ps(_M512 v1_old, __mmask k1, _M512 v2, _M512 v3)
+_M512D      _mm512_max_pd(_M512D v2, _M512D v3)
+_M512D _mm512_mask_max_pd(_M512D v1_old, __mmask k1, _M512D v2, _M512D v3)
+
+MIN_{PU,PI,PS,PD} - Minimum of Vectors
+Determines the minimum value of each pair of corresponding elements in vector v2 and vector v3.
+_M512I      _mm512_min_pu(_M512I v2, _M512I v3)
+_M512I _mm512_mask_min_pu(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+_M512I      _mm512_min_pi(_M512I v2, _M512I v3)
+_M512I _mm512_mask_min_pi(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+_M512       _mm512_min_ps(_M512 v2, _M512 v3)
+_M512  _mm512_mask_min_ps(_M512 v1_old, __mmask k1, _M512 v2, _M512 v3)
+_M512D      _mm512_min_pd(_M512D v2, _M512D v3)
+_M512D _mm512_mask_min_pd(_M512D v1_old, __mmask k1, _M512D v2, _M512D v3)
+
+MOV{D,Q} %G–%@ Copy Vector
+Copies one vector to another.
+_M512       _mm512_mov(_M512 v2)
+_M512 _mm512_mask_movd(_M512 v1_old, __mmask k1, _M512 v2)
+_M512 _mm512_mask_movq(_M512 v1_old, __mmask k1, _M512 v2)
+
+
+MSUBijk functions are named to reflect the operand indices that are first multiplied and then subtracted to form the total:  V1 = Vi * Vj - Vk.
+
+MSUB132_{PS,PD} - Multiply and Subtract Vectors
+Performs an element-by-element multiplication of vector v1 and vector v3, then subtracts vector v2 from the result.
+_M512       _mm512_msub213_ps(_M512 v1, _M512 v2, _M512 v3)
+_M512  _mm512_mask_msub213_ps(_M512 v1, __mmask k1, _M512 v2, _M512 v3)
+_M512D      _mm512_msub213_ps(_M512D v1, _M512D v2, _M512D v3)
+_M512D _mm512_mask_msub213_ps(_M512D v1, __mmask k1, _M512D v2, _M512D v3)
+
+MSUB213_{PS,PD} - Multiply and Subtract Vectors
+Performs an element-by-element multiplication of vector v2 and vector v1, then subtracts vector v3 from the result.
+_M512       _mm512_msub213_ps(_M512 v1, _M512 v2, _M512 v3)
+_M512  _mm512_mask_msub213_ps(_M512 v1, __mmask k1, _M512 v2, _M512 v3)
+_M512       _mm512_msub213_ps(_M512 v1, _M512 v2, _M512 v3)
+_M512  _mm512_mask_msub213_ps(_M512 v1, __mmask k1, _M512 v2, _M512 v3)
+
+MSUB231_{PS,PD} - Multiply and Subtract Vectors
+Performs an element-by-element multiplication of vector v2 and vector v3, then subtracts vector v1 from the result.
+_M512       _mm512_msub213_ps(_M512 v1, _M512 v2, _M512 v3)
+_M512  _mm512_mask_msub213_ps(_M512 v1, __mmask k1, _M512 v2, _M512 v3)
+
+MSUBR132_{PS,PD} - Multiply and Reverse Subtract Vectors
+Performs an element-by-element multiplication of vector v2 and vector v1, then subtracts the result from vector v3.
+_M512       _mm512_msub132_ps(_M512 v1, _M512 v2, _M512 v3)
+_M512  _mm512_mask_msub132_ps(_M512 v1, __mmask k1, _M512 v2, _M512 v3)
+_M512D      _mm512_msub132_pd(_M512D v1, _M512D v2, _M512D v3)
+_M512D _mm512_mask_msub132_pd(_M512D v1, __mmask k1, _M512D v2, _M512D v3)
+
+MSUBR213_{PS,PD} - Multiply and Reverse Subtract Vectors
+Performs an element-by-element multiplication of vector v2 and vector v1, then subtracts the result from vector v3.
+_M512       _mm512_msub213_ps(_M512 v1, _M512 v2, _M512 v3)
+_M512  _mm512_mask_msub213_ps(_M512 v1, __mmask k1, _M512 v2, _M512 v3)
+_M512D      _mm512_msub213_pd(_M512D v1, _M512D v2, _M512D v3)
+_M512D _mm512_mask_msub213_pd(_M512D v1, __mmask k1, _M512D v2, _M512D v3)
+
+MSUBR231_{PS,PD} - Multiply and Reverse Subtract Vectors
+Performs an element-by-element multiplication of vector v2 and vector v3, then subtracts the result from vector v1.
+_M512       _mm512_msub231_ps(_M512 v1, _M512 v2, _M512 v3)
+_M512  _mm512_mask_msub231_ps(_M512 v1, __mmask k1, _M512 v2, _M512 v3)
+_M512D      _mm512_msub231_pd(_M512D v1, _M512D v2, _M512D v3)
+_M512D _mm512_mask_msub231_pd(_M512D v1, __mmask k1, _M512D v2, _M512D v3)
+
+MSUBR23C1_{PS,PD} - Multiply Vectors and Subtract from 1
+Performs an element-by-element multiplication of vector v2 and vector v3, then subtracts the result from the constant value 1.
+_M512       _mm512_msubr23c1_ps(_M512 v2, _M512 v3)
+_M512  _mm512_mask_msubr23c1_ps(_M512 v1_old, __mmask k1, _M512 v2, _M512 v3)
+_M512D      _mm512_msubr23c1_pd(_M512D v2, _M512D v3)
+_M512D _mm512_mask_msubr23c1_pd(_M512D v1_old, __mmask k1, _M512D v2, _M512D v3)
+
+MULH_{PU,PI} %G–%@ Multiply Vectors and Store High Result
+Performs an element-by-element multiplication between vector v2 and vector v3, and the high 32 bits of the result are returned.
+_M512I      _mm512_mulh_pu(_M512I v2, _M512I v3)
+_M512I _mm512_mask_mulh_pu(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+_M512I      _mm512_mulh_pi(_M512I v2, _M512I v3)
+_M512I _mm512_mask_mulh_pi(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+
+MULL_PI - Multiply Int32 Vectors and Store Low Result
+Performs an element-by-element multiplication between int32 vector v2 and int32 vector v3, and the low 32 bits of the result are returned.
+_M512I      _mm512_mull_pi(_M512I v2, _M512I v3)
+_M512I _mm512_mask_mull_pi(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+
+MUL_{PS,PD} - Multiply Vectors
+Performs an element-by-element multiplication between vector v2 and vector v3.
+_M512       _mm512_mul_ps(_M512 v2, _M512 v3)
+_M512  _mm512_mask_mul_ps(_M512 v1_old, __mmask k1, _M512 v2, _M512 v3)
+_M512D      _mm512_mul_ps(_M512D v2, _M512D v3)
+_M512D _mm512_mask_mul_ps(_M512D v1_old, __mmask k1, _M512D v2, _M512D v3)
+
+OR_{PI,PQ} - Bitwise OR Vectors
+Performs an element-by-element bitwise OR between vector v2 and vector v3.
+_M512I      _mm512_or_pi(_M512I v2, _M512I v3)
+_M512I _mm512_mask_or_pi(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+_M512I      _mm512_or_pq(_M512I v2, _M512I v3)
+_M512I _mm512_mask_or_pq(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+
+RECIP_PS - Reciprocal of a Float32 Vector
+Computes the element-by-element reciprocal of float32 vector v2.
+_M512       _mm512_recip_ps(_M512 v2, _M512 v3)
+_M512  _mm512_mask_recip_ps(_M512 v1_old, __mmask k1, _M512 v2, _M512 v3)
+
+ROTATEFIELD_PI - Rotate and Bitfield-Mask Int32 Vector
+Performs an element-by-element rotation and bitfield masking of int32 vector v2.
+_M512I      _mm512_rotatefield_pi(_M512I v2, _MM_BITPOSITION32_ENUM rotation,
+_MM_BITPOSITION32_ENUM low, _MM_BITPOSITION32_ENUM high)
+_M512I _mm512_mask_rotatefield_pi(_M512I v1_old, __mmask k1, _M512I v2,
+_MM_BITPOSITION32_ENUM rotation, _MM_BITPOSITION32_ENUM low,
+_MM_BITPOSITION32_ENUM high)
+
+ROUND_PS - Round Float32 Vector
+Performs an element-by-element rounding of float32 vector v2. The rounding result for each element is a float32 containing an integer or fixed-point value, depending on the value of expadj; the direction of rounding depends on the value of rc.
+_M512       _mm512_round_ps(_M512 v2, _MM_ROUND_MODE_ENUM rc, _MM_EXP_ADJ_ENUM expadj)
+_M512  _mm512_mask_round_ps(_M512 v1_old, __mmask k1, _M512 v2, _MM_ROUND_MODE_ENUM rc,
+_MM_EXP_ADJ_ENUM expadj)
+
+RSQRT_PS - Reciprocal of the Square Root of a Float32 Vector
+Computes the element-by-element reciprocal square root of float32 vector v2.
+_M512      _mm512_rsqrt_ps(_M512 v2)
+_M512 _mm512_mask_rsqrt_ps(_M512 v1_old, __mmask k1, _M512 v2)
+
+SBB_PI - Subtract Int32 Vectors with Borrow
+Performs an element-by-element three-input subtraction of int32 vector v3, as well as the corresponding bit of k2, from int32 vector v1. In addition, the borrow from the subtraction for the nth element is written into the nth bit of vector mask k2_res.
+_M512I      _mm512_sbb_pi(_M512I v1, __mmask k2, _M512I v3, __mmask *k2_res)
+_M512I _mm512_mask_sbb_pi(_M512I v1, __mmask k1, __mmask k2, _M512I v3, __mmask *k2_res)
+
+SBBR_PI %G–%@ Reverse Subtract Int32 Vectors with Borrow
+Performs an element-by-element three-input subtraction of int32 vector v1, as well as the corresponding bit of k2, from the int32 vector v3. In addition, the borrow from the subtraction for the nth element is written into the nth bit of vector mask k2_res.
+_M512I      _mm512_sbb_pi(_M512I v1, __mmask k2, _M512I v3, __mmask *k2_res)
+_M512I _mm512_mask_sbb_pi(_M512I v1, __mmask k1, __mmask k2, _M512I v3, __mmask *k2_res)
+
+SCALE_PS - Scale Float32 Vectors
+Performs an element-by-element scale of float32 vector v2 by multiplying it by 2exp where exp is the int32 vector v3.
+_M512      _mm512_scale_ps(_M512 v2, _M512 v3)
+_M512 _mm512_mask_scale_ps(_M512 v1_old, __mmask k1, _M512 v2, _M512 v3)
+
+SCATTERD - Scatter Doubleword Vector to Memory
+Downconverts and stores elements in doubleword vector v1 to the memory locations pointed by base address m + index vector index * scale scale.
+void      _mm512_scatterd(void *m, _M512I index, _M512 v1, _MM_DOWNCONV32_ENUM down_conv,
+_MM_INDEX_SCALE_ENUM scale, _MM_MEM_HINT_ENUM nt)
+void _mm512_mask_scatterd(void *m, __mmask k1, _M512I index, _M512 v1, _MM_DOWNCONV32_ENUM down_conv,
+_MM_INDEX_SCALE_ENUM scale, _MM_MEM_HINT_ENUM nt)
+
+SCATTERPFD - Scatter Prefetch Doubleword Vector
+Prefetches into the L1 level of cache the memory locations pointed by base address m + index vector index * scale scale, with request for ownership (exclusive).
+void      _mm512_scatterpfd(void *m, _M512I index, _MM_DOWNCONV32_ENUM down_conv,
+_MM_INDEX_SCALE_ENUM scale, _MM_MEM_HINT_ENUM nt)
+void _mm512_mask_scatterpfd(void *m, __mmask k1, _M512I index, _MM_DOWNCONV32_ENUM down_conv,
+_MM_INDEX_SCALE_ENUM scale, _MM_MEM_HINT_ENUM nt)
+
+SHUF128x32 - Shuffle Vector Dqwords Then Doublewords
+Shuffles 128-bit blocks of the vector read from vector v2, and then 32-bit blocks of the result.
+_M512      _mm512_shuf128x32(_M512 v2, _MM_PERM_ENUM perm128, _MM_PERM_ENUM perm32)
+_M512 _mm512_mask_shuf128x32(_M512 v1_old, __mmask k1, _M512 v2, _MM_PERM_ENUM perm128,
+_MM_PERM_ENUM perm32)
+
+SHUF128x32_M - Shuffle Vector Dqwords Then Doublewords
+Shuffles 128-bit blocks of the vector read from memory, and then 32-bit blocks of the result.
+_M512      _mm512_shuf128x32_m(void *m, _MM_PERM_ENUM perm128, _MM_PERM_ENUM perm32,
+_MM_MEM_HINT_ENUM nt)
+_M512 _mm512_mask_shuf128x32_m(_M512 v1_old, __mmask k1, void *m, _MM_PERM_ENUM perm128,
+_MM_PERM_ENUM perm32, _MM_MEM_HINT_ENUM nt)
+
+SLL_PI - Shift Int32 Vector Left Logical
+Performs an element-by-element left shift of int32 vector v2, shifting by the number of bits, modulo 32, specified by the int32 vector v3.
+_M512I      _mm512_sll_pi(_M512I v2,_M512I v3)
+_M512I _mm512_mask_sll_pi(_M512I v1_old, __mmask k1, _M512I v2,_M512I v3)
+
+SRA_PI - Shift Int32 Vector Right Arithmetic
+Performs an element-by-element arithmetic right shift of int32 vector v2, shifting by the number of bits, modulo 32, specified by int32 vector v3.
+_M512I      _mm512_sra_pi(_M512I v2, _M512I v3)
+_M512I _mm512_mask_sra_pi(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+
+SRL_PI - Shift Int32 Vector Right Logical
+Performs an element-by-element logical right shift of int32 vector v2, shifting by the number of bits, modulo 32, specified by int32 vector v3.
+_M512I      _mm512_srl_pi(_M512I v2, _M512I v3)
+_M512I _mm512_mask_srl_pi(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+
+STORE{D,Q} - Store Vector to Memory
+Downconverts and stores elements, the 4 lower elements, or the lowest element of vector v1 to the memory location m.
+void      _mm512_stored(void *m, _M512 v1, _MM_DOWNCONV32_ENUM d, _MM_STORE_SUBSET32_ENUM s,
+_MM_MEM_HINT_ENUM nt)
+void _mm512_mask_stored(void *m, __mmask k1, _M512 v1, _MM_DOWNCONV32_ENUM d,
+_MM_STORE_SUBSET32_ENUM s, _MM_MEM_HINT_ENUM nt)
+void      _mm512_storeq(void *m, _M512 v1, _MM_DOWNCONV64_ENUM d, _MM_STORE_SUBSET64_ENUM subset,
+_MM_MEM_HINT_ENUM nt)
+void _mm512_mask_storeq(void *m, __mmask k1, _M512 v1, _MM_DOWNCONV64_ENUM d,
+_MM_STORE_SUBSET64_ENUM s, _MM_MEM_HINT_ENUM nt)
+
+SUB_{PI,PS,PD} - Subtract Vectors
+Performs an element-by-element subtraction of vector v3 from vector v2.
+_M512I      _mm512_sub_pi(_M512I v2, _M512I v3)
+_M512I _mm512_mask_sub_pi(_M512I v1_old,  __mmask k1, _M512I v2, _M512I v3)
+_M512       _mm512_sub_ps(_M512 v2, _M512 v3)
+_M512  _mm512_mask_sub_ps(_M512 v1_old,  __mmask k1, _M512 v2, _M512 v3)
+_M512D       _mm512_sub_pd(_M512D v2, _M512D v3)
+_M512D  _mm512_mask_sub_pd(_M512D v1_old,  __mmask k1, _M512D v2, _M512D v3)
+
+SUBR_{PI,PS,PD} - Reverse Subtract Vectors
+Performs an element-by-element subtraction of vector v2 from vector v3.
+_M512I      _mm512_subr_pi(_M512I v2,_M512I v3)
+_M512I _mm512_mask_subr_pi(_M512I v1_old,  __mmask k1, _M512I v2, _M512I v3)
+_M512       _mm512_subr_ps(_M512 v2,_M512 v3)
+_M512  _mm512_mask_subr_ps(_M512 v1_old,  __mmask k1, _M512 v2, _M512 v3)
+_M512D      _mm512_subr_pd(_M512D v2, _M512D v3)
+_M512D _mm512_mask_subr_pd(_M512D v1_old,  __mmask k1, _M512D v2, _M512D v3)
+
+SUBSETB_PI - Subtract Int32 Vectors and Set Borrow
+Performs an element-by-element subtraction of int32 vector v3 from int32 vector v1. In addition, the borrow from the subtraction for the nth element is written into the nth bit of vector mask k2_res.
+_M512I      _mm512_subsetb_pi(_M512I v1, _M512I v3, __mmask *k2_res)
+_M512I _mm512_mask_subsetb_pi(_M512I v1, __mmask k1, __mmask k2_old, _M512I v3, __mmask *k2_res)
+
+SUBRSETB_PI %G–%@ Reverse subtract Int32 Vectors and Set Borrow
+Performs an element-by-element subtraction of int32 vector v1 from int32 vector v3. In addition, the borrow from the subtraction for the nth element is written into the nth bit of vector mask k2_res.
+_M512I      _mm512_subrsetb_pi(_M512I v1, _M512I v3, __mmask *k2_res)
+_M512I _mm512_mask_subrsetb_pi(_M512I v1, __mmask k1, __mmask k2_old, _M512I v3, __mmask *k2_res)
+
+TEST_PI - Logical AND Int32 Vector and Set Vector Mask
+Performs an element-by-element bitwise AND between int32 vector v1 and int32 vector v2, and uses the result to construct a 16-bit vector mask, with a 0-bit for each element for which the result of the AND was 0, and a 1-bit where the result of the AND was not 0.
+__mmask      _mm512_test_pi(_M512I v1, _M512I v2)
+__mmask _mm512_mask_test_pi(__mmask k1, _M512I v1, _M512I v2)
+
+XOR_{PI,PQ} - Bitwise XOR Vectors
+Performs an element-by-element bitwise XOR between vector v2 and vector v3.
+_M512I      _mm512_xor_pi(_M512I v2, _M512I v3)
+_M512I _mm512_mask_xor_pi(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+_M512I      _mm512_xor_pq(_M512I v2, _M512I v3)
+_M512I _mm512_mask_xor_pq(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+
+
+Scalar Operations
+The Larrabee scalar instructions operate on the 16, 32, or 64 bit scalar registers:
+
+op r1, r2
+
+where r1 is the destination register, and r2 is the source register. Most Larrabee scalar instruction are implemented like this:
+
+r1 = _mm_op_<size>(r2)
+
+where size is either 16, 32, or 64.  When the destination is also used as a source, it is included in the inputs as r1:
+
+r1 = _mm_op_<size>(r1, r2)
+
+
+BITINTERLEAVE11_{16,32,64} %G–%@ Bitwise Interleave Scalar
+Performs a 1:1 bit interleave of r1 and r2.
+unsigned short _mm_bitinterleave11_16(unsigned short r1, unsigned short r2)
+unsigned int   _mm_bitinterleave11_32(unsigned int r1, unsigned int r2)
+uint64_t       _mm_bitinterleave11_64(uint64_t r1, uint64_t r2)
+
+BITINTERLEAVE21_{16,32,64} %G–%@ Bitwise Interleave Scalar
+Performs a 2:1 bit interleave of r1 and r2.
+unsigned short _mm_bitinterleave21_16(unsigned short r1, unsigned short r2)
+unsigned int   _mm_bitinterleave21_32(unsigned int r1, unsigned int r2)
+uint64_t       _mm_bitinterleave21_64(uint64_t r1, uint64_t r2)
+
+BSFF_{16,32,64} %G–%@ Fast Bit Scan Forward for Scalar
+Searches r2 for the least significant set bit (1 bit). If a least significant 1 bit is found, its bit index is returned; otherwise, -1 is returned.
+short   _mm_bsff_16(unsigned short r2)
+int     _mm_bsff_32(unsigned int r2)
+int64_t _mm_bsff_64(uint64_t r2)
+
+BSFI_{16,32,64} %G–%@ Bit Scan Forward Initialized for Scalar
+Searches the r2 for the least significant set bit (1 bit) greater than the bit specified by r1. If a least significant 1 bit is found, its bit index is returned; otherwise, -1 is returned.
+short   _mm_bsfi_16(short r1, unsigned short r2)
+int     _mm_bsfi_32(int r1, unsigned int r2)
+int64_t _mm_bsfi_64(int64_t r1, uint64_t r2)
+
+BSRF_{16,32,64} %G–%@ Fast Bit Scan Reverse for Scalar
+Searches r2 for the most significant set bit (1 bit). If a most significant 1 bit is found, its bit index is returned; otherwise, -1 is returned.
+short   _mm_bsrf_16(unsigned short r2)
+int     _mm_bsrf_32(unsigned int r2)
+int64_t _mm_bsrf_64(uint64_t r2)
+
+BSRI_{16,32,64} %G–%@ Bit Scan Reverse Initialized for Scalar
+Searches r2 for the most significant set bit (1 bit) less than the bit specified by r1. If a most significant 1 bit is found, its bit index is returned; otherwise, -1 is returned.
+short   _mm_bsri_16(short r1, unsigned short r2)
+int     _mm_bsri_32(int r1, unsigned int r2)
+int64_t _mm_bsri_64(int64_t r1, uint64_t r2)
+
+CLEVICT1 %G–%@ Evict L1 Cache Line
+Invalidates from the first-level cache the cache line containing the specified linear address (updating accordingly the cache hierarchy if the line is dirty).
+void _mm_clevict1(void *m)
+
+CLEVICT2 %G–%@ Evict L2 Cache Line
+Invalidates from the second-level cache the cache line containing the specified linear address (updating accordingly the cache hierarchy if the line is dirty).
+void  _mm_clevict2(void *m)
+
+COUNTBITS_{16,32,64} %G–%@ Bit Population Count for Scalar
+Performs a population count of the 1-bits in r2.
+unsigned short _mm_countbits_16(unsigned short r2)
+unsigned int   _mm_countbits_32(unsigned int r2)
+uint64_t       _mm_countbits_64(uint64_t r2)
+
+INSERTFIELD_{16,32,64} %G–%@ Rotate and Bitfield-Insert Scalar
+Performs a rotation and bitfield insertion from r2 into r1.
+unsigned short _mm_insertfield_16(unsigned short r1, unsigned short r2,
+_MM_BITPOSITION16_ENUM rotation, _MM_BITPOSITION16_ENUM low,
+_MM_BITPOSITION16_ENUM high)
+unsigned int   _mm_insertfield_32(unsigned int r1, unsigned int r2, BitPosition32 rotation,
+_MM_BITPOSITION32_ENUM low, _MM_BITPOSITION32_ENUM high)
+uint64_t       _mm_insertfield_64(uint64_t r1, uint64_t r2, _MM_BITPOSITION64_ENUM rotation,
+_MM_BITPOSITION64_ENUM low, _MM_BITPOSITION64_ENUM high)
+
+QUADMASK16_{16,32,64} %G–%@ Set Per-Quad Mask
+For each quad (that is, each set of four 4-bit-aligned bits, such as bits 0-3 or 4-7) within the first qquad (16-bits) in r2, the 4 bits are ORed together, and the corresponding bit of the return value is set to the result of the OR.
+unsigned short _mm_quadmask16_16(unsigned short r2)
+unsigned int   _mm_quadmask16_32(unsigned int r2)
+uint64_t       _mm_quadmask16_64(uint64_t r2)
+
+ROTATEFIELD_{16,32,64} %G–%@ Rotate and Mask Scalar
+Performs a rotation and mask of r2.
+unsigned short _mm_rotatefield_16(unsigned short r2, _MM_BITPOSITION16_ENUM rotation,
+_MM_BITPOSITION16_ENUM low, _MM_BITPOSITION16_ENUM high)
+unsigned int   _mm_rotatefield_32(unsigned int r2, _MM_BITPOSITION32_ENUM rotation,
+_MM_BITPOSITION32_ENUM low, _MM_BITPOSITION32_ENUM high)
+uint64_t       _mm_rotatefield_64(uint64_t r2, _MM_BITPOSITION64_ENUM rotation,
+_MM_BITPOSITION64_ENUM low, _MM_BITPOSITION64_ENUM high)
+
+PREFETCH1 %G–%@ Prefetch an L1 Cache Line
+This is very similar to the existing IA-32 prefetch instruction, VPREFETCHh, as described in IA-32 Intel_ Architecture Software Developer-F�s Manual: Volume 2. If the line selected is already present in the cache hierarchy at a level closer to the processor, no data movement occurs.-A
+void _mm_vprefetch1(const void *m, PrefetchHint hint)
+
+PREFETCH2 %G-F–%@ Prefetch an L2 Cache Line-A
+This is very similar to the existing IA-32 prefetch instruction, VPREFETCHh, as described in IA-32 Intel_ Architecture Software Developer-F�s Manual: Volume 2. If the line selected is already present in the cache hierarchy at a level closer to the processor, no data movement occurs.-A
+void _mm_vprefetch2(const void *m, _MM_PREFETCH_HINT_ENUM hint)
+
+
+Vector Mask Operations
+Larrabee vector mask instructions are used to load, store, and manipulate the vector mask registers. They mostly take vector mask registers as the source and destinations such as:
+
+op k1, k2
+
+where k1 is the destination register, and k2 is the source register. Most Larrabee vector mask instructions are implemented like this:
+
+k1 = _mm512_op(k1, k2)
+
+where k1 is both the destination and a source vector mask register, and k2 is the second source vector mask register.
+
+
+VKAND %G-F–%@ Logical AND Vector Masks-A
+Performs a bitwise AND between the vector mask k2 and the vector mask k1.
+__mmask _mm512_vkand(__mmask k1, __mmask k2)
+
+VKANDN %G-F–%@ Logical AND NOT Vector Masks-A
+Performs a bitwise AND between vector mask k2, and the NOT of vector mask k1.
+__mmask _mm512_vkandn(__mmask k1, __mmask k2)
+
+VKANDNR %G-F–%@ Reverse Logical AND NOT Vector Masks-A
+Performs a bitwise AND between vector mask k2, and the NOT of vector mask k1.
+__mmask _mm512_vkandnr(__mmask k1, __mmask k2)
+
+VKMOVLHB %G-F–%@ Move Low Byte Portion Into High Portion of Vector Mask-A
+Insert low byte from vector mask k2 into high byte of vector mask k1.
+__mmask _mm512_vkmovlhb(__mmask k1, __mmask k2)
+
+VKNOT %G-F–%@ Logical NOT Vector Mask-A
+Performs a bitwise AND between vector mask k2, and the NOT of vector mask k1.
+__mmask _mm512_vknot(__mmask k1)
+
+VKOR %G-F–%@ Logical OR Vector Masks-A
+Performs a bitwise OR between the vector mask k2, and the vector mask k1.
+__mmask _mm512_vkor(__mmask k1, __mmask k2)
+
+VKXNOR %G-F–%@ Logical XNOR Vector Masks-A
+Performs a bitwise XNOR between the vector mask k1 and the vector mask k2.
+__mmask _mm512_vkxnor(__mmask k1, __mmask k2)
+
+VKXNOR %G-F–%@ Logical XOR Vector Masks-A
+Performs a bitwise XOR between the vector mask k1 and the vector mask k2.
+__mmask _mm512_vkxor(__mmask k1, __mmask k2)
+
+VKSWAPB %G-F–%@ Swap and Merge High Byte Portion and Low Portion-A
+of Vector Masks
+Move high byte from vector mask k1 into low byte of vector mask k1, and insert low byte of k2 into the high portion of vector mask k1.
+__mmask _mm512_vkswapb(__mmask k1, __mmask k2)
+
+VKORTESTZ %G-F–%@ OR Vector Mask and Compare to 0-A
+Performs a bitwise OR between vector mask k2, and vector mask k1, and compares the result to 0.
+int _mm512_vkortestz(__mmask k1, __mmask k2)
+
+VKORTESTC %G-F–%@ OR Vector Mask and Compare to 0xFFFF-A
+Performs a bitwise OR between vector mask k2, and vector mask k1, and compares the result to 0xFFFF.
+int _mm512_vkortestc(__mmask k1, __mmask k2)
+
+VKMOV %G-F–%@ Move Vector Mask-A
+Copies a vector mask k1 to another vector mask.
+__mmask _mm512_vkmov(__mmask k1)
+
+MASK2INT %G-F–%@ Move Vector Mask to Integer-A
+Copies a vector mask k1 to an integer.
+int _mm512_mask2int(__mmask k1)
+
+INT2MASK %G-F–%@ Move Integer to Vector Mask-A
+Copies an integer r1 to a vector mask.
+__mmask _mm512_int2mask(uint r1)
+
+
+Utility Operations
+Utility functions do not correspond directly to Larrabee new instructions, but are added for programming support.
+
+SETZERO_{PI,PS,PD} %G-F–%@ Set Vector to 0-A
+Return vector set with all elements equal to 0.
+_M512I _mm512_setzero_pi()
+_M512  _mm512_setzero_ps()
+_M512D _mm512_setzero_pd()
+
+SET_{PI,PS,PD} %G-F–%@ Set Vector from Array-A
+Return vector set with all elements of array a.
+_M512I _mm512_set_pi(int a[16])
+_M512  _mm512_set_ps(float a[16])
+_M512D _mm512_set_pd(double a[8])
+
+SET_1to8_{PQ,PD} %G-F–%@ Set Quadword Vector from Scalar-A
+Return vector set with all 8 elements equal to a.
+_M512D _mm512_set_1to8_pd(double a)
+_M512I _mm512_set_1to8_pq(int64_t a)
+
+SET_1to16_{PI,PS} %G-F–%@ Set Doubleword Vector from Scalar-A
+Return vector set with all 16 elements equal to a.
+_M512I _mm512_set_1to16_pi(int a)
+_M512  _mm512_set_1to16_ps(float a)
+
+SET_4to8_{PQ,PD} %G-F–%@ Set Quadword Vector from 4 Scalars-A
+Return vector set to dcbadcba.
+_M512I _mm512_set_4to8_pq(int64_t a, int64_t b, int64_t c, int64_t d)
+_M512D _mm512_set_4to8_pd(double a, double b, double c, double d)
+
+SET_4to16_{PI,PS} %G-F–%@ Set Doubleword Vector from 4 Scalars-A
+Return vector set to dcbadcbadcbadcba.
+_M512  _mm512_set_4to16_ps(float a, float b, float c, float d)
+_M512I _mm512_set_4to16_pi(int a, int b, int c, int d)
+
+SET_8to8_{PQ,PD} %G-F–%@ Set Quadword Vector from 8 Scalars-A
+Return vector set with all 8 scalars.
+_M512D _mm512_set_8to8_pd(double e7, double e6, double e5, double e4, double e3, double e2, double e1,
+double e0)
+_M512I _mm512_set_8to8_pq(int64_t e7, int64_t e6, int64_t e5, int64_t e4, int64_t e3, int64_t e2,
+int64_t e1, int64_t e0)
+
+SET_16to16_{PI,PS} %G-F–%@ Set Doubleword Vector from 16 Scalars-A
+Return vector set with all 16 scalars.
+_M512 _mm512_set_16to16_ps(float e15, float e14, float e13, float e12, float e11, float e10, float e9,
+float e8, float e7, float e6, float e5, float e4, float e3, float e2,
+float e1, float e0)
+_M512I _mm512_set_16to16_pi(int e15, int e14, int e13, int e12, int e11, int e10, int e9, int e8,
+int e7, int e6, int e5, int e4, int e3, int e2, int e1, int e0)
+
+
+Math Utility Operations
+Math utility functions do not correspond directly to Larrabee new instructions, but are added for programming support.
+
+ACOS_{PS,PD} %G-F–%@ Arc Cosine of Vector-A
+_M512       _mm512_acos_ps(_M512 v2)
+_M512  _mm512_mask_acos_ps(_M512 v1_old, __mmask k1, _M512 v2)
+_M512D      _mm512_acos_pd(_M512D v1)
+_M512D _mm512_mask_acos_pd(_M512D v1_old, __mmask k1, _M512D v2)
+
+ASIN_{PS,PD} %G-F–%@ Arc Sine of Vector-A
+_M512       _mm512_asin_ps(_M512 v2)
+_M512  _mm512_mask_asin_ps(_M512 v1_old, __mmask k1, _M512 v2)
+_M512D      _mm512_asin_pd(_M512D v2)
+_M512D _mm512_mask_asin_pd(_M512D v1_old, __mmask k1, _M512D v2)
+
+ATAN2_{PS,PD} %G-F–%@ Arc Tangent of Vectors-A
+_M512       _mm512_atan2_ps(_M512 v2, _M512 v3)
+_M512  _mm512_mask_atan2_ps(_M512 v1_old, __mmask k1, _M512 v2, _M512 v3)
+_M512D      _mm512_atan2_pd(_M512D v2, _M512D v3)
+_M512D _mm512_mask_atan2_pd(_M512D v1_old, __mmask k1, _M512D v2, _M512D v3)
+
+ATAN_{PS,PD} %G-F–%@ Arc Tangent of Vector-A
+_M512       _mm512_atan_ps(_M512 v2)
+_M512  _mm512_mask_atan_ps(_M512 v1_old, __mmask k1, _M512 v2)
+_M512D      _mm512_atan_pd(_M512D v2)
+_M512D _mm512_mask_atan_pd(_M512D v1_old, __mmask k1, _M512D v2)
+
+CEIL_{PS,PD} %G-F–%@ Round Vector to Nearest Upper Integer-A
+_M512       _mm512_ceil_ps(_M512D v2)
+_M512  _mm512_mask_ceil_ps(_M512D v1_old, __mmask k1, _M512D v2)
+_M512D      _mm512_ceil_pd(_M512D v2)
+_M512D _mm512_mask_ceil_pd(_M512D v1_old, __mmask k1, _M512D v2)
+
+COS_{PS,PD} %G-F–%@ Cosine of Vector-A
+_M512       _mm512_cos_ps(_M512 v2)
+_M512  _mm512_mask_cos_ps(_M512 v1_old, __mmask k1, _M512 v2)
+_M512D      _mm512_cos_pd(_M512D v2)
+_M512D _mm512_mask_cos_pd(_M512D v1_old, __mmask k1, _M512D v2)
+
+COSH_{PS,PD} %G-F–%@ Hyperbolic Cosine of Vector-A
+_M512       _mm512_cosh_ps(_M512 v2)
+_M512  _mm512_mask_cosh_ps(_M512 v1_old, __mmask k1, _M512 v2)
+_M512D      _mm512_cosh_pd(_M512D v2)
+_M512D _mm512_mask_cosh_pd(_M512D v1_old, __mmask k1, _M512D v2)
+
+DIV_{PU,PI,PS,PD} %G-F–%@ Quotient of Vectors-A
+_M512I      _mm512_div_pu(_M512I v2, _M512I v3)
+_M512I _mm512_mask_div_pu(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+_M512       _mm512_div_ps(_M512 v2, _M512 v3)
+_M512  _mm512_mask_div_ps(_M512 v1_old, __mmask k1, _M512 v2, _M512 v3)
+_M512I      _mm512_div_pi(_M512I v2, _M512I v3)
+_M512I _mm512_mask_div_pi(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+_M512D      _mm512_div_pd(_M512D v2, _M512D v3)
+_M512D _mm512_mask_div_pd(_M512D v1_old, __mmask k1, _M512D v2, _M512D v3)
+
+EXP2_PD %G-F–%@ Exponential Base-2 of Float64 Vector-A
+_M512D _mm512_exp2_pd(_M512D v2)
+_M512D _mm512_mask_exp2_pd(_M512D v1_old, __mmask k1, _M512D v1)
+
+EXP_{PS,PD} %G-F–%@ Exponential of Vector-A
+_M512 _mm512_exp_ps(_M512 v1)
+_M512 _mm512_mask_exp_ps(_M512 v0_old, __mmask k1, _M512 v1)
+_M512D _mm512_exp_pd(_M512D v1)
+_M512D _mm512_mask_exp_pd(_M512D v0_old, __mmask k1, _M512D v1)
+
+FLOOR_{PS,PD} %G-F–%@ Rounds Vector to Nearest Lower Integer-A
+_M512       _mm512_floor_ps(_M512 v2)
+_M512  _mm512_mask_floor_ps(_M512 v1_old, __mmask k1, _M512 v2)
+_M512D      _mm512_floor_pd(_M512D v2)
+_M512D _mm512_mask_floor_pd(_M512D v1_old, __mmask k1, _M512D v2)
+
+HYPOT_{PS,PD} %G-F–%@ Hypotenuse of Vectors-A
+_M512       _mm512_hypot_ps(_M512 v2, _M512 v3)
+_M512  _mm512_mask_hypot_ps(_M512 v1_old, __mmask k1, _M512 v2, _M512 v3)
+_M512D      _mm512_hypot_pd(_M512D v2, _M512D v3)
+_M512D _mm512_mask_hypot_pd(_M512D v0_old, __mmask k1, _M512D v2, _M512D v3)
+
+LOG10_{PS,PD} %G-F–%@ Logarithm Base-10 of Vector-A
+_M512       _mm512_log10_ps(_M512 v2)
+_M512  _mm512_mask_log10_ps(_M512 v1_old, __mmask k1, _M512 v2)
+_M512D      _mm512_log10_pd(_M512D v2)
+_M512D _mm512_mask_log10_pd(_M512D v1_old, __mmask k1, _M512D v2)
+
+LOG2_PD %G-F–%@ Logarithm Base-2 of Float64 Vector-A
+_M512D _mm512_log2_pd(_M512D v2)
+_M512D _mm512_mask_log2_pd(_M512D v1_old, __mmask k1, _M512D v2)
+
+LOG_{PS,PD} %G-F–%@ Logarithm of Vector-A
+_M512       _mm512_log_ps(_M512 v2)
+_M512  _mm512_mask_log_ps(_M512 v1_old, __mmask k1, _M512 v2)
+_M512D      _mm512_log_pd(_M512D v2)
+_M512D _mm512_mask_log_pd(_M512D v1_old, __mmask k1, _M512D v2)
+
+POW_{PS,PD} %G-F–%@ Vector Raised to the Power of Another Vector-A
+_M512       _mm512_pow_ps(_M512 v2, _M512 v3)
+_M512  _mm512_mask_pow_ps(_M512 v1_old, __mmask k1, _M512 v2, _M512 v3)
+_M512D      _mm512_pow_pd(_M512D v2, _M512D v3)
+_M512D _mm512_mask_pow_pd(_M512D v1_old, __mmask k1, _M512D v2, _M512D v3)
+
+RECIP_PD %G-F–%@ Reciprocal of Float64 Vector-A
+_M512D      _mm512_recip_pd(_M512 v2)
+_M512D _mm512_mask_recip_pd(_M512 v1_old, __mmask k1, _M512 v2)
+
+REM_{PU,PI} %G-F–%@ Remainder of the Division of Two Vectors-A
+_M512I _mm512_rem_pu(_M512I v2, _M512I v3)
+_M512I _mm512_mask_rem_pu(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+_M512I _mm512_rem_pi(_M512I v2, _M512I v3)
+_M512I _mm512_mask_rem_pi(_M512I v1_old, __mmask k1, _M512I v2, _M512I v3)
+
+RSQRT_PD %G-F–%@ Reciprocal Square Root of Vector-A
+_M512D      _mm512_invsqrt_pd(_M512D v2)
+_M512D _mm512_mask_invsqrt_pd(_M512D v1_old, __mmask k1, _M512D v2)
+
+SIN_{PS,PD} %G-F–%@ Sine of Vector-A
+_M512       _mm512_sin_ps(_M512 v2)
+_M512  _mm512_mask_sin_ps(_M512 v1_old, __mmask k1, _M512 v2)
+_M512D      _mm512_sin_pd(_M512D v2)
+_M512D _mm512_mask_sin_pd(_M512D v1_old, __mmask k1, _M512D v2)
+
+SINH_{PS,PD} %G-F–%@ Hyperbolic Sine of Vector-A
+_M512       _mm512_sinh_ps(_M512 v2)
+_M512  _mm512_mask_sinh_ps(_M512 v1_old, __mmask k1, _M512 v2)
+_M512D      _mm512_sinh_pd(_M512D v2)
+_M512D _mm512_mask_sinh_pd(_M512D v1_old, __mmask k1, _M512D v2)
+
+SQRT_{PS,PD} %G-F–%@ Square Root of Vector-A
+_M512       _mm512_sqrt_ps(_M512 v2)
+_M512  _mm512_mask_sqrt_ps(_M512 v1_old, __mmask k1, _M512 v2)
+_M512D      _mm512_sqrt_pd(_M512D v2)
+_M512D _mm512_mask_sqrt_pd(_M512D v1_old, __mmask k1, _M512D v2)
+
+TAN_{PS,PD} %G-F–%@ Tangent of Vector-A
+_M512       _mm512_tan_ps(_M512 v2)
+_M512  _mm512_mask_tan_ps(_M512 v1_old, __mmask k1, _M512 v2)
+_M512D      _mm512_tan_pd(_M512D v2)
+_M512D _mm512_mask_tan_pd(_M512D v1_old, __mmask k1, _M512D v2)
+
+TANH_{PS,PD} %G-F–%@ Hyperbolic Tangent of Vector-A
+_M512       _mm512_tanh_ps(_M512 v2)
+_M512  _mm512_mask_tanh_ps(_M512 v1_old, __mmask k1, _M512 v2)
+_M512D      _mm512_tanh_pd(_M512D v2)
+_M512D _mm512_mask_tanh_pd(_M512D v1_old, __mmask k1, _M512D v2)
+
+REDUCE_ADD_{PI,PS,PD} %G-F–%@ Adds Together All Elements of a Vector-A
+int         _mm512_reduce_add_pi(_M512I v2)
+int    _mm512_mask_reduce_add_pi(__mmask k1, _M512I v2)
+float       _mm512_reduce_add_ps(_M512 v2)
+float  _mm512_mask_reduce_add_ps(__mmask k1, _M512 v2)
+double      _mm512_reduce_add_pd(_M512D v2)
+double _mm512_mask_reduce_add_pd(__mask k1, _M512D v2)
+
+REDUCE_MUL_{PI,PS,PD} %G-F–%@ Multiplies Together All Elements of a Vector-A
+int         _mm512_reduce_mul_pi(_M512I v2)
+int    _mm512_mask_reduce_mul_pi(__mmask k1, _M512I v2)
+float       _mm512_reduce_mul_ps(_M512 v2)
+float  _mm512_mask_reduce_mul_ps(__mmask k1, _M512 v2)
+double      _mm512_reduce_mul_pd(_M512D v2)
+double _mm512_mask_reduce_mul_pd(__mmask k1, _M512D v2)
+
+REDUCE_MIN_{PI,PS,PD} %G-F–%@Minimum of All Elements of a Vector-A
+int         _mm512_reduce_min_pi(_M512I v2)
+int    _mm512_mask_reduce_min_pi(__mmask k1, _M512I v2)
+float       _mm512_reduce_min_ps(_M512 v2)
+float  _mm512_mask_reduce_min_ps(__mmask k1, _M512 v2)
+double      _mm512_reduce_min_pd(_M512D v2)
+double _mm512_mask_reduce_min_pd(__mmask k1, _M512D v2)
+
+REDUCE_MAX_{PI,PS,PD} %G-F–%@ Maximum of All Elements of a Vector-A
+int         _mm512_reduce_max_pi(_M512I v2)
+int    _mm512_mask_reduce_max_pi(__mmask k1, _M512I v2)
+float       _mm512_reduce_max_ps(_M512 v2)
+float  _mm512_mask_reduce_max_ps(__mmask k1, _M512 v2)
+double      _mm512_reduce_max_pd(_M512D v2)
+double _mm512_mask_reduce_max_pd(__mmask k1, _M512D v2)
+
+REDUCE_OR_PI %G-F–%@ Logical ORs Together All Elements of an int32 Vector-A
+int      _mm512_reduce_or_pi(_M512I v2)
+int _mm512_mask_reduce_or_pi(__mmask k1, _M512I v2)
+
+REDUCE_AND_PI %G-F–%@ Logical ANDs Together All Elements of an int32 Vector-A
+int      _mm512_reduce_and_pi(_M512I v2)
+int _mm512_mask_reduce_and_pi(__mmask k1, _M512I v2)
+
+
+Constants
+
+_MM_SWIZZLE_ENUM %G-F–%@ Constants for register swizzle-A
+_MM_SWIZ_REG_NONE             No swizzle (PONM LKJI HGFE DCBA)
+_MM_SWIZ_REG_DCBA             No swizzle (PONM LKJI HGFE DCBA)
+_MM_SWIZ_REG_CDAB             Swap pairs (OPMN KLIJ GHEF CDAB)
+_MM_SWIZ_REG_BADC             Swap with two-away (NMPO JILK FEHG BADC)
+_MM_SWIZ_REG_AAAA             Broadcast element A (MMMM IIII EEEE AAAA)
+_MM_SWIZ_REG_BBBB             Broadcast element B (NNNN JJJJ FFFF BBBB)
+_MM_SWIZ_REG_CCCC             Broadcast element C (OOOO KKKK GGGG CCCC)
+_MM_SWIZ_REG_DDDD             Broadcast element D (PPPP LLLL HHHH DDDD)
+_MM_SWIZ_REG_DACB             Cross-product (PMON LIKJ HEGF DACB)
+
+_MM_UPCONV_F32_ENUM - Constants for float32 upconversion
+_MM_16X16_F32          Identity swizzle/convert
+_MM_1X16_F32           Broadcast x 16 (AAAA AAAA AAAA AAAA)
+_MM_4X16_F32           Broadcast x 4  (DCBA DCBA DCBA DCBA)
+_MM_UI8_TO_F32         16 x uint8   => 16 x float32
+_MM_UN8_TO_F32         16 x unorm8  => 16 x float32
+_MM_F16_TO_F32         16 x float16 => 16 x float32
+_MM_SI16_TO_F32        16 x sint16  => 16 x float32
+
+_MM_UPCONV_I32_ENUM - Constants for int32 upconversion
+_MM_16X16_I32          Identity swizzle/convert
+_MM_1X16_I32           Broadcast x 16 (AAAA AAAA AAAA AAAA)
+_MM_4X16_I32           Broadcast x 4  (DCBA DCBA DCBA DCBA)
+_MM_UI8_TO_I32         16 x uint8   => 16 x uint32
+_MM_SI8_TO_I32         16 x sint8   => 16 x int32
+_MM_UI16_TO_I32        16 x uint16  => 16 x uint32
+_MM_SI16_TO_I32        16 x sint16  => 16 x int32
+
+_MM_UPCONV_F64_ENUM %G-F–%@ Constants for float64 upconversion-A
+_MM_8X8_F64            Identity swizzle/convert
+_MM_1X8_F64            Broadcast x 8 (AAAA AAAA)
+_MM_4X8_F64            Broadcast x 4 {DCBA DCBA)
+
+_MM_UPCONV_I64_ENUM %G-F–%@ Constants for int64 upconversion-A
+_MM_8X8_I64            Identity swizzle/convert
+_MM_1X8_I64            Broadcast x 8 (AAAA AAAA)
+_MM_4X8_I64            Broadcast x 4 (DCBA DCBA)
+
+_MM_BROADCAST32_ENUM %G-F–%@ Constants for LOADD broadcast-A
+_MM_BROADCAST32_NONE   Identity swizzle/convert
+_MM_BROADCAST_16X16    Identity swizzle/convert
+_MM_BROADCAST_1X16            Broadcast x 16 (AAAA AAAA AAAA AAAA)
+_MM_BROADCAST_4X16            Broadcast x 4  (DCBA DCBA DCBA DCBA)
+
+_MM_BROADCAST64_ENUM %G-F–%@ Constants for LOADD broadcast-A
+_MM_BROADCAST64_NONE   Identity swizzle/convert
+_MM_BROADCAST_8X8             Identity swizzle/convert
+_MM_BROADCAST_1X8             Broadcast x 8 (AAAA AAAA)
+_MM_BROADCAST_4X8             Broadcast x 2 (DCBA DCBA)
+
+_MM_FULLUP32_ENUM %G-F–%@ Constants for LOADD, GATHERD, GATHERPFD, and EXPANDD upconversion-A
+_MM_FULLUPC_NONE       No conversion
+_MM_FULLUPC_FLOAT16    float16 => float32
+_MM_FULLUPC_SRGB8             srgb8   => float32
+_MM_FULLUPC_UINT8             uint8   => float32
+_MM_FULLUPC_SINT8             sint8   => float32
+_MM_FULLUPC_UNORM8            unorm8  => float32
+_MM_FULLUPC_SNORM8            snorm8  => float32
+_MM_FULLUPC_UINT16            uint16  => float32
+_MM_FULLUPC_SINT16            sint16  => float32
+_MM_FULLUPC_UNORM16    unorm16 => float32
+_MM_FULLUPC_SNORM16    snorm16 => float32
+_MM_FULLUPC_UINT8I            uint8   => uint32
+_MM_FULLUPC_SINT8I            sint8   => int32
+_MM_FULLUPC_UINT16I    uint16  => uint32
+_MM_FULLUPC_SINT16I    sint16  => int32
+_MM_FULLUPC_UNORM10A   unorm10A10B10C2D field A => float32
+_MM_FULLUPC_UNORM10B   unorm10A10B10C2D field B => float32
+_MM_FULLUPC_UNORM10C   unorm10A10B10C2D field C => float32
+_MM_FULLUPC_UNORM2D    unorm10A10B10C2D field D => float32
+_MM_FULLUPC_FLOAT11A   float11A11B10C field A   => float32
+_MM_FULLUPC_FLOAT11B   float11A11B10C field B   => float32
+_MM_FULLUPC_FLOAT10C   float11A11B10C field C   => float32
+
+_MM_FULLUP64_ENUM %G-F–%@ Constants for LOADQ and EXPANDQ upconversion-A
+_MM_FULLUPC64_NONE            No conversion
+
+_MM_DOWNCONV32_ENUM %G-F–%@ Constants for STORED, SCATTER{PF}D, and COMPRESSD downconversion-A
+_MM_DOWNC_NONE         No conversion
+_MM_DOWNC_FLOAT16             float32 => float16
+_MM_DOWNC_FLOAT16RZ    float32 => float16 (round to zero)
+_MM_DOWNC_UINT8        float32 => uint8
+_MM_DOWNC_SINT8        float32 => sint8
+_MM_DOWNC_UNORM8       float32 => unorm8
+_MM_DOWNC_SNORM8       float32 => snorm8
+_MM_DOWNC_UINT16       float32 => uint16
+_MM_DOWNC_SINT16       float32 => sint16
+_MM_DOWNC_UNORM16             float32 => unorm16
+_MM_DOWNC_SNORM16             float32 => snorm16
+_MM_DOWNC_UINT8I       uint32  => uint8
+_MM_DOWNC_SINT8I       int32  => sint8
+_MM_DOWNC_UINT16I             uint32  => uint16
+_MM_DOWNC_SINT16I             int32  => sint16
+
+_MM_DOWNCONV64_ENUM %G-F–%@ Constants for STOREQ and COMPRESSQ downconversion-A
+_MM_DOWNC64_NONE       No conversion
+
+_MM_STORE_SUBSET32_ENUM %G-F–%@ Constants for STORED subset-A
+_MM_SUBSET32_16        Store 16 elements (PONM LKJI HGFE DCBA)
+_MM_SUBSET32_1         Store  1 element  (A)
+_MM_SUBSET32_4         Store  4 elements (DCBA)
+
+_MM_STORE_SUBSET64_ENUM %G-F–%@ Constants for STOREQ subset-A
+_MM_SUBSET64_8         Store 8 64-bit elements (HGFE DCBA)
+_MM_SUBSET64_1         Store 1 element         (A)
+_MM_SUBSET64_4         Store 4 elements        (DCBA)
+
+_MM_ROUND_MODE_ENUM %G-F–%@ Constants for conversion instructions and ROUND rounding mode-A
+_MM_ROUND_MODE_NEAREST        Round to nearest (even)
+_MM_ROUND_MODE_DOWN           Round toward negative infinity
+_MM_ROUND_MODE_UP                    Round toward positive infinity
+_MM_ROUND_MODE_TOWARD_ZERO    Round toward zero
+
+_MM_EXP_ADJ_ENUM %G-F–%@ Constants for conversion instructions and ROUND exponent adjustment-A
+_MM_EXPADJ_NONE        2^0  (32.0 - no exp adjustment)
+_MM_EXPADJ_4           2^4  (28.4)
+_MM_EXPADJ_5           2^5  (27.5)
+_MM_EXPADJ_8           2^8  (24.8)
+_MM_EXPADJ_16          2^16 (16.16)
+_MM_EXPADJ_24          2^24 (8.24)
+_MM_EXPADJ_31          2^31 (1.31)
+_MM_EXPADJ_32          2^32 (0.32)
+
+_MM_INDEX_SCALE_ENUM %G-F–%@ Constants for GATHER{PF}{D,Q} and SCATTER{PF}{D,Q} index scaling-A
+_MM_SCALE_1            Scale = 1
+_MM_SCALE_2            Scale = 2
+_MM_SCALE_4            Scale = 4
+
+_MM_UNORM10_FIELD_ENUM %G-F–%@ Constants for CVTINS_PS2U10 field selection-A
+_MM_UNORM10A           Field 0 (Low bits)
+_MM_UNORM10B           Field 1
+_MM_UNORM10C           Field 2
+_MM_UNORM2D            Field 3 (High bits)
+
+_MM_FLOAT11_FIELD_ENUM %G-F–%@ Constants for CVTINS_PSF11 field selection-A
+_MM_FLOAT11A           Field 0 (Low bits)
+_MM_FLOAT11B           Field 1
+_MM_FLOAT11C           Field 2
+_MM_FLOAT11NONE        Field 3 (High bits)
+
+_MM_BMSK_FIELD_ENUM %G-F–%@ Constants for CMPBMSK* instructions field selection-A
+_MM_BMSK_00FFFFFF             Mask value 0x00FFFFFF
+_MM_BMSK_000000FF             Mask value 0x000000FF
+_MM_BMSK_FFFFFF00             Mask value 0xFFFFFF00
+_MM_BMSK_FF000000             Mask value 0xFF000000
+
+_MM_PERM_ENUM %G-F–%@ Constants for SHUF128x32{_MEM} field permutation-A
+_MM_PERM_AAAA          AAAA permutation
+_MM_PERM_AAAB          AAAB Permutation
+...
+_MM_PERM_DDDC          DDDC permutation
+_MM_PERM_DDDD          DDDD permutation
+
+_MM_BITPOSITION16_ENUM %G-F–%@ Constants used by INSERTFIELD_16 and ROTATEFIELD_16-A
+_MM_BIT16_0            Bit position 0
+_MM_BIT16_1            Bit position 1
+...
+_MM_BIT16_15           Bit position 15
+
+_MM_BITPOSITION32_ENUM %G-F–%@ Constants used by INSERTFIELD_32 and ROTATEFIELD_32-A
+_MM_BIT32_0            Bit position 0
+_MM_BIT32_1            Bit position 1
+...
+_MM_BIT32_31           Bit position 31
+
+_MM_BITPOSITION64_ENUM %G-F–%@ Constants used by INSERTFIELD_64 and ROTATEFIELD_64-A
+_MM_BIT64_0            Bit position 0
+_MM_BIT64_1            Bit position 1
+...
+_MM_BIT64_63           Bit position 63
+
+_MM_MEM_HINT_ENUM %G-F–%@ Constants used by all operations that read or write memory for non-temporal hint-A
+_MM_HINT_NONE          No memory hint
+_MM_HINT_NT            Nontemporal memory hint
+
+_MM_PREFETCH_HINT_ENUM %G-F–%@ Constants used by PREFETCH1 and PREFETCH2-A
+_MM_PFHINT_NONE        No prefetch hint
+_MM_PFHINT_EX          Mark cacheline exclusive
+_MM_PFHINT_NT          Nontemporal data hint
+_MM_PFHINT_EX_NT       Mark cacheline exclusive and load with nontemporal data hint
+_MM_PFHINT_MISS        Miss hint
+_MM_PFHINT_EX_MISS            Mark cacheline exclusive and load with miss hint
+_MM_PFHINT_NT_MISS            Load with nontemporal data and miss hints
+_MM_PFHINT_EX_NT_MISS  Mark cacheline exclusive and load with nontemporal data and miss hints
+
+_MM_FIXUPTABLE_ENUM %G-F–%@ Constants used by FIXUP instruction.  These values are not listed but instead must be computed using the MACRO _MM_FIXUP.-A
+
+_MM_FIXUPRESULT_ENUM %G-F–%@ Constants used by _MM_FIXUP macro, used to compute the value for the FIXUP_PS vector instruction. These values indicate the action to be taken for each type of input.-A
+_MM_FIXUP_NO_CHANGE     No change
+_MM_FIXUP_NEG_INF             Change to negative infinity
+_MM_FIXUP_NEG_ZERO            Change to negative zero
+_MM_FIXUP_POS_ZERO            Change to zero
+_MM_FIXUP_POS_INF             Change to positive infinity
+_MM_FIXUP_NAN          Change to NAN
+_MM_FIXUP_MAX_FLOAT    Change to maximum representable float32
+_MM_FIXUP_MIN_FLOAT    Change to minimum representable float32
+
+
+
+
+
+Article Attachments
+lrb_prototype_primitives.inl
+
+
+
+For more complete information about compiler optimizations, see our Optimization Notice.
+
+Comments (24) 
+March 30, 2009 7:46 AM PDT 
+
+
+Neil Haran   Great article... I'm wondering how fast the vector cmp operation is?... Does it compare two vec's in a single instruction pass?
+April 5, 2009 9:27 PM PDT 
+
+
+Bernie   i'm wondering which of the following operations are implemented as full precision and/or partial-precision estimates ..
+
+div_ps
+recipsqrt_ps
+recip_ps
+sqrt_ps
+log2_ps
+exp2_ps
+April 8, 2009 9:35 PM PDT 
+
+
+max   what is going to be the approximate clock cycle of these instructions ?
+April 9, 2009 3:01 PM PDT 
+
+Daniel Mcfarlin
+  Total Points: 
+25
+Registered User
+I think there's a bug in the implementation of _mm512_mask_shuf128x32: wordPerm needs to be right shifted every inner-loop iteration irrespective of the write-mask. At present, it's only right shifted if the write-mask bit for that element is set.
+April 22, 2009 6:35 AM PDT 
+
+Matthias Kretz
+  Total Points: 
+861
+Brown Belt
+When you compile with gcc, I recommend to add the following in the header:
+
+#elif defined(__GNUC__)
+
+typedef struct {
+float v[16];
+} __attribute__((__may_alias__)) __m512;
+
+typedef struct {
+double v[8];
+} __attribute__((__may_alias__)) __m512d;
+
+typedef struct {
+int v[16];
+} __attribute__((__may_alias__)) __m512i;
+
+This allows you to cast between the different __m512 types which is often necessary to use the load/store/gather/scatter intrinsics.
+April 23, 2009 8:55 AM PDT 
+
+Matthias Kretz
+  Total Points: 
+861
+Brown Belt
+Actually it seems that the prototype header is making so much use of aliasing, which is not allowed according to ISO, that you have to compile with -fno-strict-aliasing when using gcc. Expect undefined results if you don't.
+April 27, 2009 5:42 AM PDT 
+
+Matthias Kretz
+  Total Points: 
+861
+Brown Belt
+The *_pd math utility operations in the prototype header all try to operate on 16 doubles. Gave me some curious crashes. If you want to try doubles with this header better replace all the 16s in the _pd functions with an 8... :-)
+May 4, 2009 10:42 PM PDT 
+
+balaji_ram
+  Total Points: 
+180
+Registered User
+I tried using the inl file to do some vector operations and Iam getting the results.
+
+I want to get more insight into the purpose of providing these inline functions.
+Please correct me if my understanding is wrong / partially correct.
+
+(1) The vector operations performed by these inline methods will, in future, be carried out by the Larrabee hardware and so we can expect it to work much much faster.
+
+(2) This inl file is provided to us so that we can develop applications today, that will exploit the capabilities of the Larrabee hardware when it available.
+
+Thanks very much.
+
+Balaji Ram
+May 7, 2009 1:21 AM PDT 
+
+Matthias Kretz
+  Total Points: 
+861
+Brown Belt
+(1) yes. This document here lists the functions sorted by instruction. So you can see that most functions map to one specific LRB instruction.
+
+(2) yes. Though, of course, you will need a compiler that is able to understand the LRB intrinsics and create LRB instructions. I.e. you also need a "LRB-able" compiler, not only hardware.
+May 13, 2009 11:57 PM PDT 
+
+
+Ivo Tops   I am missing 64 bit Integers? Are these not supported?
+May 15, 2009 8:48 AM PDT 
+
+Steve Pitzel (Intel)
+  Total Points: 
+7,636
+Community Manager
+Hey all,
+Thank you so much for the comments! Our architects and engineers have worked with your feedback and the .inl file now appearing in this document is completely new.
+
+Please download the new file and have a go at it! I'm compiling our engineers comments and will post those shortly as well.
+
+Thank you again!
+- Pitz
+May 15, 2009 9:02 AM PDT 
+
+Steve Pitzel (Intel)
+  Total Points: 
+7,636
+Community Manager
+Responses to your comments from Visual Computing Group hardware engineer, Chris Goodman below:
+
+> I think there's a bug in the implementation of _mm512_mask_shuf128x32: wordPerm needs to be right >shifted every inner-loop iteration irrespective of the write-mask. At present, it's only right shifted if the >write-mask bit for that element is set.
+
+You are very correct, thank you for finding this bug! We will post a new version of the library with this and other issues fixed soon.
+
+> When you compile with gcc, I recommend to add the following in the header:
+
+#elif defined(__GNUC__)
+
+typedef struct {
+float v[16];
+} __attribute__((__may_alias__)) __m512;
+
+typedef struct {
+double v[8];
+} __attribute__((__may_alias__)) __m512d;
+
+typedef struct {
+int v[16];
+} __attribute__((__may_alias__)) __m512i;
+
+>This allows you to cast between the different __m512 types which is often necessary to use the >load/store/gather/scatter intrinsics.
+
+Thank you. The library does provide functions _mm512_cast*_*() to cast between the different types, however you have provided a better solution for gcc. This will be added to the new version of the library which will be posted soon.
+
+> Actually it seems that the prototype header is making so much use of aliasing, which is not allowed >according to ISO, that you have to compile with -fno-strict-aliasing when using gcc. Expect undefined >results if you don't.
+
+Thank you, you are correct. As suggested by another user, we will mark the __m512 types with __attribute__((__may_alias__)) to make casting easier in gcc.
+
+> The *_pd math utility operations in the prototype header all try to operate on 16 doubles. Gave me >some curious crashes. If you want to try doubles with this header better replace all the 16s in the _pd >functions with an 8... :-)
+
+Thank you for finding this large class of embarrassing cut and paste bugs! We will post a new version of the library with this and other issues fixed soon.
+
+-Chris
+May 15, 2009 9:06 AM PDT 
+
+Steve Pitzel (Intel)
+  Total Points: 
+7,636
+Community Manager
+Responses to your comments from Visual Computing Group graphics hardware engineer, Tom Forsyth:
+
+> I'm wondering how fast the vector cmp operation is?... Does it compare two vec's in a single >instruction pass?
+
+Correct.
+
+> i'm wondering which of the following operations are implemented as full precision and/or partial->precision estimates ..
+>
+> div_ps
+> recipsqrt_ps
+> recip_ps
+> sqrt_ps
+> log2_ps
+> exp2_ps
+
+The answer is complex, and it depends on the hardware you-F�re running on and which compiler options you choose, but the one-line answer is that for high-performance code you will usually get around 20 bits of precision or more. So not full precision, but not too far off. Higher-precision variants will also be available where needed.-A
+
+> what is going to be the approximate clock cycle of these instructions ?
+
+Most of them are one instruction per clock, though a few are longer. Some more details on performance are available in the GDC 2009 talks.
+May 17, 2009 10:01 AM PDT 
+
+
+AGPX   Talking about memory... if I built a data structure (a tree for example) on the host memory space, I need to remap the pointers to the Larrabbe memory space? I think that to develop Larrabee application right now, it will be useful to have also a library that emulate memory transfers between host CPU and Larrabee.
+May 18, 2009 1:34 PM PDT 
+
+
+gshi   The description for VKANDNR and VKNOT looks wrong (They are the same with VKANDN)
+June 11, 2009 11:17 AM PDT 
+
+Thomas Willhalm (Intel)
+  Total Points: 
+5,360
+Brown Belt
+_MM_BROADCAST32_NONE is not defined in the header file but listed on this page.
+June 11, 2009 1:22 PM PDT 
+
+Thomas Willhalm (Intel)
+  Total Points: 
+5,360
+Brown Belt
+The description of the "expand" intrinsics without a mask have v1_old as old argument, which differs from the implementation.
+July 9, 2009 9:07 AM PDT 
+
+Matthias Kretz
+  Total Points: 
+861
+Brown Belt
+Look at http://software.intel.com/en-us/forums/developing-software-f..... pic/66359/ for a patch to fix all aliasing issues GCC doesn't like.
+July 30, 2009 3:27 AM PDT 
+
+
+S�ren Sandmann   From the file it appears as if converting from srgb8 will apply the non-linear transformation to the alpha channel as well as the RGB channels. Is this also the case in the hardware? The problem is that OpenGL calls for treating the alpha channel in srgb8 formats as linear even though the other channels are encoded non-linearly.
+
+See Issue 3 at http://www.opengl.org/registry/specs/EXT/texture_sRGB.txt .
+
+Another question: Will a description of the interface to the texturing units be made available?
+August 3, 2009 3:45 PM PDT 
+
+
+gshi   What instruction(s) can I use to achieve the following:
+_M512 va ={a0,a1,a2,a3, a4,a5,a6,a7, a8,a9,a10,a11, a12,a13,a14,a15} ;
+_M512 vb ={b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15} ;
+
+and I want
+
+_M512 vc ={a0,b0, a1,b1, a2,b2, a3,b3, a4,b4, a5,b5, a6,b6, a7,b7};
+
+What if I want vc to have some random selection of the float values in va and vb?
+The shuffle instruction (_mm512_shuf128x32) does not seem to be able to do that.
+
+August 17, 2009 11:11 AM PDT 
+
+exihea
+  Total Points: 
+135
+Registered User
+I created a table containing all the larrabee prototype instructions:
+http://www.ncsa.illinois.edu/~gshi/LRBni_cheatsheet.pdf
+October 29, 2009 7:26 AM PDT 
+
+cd rate
+  Total Points: 
+20
+Registered User
+wow, very useful table exihea, thanks!
+November 2, 2009 3:45 PM PST 
+
+Mark Bavis
+  
+I just setup my project to use these instructions instead of LRB intrinsics. Now when I try and build my program link.exe spins at 100% CPU usage for several minutes before spitting out an error: LNK1257 code generation failed. If I switch the prototype primitives header back to the intrinsics header, it builds fine. Can someone maybe shed a little light on this? I have tried turning off full program optimization, which is mentioned in the MSDN help page for that error.
+
+Thanks
+Mark
+November 28, 2009 5:40 PM PST
+
+
+Ray   How would you implement the "frac" instruction known from HLSL in the most effective way?
+
+foo - _mm512_mask_cvt_pi2ps(_mm512_mask_cvt_ps2pi(foo)) ?
+Trackbacks (1)
+Ren� Rebe � Blog Archive � Larrabee-F�s New Instructions-A
+May 5, 2009 6:23 AM PDT
+
+Leave a comment  
+To obtain technical support, please go to Software Support.
+Name (required)*
+
+Email (required; will not be displayed on this page)*
+
+Your URL (optional)
+
+
+Comment*
+
+
+   
+Login
+Login ID:
+Password:
+Remember Me?
+
+
+New Registration?
+Forgot Login ID?
+Forgot Password?

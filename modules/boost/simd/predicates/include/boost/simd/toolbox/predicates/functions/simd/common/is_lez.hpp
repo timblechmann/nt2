@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
                          ((simd_<signed_<A0>,X>))
                         )
   {
-    typedef A0 result_type;
+    typedef typename meta::boolean<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return le(a0, Zero<A0>());
@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace ext
                          ((simd_<unsigned_<A0>,X>))
                         )
   {
-    typedef A0 result_type;
+    typedef typename meta::boolean<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return is_eqz(a0);

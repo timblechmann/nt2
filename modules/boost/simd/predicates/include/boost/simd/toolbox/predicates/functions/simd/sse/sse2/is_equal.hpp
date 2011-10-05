@@ -105,8 +105,9 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::downgrade<A0, unsigned>::type  type;
+      typedef typename boolean<type > ::type                         btype;
       type tmp      = { a0 - a1 };
-      tmp           = boost::simd::eq(tmp,Zero<type>());
+      btype r       = boost::simd::eq(tmp,Zero<type>());
       type shuffled = { _mm_shuffle_epi32(tmp, _MM_SHUFFLE(2, 3, 0, 1)) };
       A0   that     = { tmp & shuffled };
       return that;

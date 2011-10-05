@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
 
-    typedef A0 result_type;
+    typedef typename meta::boolean<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<unsigned_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::boolean<A0>::type result_type;
     inline result_type operator()(const A0&)const
     {
       return boost::simd::True<A0>();

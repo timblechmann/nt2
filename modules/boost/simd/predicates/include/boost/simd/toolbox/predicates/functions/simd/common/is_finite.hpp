@@ -9,7 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_FINITE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_FINITE_HPP_INCLUDED
 #include <boost/simd/include/constants/true.hpp>
-#include <boost/simd/include/functions/is_eqz.hpp>
+#include <boost/simd/include/functions/is_equal.hpp>
+#include <boost/simd/include/constants/digits.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -17,7 +18,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::boolean<A0>::type result_type;
     inline result_type operator()(const A0&)const
     {
       return boost::simd::True<A0>();
@@ -28,8 +29,8 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<floating_<A0>,X>))
                            )
   {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return is_eqz(a0-a0); }
+    typedef typename meta::boolean<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1) { return is_equal(a0-a0, Zero<A0>()); }
   };
 } } }
 

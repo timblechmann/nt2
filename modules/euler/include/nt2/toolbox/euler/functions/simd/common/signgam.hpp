@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
 	A0 leza0 =  is_lez(a0);
 	return b_or(b_or(b_or(is_nan(a0), eq(a0, Minf<A0>())), b_and(leza0,is_flint(a0))),
 		    selsub(leza0,One<A0>(),
-			   sb2b(is_odd(floor(a0)))*Two<A0>()
+			   sb2b(is_odd(floor(a0)))*Two<A0>() //TODO correct for lrb_
 			   )
 		    );
       }

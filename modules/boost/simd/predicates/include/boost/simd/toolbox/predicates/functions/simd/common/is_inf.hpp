@@ -19,7 +19,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::boolean<A0>::type result_type;
     inline result_type operator()(const A0&)const
     { return boost::simd::False<A0>(); }
   };
@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<floating_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::boolean<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) { return boost::simd::is_equal(abs(a0),boost::simd::Inf<A0>()); }
   };
 } } }

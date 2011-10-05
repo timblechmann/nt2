@@ -12,6 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Check for the most recent SSE familly extension
 ////////////////////////////////////////////////////////////////////////////////
+#ifndef __LRB__
 #include <boost/simd/sdk/simd/extensions/sse/xop.hpp>
 #include <boost/simd/sdk/simd/extensions/sse/fma4.hpp>
 #include <boost/simd/sdk/simd/extensions/sse/avx.hpp>
@@ -26,5 +27,6 @@
 #include <boost/simd/sdk/simd/extensions/sse/types.hpp>
 #endif
 
+#endif
 #endif
 

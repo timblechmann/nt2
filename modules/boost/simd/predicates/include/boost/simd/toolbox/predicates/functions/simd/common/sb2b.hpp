@@ -24,7 +24,11 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return b_and(is_nez(a0), One<A0>());
+      return b_and(is_nez(a0), One<A0>());//TODO correct it for larrabee
+      // perhaps mask->vector A0 this means to have a template function to do that
+      // vectorize<A0>(__mmask m) -> native < A0, xxx >
+      // vectorize<A0>(  native < A0, xxx > m) ->  native < A0, xxx >
+      // boolean < A0 >  -> A0 in fact
     }
   };
 } } }
