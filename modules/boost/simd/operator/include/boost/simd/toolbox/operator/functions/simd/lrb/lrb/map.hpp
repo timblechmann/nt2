@@ -19,7 +19,6 @@
 // This is done by enumerating all cases of function calls over the different
 // vector cardinal and function arity.
 ////////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_DONT_USE_PREPROCESSED_FILES
 #if !defined(BOOST_SIMD_DONT_USE_PREPROCESSED_FILES)
 #include <boost/simd/toolbox/operator/functions/simd/lrb/lrb/preprocessed/map.hpp>
 #else

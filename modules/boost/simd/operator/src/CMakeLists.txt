@@ -15,6 +15,7 @@ include(nt2.preprocess)
 nt2_preprocess(boost.simd.operator.preprocess ${NT2_BOOST.SIMD.OPERATOR_ROOT}/include/boost/simd/toolbox/operator/specific/common.hpp
                                               ${NT2_BOOST.SIMD.OPERATOR_ROOT}/include/boost/simd/toolbox/operator/functions/simd/common/map.hpp
                                               ${NT2_BOOST.SIMD.OPERATOR_ROOT}/include/boost/simd/toolbox/operator/functions/simd/sse/sse2/map.hpp
+                                              ${NT2_BOOST.SIMD.OPERATOR_ROOT}/include/boost/simd/toolbox/operator/functions/simd/lrb/lrb/map.hpp
                OPTIONS -DBOOST_SIMD_DONT_USE_PREPROCESSED_FILES
                        -DBOOST_SIMD_CREATE_PREPROCESSED_FILES
               )
