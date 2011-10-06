@@ -71,7 +71,7 @@ namespace boost { namespace simd { namespace ext
 //       return r; 
        return map( typename dispatch::make_functor<boost::simd::tag::divides_,A0>::type(), 
                    tmp0,
-                   tmp1)
+                   tmp1
                  );
     }
   };
