@@ -60,7 +60,7 @@ macro(nt2_copy_parent)
 endmacro()
 
 function(nt2_find_log)
-  if(DEFINED NT2_FIND_VERBOSE OR DEFINED ENV{NT2_FIND_VERBOSE})
+  if(NT2_FIND_VERBOSE OR ENV{NT2_FIND_VERBOSE})
     message(STATUS "[FindNT2]${NT2_FIND_RECURSIVE}${ARGV}")
   endif()
 endfunction()
