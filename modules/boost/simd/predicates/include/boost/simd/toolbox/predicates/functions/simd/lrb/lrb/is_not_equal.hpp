@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_LRB_LRB_IS_NOT_EQUAL_TO_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_LRB_LRB_IS_NOT_EQUAL_TO_HPP_INCLUDED
+#include <boost/simd/include/functions/is_equal.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -33,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::boolean<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return _mm_cmpneq512_ps(a0,a1);
+      return _mm512_cmpneq_ps(a0,a1);
 
     }
   };
@@ -55,14 +56,14 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_, boost::simd::tag::lrb_
                             , (A0)
-                            , ((simd_<ints64_<A0>,boost::simd::tag::lrb_>))
-                              ((simd_<ints64_<A0>,boost::simd::tag::lrb_>))
+                            , ((simd_<int64_<A0>,boost::simd::tag::lrb_>))
+                              ((simd_<int64_<A0>,boost::simd::tag::lrb_>))
                             )
   {
     typedef typename meta::boolean<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return _mm512_cmpneq_pq(a0,a1);
+      return _mm512_vknot(is_equal(a0, a1));
     }
   };
 } } }

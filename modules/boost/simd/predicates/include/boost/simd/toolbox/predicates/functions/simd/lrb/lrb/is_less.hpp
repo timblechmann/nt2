@@ -8,6 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_LRB_LRB_IS_LESS_TO_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_LRB_LRB_IS_LESS_TO_HPP_INCLUDED
+#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/functions/bitofsign.hpp>
+#include <boost/simd/include/functions/is_ltz.hpp>
+#include <boost/simd/include/functions/bitwise_or.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -42,8 +46,8 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_less_, boost::simd::tag::lrb_
                             , (A0)
-                            , ((simd_<ints32_<A0>,boost::simd::tag::lrb_>))
-                              ((simd_<ints32_<A0>,boost::simd::tag::lrb_>))
+                            , ((simd_<int32_<A0>,boost::simd::tag::lrb_>))
+                              ((simd_<int32_<A0>,boost::simd::tag::lrb_>))
                             )
   {
     typedef typename meta::boolean<A0>::type result_type;
@@ -52,17 +56,31 @@ namespace boost { namespace simd { namespace ext
       return _mm512_cmplt_pi(a0,a1);
     }
   };
-
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_less_, boost::simd::tag::lrb_
                             , (A0)
-                            , ((simd_<ints64_<A0>,boost::simd::tag::lrb_>))
-                              ((simd_<ints64_<A0>,boost::simd::tag::lrb_>))
+                            , ((simd_<uint32_<A0>,boost::simd::tag::lrb_>))
+                              ((simd_<uint32_<A0>,boost::simd::tag::lrb_>))
                             )
   {
     typedef typename meta::boolean<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return _mm512_cmplt_pq(a0,a1);
+      return _mm512_cmplt_pu(a0,a1);
+    }
+  }; 
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_less_, boost::simd::tag::lrb_
+                            , (A0)
+                            , ((simd_<int64_<A0>,boost::simd::tag::lrb_>))
+                              ((simd_<int64_<A0>,boost::simd::tag::lrb_>))
+                            )
+  {
+    typedef typename meta::boolean<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      typedef native < double, boost::simd::tag::lrb_> vd;
+      return is_ltz(b_or(One<vd>(), bitofsign(a0-a1)));
     }
   };
 } } }

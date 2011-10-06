@@ -17,23 +17,8 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_and_, boost::simd::tag::lrb_
                             , (A0)
-                            , ((simd_<integer_<A0>,boost::simd::tag::lrb_>))
-                              ((simd_<integer_<A0>,boost::simd::tag::lrb_>))
-                            )
-  {
-    typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      A0 that = { _mm512_and_pi(a0,a1) };
-      return that;
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_and_, boost::simd::tag::lrb_
-                            , (A0)
-                            , ((simd_<floating_<A0>,boost::simd::tag::lrb_>))
-                              ((simd_<floating_<A0>,boost::simd::tag::lrb_>))
+                            , ((simd_<arithmetic_<A0>,boost::simd::tag::lrb_>))
+                              ((simd_<arithmetic_<A0>,boost::simd::tag::lrb_>))
                             )
   {
     typedef A0 result_type;
@@ -41,10 +26,26 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::as_integer< A0 >::type iA0;
-      A0 that = { native_cast<A0>(bitwise_and(native_cast<iA0>(a0),native_cast<iA0>(a1))) };
+      A0 that = { native_cast<A0>(_mm512_and_pi(native_cast<iA0>(a0),native_cast<iA0>(a1))) };
       return that;
     }
   };
+
+//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_and_, boost::simd::tag::lrb_
+//                             , (A0)
+//                             , ((simd_<floating_<A0>,boost::simd::tag::lrb_>))
+//                               ((simd_<floating_<A0>,boost::simd::tag::lrb_>))
+//                             )
+//   {
+//     typedef A0 result_type;
+
+//     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+//     {
+//       typedef typename dispatch::meta::as_integer< A0 >::type iA0;
+//       A0 that = { native_cast<A0>(bitwise_and(native_cast<iA0>(a0),native_cast<iA0>(a1))) };
+//       return that;
+//     }
+//   };
 
 } } }
 

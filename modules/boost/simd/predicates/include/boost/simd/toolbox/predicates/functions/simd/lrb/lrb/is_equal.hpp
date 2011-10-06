@@ -8,6 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_LRB_LRB_IS_EQUAL_TO_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_LRB_LRB_IS_EQUAL_TO_HPP_INCLUDED
+#include <boost/simd/include/functions/is_positive.hpp>
+#include <boost/simd/include/functions/is_eqz.hpp>
+#include <boost/simd/include/functions/bitwise_xor.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -53,26 +56,20 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
- //  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, boost::simd::tag::lrb_
-//                             , (A0)
-//                             , ((simd_<ints64_<A0>,boost::simd::tag::lrb_>))
-//                               ((simd_<ints64_<A0>,boost::simd::tag::lrb_>))
-//                             )
-//   {
-//     typedef typename meta::boolean<A0>::type result_type;
-//     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-//     {
-//       typedef typename dispatch::meta::downgrade<A0, unsigned>::type  type;
-//       _mmask1 = _mm512_int2mask(0xAAAA);
-//       _mmask2 = _mm512_int2mask(0x5555);
-//       type tmp      = { a0 - a1 };
-//       tmp           = _mm512_cmpeq_mask_pi(tmp, Zero<type>());
-//       type shuffled = { _mm512_swizzle_r32(tmp,MM_SWIZ_REG_CDAB)}; 
-//       A0   that     = { tmp & shuffled };
-//       return that;
-//       //      return _mm512_cmpeq_pq(a0,a1);
-//     }
-//   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, boost::simd::tag::lrb_
+                            , (A0)
+                            , ((simd_<int64_<A0>,boost::simd::tag::lrb_>))
+                              ((simd_<int64_<A0>,boost::simd::tag::lrb_>))
+                            )
+  {
+    typedef typename meta::boolean<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      typedef native < double, boost::simd::tag::lrb_> vd;
+      vd tmp = native_cast<vd>(b_xor(a0, a1)); 
+      return _mm512_vkand(is_eqz(tmp),is_positive(tmp)); 
+    }
+  };
 } } }
 
 #endif

@@ -63,15 +63,16 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       const typename meta::boolean<A0>::type iseqza1 = eq(a1, Zero<A0>());
-      std::cout << iseqza1 << std::endl; 
-      std::cout << a0 << std::endl; 
-      std::cout << a0-select(iseqza1, a0, Zero<A0>()) << std::endl; 
-      std::cout << a1 << std::endl; 
-      std::cout << a1+select(iseqza1, One<A0>(), Zero<A0>()) << std::endl; 
-      return map( typename dispatch::make_functor<boost::simd::tag::divides_,A0>::type(), 
-      a0-select(iseqza1, Zero<A0>(), a0),       //(a0-b_and(iseqza1, a0))
-                  a1+select(iseqza1, One<A0>(), Zero<A0>()) //(a1+b_and(iseqza1, One<A0>()))
-                );
+      A0 tmp0 =  a0-select(iseqza1, a0, Zero<A0>());
+      A0 tmp1 =  a1+select(iseqza1, One<A0>(), Zero<A0>());
+      A0 r; 
+//       for(int i = 0;  i < 8;  ++i)
+//            r[i] = tmp0[i]/tmp1[i];
+//       return r; 
+       return map( typename dispatch::make_functor<boost::simd::tag::divides_,A0>::type(), 
+                   tmp0,
+                   tmp1)
+                 );
     }
   };
 } } }

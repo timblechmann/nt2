@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_LRB_LRB_IS_LESS_EQUAL_TO_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_LRB_LRB_IS_LESS_EQUAL_TO_HPP_INCLUDED
+#include <boost/simd/include/functions/is_less.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -42,8 +43,8 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_less_equal_, boost::simd::tag::lrb_
                             , (A0)
-                            , ((simd_<ints32_<A0>,boost::simd::tag::lrb_>))
-                              ((simd_<ints32_<A0>,boost::simd::tag::lrb_>))
+                            , ((simd_<int32_<A0>,boost::simd::tag::lrb_>))
+                              ((simd_<int32_<A0>,boost::simd::tag::lrb_>))
                             )
   {
     typedef typename meta::boolean<A0>::type result_type;
@@ -55,14 +56,26 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_less_equal_, boost::simd::tag::lrb_
                             , (A0)
-                            , ((simd_<ints64_<A0>,boost::simd::tag::lrb_>))
-                              ((simd_<ints64_<A0>,boost::simd::tag::lrb_>))
+                            , ((simd_<uint32_<A0>,boost::simd::tag::lrb_>))
+                              ((simd_<uint32_<A0>,boost::simd::tag::lrb_>))
                             )
   {
     typedef typename meta::boolean<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return _mm512_cmple_pq(a0,a1);
+      return _mm512_cmple_pu(a0,a1);
+    }
+  };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_less_equal_, boost::simd::tag::lrb_
+                            , (A0)
+                            , ((simd_<int64_<A0>,boost::simd::tag::lrb_>))
+                              ((simd_<int64_<A0>,boost::simd::tag::lrb_>))
+                            )
+  {
+    typedef typename meta::boolean<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      return _mm512_vknot(gt(a0, a1));
     }
   };
 } } }

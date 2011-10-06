@@ -18,6 +18,7 @@
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
+#include <boost/simd/sdk/simd/native_cast.hpp>
 
 //==============================================================================
 // load vector of double
@@ -36,7 +37,11 @@ namespace boost { namespace simd { namespace ext
     {
       std::cout << "icitte" << std::endl; 
       result_type
-  that; //TODO= { _mm512_loadd(a0, _MM_FULLUPC_NONE, _MM_BROADCAST_16X16, a1) };
+  that = native_cast<result_type>(_mm512_loadd(a0+a1*boost::simd::meta::cardinal_of<result_type>::value,
+                 _MM_FULLUPC_NONE,
+                 _MM_BROADCAST_16X16,
+                 _MM_HINT_NONE));
+      std::cout << that << std::endl; 
       return that;
     }
   };
@@ -55,11 +60,13 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A2::type result_type;
-    inline result_type operator()(const A0& a0, const A1& a1,
-                                  const A2&)const
+    inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
       result_type
-  that; //TODO = { _mm512_loadd(a0, _MM_FULLUPC_NONE,  _MM_BROADCAST_16X16, a1) };
+  that = native_cast<result_type>(_mm512_loadd(a0+a1*boost::simd::meta::cardinal_of<result_type>::value,
+                 _MM_FULLUPC_NONE,
+                 _MM_BROADCAST_16X16,
+                 _MM_HINT_NONE)); 
       return that;
     }
   };
@@ -78,11 +85,13 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A2::type result_type;
-    inline result_type operator()(const A0& a0, const A1& a1,
-                                  const A2&)const
+    inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
       result_type
-  that; //TODO = { _mm512_loadd(a0, _MM_FULLUPC_NONE,  _MM_BROADCAST_16X16, a1) };
+  that =  native_cast<result_type>(_mm512_loadd(a0+a1*boost::simd::meta::cardinal_of<result_type>::value,
+                  _MM_FULLUPC_NONE,
+                  _MM_BROADCAST_16X16,
+                  _MM_HINT_NONE)); /*};*/
       return that;
     }
   };

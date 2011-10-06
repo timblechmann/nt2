@@ -28,6 +28,23 @@ namespace boost { namespace simd { namespace ext
     }
 
   };
+    BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_eqz_, boost::simd::tag::lrb_,
+                             (A0),
+                             ((simd_<ints64_<A0>,boost::simd::tag::lrb_>))
+                            )
+  {
+    typedef typename meta::boolean<A0>::type result_type;
+
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      typedef native<double,               boost::simd::tag::lrb_ >  vd;
+      typedef native<boost::simd::int32_t, boost::simd::tag::lrb_ >  vi;
+      vd tmp = {native_cast<vd>(_mm512_srl_pi(a0, One<vi>()))}; 
+      return _mm512_vkand(_mm512_cmpeq_pd(native_cast<vd>(a0), Zero<vd>()),
+              _mm512_cmpeq_pd(tmp, Zero<vd>()));
+    }
+
+  };
 } } }
 
 #endif
