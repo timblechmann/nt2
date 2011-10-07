@@ -28,7 +28,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( logical_and_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( logical_and_integer__2_0, BOOST_SIMD_SIMD_INTEGRAL_TYPES)// (boost::simd::uint32_t)(boost::simd::int32_t)(boost::simd::int64_t))//
 {
   using boost::simd::logical_and;
   using boost::simd::tag::logical_and_;
