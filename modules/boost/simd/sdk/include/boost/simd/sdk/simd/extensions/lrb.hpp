@@ -14,8 +14,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/sdk/simd/extensions/lrb/lrb.hpp>
 
-//#if defined(BOOST_SIMD_LRB_FAMILY)
+#if defined(BOOST_SIMD_LRB_FAMILY)
 #include <boost/simd/sdk/simd/extensions/lrb/types.hpp>
-//#endif
+#endif
 
 #endif
