@@ -7,14 +7,17 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+set(NT2_FIND_REPOSITORIES_cache_args "CACHE;STRING;\"List of repositories in which to look for NT2 modules\"")
+if(NOT NT2_FIND_REPOSITORIES AND DEFINED ENV{NT2_FIND_REPOSITORIES})
+  set(NT2_FIND_REPOSITORIES $ENV{NT2_FIND_REPOSITORIES} ${NT2_FIND_REPOSITORIES_cache_args})
+elseif(NOT NT2_FIND_REPOSITORIES)
+  set(NT2_FIND_REPOSITORIES git://github.com/MetaScale/nt2-modules.git ${NT2_FIND_REPOSITORIES_cache_args})
+else()
+  set(NT2_FIND_REPOSITORIES ${NT2_FIND_REPOSITORIES} ${NT2_FIND_REPOSITORIES_cache_args})
+endif()
+
 macro(nt2_download_module module)
   string(TOUPPER ${module} module_U)
-
-  if(NOT NT2_FIND_REPOSITORIES AND DEFINED ENV{NT2_FIND_REPOSITORIES})
-    set(NT2_FIND_REPOSITORIES $ENV{NT2_FIND_REPOSITORIES})
-  elseif(NOT NT2_FIND_REPOSITORIES)
-    set(NT2_FIND_REPOSITORIES git://github.com/MetaScale/nt2-modules.git)
-  endif()
 
   find_package(Git QUIET)
   if(GIT_FOUND)
