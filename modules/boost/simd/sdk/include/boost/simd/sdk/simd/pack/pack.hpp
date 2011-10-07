@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SDK_SIMD_PACK_PACK_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/pack/meta.hpp>
-#include <boost/simd/sdk/simd/pack/evaluate.hpp>
+#include <boost/simd/include/functions/evaluate.hpp>
 #include <boost/simd/include/functions/assign.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
@@ -28,6 +28,7 @@ namespace boost { namespace simd
   template<class Type, std::size_t Cardinal, class Dummy>
   struct  pack
   {
+    typedef Type value_type;
     typedef typename
     meta::vector_of<Type, boost::mpl::size_t<Cardinal>::value>::type data_type;
     typedef typename proto::terminal<data_type>::type expr_type;
