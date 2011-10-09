@@ -21,7 +21,8 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) 
     { 
-      return is_nez(a0) & One<A0>(); }//TODO correct it for larrabee note it is the same as sb2b !
+      return is_nez(a0) & One<A0>(); 
+    }
   };
 } } }
 

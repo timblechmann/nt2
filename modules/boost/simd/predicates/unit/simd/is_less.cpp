@@ -49,35 +49,40 @@ NT2_TEST_CASE_TPL ( is_less_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_less(boost::simd::One<vT>(), boost::simd::One<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_less(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_less(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, false);
+  for(int i = 0, j = 1;  i < boost::simd::meta::cardinal_of < vT > ::value;  i++)
+    {
+//   NT2_TEST_EQUAL(is_less(boost::simd::One<vT>(), boost::simd::One<vT>())&j, false);
+//   NT2_TEST_EQUAL(is_less(boost::simd::One<vT>(),boost::simd::Zero<vT>())&j, false);
+//   NT2_TEST_EQUAL(is_less(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())&j, false);
+  NT2_TEST_EQUAL(is_less(boost::simd::Valmax<vT>(), boost::simd::Valmin<vT>())&j, false);
+  j <<= 1; 
+    }
 } // end of test for integer_
 
-NT2_TEST_CASE_TPL ( is_less_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
-{
-  using boost::simd::is_less;
-  using boost::simd::tag::is_less_;
-  using boost::simd::load; 
-  using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<is_less_(vT,vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+// NT2_TEST_CASE_TPL ( is_less_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+// {
+//   using boost::simd::is_less;
+//   using boost::simd::tag::is_less_;
+//   using boost::simd::load; 
+//   using boost::simd::native;
+//   using boost::simd::meta::cardinal_of;
+//   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+//   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
+//   typedef native<T,ext_t>                        n_t;
+//   typedef n_t                                     vT;
+//   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef native<iT,ext_t>                       ivT;
+//   typedef typename boost::dispatch::meta::call<is_less_(vT,vT)>::type r_t;
+//   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+//   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+//   double ulpd;
+//   ulpd=0.0;
 
 
-  // specific values tests
-  NT2_TEST_EQUAL(is_less(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_less(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_less(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_less(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_less(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, false);
-} // end of test for floating_
+//   // specific values tests
+//   NT2_TEST_EQUAL(is_less(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0]!=0, false);
+//   NT2_TEST_EQUAL(is_less(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0]!=0, false);
+//   NT2_TEST_EQUAL(is_less(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0]!=0, false);
+//   NT2_TEST_EQUAL(is_less(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0]!=0, false);
+//   NT2_TEST_EQUAL(is_less(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, false);
+// } // end of test for floating_

@@ -22,6 +22,7 @@
 #include <boost/simd/include/functions/max.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
+#include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is floating_
@@ -74,11 +75,20 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 gtza0 = is_gtz(a0);
-      A0 gtza1 = is_gtz(a1);
+      typename meta::boolean<A0>::type gtza0 = is_gtz(a0);
+      typename meta::boolean<A0>::type gtza1 = is_gtz(a1);
+      std::cout << "a0 " << a0 << std::endl;
+      std::cout << "a1 " << a1 << std::endl;
+      std::cout << "gtza0 "<< gtza0 << std::endl;
+      std::cout << "gtza1 "<< gtza1 << std::endl;
       A0 a0pa1 = a0+a1;
-      A0 test1 = b_and(gtza0, b_and(gtza1, (lt(a0pa1, boost::simd::max(a0, a1))))); 
-      A0 test2 = b_andnot(b_andnot(b_or(is_gtz(a0pa1),gt(a0pa1, boost::simd::min(a0, a1))),gtza0),gtza1);
+      std::cout << a0pa1 << std::endl;
+      std::cout << boost::simd::max(a0, a1) << std::endl;
+      std::cout << lt(a0pa1,a0) << std::endl;
+      typename meta::boolean<A0>::type test1 = b_and(gtza0, b_and(gtza1, (lt(a0pa1, boost::simd::max(a0, a1)))));
+      std::cout << test1 << std::endl;
+      typename meta::boolean<A0>::type test2 = b_andnot(b_andnot(b_or(is_gtz(a0pa1),gt(a0pa1, boost::simd::min(a0, a1))),gtza0),gtza1);
+      std::cout << test2 << std::endl;
       return sel(test1,Valmax<A0>(),sel(test2,Valmin<A0>(),a0pa1)); 
     }
   };
