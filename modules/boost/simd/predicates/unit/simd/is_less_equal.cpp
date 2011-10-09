@@ -6,11 +6,16 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 boost.simd.operator toolbox - is_less_equal/simd Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.predicates toolbox - is_less_equal/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.operator components in simd mode
+// unit test behavior of boost.simd.predicates components in simd mode
 //////////////////////////////////////////////////////////////////////////////
+#ifdef __LRB__
+#define REF &1
+#else
+#define REF [0]
+#endif
 /// created  by jt the 18/02/2011
 /// 
 #include <boost/simd/toolbox/predicates/include/functions/is_less_equal.hpp>
@@ -23,15 +28,13 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
-#ifdef __LRB__
-#define REF &1
-#else
-#define REF [0]
-#endif
 
 NT2_TEST_CASE_TPL ( is_less_equal_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
@@ -51,7 +54,7 @@ NT2_TEST_CASE_TPL ( is_less_equal_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(is_less_equal(boost::simd::One<vT>(), boost::simd::One<vT>())REF!=0, true);
@@ -77,7 +80,7 @@ NT2_TEST_CASE_TPL ( is_less_equal_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(is_less_equal(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())REF!=0, true);
@@ -85,4 +88,4 @@ NT2_TEST_CASE_TPL ( is_less_equal_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_less_equal(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())REF!=0, false);
   NT2_TEST_EQUAL(is_less_equal(boost::simd::One<vT>(),boost::simd::Zero<vT>())REF!=0, false);
   NT2_TEST_EQUAL(is_less_equal(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())REF!=0, true);
-} // end of test for floating_
+} // end of test for real_

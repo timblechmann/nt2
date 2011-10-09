@@ -25,9 +25,10 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::boolean<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
-      A0 aa0 = is_nez(a0);
-      A0 aa1 = is_nez(a1);
-      A0 aa2 = is_nez(a2);
+      typedef typename meta::boolean<A0>::type bA0; 
+      bA0 aa0 = is_nez(a0);
+      bA0 aa1 = is_nez(a1);
+      bA0 aa2 = is_nez(a2);
       return b_or(b_or(b_and(aa0, aa1),b_and(aa1, aa2)),b_and(aa2, aa0));
     }
   };

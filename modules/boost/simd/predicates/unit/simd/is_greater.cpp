@@ -6,11 +6,16 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 boost.simd.operator toolbox - is_greater/simd Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.predicates toolbox - is_greater/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.operator components in simd mode
+// unit test behavior of boost.simd.predicates components in simd mode
 //////////////////////////////////////////////////////////////////////////////
+#ifdef __LRB__
+#define REF &1
+#else
+#define REF [0]
+#endif
 /// created  by jt the 18/02/2011
 /// 
 #include <boost/simd/toolbox/predicates/include/functions/is_greater.hpp>
@@ -23,9 +28,12 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( is_greater_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
@@ -46,12 +54,12 @@ NT2_TEST_CASE_TPL ( is_greater_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(is_greater(boost::simd::One<vT>(), boost::simd::One<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_greater(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0]!=0, true);
-  NT2_TEST_EQUAL(is_greater(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, false);
+  NT2_TEST_EQUAL(is_greater(boost::simd::One<vT>(), boost::simd::One<vT>())REF!=0, false);
+  NT2_TEST_EQUAL(is_greater(boost::simd::One<vT>(),boost::simd::Zero<vT>())REF!=0, true);
+  NT2_TEST_EQUAL(is_greater(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())REF!=0, false);
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( is_greater_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -72,12 +80,12 @@ NT2_TEST_CASE_TPL ( is_greater_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(is_greater(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_greater(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_greater(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_greater(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0]!=0, true);
-  NT2_TEST_EQUAL(is_greater(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, false);
-} // end of test for floating_
+  NT2_TEST_EQUAL(is_greater(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())REF!=0, false);
+  NT2_TEST_EQUAL(is_greater(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())REF!=0, false);
+  NT2_TEST_EQUAL(is_greater(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())REF!=0, false);
+  NT2_TEST_EQUAL(is_greater(boost::simd::One<vT>(),boost::simd::Zero<vT>())REF!=0, true);
+  NT2_TEST_EQUAL(is_greater(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())REF!=0, false);
+} // end of test for real_

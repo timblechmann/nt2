@@ -6,11 +6,16 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 boost.simd.operator toolbox - is_greater/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.predicates toolbox - is_greater/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.operator components in scalar mode
+// unit test behavior of boost.simd.predicates components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+#ifdef __LRB__
+#define REF &1
+#else
+#define REF [0]
+#endif
 /// created  by jt the 18/02/2011
 /// 
 #include <boost/simd/toolbox/predicates/include/functions/is_greater.hpp>
@@ -23,6 +28,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( is_greater_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
@@ -43,7 +49,7 @@ NT2_TEST_CASE_TPL ( is_greater_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(is_greater(boost::simd::One<T>(), boost::simd::One<T>()), false);
@@ -69,7 +75,7 @@ NT2_TEST_CASE_TPL ( is_greater_real__2_0,  BOOST_SIMD_REAL_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(is_greater(boost::simd::Inf<T>(), boost::simd::Inf<T>()), false);
@@ -77,4 +83,4 @@ NT2_TEST_CASE_TPL ( is_greater_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_greater(boost::simd::Nan<T>(), boost::simd::Nan<T>()), false);
   NT2_TEST_EQUAL(is_greater(boost::simd::One<T>(),boost::simd::Zero<T>()), true);
   NT2_TEST_EQUAL(is_greater(boost::simd::Zero<T>(), boost::simd::Zero<T>()), false);
-} // end of test for floating_
+} // end of test for real_

@@ -11,6 +11,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of boost.simd.predicates components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+#ifdef __LRB__
+#define REF &1
+#else
+#define REF [0]
+#endif
 /// created  by jt the 21/02/2011
 /// 
 #include <boost/simd/toolbox/predicates/include/functions/boolean.hpp>
@@ -23,6 +28,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( boolean_real__1_0,  BOOST_SIMD_REAL_TYPES)
@@ -43,7 +49,7 @@ NT2_TEST_CASE_TPL ( boolean_real__1_0,  BOOST_SIMD_REAL_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(boolean(-boost::simd::Zero<T>()), boost::simd::False<r_t>());
@@ -56,7 +62,7 @@ NT2_TEST_CASE_TPL ( boolean_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(boolean(boost::simd::Quarter<T>()), boost::simd::True<r_t>());
   NT2_TEST_EQUAL(boolean(boost::simd::Two<T>()), boost::simd::True<r_t>());
   NT2_TEST_EQUAL(boolean(boost::simd::Zero<T>()), boost::simd::False<r_t>());
-} // end of test for floating_
+} // end of test for real_
 
 NT2_TEST_CASE_TPL ( boolean_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
@@ -76,7 +82,7 @@ NT2_TEST_CASE_TPL ( boolean_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(boolean(boost::simd::Mone<T>()), boost::simd::True<r_t>());
@@ -103,14 +109,10 @@ NT2_TEST_CASE_TPL ( boolean_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(boolean(boost::simd::One<T>()), boost::simd::True<r_t>());
   NT2_TEST_EQUAL(boolean(boost::simd::Two<T>()), boost::simd::True<r_t>());
   NT2_TEST_EQUAL(boolean(boost::simd::Zero<T>()), boost::simd::False<r_t>());
-
-  if (boost::simd::Nan < float > ()) std::cout << 1 << std::endl;  else std::cout << 0 << std::endl;
-  int z =   (boost::simd::Nan < float > ()) ? 1 :0;
-   std::cout << z << std::endl;
 } // end of test for unsigned_int_

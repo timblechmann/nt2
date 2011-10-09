@@ -91,7 +91,7 @@ class Specific_values_test_gen(object) :
         if self.mode == 'simd' :
             special = extract(d,"",[""],"functor","special")[0]
             if special in ['predicate','fuzzy'] :
-                spec_values_tpl = "  "+self._prefix+"_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$)[0]!=0, $call_param_res$%s);"
+                spec_values_tpl = "  "+self._prefix+"_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$)REF!=0, $call_param_res$%s);"
             elif special in ['reduction']:
                 spec_values_tpl = "  "+self._prefix+"_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$), $call_param_res$%s);"
             else :

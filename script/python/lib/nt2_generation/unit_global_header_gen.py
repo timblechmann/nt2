@@ -44,6 +44,11 @@ class Global_header_gen() :
             "// $kind$ test behavior of $tb_name$ components in $fct_mode$ mode",
             "//////////////////////////////////////////////////////////////////////////////",
             ""
+            "#ifdef __LRB__",
+            "#define REF &1",
+            "#else",
+            "#define REF [0]",
+            "#endif",
             "$first_stamp$",
             "$stamp$",
             "$notes$",
@@ -92,7 +97,7 @@ class Global_header_gen() :
             "#include <boost/simd/sdk/memory/aligned_type.hpp>",
             "#include <boost/simd/include/functions/load.hpp>",           
             "#include <boost/simd/toolbox/constant/constant.hpp>",
-            "#include <boost/dispatch/details/ignore_unused.hpp>"
+            "#include <boost/dispatch/details/ignore_unused.hpp>",
             ]
         }
     Cover_Template = {

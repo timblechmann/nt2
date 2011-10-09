@@ -11,6 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of boost.simd.predicates components in simd mode
 //////////////////////////////////////////////////////////////////////////////
+
 /// created  by jt the 21/02/2011
 /// 
 #include <boost/simd/toolbox/predicates/include/functions/sb2b.hpp>
@@ -23,9 +24,12 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( sb2b_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -46,7 +50,7 @@ NT2_TEST_CASE_TPL ( sb2b_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(sb2b(-boost::simd::Zero<vT>())[0]!=0, boost::simd::False<sr_t>());
@@ -59,4 +63,4 @@ NT2_TEST_CASE_TPL ( sb2b_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(sb2b(boost::simd::Quarter<vT>())[0]!=0, boost::simd::True<sr_t>());
   NT2_TEST_EQUAL(sb2b(boost::simd::Two<vT>())[0]!=0, boost::simd::True<sr_t>());
   NT2_TEST_EQUAL(sb2b(boost::simd::Zero<vT>())[0]!=0, boost::simd::False<sr_t>());
-} // end of test for floating_
+} // end of test for real_
