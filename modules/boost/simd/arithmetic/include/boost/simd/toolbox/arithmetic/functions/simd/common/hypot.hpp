@@ -94,17 +94,19 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
+      typedef typename meta::boolean<A0>::type bA0; 
       typedef typename dispatch::meta::as_integer<A0, signed>::type int_type;
+      typedef typename meta::boolean<int_type>::type bint_type;
       typedef hypot_ctnts<A0, int_type> cts;
       A0 x =  boost::simd::abs(a0);
       A0 y =  boost::simd::abs(a1);
-      A0 tinf = is_inf(x+y);
+      bA0 tinf = is_inf(x+y);
       A0 a =  boost::simd::max(x, y);
       A0 b =  boost::simd::min(x, y);
       int_type ea =   exponent(a);
       int_type eb  =  exponent(b);
-      int_type te1 = gt(ea,cts::C1());
-      int_type te2 = lt(eb,cts::MC1());
+      bint_type te1 = gt(ea,cts::C1());
+      bint_type te2 = lt(eb,cts::MC1());
       bool te3 = boost::simd::any(te1|te2);
       int_type e = Zero<int_type>();
       if (te3)
@@ -115,7 +117,7 @@ namespace boost { namespace simd { namespace ext
         b =  ldexp(b, e);
       }
       A0 w = a-b;
-      A0 test =  gt(w,b);
+      bA0 test =  gt(w,b);
       A0 t1 = a& cts::M1();
       A0 t2 = a-t1;
       A0 w1_2  = (t1*t1-(b*(-b)-t2*(a+t1)));

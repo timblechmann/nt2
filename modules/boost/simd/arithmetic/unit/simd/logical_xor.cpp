@@ -25,7 +25,11 @@
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
-
+#ifdef __LRB__
+#define REF &1
+#else
+#define REF [0]
+#endif
 NT2_TEST_CASE_TPL ( logical_xor_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::logical_xor;
@@ -47,12 +51,12 @@ NT2_TEST_CASE_TPL ( logical_xor_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::splat<vT>(0),boost::simd::splat<vT>(1))[0]!=0, true, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::splat<vT>(3),boost::simd::splat<vT>(0))[0]!=0, true, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0]!=0, false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0]!=0, false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0]!=0, false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0]!=0, false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::One<vT>(), boost::simd::One<vT>())[0]!=0, false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, false, 0);
+  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::splat<vT>(0),boost::simd::splat<vT>(1))REF!=0, true, 0);
+  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::splat<vT>(3),boost::simd::splat<vT>(0))REF!=0, true, 0);
+  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())REF!=0, false, 0);
+  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())REF!=0, false, 0);
+  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())REF!=0, false, 0);
+  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())REF!=0, false, 0);
+  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::One<vT>(), boost::simd::One<vT>())REF!=0, false, 0);
+  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())REF!=0, false, 0);
 } // end of test for floating_

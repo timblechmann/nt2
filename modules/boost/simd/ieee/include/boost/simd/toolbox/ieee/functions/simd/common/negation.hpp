@@ -8,12 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_NEGATION_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_NEGATION_HPP_INCLUDED
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/is_ltz.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
-#include <boost/simd/include/functions/is_nan.hpp>
-#include <boost/simd/include/functions/select.hpp>
-#include <boost/simd/include/functions/seladd.hpp>
+#include <boost/simd/include/functions/negate.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -28,47 +23,9 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return  sel(is_ltz(a1),-a0,b_and(is_nez(a1), a0));
+      return  negate(a0, a1); 
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned
-/////////////////////////////////////////////////////////////////////////////
-
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::negation_, tag::cpu_,
-                           (A0)(X),
-                           ((simd_<unsigned_<A0>,X>))
-                           ((simd_<unsigned_<A0>,X>))
-                          )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-        return  is_nez(a1)&a0;
-    }
-  };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::negation_, tag::cpu_,
-                           (A0)(X),
-                           ((simd_<floating_<A0>,X>))
-                           ((simd_<floating_<A0>,X>))
-                          )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      A0 tmp = is_nez(a1)&a0;
-      tmp = select(is_ltz(a1), -a0, tmp);
-      tmp = seladd(is_nan(a1), tmp, a1); //TODO signed Nan ?
-        return tmp;
-    }
-  };
 } } }
 #endif

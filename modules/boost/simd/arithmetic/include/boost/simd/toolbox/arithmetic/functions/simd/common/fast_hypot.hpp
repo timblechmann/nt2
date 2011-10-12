@@ -56,9 +56,10 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
+      typedef typename meta::boolean<A0>::type bA0; 
       A0 x =  boost::simd::abs(a0);
       A0 y =  boost::simd::abs(a1);
-      A0 gtyx = gt(y,x);
+      bA0 gtyx = gt(y,x);
       A0 xx = sel(gtyx,y,x);
       A0 yy = sel(gtyx,x,y);
       A0 r =  xx*sqrt(One<A0>()+sqr(yy/xx));

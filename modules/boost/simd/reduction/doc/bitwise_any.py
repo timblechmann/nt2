@@ -28,16 +28,13 @@
          'specific_values' : {
              'signed_int_' : {
                  'boost::simd::Mone<T>()' : {'result' : 'true','ulp_thresh' : '0',},
-                 'boost::simd::One<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                  'boost::simd::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                 },
              'unsigned_int_' : {
-                 'boost::simd::Mone<T>()' : {'result' : 'true','ulp_thresh' : '0',},
-                 'boost::simd::One<T>()' : {'result' : 'false','ulp_thresh' : '0',},
+                 'boost::simd::Valmax<T>()' : {'result' : 'true','ulp_thresh' : '0',},
                  'boost::simd::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                 },
              'real_' : {
-                 'boost::simd::One<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                  'boost::simd::Nan<T>()' : {'result' : 'true','ulp_thresh' : '0',},
                  'boost::simd::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                 },

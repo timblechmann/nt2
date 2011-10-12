@@ -16,6 +16,8 @@ namespace boost { namespace simd { namespace tag
     struct is_simd_logical_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_simd_logical_, is_simd_logical, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_simd_logical_, is_signed_bool, 1)
+    
 } }
  
 #endif

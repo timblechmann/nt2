@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/selsub.hpp>
-#include <boost/simd/include/functions/idivfix.hpp>
+#include <boost/simd/include/functions/divfix.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/is_invalid.hpp>
 
@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return b_or(is_invalid(a1), selsub(is_nez(a1), a0, tofloat(idivfix(a0,a1))*a1));
+      return b_or(is_invalid(a1), selsub(is_nez(a1), a0, divfix(a0,a1))*a1);
     }
   };
 } } }

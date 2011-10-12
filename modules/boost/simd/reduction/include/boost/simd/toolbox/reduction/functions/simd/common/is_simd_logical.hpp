@@ -11,6 +11,7 @@
 #include <boost/simd/include/functions/is_equal.hpp>
 #include <boost/simd/include/functions/bitwise_all.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
+#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -20,7 +21,10 @@ namespace boost { namespace simd { namespace ext
   {
     typedef bool result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) {
-      typedef typename boost::dispatch::meta::as_integer<A0>::type iA0; 
+      typedef typename boost::dispatch::meta::as_integer<A0>::type iA0;
+      std::cout << "a0     " << a0 << std::endl;
+      std::cout << "cast a0" << bitwise_cast<iA0>(a0) << std::endl;
+      std::cout << "t      " <<  genmask(bitwise_cast<iA0>(a0))<< std::endl;
       return bitwise_all(eq(bitwise_cast<iA0>(a0), genmask(bitwise_cast<iA0>(a0))));
     }
   };
