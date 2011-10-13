@@ -68,11 +68,12 @@ namespace boost { namespace simd { namespace ext
                                  ((simd_<integer_<A3>,X>))
 			     )
   {
-    typedef void result_type;    
+    typedef int result_type;    
     inline result_type operator()(A0 const& a0, A1 const& a1,
 				  A2 & a2, A3 & a3) const
     {
-      boost::simd::remquo(tofloat(a0), tofloat(a1), a2, a3); 
+      boost::simd::remquo(tofloat(a0), tofloat(a1), a2, a3);
+      return 0; 
     }
   };
 
@@ -95,14 +96,15 @@ namespace boost { namespace simd { namespace ext
 				  ((simd_<integer_<A1>,X>))
 			     )
   {
-    typedef void result_type;    
+    typedef int result_type;    
     inline result_type operator()(A0 const& a0, A0 const& a1,
 				  A0 & a2, A1 & a3) const
     {
       a2 = round2even(a0/a1); 
       a3 = toint(a2);
-      a2 = b_or(is_invalid(a0), b_or(is_eqz(a1), a0-a2*a1)); 
- 
+      //      a2 = b_or(is_invalid(a0), b_or(is_eqz(a1), a0-a2*a1));
+      a2 =  select(b_or(is_invalid(a0), is_eqz(a1)), Nan<A0>(), a0-a2*a1);
+      return 0; 
     }
   };
  
