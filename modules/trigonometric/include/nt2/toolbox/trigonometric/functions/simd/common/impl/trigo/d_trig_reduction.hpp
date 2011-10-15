@@ -34,15 +34,16 @@ namespace nt2
       template < class A0, class mode>
       struct trig_reduction < A0, radian_tag, tag::simd_type, mode, double>
       {
+	typedef typename meta::boolean<A0>::type                 bA0;
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::scalar_of<int_type>::type   sint_type;
 
-        static inline A0 isalreadyreduced(const A0&a0){ return le(a0, Pio_4<A0>()); }
-        static inline A0 ismedium (const A0&a0){return le(a0,double_constant<A0,0x412921fb54442d18ll>()); }
-        static inline A0 issmall  (const A0&a0){return le(a0,double_constant<A0,0x404f6a7a2955385ell>()); }
-        static inline A0 islessthanpi_2  (const A0&a0)  { return le(a0,Pio_2<A0>()); }
-        static inline A0 cot_invalid(const A0& x) { return False<A0>(); }
-        static inline A0 tan_invalid(const A0& x) { return False<A0>(); }
+        static inline bA0 isalreadyreduced(const A0&a0){ return le(a0, Pio_4<A0>()); }
+        static inline bA0 ismedium (const A0&a0){return le(a0,double_constant<A0,0x412921fb54442d18ll>()); }
+        static inline bA0 issmall  (const A0&a0){return le(a0,double_constant<A0,0x404f6a7a2955385ell>()); }
+        static inline bA0 islessthanpi_2  (const A0&a0)  { return le(a0,Pio_2<A0>()); }
+        static inline bA0 cot_invalid(const A0& x) { return False<bA0>(); }
+        static inline bA0 tan_invalid(const A0& x) { return False<bA0>(); }
         static inline int_type reduce(const A0& x, A0& xr, A0& xc){ return inner_reduce(x, xr, xc, mode()); }
       private:
         static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const big&)
@@ -145,11 +146,12 @@ namespace nt2
       template < class A0>
       struct trig_reduction < A0, degree_tag,  tag::simd_type, big, double >
       {
+	typedef typename meta::boolean<A0>::type                  bA0;
         typedef typename meta::as_integer<A0, signed>::type  int_type;
         typedef typename meta::scalar_of<int_type>::type    sint_type;
 
-        static inline A0 cot_invalid(const A0& x) { return /*is_invalid(x)|*/(is_nez(x)&is_even(x/_90<A0>())); }
-        static inline A0 tan_invalid(const A0& x) { return /*is_invalid(x)|*/is_odd(x/_90<A0>()); }
+        static inline bA0 cot_invalid(const A0& x) { return /*is_invalid(x)|*/(is_nez(x)&is_even(x/_90<A0>())); }
+        static inline bA0 tan_invalid(const A0& x) { return /*is_invalid(x)|*/is_odd(x/_90<A0>()); }
         static inline int_type reduce(const typename A0::native_type x_n, A0& xr, A0& xc)
         {
           const A0 x = { x_n };
@@ -164,11 +166,12 @@ namespace nt2
       template < class A0>
       struct trig_reduction < A0, pi_tag,  tag::simd_type, big, double>
       {
+	typedef typename meta::boolean<A0>::type                     bA0;
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::scalar_of<int_type>::type    sint_type;
 
-        static inline A0 cot_invalid(const A0& x) { return (is_nez(x)&is_flint(x)); }
-        static inline A0 tan_invalid(const A0& x) { return is_flint(x-Half<A0>()); }
+        static inline bA0 cot_invalid(const A0& x) { return (is_nez(x)&is_flint(x)); }
+        static inline bA0 tan_invalid(const A0& x) { return is_flint(x-Half<A0>()); }
         static inline int_type reduce(const typename A0::native_type x_n,  A0& xr, A0&xc)
         {
           const A0 x = { x_n };

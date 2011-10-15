@@ -9,7 +9,10 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_INVTRIG_F_INVTRIG_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_INVTRIG_F_INVTRIG_HPP_INCLUDED
 #include <nt2/include/functions/bitofsign.hpp>
+#include <nt2/include/functions/ifelsezero.hpp>
+#include <nt2/include/functions/ifnotelsezero.hpp>  
 #include <nt2/include/functions/bitwise_notand.hpp>
+#include <nt2/include/functions/bitwise_or.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/bitwise_any.hpp>
 #include <nt2/include/functions/sqrt.hpp>
@@ -26,7 +29,7 @@ namespace nt2
       template < class A0 >
       struct invtrig_base<A0,radian_tag,tag::simd_type, float>
       {
-        
+        typedef typename meta::boolean<A0>::type bA0; 
         static inline typename A0::native_type asin(const typename A0::native_type a0_n)
         {
           const A0 a0 = { a0_n };
@@ -34,14 +37,19 @@ namespace nt2
           //    bf::tie(sign, x) = sign_and_abs(a0);
           x = nt2::abs(a0);
           sign = bitofsign(a0);
-          const A0 x_smaller_1e_4 = lt(x, single_constant<A0, 0x38d1b717>()); //1.0e-4f;
-          const A0 x_larger_05    = gt(x, Half<A0>());
-          const A0 x_else         = b_or(x_smaller_1e_4, x_larger_05);
-          A0 a = b_and(x, x_smaller_1e_4);
-          const A0 b = b_and(Half<A0>()*oneminus(x), x_larger_05);
-          A0 z = b_or(b_or(b_notand(x_else, sqr(x)), a), b);
-          x = b_notand(x_else, x);
-          a = b_and(sqrt(z), x_larger_05);
+          const bA0 x_smaller_1e_4 = lt(x, single_constant<A0, 0x38d1b717>()); //1.0e-4f;
+          const bA0 x_larger_05    = gt(x, Half<A0>());
+          const bA0 x_else         = b_or(x_smaller_1e_4, x_larger_05);
+	  A0 a = ifelsezero(x_smaller_1e_4, x);
+	  //          A0 a = b_and(x, x_smaller_1e_4);
+	  const A0 b = ifelsezero(x_larger_05, Half<A0>()*oneminus(x));
+	  //          const A0 b = b_and(Half<A0>()*oneminus(x), x_larger_05);
+	  //          A0 z = b_or(b_or(b_notand(x_else, sqr(x)), a), b);
+	  A0 z = b_or(b_or(ifnotelsezero(x_else, sqr(x)), a), b);
+	  //          x = b_notand(x_else, x);
+	  x = ifnotelsezero(x_else, x);
+	  //          a = b_and(sqrt(z), x_larger_05);
+	  a = ifelsezero(x_larger_05, sqrt(z)); 
           x = b_or(a, x);
           A0 z1 = madd(z,  single_constant<A0, 0x3d2cb352>(), single_constant<A0, 0x3cc617e3>());
           z1 = madd(z1, z, single_constant<A0, 0x3d3a3ec7>());
@@ -60,7 +68,7 @@ namespace nt2
           const A0 a0 = { a0_n };
           A0 x = nt2::abs(a0);
           A0 z2 = {asin(a0)};
-          A0 isgtxh = gt(x, Half<A0>());
+          bA0 isgtxh = gt(x, Half<A0>());
           if (nt2::bitwise_any(isgtxh))
             {
               const A0 as = {asin(sqrt(oneminus(x)*Half<A0>()))};
@@ -79,9 +87,9 @@ namespace nt2
           x = nt2::abs(a0);
           sign = bitofsign(a0);
           //    bf::tie(sign, x) = sign_and_abs(a0);
-          const A0 flag1 = lt(x, single_constant<A0, 0x401a827a>()); //tan3pio8);
-          const A0 flag2 = b_and(ge(x, single_constant<A0, 0x3ed413cd>()), flag1);
-          A0 yy =  b_notand(flag1, Pio_2<A0>());
+          const bA0 flag1 = lt(x, single_constant<A0, 0x401a827a>()); //tan3pio8);
+          const bA0 flag2 = b_and(ge(x, single_constant<A0, 0x3ed413cd>()), flag1);
+          A0 yy =  ifnotelsezero(flag1, Pio_2<A0>());
           yy =  select(flag2, Pio_4<A0>(), yy);
           A0 xx =   select(flag1, x, -rec(x));
           xx =  select(flag2, (minusone(x)/oneplus(x)),xx);

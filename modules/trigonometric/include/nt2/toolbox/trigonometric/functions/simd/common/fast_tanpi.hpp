@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return is_nez(boost::simd::native_cast<result_type>(a0));
+      return Zero<result_type>(); //is_nez(boost::simd::native_cast<result_type>(a0));
     }
   };
 } }

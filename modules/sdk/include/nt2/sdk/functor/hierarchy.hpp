@@ -20,6 +20,7 @@
 #include <nt2/sdk/meta/result_of.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/arithmetic.hpp>
+#include <nt2/sdk/meta/boolean.hpp>
 
 #include <boost/dispatch/details/ignore_unused.hpp>
 

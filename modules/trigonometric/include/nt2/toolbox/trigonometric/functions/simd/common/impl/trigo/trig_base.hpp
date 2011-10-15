@@ -15,6 +15,7 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/is_flint.hpp>
+#include <nt2/include/functions/ifnanelse.hpp>
 #include <nt2/include/functions/shli.hpp>
 #include <nt2/include/functions/shri.hpp>
 #include <nt2/include/functions/sqr.hpp>
@@ -35,7 +36,9 @@ namespace nt2
         typedef typename meta::as_integer<A0, signed>::type     int_type; // signed integer type associated to A0
         typedef typename meta::scalar_of<int_type>::type       sint_type; // scalar version of the associated type   
         typedef typename mode::type                                style;
-        typedef typename A0::native_type                            A0_n; 
+        typedef typename A0::native_type                            A0_n;
+        typedef typename meta::boolean<A0>::type                     bA0;
+        typedef typename meta::boolean<int_type>::type         bint_type; 
         // for all functions the scalar algorithm is:
         // * range reduction
         // * computation of sign and evaluation selections flags
@@ -51,15 +54,15 @@ namespace nt2
       private:
         static inline A0_n cosa(const A0_n a0_n, const fast&)
         {
-	  const A0 a0 = { a0_n };
-	  const A0 x =  scale(a0);
+          const A0 a0 = { a0_n };
+          const A0 x =  scale(a0);
           return  eval_t::cos_eval(sqr(x), x, Zero<A0>());
         }
 
         static inline A0_n cosa(const A0_n a0_n, const regular&)
         {
-	  const A0 a0 = { a0_n };
-	  static const sint_type de = sizeof(sint_type)*8-1;
+          const A0 a0 = { a0_n };
+          static const sint_type de = sizeof(sint_type)*8-1;
           // de is the size in bits of the scalar types minus one
           const A0 x = nt2::abs(a0);
           A0 xr = Nan<A0>(), xc;
@@ -67,22 +70,22 @@ namespace nt2
           const int_type swap_bit = n&One<int_type>();
           const int_type sign_bit = shli(b_xor(swap_bit, shri(n&Two<int_type>(), 1)), de); 
           const A0 z = sqr(xr);
-	  const A0 se =  {eval_t::sin_eval(z, xr, xc)};
-	  const A0 ce =  {eval_t::cos_eval(z, xr, xc)}; 
+          const A0 se =  {eval_t::sin_eval(z, xr, xc)};
+          const A0 ce =  {eval_t::cos_eval(z, xr, xc)}; 
           return  b_xor(sel(is_nez(swap_bit), se, ce), sign_bit); 
         }
 
         static inline A0_n sina(const A0_n a0_n, const fast&)
         {
-	  const A0 a0 = { a0_n };
+          const A0 a0 = { a0_n };
           const A0 x =  scale(a0);
-	  const A0 se =  {eval_t::sin_eval(sqr(x), x, Zero<A0>())}; 
+          const A0 se =  {eval_t::sin_eval(sqr(x), x, Zero<A0>())}; 
           return se; 
         }
 
         static inline A0_n sina(const A0_n a0_n, const regular&)
         {
-	  const A0 a0 = { a0_n };
+          const A0 a0 = { a0_n };
           static const sint_type de = sizeof(sint_type)*8-1;
           // size in bits of the scalar types minus one
           const A0 x = nt2::abs(a0);
@@ -91,53 +94,53 @@ namespace nt2
           const int_type swap_bit = n&One<int_type>();
           const A0 sign_bit = b_xor(bitofsign(a0), shli(n&Two<int_type>(), de-1)); 
           const A0 z = sqr(xr);
-	  const A0 se =  {eval_t::sin_eval(z, xr, xc)};
-	  const A0 ce =  {eval_t::cos_eval(z, xr, xc)}; 
+          const A0 se =  {eval_t::sin_eval(z, xr, xc)};
+          const A0 ce =  {eval_t::cos_eval(z, xr, xc)}; 
           return b_xor(sel(is_eqz(swap_bit),se, ce), sign_bit); 
         }
 
         static inline A0_n tana(const A0_n a0_n, const fast&)
         {
-	  const A0 a0 = { a0_n };
+          const A0 a0 = { a0_n };
           const A0 bte = { eval_t::base_tancot_eval(scale(a0))};
-	  return bte; 
+          return bte; 
         }
 
         static inline A0_n tana(const A0_n a0_n, const regular&)
         {
-	  const A0 a0 = { a0_n };
+          const A0 a0 = { a0_n };
           const A0 x =  nt2::abs(a0); 
           A0 xr = Nan<A0>(), xc;
           const int_type n = redu_t::reduce(x, xr, xc);
           const A0 y = {eval_t::tan_eval(xr, xc, oneminus(shli((n&One<int_type>()), 1)))};
           // 1 -- n even  -1 -- n odd 
-          const A0 testnan = redu_t::tan_invalid(a0);
-          return b_or(testnan, b_xor(y, bitofsign(a0)));                        
+          const bA0 testnan = redu_t::tan_invalid(a0);
+          return ifnanelse(testnan, b_xor(y, bitofsign(a0)));                        
         }
 
         static inline A0_n cota(const A0_n a0_n, const fast&)
         {
-	  const A0 a0 = { a0_n };
-	  const A0 bte = {eval_t::base_tancot_eval(scale(a0))}; 
+          const A0 a0 = { a0_n };
+          const A0 bte = {eval_t::base_tancot_eval(scale(a0))}; 
           return rec(bte); 
         }
 
         static inline A0_n cota(const A0_n a0_n, const regular&)
         {
-	  const A0 a0 = { a0_n };
+          const A0 a0 = { a0_n };
           const A0 x =  nt2::abs(a0); 
           A0 xr = Nan<A0>(), xc;
           const int_type n = redu_t::reduce(x, xr, xc);
           const A0 y = {eval_t::cot_eval(xr, xc, oneminus(shli((n&One<int_type>()), 1)))};
           // 1 -- n even -1 -- n odd 
-          const A0 testnan = redu_t::cot_invalid(a0); 
-          return b_or(testnan, b_xor(y, bitofsign(a0)));                        
+          const bA0 testnan = redu_t::cot_invalid(a0); 
+          return ifnanelse(testnan, b_xor(y, bitofsign(a0)));                        
         }
 
         // simultaneous cosa and sina function
         static inline A0_n sincosa(const A0_n a0_n, A0& c, const fast&)
         {
-	  const A0 a0 = { a0_n };
+          const A0 a0 = { a0_n };
           const A0 x =  scale(a0);
           const A0 z =  sqr(x);
           c = eval_t::cos_eval(z, x, Zero<A0>());
@@ -146,7 +149,7 @@ namespace nt2
         
         static inline A0_n sincosa(const A0_n a0_n, A0& c, const regular&)
         {
-	  const A0 a0 = { a0_n };
+          const A0 a0 = { a0_n };
           static const sint_type de = sizeof(sint_type)*8-1;
           // size in bits of the scalar types minus one
           const A0 x =  nt2::abs(a0);
@@ -158,7 +161,7 @@ namespace nt2
           const int_type sin_sign_bit = b_xor(shli(n&Two<int_type>(), de-1), bitofsign(a0)); 
           const A0 t1 = {eval_t::sin_eval(z, xr, xc)};
           const A0 t2 = {eval_t::cos_eval(z, xr, xc)};
-          const int_type test = is_nez(swap_bit);
+	  const bint_type test = is_nez(swap_bit);
           c = b_xor(sel(test, t1, t2),cos_sign_bit);
           return b_xor(sel(test, t2, t1),sin_sign_bit); 
         }

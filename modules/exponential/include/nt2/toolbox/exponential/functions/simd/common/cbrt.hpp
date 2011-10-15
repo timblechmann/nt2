@@ -27,6 +27,7 @@
 #include <nt2/include/functions/negate.hpp>
 #include <nt2/include/functions/remquo.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/bitwise_or.hpp> 
 #include <nt2/toolbox/polynomials/functions/scalar/impl/horner.hpp>
 
 
@@ -74,9 +75,10 @@ namespace nt2 { namespace ext
       const A0 CBRT4I = double_constant< A0, 0x3fe428a2f98d728bll> ();
       typedef typename meta::as_integer<A0, signed>::type int_type;
       typedef typename meta::scalar_of<A0>::type stype;
+      typedef typename meta::boolean<int_type>::type bint_type; 
       int_type e;
       A0  x;
-      boost::fusion::tie(x, e) = frexp(z);
+      frexp(z, x, e);
       x = horner < NT2_HORNER_COEFF_T(stype, 5,
                             (0xbfc13c93386fdff6ll,
                              0x3fe17e1fc7e59d58ll,
@@ -84,7 +86,7 @@ namespace nt2 { namespace ext
                              0x3ff23d6ee505873all,
                              0x3fd9c0c12122a4fell)
                             ) > (x);
-      const int_type flag = is_gez(e);
+      const bint_type flag = is_gez(e);
       int_type e1 =  nt2::abs(e);
       int_type rem = e1;
       e1 = rdiv(e1, Three<int_type>());           //TO DO remquo
@@ -126,9 +128,10 @@ namespace nt2 { namespace ext
       const A0 CBRT4I = single_constant< A0, 0x3f214518> ();
       typedef typename meta::as_integer<A0, signed>::type int_type;
       typedef typename meta::scalar_of<A0>::type stype;
+      typedef typename meta::boolean<int_type>::type bint_type; 
       int_type e;
       A0  x;
-      boost::fusion::tie(x, e) = frexp(z);
+      frexp(z, x, e);
       x = horner < NT2_HORNER_COEFF_T(stype, 5,
                             (0xbe09e49a,
                              0x3f0bf0fe,
@@ -136,7 +139,7 @@ namespace nt2 { namespace ext
                              0x3f91eb77,
                              0x3ece0609)
                             ) > (x);
-      const int_type flag = is_gez(e);
+      const bint_type flag = is_gez(e);
       int_type e1 =  nt2::abs(e);
       int_type rem = e1;
        e1 = e1/Three<int_type>();           //TO DO remquo

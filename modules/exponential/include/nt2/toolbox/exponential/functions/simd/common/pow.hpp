@@ -20,6 +20,7 @@
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/negif.hpp>
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/bitwise_andnot.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -53,15 +54,17 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 isltza0 = is_ltz(a0);
-      A0 allz = b_and(is_eqz(a0), is_eqz(a1)); 
-      A0 res = negif(b_and(is_odd(a1), isltza0), exp(a1*log(nt2::abs(a0))));
-      A0 invalid =  b_andnot(isltza0, is_flint(a1));
-      return b_or(invalid,  sel(allz, One<A0>(), res));
+      typedef typename meta::boolean<A0>::type                 bA0; 
+      bA0 isltza0 = is_ltz(a0);
+      bA0 allz = b_and(is_eqz(a0), is_eqz(a1));
+      A0 res =  exp(a1*log(nt2::abs(a0)));
+      res =  select(b_and(is_odd(a1), isltza0), -res, res); 
+      bA0 invalid =  bitwise_andnot(isltza0, is_flint(a1));
+      return select(invalid, Nan<result_type>(), sel(allz, One<A0>(), res));
       
 //       return b_or( b_andnot(isltza0, is_flint(a1)),
 // 		   seladd(is_nez(a0),
@@ -100,7 +103,7 @@ namespace nt2 { namespace ext
         int_type sign_n = signnz( a1 );
         int_type n = nt2::abs(a1);
 
-        int_type   n_odd = is_odd(n);
+        int_type   n_odd = select(is_odd(n), Mone<int_type>(), Zero<int_type>());
         r_type n_oddf = tofloat(-n_odd);
         r_type nf = n_oddf;
 
@@ -122,7 +125,7 @@ namespace nt2 { namespace ext
         w = rec(y);
         x = tofloat(shri(oneplus(sign_n),1));  // 1 if positive, else 0
         r_type r = sel(is_even(a1), nt2::abs(a00), a00);
-        return b_or(is_nan(a00), sel(is_inf(a00), sel(is_gtz(a1), r, rec(r)), madd(x,y,oneminus(x)*w)));
+        return select(is_nan(a00), a00, sel(is_inf(a00), sel(is_gtz(a1), r, rec(r)), madd(x,y,oneminus(x)*w)));
     }
   };
 } }

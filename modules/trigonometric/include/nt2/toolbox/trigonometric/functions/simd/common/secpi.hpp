@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return b_or(rec(cospi(tofloat(a0))), is_odd(a0*Two<A0>()));
+      return ifnanelse(is_odd(a0*Two<A0>()), rec(cospi(tofloat(a0))));
     }
   };
 } }

@@ -26,6 +26,7 @@
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/fast_ldexp.hpp>
 #include <nt2/include/functions/exp.hpp>
+#include <nt2/include/functions/bitwise_notand.hpp>
 
 
 
@@ -114,10 +115,11 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      typedef typename meta::boolean<A0>::type                 bA0; 
       const A0 u =  exp(a0);
-      const A0 p = b_or(is_eqz(u),is_inf(u));
+      const bA0 p = b_or(is_eqz(u),is_inf(u));
       const A0 y1 = minusone(u);
-      const A0 m = b_notand(p, is_not_equal(u, One<A0>()));
+      const bA0 m = bitwise_notand(p, is_not_equal(u, One<A0>()));
       const A0 y2 = mul(y1,(rdiv(a0,log(u))));
       return select(p,y1,select(m, y2, a0));
     }

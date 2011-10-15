@@ -6,16 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_META_SCALAR_OF_HPP_INCLUDED
-#define NT2_SDK_META_SCALAR_OF_HPP_INCLUDED
+#ifndef NT2_SDK_META_BOOLEAN_HPP_INCLUDED
+#define NT2_SDK_META_BOOLEAN_HPP_INCLUDED
 
-#include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/meta/hierarchy_of.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
+#include <boost/simd/sdk/simd/boolean.hpp>
 
 namespace nt2 { namespace meta
 {
-  using boost::dispatch::meta::scalar_of;
+  using boost::simd::meta::boolean;
 } }
 
 #endif

@@ -23,6 +23,7 @@
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
+#include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -60,36 +61,39 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
+      typedef typename meta::boolean<A0>::type  bA0; 
+      typedef typename meta::boolean<A1>::type  bA1; 
       A0 x =  nt2::abs(a0);
       A0 aa1 = tofloat(a1);
       A0 y =nt2::pow(x,rec(aa1));
-      A1 nul_a1 = is_eqz(a1);
-      A0 a11 = tofloat(a1-nul_a1); 
-//       std::cout << "icitte " << std::endl;
-//       std::cout << "aa1 " << aa1 << std::endl;
-//       std::cout << "y " << y << std::endl;
-//       std::cout << "pow(y, aa1) " << nt2::pow(y, aa1) << std::endl;
-//       std::cout << "sub(a11, One<A1>()) " << sub(a11, One<A0>()) << std::endl;
-//       std::cout << "nul_a1 " << nul_a1 << std::endl;
-//       std::cout << "is_nez(y) " << is_nez(y) << std::endl;
-//       std::cout << "pow(y, sub(a11, One<A0>())) " << pow(y, sub(a11, One<A0>())) << std::endl;
-// 	std::cout << "pow(y, sub(a1, One<A1>())) " << pow(y, sub(a11, One<A1>())) << std::endl;
+      bA1 nul_a1 = is_eqz(a1);
+      A0 a11 = tofloat(a1-select(nul_a1, Mone<A1>(), Zero<A1>())); 
       y = seladd(b_or(is_nez(y), nul_a1), y, - (pow(y, aa1) - x)/(aa1* pow(y, sub(a11, One<A0>()))));
-//      std::cout << "ybis " << y << std::endl;
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)
       // by one iteration of Newton's method
-      A0 invalid = b_and(is_ltz(a0), is_even(a1)); 
-//      std::cout << "invalid " << invalid << std::endl;
-      return  b_and(is_nez(a0),
-		    b_or(invalid, 
-			 sel(is_eqz(aa1), One<A0>(),  
-			     sel(b_or(eq(a1, One<A1>()), is_inf(a0)),
-				 a0,
-				 b_or(y, bitofsign(a0))
-				 )
-			     )
-			 )
-		    );
+      bA0 invalid = b_and(is_ltz(a0), is_even(a1)); 
+//       return  b_and(is_nez(a0),
+// 		    b_or(invalid, 
+// 			 sel(is_eqz(aa1), One<A0>(),  
+// 			     sel(b_or(eq(a1, One<A1>()), is_inf(a0)),
+// 				 a0,
+// 				 b_or(y, bitofsign(a0))
+// 				 )
+// 			     )
+// 			 )
+// 		    );
+      return  select(is_eqz(a0),
+		     Zero<A0>(), 
+		     select(invalid,
+			    Nan<A0>(),   
+			    sel(is_eqz(aa1), One<A0>(),  
+				sel(b_or(eq(a1, One<A1>()), is_inf(a0)),
+				    a0,
+				    b_or(y, bitofsign(a0))
+				    )
+				)
+			    )
+		     );
     }
   };
 } }

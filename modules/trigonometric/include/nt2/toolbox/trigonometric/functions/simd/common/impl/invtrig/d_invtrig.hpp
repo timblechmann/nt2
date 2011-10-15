@@ -9,7 +9,10 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_INVTRIG_D_INVTRIG_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_INVTRIG_D_INVTRIG_HPP_INCLUDED
 #include <nt2/include/functions/sign.hpp>
+#include <nt2/include/functions/ifnanelse.hpp>
+#include <nt2/include/functions/ifnotelsezero.hpp>
 #include <nt2/include/functions/bitwise_notand.hpp>
+#include <nt2/include/functions/bitwise_and.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/sqr.hpp>
@@ -27,13 +30,14 @@ namespace nt2
       template < class A0 >
       struct invtrig_base<A0,radian_tag,tag::simd_type, double>
       {
+	typedef typename meta::boolean<A0>::type bA0; 
         static inline typename A0::native_type asin(const typename A0::native_type a0_n)
         {
           const A0 a0 = { a0_n };
           typedef typename meta::scalar_of<A0>::type sA0;
           A0 x = nt2::abs(a0);
           static const A0 pio4 =  Pio_4<A0>();
-          static const A0 small=  lt(x, Sqrteps<A0>());
+          static const bA0 small=  lt(x, Sqrteps<A0>());
           static const A0 morebits = double_constant<A0, 0xbc91a62633145c07ll>();
           static const A0 ct1      = double_constant<A0, 0x3fe4000000000000ll>();
           A0 zz1 = oneminus(x);
@@ -74,17 +78,17 @@ namespace nt2
                                           0xc04898220a3607acll)
                                          )>(zz2);
           zz2 = x*z+x;
-          return b_or(b_xor(select(small,
-                                   x,
-                                   select(gt(x, ct1),
-                                          zz1,
-                                          zz2
-                                          )
-                                   ),
-                            bitofsign(a0)
-                            ),
-                      gt(x, One<A0>())
-                      );
+          return ifnanelse(gt(x, One<A0>()),
+			   b_xor(select(small,
+					x,
+					select(gt(x, ct1),
+					       zz1,
+					       zz2
+					       )
+					),
+				 bitofsign(a0)
+				 )
+			   );
         }
 
         static inline typename A0::native_type acos(const typename A0::native_type a0_n)
@@ -94,7 +98,7 @@ namespace nt2
           A0 z1 = Two<A0>() * as;
           const A0 as1 = {asin(a0)}; 
           A0 z2 = ((Pio_4<A0>() - as1)+double_constant<A0, 0x3c91a62633145c07ll>())+ Pio_4<A0>();
-          return b_or( gt(abs(a0),One<A0>()), sel( gt(a0,Half<A0>()), z1, z2));
+          return ifnanelse( gt(abs(a0),One<A0>()), sel( gt(a0,Half<A0>()), z1, z2));
         }
 
         static inline typename A0::native_type atan(const typename A0::native_type a0_n)
@@ -105,9 +109,9 @@ namespace nt2
           //      static const A0 Twothird = double_constant<A0, 0x3fe51eb851eb851fll>();
           const A0 tanpio8 = double_constant<A0, 0x3fda827999fcef31ll>();
           A0 x =  nt2::abs(a0);
-          const A0 flag1 = lt(x,  tan3pio8);              //tan3pio8
-          const A0 flag2 = b_and(ge(x, tanpio8), flag1); //tanpio8
-          A0 yy =  b_notand(flag1, Pio_2<A0>());
+          const bA0 flag1 = lt(x,  tan3pio8);              
+          const bA0 flag2 = b_and(ge(x, tanpio8), flag1); 
+          A0 yy =  ifnotelsezero(flag1, Pio_2<A0>());
           yy =  select(flag2, Pio_4<A0>(), yy);
           A0 xx =   select(flag1, x, -rec(x));
           xx =  select(flag2, minusone(x)/oneplus(x),xx);
@@ -130,7 +134,7 @@ namespace nt2
           z = fma(xx, z, xx);
           const A0 morebits = double_constant<A0, 0x3c91a62633145c07ll>();
           z = seladd(flag2, z, mul(Half<A0>(),  morebits));
-          z = z+b_notand(flag1, morebits);
+          z = z+ifnotelsezero(flag1, morebits);
           yy = yy + z;
           return b_xor(yy, bitofsign(a0));
         }
