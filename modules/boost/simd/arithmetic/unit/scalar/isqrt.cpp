@@ -29,11 +29,12 @@ NT2_TEST_CASE_TPL ( isqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::isqrt;
   using boost::simd::tag::isqrt_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type iuT;
   typedef typename boost::dispatch::meta::call<isqrt_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
+  typedef iuT wished_r_t;
 
 
   // return type conformity test 

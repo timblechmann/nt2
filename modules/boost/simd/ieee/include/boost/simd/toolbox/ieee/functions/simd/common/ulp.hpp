@@ -13,6 +13,8 @@
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/predecessor.hpp>
 #include <boost/simd/include/functions/successor.hpp>
+#include <boost/simd/include/functions/min.hpp>
+#include <boost/simd/include/functions/ifnanelse.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -45,8 +47,7 @@ namespace boost { namespace simd { namespace ext
         const A0 x = boost::simd::abs(a0);
         A0 xp = boost::simd::predecessor(x);
         A0 xs = boost::simd::successor(x); 
-        return boost::simd::sel(boost::simd::is_equal(x, boost::simd::Inf<A0>()),
-                                boost::simd::Nan<A0>(), boost::simd::min(x-xp, xs - x));
+        return ifnanelse(is_equal(x, Inf<A0>()), boost::simd::min(x-xp, xs - x));
       }
   };
 } } }

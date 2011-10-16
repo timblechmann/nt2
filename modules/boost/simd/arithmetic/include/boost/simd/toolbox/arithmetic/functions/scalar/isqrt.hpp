@@ -14,6 +14,7 @@
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/functions/sqrt.hpp>
 #include <boost/simd/include/functions/trunc.hpp>
+#include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint_
@@ -61,7 +62,8 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0, unsigned> ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return result_type(sqrt(a0));
+      A0 that = sqrt(a0); 
+      return is_nan(a0) ? Zero<result_type>():result_type(that);
     }
   };
 } } }

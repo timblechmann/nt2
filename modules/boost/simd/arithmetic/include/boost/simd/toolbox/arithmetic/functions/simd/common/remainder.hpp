@@ -17,6 +17,7 @@
 #include <boost/simd/include/functions/is_invalid.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
+#include <boost/simd/include/functions/ifnanelse.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -50,7 +51,7 @@ namespace boost { namespace simd { namespace ext
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return b_or(is_invalid(a0), b_or(is_eqz(a1), a0-divround(a0, a1)*a1)); 
+      return ifnanelse(is_invalid(a0), b_or(is_eqz(a1), a0-divround(a0, a1)*a1)); 
     }
   };
 } } }

@@ -14,6 +14,7 @@
 #include <boost/simd/include/functions/is_invalid.hpp>
 #include <boost/simd/include/functions/select.hpp>
 #include <boost/simd/include/functions/trunc.hpp>
+#include <boost/simd/include/functions/ifnanelse.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -44,7 +45,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return sel(is_invalid(a0), boost::simd::Nan<A0>(), a0-boost::simd::trunc(a0));
+      return ifnanelse(is_invalid(a0), a0-boost::simd::trunc(a0));
     }
   };
 } } }

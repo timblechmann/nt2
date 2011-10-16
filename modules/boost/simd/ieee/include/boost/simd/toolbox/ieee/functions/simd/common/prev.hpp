@@ -20,6 +20,8 @@
 #include <boost/simd/include/functions/fast_ldexp.hpp>
 #include <boost/simd/include/functions/next.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/functions/ifnanelse.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -50,15 +52,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return b_or(-boost::simd::next(-a0), is_nan(a0));
-//       typedef typename dispatch::meta::as_integer<A0, signed>::type itype;
-//       A0 m;
-//       itype expon;
-//       boost::fusion::tie(m, expon) = fast_frexp(a0);
-//       expon =  seladd(iseq(m, Mhalf<A0>()), expon, Mone<itype>());
-//       A0 diff =  fast_ldexp(Mone<A0>(), expon-Nbdigits<A0>());
-//       diff = sel(iseqz(diff)||iseqz(a0),  Mindenormal<A0>(), diff);
-//       return a0+diff;
+      return ifnanelse(is_nan(a0), -boost::simd::next(-a0));
     }
   };
 } } }
