@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_TRIGO_TRIG_BASE_HPP_INCLUDED
 
 #include <nt2/include/functions/any.hpp>
+#include <nt2/include/functions/ifnanelse.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
@@ -161,15 +162,15 @@ namespace nt2
           const int_type sin_sign_bit = b_xor(shli(n&Two<int_type>(), de-1), bitofsign(a0)); 
           const A0 t1 = {eval_t::sin_eval(z, xr, xc)};
           const A0 t2 = {eval_t::cos_eval(z, xr, xc)};
-	  const bint_type test = is_nez(swap_bit);
+          const bint_type test = is_nez(swap_bit);
           c = b_xor(sel(test, t1, t2),cos_sign_bit);
           return b_xor(sel(test, t2, t1),sin_sign_bit); 
         }
 
         static inline A0 scale(const A0& a0)
         {
-          return b_or(a0, gt(nt2::abs(a0),
-                             trig_ranges<A0,unit_tag>::max_range()))
+          return ifnanelse(gt(nt2::abs(a0),
+                             trig_ranges<A0,unit_tag>::max_range()), a0)
             *trig_ranges<A0,unit_tag>::scale();
         }
 

@@ -14,6 +14,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/sinpi.hpp>
 #include <nt2/include/functions/is_flint.hpp>
+#include <nt2/include/functions/ifnanelse.hpp>
 
 
 
@@ -53,7 +54,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return b_or(rec(sinpi(a0)), b_and(is_flint(a0), is_nez(a0)));
+      return ifnanelse(b_and(is_flint(a0), is_nez(a0)), rec(sinpi(a0)));
     }
   };
 } }

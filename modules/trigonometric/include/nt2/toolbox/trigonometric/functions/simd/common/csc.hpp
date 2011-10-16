@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return b_or(rec(sin(tofloat(a0))), is_eqz(a0));
+      return ifnanelse(is_eqz(a0), rec(sin(tofloat(a0))));
     }
   };
 } }

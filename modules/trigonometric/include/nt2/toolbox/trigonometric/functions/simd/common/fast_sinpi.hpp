@@ -9,12 +9,9 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_FAST_SINPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_FAST_SINPI_HPP_INCLUDED
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/meta/strip.hpp>
- #include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/functions/details/simd/common/impl/trigo.hpp
-//  of the old nt2
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
+
 
 
 
@@ -33,7 +30,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return is_nez(boost::simd::native_cast<result_type>(a0));
+      return Zero<result_type>(); //is_nez(boost::simd::native_cast<result_type>(a0));
     }
   };
 } }

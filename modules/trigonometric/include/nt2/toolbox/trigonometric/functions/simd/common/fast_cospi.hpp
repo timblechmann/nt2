@@ -13,6 +13,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/typed_bool.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -27,7 +28,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return boost::simd::native_cast<result_type>(One<A0>()+is_eqz(a0));
+      return boost::simd::native_cast<result_type>(One<A0>()+typed_bool<A0>(is_eqz(a0)));
     }
   };
 } }

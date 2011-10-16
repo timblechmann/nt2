@@ -16,6 +16,7 @@
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/ifelsezero.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 
@@ -38,8 +39,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       A0 s = bitofsign(a0);
-      return b_or(sel(is_inf(a0), Zero<A0>(), _90<A0>()-b_and(is_nez(a0),nt2::atand(abs(a0))))
-		  , s);
+      return b_or(sel(is_inf(a0), Zero<A0>(), _90<A0>()-ifelsezero(is_nez(a0),nt2::atand(abs(a0)))), s);
     }
   };
 } }
