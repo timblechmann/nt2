@@ -37,6 +37,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
+      typedef typename meta::boolean<A0>::type bA0; 
       A0 r =  One<A0>();
       A0 a00 = nt2::trunc(nt2::abs(a0)); 
       r =  select(eq(a00, Two<A0>()),     Two<A0>(),    r);
@@ -50,7 +51,7 @@ namespace nt2 { namespace ext
       r =  select(eq(a00, Ten<A0>()),     Fact_10<A0>(),r);
       r =  select(eq(a00, Eleven<A0>()),  Fact_11<A0>(),r);
       r =  select(eq(a00, Twelve<A0>()),  Fact_12<A0>(),r);
-      A0 test = le(a00, Twelve<A0>());
+      bA0 test = le(a00, Twelve<A0>());
       if (nt2::bitwise_all(test))
         return r;
       else

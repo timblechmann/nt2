@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SCALAR_LCM_HPP_INCLUDED
 #define NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SCALAR_LCM_HPP_INCLUDED
-#include <nt2/include/functions/rdivide.hpp>
+#include <nt2/include/functions/divides.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/gcd.hpp>
 #include <nt2/include/functions/trunc.hpp>
@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-     return nt2::abs(a0*rdivide(a1,gcd(a0,a1)));
+     return nt2::abs(a0*rdiv(a1,gcd(a0,a1)));
     }
   };
 } }

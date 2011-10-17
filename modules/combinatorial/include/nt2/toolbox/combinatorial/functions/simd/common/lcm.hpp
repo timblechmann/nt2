@@ -8,9 +8,9 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_LCM_HPP_INCLUDED
 #define NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_LCM_HPP_INCLUDED
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/gcd.hpp>
+#include <nt2/include/functions/divides.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -25,7 +25,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return nt2::abs(round2even(a0)*rdivide(round2even(a1), gcd(a0,a1)));
+      return nt2::abs(round2even(a0)*rdiv(round2even(a1), gcd(a0,a1)));
     }
   };
 } }

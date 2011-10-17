@@ -17,7 +17,10 @@
 #include <nt2/include/functions/rem.hpp>
 #include <nt2/include/functions/bitwise_any.hpp>
 #include <nt2/include/functions/bitwise_ornot.hpp>
+#include <nt2/include/functions/bitwise_and.hpp>
 #include <nt2/include/functions/is_flint.hpp>
+#include <nt2/include/functions/ifelsezero.hpp>
+#include <nt2/include/functions/ifnotnanelse.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -29,19 +32,18 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
+      typedef typename meta::boolean<A0>::type bA0; 
       A0 a = a0, b = a1;
-      A0 t= is_nez(b);
+      bA0 t= is_nez(b);
       while (nt2::bitwise_any(t))
       {
-        A0 r = t&rem(a, b);
+        A0 r = ifelsezero(t, rem(a, b));
         a = sel(t, b, a);
         b = r;
-        t= is_nez(b);
+        t = is_nez(b);
       }
       return a;
     }
@@ -60,22 +62,23 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 ints = b_and(is_flint(a1), is_flint(a0)); 
-      A0 a =  b_and(round2even(a0),ints); 
-      A0 b =  b_and(round2even(a1),ints);
-      A0 t= is_nez(b);
+      typedef typename meta::boolean<A0>::type bA0; 
+      bA0 ints = b_and(is_flint(a1), is_flint(a0)); 
+      A0 a = a0; //b_and(round2even(a0),ints); 
+      A0 b = a1; //b_and(round2even(a1),ints);
+      bA0 t= is_nez(b);
       while (nt2::bitwise_any(t))
       {
-        A0 r = b_and(t, rem(a, b));
+        A0 r = ifelsezero(t, rem(a, b));
         a = sel(t, b, a);
         b = r;
-        t= is_nez(b);
+        t = is_nez(b);
       }
-      return b_ornot(round2even(a), ints);
+      return ifnotnanelse(ints, round2even(a));
     }
   };
 } }
