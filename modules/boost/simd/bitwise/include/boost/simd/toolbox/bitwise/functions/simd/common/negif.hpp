@@ -33,18 +33,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2) { return  sel(is_true(a0),unary_minus(a1),a1); }
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::negif_, tag::cpu_,
-                                     (A0)(A1)(X), //TODO put in larrabee
-                                     ((scalar_<int16_<A0> >))
-                                     ((simd_<signed_<A1>,X>))
-                                     )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
-    {
-      return sel(a0,unary_minus(a1),a1);
-    }
-  };
+
 //   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::negif_, tag::cpu_, (A0)(A1)(X)
 //                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
 //                                                         , boost::mpl::sizeof_<A1>
