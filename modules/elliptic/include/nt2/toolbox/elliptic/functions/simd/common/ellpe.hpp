@@ -10,11 +10,11 @@
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SIMD_COMMON_ELLPE_HPP_INCLUDED
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/ifnanelse.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -88,7 +88,9 @@ namespace nt2 { namespace ext
                                   0x3dc00000,
                                   0x3e800000
                                   ) ) > (a0);
-      return select(is_eqz(a0), One<A0>(), b_or(temp, b_or(gt(a0, One<A0>()), is_ltz(a0))));
+      return select(is_eqz(a0),
+        One<A0>(),
+        ifnanelse(b_or(gt(a0, One<A0>()), is_ltz(a0)), temp));
     }
   };
 } }
