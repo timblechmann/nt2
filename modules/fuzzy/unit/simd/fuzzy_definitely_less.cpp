@@ -37,6 +37,11 @@
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
+#ifdef __LRB__
+#define REF &1
+#else
+#define REF [0]
+#endif
 
 
 NT2_TEST_CASE_TPL ( fuzzy_definitely_less_real__3_0,  NT2_SIMD_REAL_TYPES)
@@ -60,6 +65,6 @@ NT2_TEST_CASE_TPL ( fuzzy_definitely_less_real__3_0,  NT2_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(fuzzy_definitely_less(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<vT>(1))[0]!=0, nt2::False<sr_t>());
-  NT2_TEST_EQUAL(fuzzy_definitely_less(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<vT>(1))[0]!=0, nt2::False<sr_t>());
+  NT2_TEST_EQUAL(fuzzy_definitely_less(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<vT>(1))REF!=0, nt2::False<sr_t>());
+  NT2_TEST_EQUAL(fuzzy_definitely_less(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<vT>(1))REF!=0, nt2::False<sr_t>());
 } // end of test for floating_

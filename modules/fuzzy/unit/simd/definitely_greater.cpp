@@ -36,6 +36,11 @@
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
+#ifdef __LRB__
+#define REF &1
+#else
+#define REF [0]
+#endif
 
 
 NT2_TEST_CASE_TPL ( definitely_greater_real__3_0,  NT2_SIMD_REAL_TYPES)
@@ -59,8 +64,8 @@ NT2_TEST_CASE_TPL ( definitely_greater_real__3_0,  NT2_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(definitely_greater(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<ivT>(1))[0]!=0, nt2::False<sr_t>());
-  NT2_TEST_EQUAL(definitely_greater(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<ivT>(1))[0]!=0, nt2::False<sr_t>());
+  NT2_TEST_EQUAL(definitely_greater(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<ivT>(1))REF!=0, nt2::False<sr_t>());
+  NT2_TEST_EQUAL(definitely_greater(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<ivT>(1))REF!=0, nt2::False<sr_t>());
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( definitely_greater_signed_int__3_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -84,8 +89,8 @@ NT2_TEST_CASE_TPL ( definitely_greater_signed_int__3_0,  NT2_SIMD_INTEGRAL_SIGNE
 
 
   // specific values tests
-  NT2_TEST_EQUAL(definitely_greater(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<ivT>(1))[0]!=0, nt2::False<sr_t>());
-  NT2_TEST_EQUAL(definitely_greater(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<ivT>(1))[0]!=0, nt2::False<sr_t>());
+  NT2_TEST_EQUAL(definitely_greater(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<ivT>(1))REF!=0, nt2::False<sr_t>());
+  NT2_TEST_EQUAL(definitely_greater(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<ivT>(1))REF!=0, nt2::False<sr_t>());
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( definitely_greater_unsigned_int__3_0,  NT2_SIMD_UNSIGNED_TYPES)
@@ -109,6 +114,6 @@ NT2_TEST_CASE_TPL ( definitely_greater_unsigned_int__3_0,  NT2_SIMD_UNSIGNED_TYP
 
 
   // specific values tests
-  NT2_TEST_EQUAL(definitely_greater(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<ivT>(1))[0]!=0, nt2::False<sr_t>());
-  NT2_TEST_EQUAL(definitely_greater(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<ivT>(1))[0]!=0, nt2::False<sr_t>());
+  NT2_TEST_EQUAL(definitely_greater(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<ivT>(1))REF!=0, nt2::False<sr_t>());
+  NT2_TEST_EQUAL(definitely_greater(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<ivT>(1))REF!=0, nt2::False<sr_t>());
 } // end of test for unsigned_int_

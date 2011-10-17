@@ -17,6 +17,8 @@
 #include <nt2/include/functions/dist.hpp>
 #include <nt2/include/functions/is_gez.hpp>
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/bitwise_and.hpp>
+#include <nt2/include/functions/bitwise_or.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -34,7 +36,7 @@ namespace nt2 { namespace ext
 			 ((simd_<integer_<A2>,X>))
                         )
   {
-    typedef A0 result_type;
+    typedef typename meta::boolean<A0>::type result_type;
     inline result_type operator()( A0 const& a0, A0 const& a1, A2 const& a2) const
     {
       return le(dist(a0, a1), nt2::abs(a2));
@@ -57,7 +59,7 @@ namespace nt2 { namespace ext
 			 ((simd_<integer_<A2>,X>))
                        )
   {
-    typedef A0 result_type;
+    typedef typename meta::boolean<A0>::type result_type;
     inline result_type operator()( A0 const& a0, A0 const& a1, A2 const& a2) const
     {
       A2 aa2 =  nt2::abs(a2);

@@ -26,8 +26,7 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
   {
-
-    typedef A0 result_type;
+    typedef typename meta::boolean<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
       return le(nt2::dist(a0,a1), nt2::max(nt2::abs(a0),nt2::abs(a1))*a2);
