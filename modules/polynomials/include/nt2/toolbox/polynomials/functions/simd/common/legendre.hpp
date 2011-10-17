@@ -22,6 +22,7 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
+#include <nt2/include/functions/ifnanelse.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
@@ -74,7 +75,7 @@ namespace nt2 { namespace ext
         vc = vcp1;
         ++c;
       }
-      return b_or(p1, gt(abs(a1), One<A1>()));
+      return ifnanelse(gt(abs(a1), One<A1>()), p1);
     }
   };
 } }
