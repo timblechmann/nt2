@@ -13,14 +13,19 @@
 #include <boost/mpl/vector_c.hpp>
 #include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/arithmetic/inc.hpp>
+#include <boost/preprocessor/arithmetic/dec.hpp>
 
 namespace nt2 
 { 
   #define M0(z,n,t)                                                   \
   std::ptrdiff_t BOOST_PP_CAT(I,BOOST_PP_INC(n)) = BOOST_PP_CAT(I,n)  \
   /**/
-  
+
+  #define M1(z,n,t) case n: return I##n;
+
   //============================================================================
   /*! index<I0,...,In> represents the base index over the Nth dimensions. By 
    * default, index<I0> is equivalent to index<I0,I0,...,I0>.
@@ -31,15 +36,25 @@ namespace nt2
   template< std::ptrdiff_t I0 = NT2_DEFAULT_INDEX
           , BOOST_PP_ENUM(BOOST_PP_DEC(NT2_MAX_DIMENSIONS),M0,~)
           >
-  struct  index_ 
+  struct  index_
   {
     typedef 
     BOOST_PP_CAT(BOOST_PP_CAT(boost::mpl::vector,NT2_MAX_DIMENSIONS),_c)
               < std::ptrdiff_t
               , BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,I)
               >                                                       type;
+
+    // TODO: remove?
+    std::ptrdiff_t operator[](std::size_t i) const
+    {
+      switch(i)
+      {
+        BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS, M1, ~)
+      }
+    }
   };
 
+  #undef M1
   #undef M0
 
   //============================================================================
