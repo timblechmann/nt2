@@ -15,6 +15,7 @@
 #include <nt2/core/settings/size.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/iterator.hpp>
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
@@ -102,6 +103,17 @@ namespace nt2 { namespace container
 
     typedef typename meta::settings_of<ResultType>::type            settings_type;
     typedef typename meta::option<settings_type, tag::index_>::type index_type;
+
+    //==========================================================================
+    // Range support
+    //==========================================================================
+    typedef container::iterator<expression>                         iterator;
+    typedef container::iterator<expression const>                   const_iterator;
+
+    iterator       begin()       { return container::begin(*this); }
+    const_iterator begin() const { return container::begin(*this); }
+    iterator       end()         { return container::end(*this);   }
+    const_iterator end()   const { return container::end(*this);   }
 
     //==========================================================================
     // Compute storage type for size

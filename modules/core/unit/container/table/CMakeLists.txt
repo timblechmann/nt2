@@ -8,10 +8,10 @@
 ##############################################################################
 
 SET( SOURCES
-  table_settings.cpp
-  resize.cpp
-  constructor.cpp
-# List of scalar test files for toolbox core.settings
+     table_settings.cpp
+     resize.cpp
+     constructor.cpp
+     iterator.cpp
    )
 
 nt2_module_add_tests(core.container.table.unit ${SOURCES})
