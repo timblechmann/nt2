@@ -36,13 +36,17 @@ namespace nt2 { namespace details
                          , BOOST_PP_ENUM_PARAMS( BOOST_PP_DEC(n)                                   \
                                                , nt2::colon_placeholder BOOST_PP_INTERCEPT         \
                                                )                                                   \
-                         , std::size_t                                                             \
+                           BOOST_PP_COMMA_IF( BOOST_PP_DEC(n) )                                    \
+                           std::size_t                                                             \
                          )                                                                         \
         >::type                                                            type;                   \
                                                                                                    \
     static type call(Expr& expr, std::size_t i)                                                    \
     {                                                                                              \
-      return expr(BOOST_PP_ENUM_PARAMS(BOOST_PP_DEC(n), nt2::_ BOOST_PP_INTERCEPT), i);            \
+      return expr( BOOST_PP_ENUM_PARAMS(BOOST_PP_DEC(n), nt2::_ BOOST_PP_INTERCEPT)                \
+                   BOOST_PP_COMMA_IF( BOOST_PP_DEC(n) )                                            \
+                   i                                                                               \
+                 );                                                                                \
     }                                                                                              \
   }                                                                                                \
 /**/
