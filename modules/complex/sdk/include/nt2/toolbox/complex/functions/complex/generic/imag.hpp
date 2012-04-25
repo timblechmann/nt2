@@ -15,7 +15,7 @@
 
 namespace nt2 { namespace ext
 {
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::imag_, tag::cpu_, (A0)
+//   NT2_FUNCTOR_IMPLEMENTATION( imag_, tag::cpu_, (A0)
 //                             , (generic_< complex_< arithmetic_<A0> > >)
 //                             )
 //   {

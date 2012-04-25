@@ -25,7 +25,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acos_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( acos_, tag::cpu_
                             , (A0)
                             , (scalar_< signed_<A0> >)
                             )
@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
       else return oneminus(nt2::sign(a0))*Pio_2<result_type>();
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acos_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( acos_, tag::cpu_
                             , (A0)
                             , (scalar_< unsigned_<A0> >)
                             )
@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acos_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( acos_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
                             )

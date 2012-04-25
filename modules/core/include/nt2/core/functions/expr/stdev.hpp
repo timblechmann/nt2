@@ -18,7 +18,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::stdev_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( stdev_, tag::cpu_,
                               (A0),
                               (ast_<A0>) )
   {
@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
       return nt2::sqrt(var(a0)); 
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::stdev_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( stdev_, tag::cpu_,
                               (A0)(A1),
                               (ast_<A0>)
                               (scalar_<integer_<A1> > )
@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::stdev_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( stdev_, tag::cpu_,
                               (A0)(A1)(A2),
                               (ast_<A0>)
                               (scalar_<integer_<A1> > )
@@ -62,7 +62,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::stdev_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( stdev_, tag::cpu_,
                               (A0)(A1),
                               (ast_<A0>)
                               (ast_<A1>)
@@ -76,7 +76,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::stdev_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( stdev_, tag::cpu_,
                               (A0)(A1)(A2),
                               (ast_<A0>)
                               (ast_<A1>)

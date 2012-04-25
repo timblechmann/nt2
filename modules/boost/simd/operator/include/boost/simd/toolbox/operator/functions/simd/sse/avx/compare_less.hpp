@@ -22,7 +22,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_less_, boost::simd::tag::avx_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( compare_less_, boost::simd::tag::avx_
                             , (A0)
                             , ((simd_<double_<A0>,boost::simd::tag::avx_>))
                               ((simd_<double_<A0>,boost::simd::tag::avx_>))
@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_less_, boost::simd::tag::avx_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( compare_less_, boost::simd::tag::avx_
                             , (A0)
                             , ((simd_<single_<A0>,boost::simd::tag::avx_>))
                               ((simd_<single_<A0>,boost::simd::tag::avx_>))
@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_less_, boost::simd::tag::avx_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( compare_less_, boost::simd::tag::avx_
                             , (A0)
                             , ((simd_<integer_<A0>,boost::simd::tag::avx_>))
                               ((simd_<integer_<A0>,boost::simd::tag::avx_>))

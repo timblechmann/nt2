@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::secant_<mode>, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION_GEN( nt2::tag::secant_<mode>, tag::cpu_
 			      , (A0)(mode)
                             , (scalar_< arithmetic_<A0> >)
                             )

@@ -12,7 +12,7 @@
 
 // namespace boost { namespace simd { namespace ext
 // {
-//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::random_, tag::cpu_
+//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( random_, tag::cpu_
 //                             , (A0)(X)
 //                             , ((simd_<double_<A0>,X>))
 //                               ((simd_<double_<A0>,X>))

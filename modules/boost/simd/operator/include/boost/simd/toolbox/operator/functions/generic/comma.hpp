@@ -12,7 +12,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::comma_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( comma_, tag::cpu_, (A0)(A1)
                             , (generic_<unspecified_<A0> >)
                               (generic_<unspecified_<A1> >)
                             )

@@ -17,7 +17,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A2)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( fast_frexp_, tag::cpu_, (A0)(A2)
                             , (scalar_< double_<A0> >)
                               (scalar_< double_<A0> >)
                               (scalar_< int32_<A2> >)
@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A2)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( fast_frexp_, tag::cpu_, (A0)(A2)
                             , (scalar_< double_<A0> >)
                               (scalar_< int32_<A2> >)
                             )
@@ -46,7 +46,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::fast_frexp_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(fast_frexp_, tag::cpu_,
                             (A0),
                             (scalar_ < double_<A0> > )
                            )
@@ -66,7 +66,7 @@ namespace boost { namespace simd { namespace ext
 
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::fast_frexp_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(fast_frexp_, tag::cpu_,
                             (A0),
                             (scalar_ < single_<A0> > )
                            )

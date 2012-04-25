@@ -27,14 +27,14 @@ namespace boost { namespace simd { namespace ext
                             , identity
                             )
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::box_, tag::formal_, (A0), (ast_<A0>) )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_GEN( nt2::tag::box_, tag::formal_, (A0), (ast_<A0>) )
   {
     typedef typename boost::remove_const<A0>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const { return a0; }
   };
 
   // When evaluating a terminal, get its value
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::terminal_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_GEN( nt2::tag::terminal_, tag::cpu_
                             , (A0)
                             , (ast_<A0>)
                             )
@@ -61,7 +61,7 @@ namespace boost { namespace simd { namespace ext
                             )
 
   // Except dereference, which dereferences
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::dereference_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( dereference_, tag::cpu_, (A0)
                             , (unspecified_<A0>)
                             )
   {
@@ -70,7 +70,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   // All terminals other than the actual terminal tag call the tag on the value
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::dereference_, tag::cpu_, (A0)(T0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( dereference_, tag::cpu_, (A0)(T0)
                             , (mpl::not_< is_same<T0, boost::simd::tag::terminal_> >)
                             , ((expr_< unspecified_<A0>, T0, boost::mpl::long_<0> >))
                             )

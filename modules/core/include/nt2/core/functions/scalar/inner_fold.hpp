@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates inner_fold
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::inner_fold_, tag::cpu_, (A0)(A1)(A2)(A3)(A4)
+  NT2_FUNCTOR_IMPLEMENTATION( inner_fold_, tag::cpu_, (A0)(A1)(A2)(A3)(A4)
                             , (ast_< A0>)
                               (ast_< A1>)
                               (unspecified_<A2>)

@@ -20,7 +20,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates rows from a pair of integers
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rows_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( rows_, tag::cpu_
                             , (A0)(T)
                             , (scalar_< integer_<A0> >)
                               (scalar_< integer_<A0> >)
@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates rows from fusion sequence + types (support of_size calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rows_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( rows_, tag::cpu_
                             , (Seq)(T)
                             , (fusion_sequence_<Seq>)
                               (scalar_< arithmetic_<T> >)
@@ -79,7 +79,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates rows from fusion sequence + types (support of_size calls)
   //============================================================================
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rows_scaled_, tag::cpu_
+//   NT2_FUNCTOR_IMPLEMENTATION( rows_scaled_, tag::cpu_
 //                               , (Seq)(T)(T1)
 //                             , (fusion_sequence_<Seq>)
 //                               (scalar_< arithmetic_<T> >)

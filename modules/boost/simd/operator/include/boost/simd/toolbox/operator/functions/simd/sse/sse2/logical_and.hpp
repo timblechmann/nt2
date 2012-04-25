@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_and_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( logical_and_, boost::simd::tag::sse2_
                             , (A0)(A1)
                             , ((simd_<arithmetic_<A0>, boost::simd::tag::sse_>))
                               ((simd_<arithmetic_<A1>, boost::simd::tag::sse_>))
@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     }
   }; 
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_and_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( logical_and_, boost::simd::tag::sse2_
                             , (A0)(A1)
                             , ((simd_<logical_<A0>, boost::simd::tag::sse_>))
                               ((simd_<logical_<A1>, boost::simd::tag::sse_>))

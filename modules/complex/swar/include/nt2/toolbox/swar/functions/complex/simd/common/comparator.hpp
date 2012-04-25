@@ -26,7 +26,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::comparator_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(comparator_, tag::cpu_,
                              (A0)(A1)(X),
                              ((simd_<complex_ <arithmetic_<A0> >,X>))
                              ((simd_<complex_ <arithmetic_<A0> >,X>))
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::comparator_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(comparator_, tag::cpu_,
                              (A0)(A1)(X),
                              ((simd_<complex_ < arithmetic_<A0> >,X>))
                              ((simd_<complex_ < arithmetic_<A0> >,X>))

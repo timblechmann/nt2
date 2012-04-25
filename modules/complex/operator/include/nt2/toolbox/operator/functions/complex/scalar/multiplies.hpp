@@ -34,7 +34,7 @@
 // namespace nt2 { namespace ext
 // {
   // complex/complex
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)
+//   NT2_FUNCTOR_IMPLEMENTATION( multiplies_, tag::cpu_, (A0)
 //                             , (generic_< complex_< arithmetic_<A0> > >)
 //                               (generic_< complex_< arithmetic_<A0> > >)
 //                             )
@@ -66,7 +66,7 @@
 //   };
   
 //   // complex/real
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
+//   NT2_FUNCTOR_IMPLEMENTATION( multiplies_, tag::cpu_, (A0)(A1)
 //                                      , (generic_< arithmetic_<A0> >)
 //                                        (generic_< complex_< arithmetic_<A1> > >)
 //                                      )
@@ -82,7 +82,7 @@
 //       }
 //   };
   
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
+//   NT2_FUNCTOR_IMPLEMENTATION( multiplies_, tag::cpu_, (A0)(A1)
 //                                      , (generic_< complex_< arithmetic_<A0> > >)
 //                                      (generic_< arithmetic_<A1> >)
 //                                      )
@@ -99,7 +99,7 @@
 //   };
   
 //   // complex/imaginary
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
+//   NT2_FUNCTOR_IMPLEMENTATION( multiplies_, tag::cpu_, (A0)(A1)
 //                                      , (generic_< imaginary_< arithmetic_<A0> > >)
 //                                      (generic_< complex_< arithmetic_<A1> > >)
 //                                      )
@@ -115,7 +115,7 @@
 //       }
 //   };
   
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
+//   NT2_FUNCTOR_IMPLEMENTATION( multiplies_, tag::cpu_, (A0)(A1)
 //                                      , (generic_< complex_< arithmetic_<A0> > >)
 //                                      (generic_< imaginary_< arithmetic_<A1> > >)
 //                                      )
@@ -132,7 +132,7 @@
 //   };
   
 //   // imaginary/real
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
+//   NT2_FUNCTOR_IMPLEMENTATION( multiplies_, tag::cpu_, (A0)(A1)
 //                                      , (generic_< arithmetic_<A0> >)
 //                                      (generic_< imaginary_< arithmetic_<A1> > >)
 //                                      )
@@ -144,7 +144,7 @@
 //       }
 //   };
   
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
+//   NT2_FUNCTOR_IMPLEMENTATION( multiplies_, tag::cpu_, (A0)(A1)
 //                                      , (generic_< imaginary_< arithmetic_<A0> > >)
 //                                      (generic_< arithmetic_<A1> >)
 //                                      )
@@ -157,7 +157,7 @@
 //   };
   
 //   // imaginary/imaginary
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
+//   NT2_FUNCTOR_IMPLEMENTATION( multiplies_, tag::cpu_, (A0)(A1)
 //                                      , (generic_< imaginary_< arithmetic_<A0> > >)
 //                                      (generic_< imaginary_< arithmetic_<A1> > >)
 //                                      )

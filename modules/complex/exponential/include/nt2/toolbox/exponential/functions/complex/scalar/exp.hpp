@@ -17,7 +17,7 @@
 
 namespace nt2 { namespace ext
 {
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp_, tag::cpu_
+//   NT2_FUNCTOR_IMPLEMENTATION( exp_, tag::cpu_
 //                             , (A0)
 //                             , (scalar_< complex_<floating_<A0> > >)
 //                             )
@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
 //       return static_cast<result_type>(std::exp(a0));
 //     }
 //   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( exp_, tag::cpu_
                             , (A0)
                             , (scalar_< imaginary_<floating_<A0> > >)
                             )

@@ -20,7 +20,7 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   // Run an expression without state nor data
   //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::formal_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( run_, tag::formal_
                                     , (A0)
                                     , (ast_<A0>)
                                     )
@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   // Run an expression with a state and no data
   //============================================================================  
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( run_, tag::cpu_
                                     , (A0)(State)
                                     , (ast_<A0>)
                                       (unspecified_<State>)
@@ -70,7 +70,7 @@ namespace boost { namespace simd { namespace ext
   // Run an expression with a state and no data - Terminal cases
   // When run on a terminal, we directly jump into the terminal functor
   //============================================================================  
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( run_, tag::cpu_
                                     , (A0)(State)
                                     , ((expr_ < unspecified_<A0>
                                               , boost::simd::tag::terminal_
@@ -94,7 +94,7 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   // Run an expression with a state and a data
   //============================================================================  
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( run_, tag::cpu_
                                     , (A0)(State)(Data)
                                     , (ast_<A0>)
                                       (unspecified_<State>)
@@ -121,7 +121,7 @@ namespace boost { namespace simd { namespace ext
   // Run an expression with a state and data - Terminal cases
   // When run on a terminal, we directly jump into the terminal functor
   //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( run_, tag::cpu_
                                     , (A0)(T)
                                     , ((expr_ < unspecified_<A0>
                                               , T
@@ -141,7 +141,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( run_, tag::cpu_
                                     , (A0)(T)(State)(Data)
                                     , ((expr_ < unspecified_<A0>
                                               , T

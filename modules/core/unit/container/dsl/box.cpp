@@ -75,7 +75,7 @@ NT2_TEST_CASE( value_semantic )
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION
-  ( boost::simd::tag::plus_, tag::cpu_, (A0)
+  ( plus_, tag::cpu_, (A0)
   , (unspecified_< const foo >)(unspecified_<A0>)
   )
   {

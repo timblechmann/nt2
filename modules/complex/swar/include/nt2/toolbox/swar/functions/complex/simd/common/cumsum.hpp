@@ -28,7 +28,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cumsum_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( cumsum_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<complex_<arithmetic_<A0> >,X>))
                             )
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cumsum_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( cumsum_, tag::cpu_
                                      , (A0)(X)
                                      , ((simd_<imaginary_<arithmetic_<A0> >,X>))
                                      )
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
         return result_type(cumsum(imag(a0))); 
       }
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cumsum_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( cumsum_, tag::cpu_
                                      , (A0)(X)
                                      , ((simd_<dry_<arithmetic_<A0> >,X>))
                                      )

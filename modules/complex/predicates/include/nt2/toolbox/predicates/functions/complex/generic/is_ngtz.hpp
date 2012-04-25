@@ -20,7 +20,7 @@
 namespace nt2 { namespace ext
 {
   // complex
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_ngtz_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( is_ngtz_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
   };
 
   // imaginary
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_ngtz_, tag::cpu_, (A0), 
+  NT2_FUNCTOR_IMPLEMENTATION( is_ngtz_, tag::cpu_, (A0), 
                               (generic_< imaginary_< arithmetic_<A0> > > )
                             )
   {
@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
   };
 
   // complex
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_ngtz_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( is_ngtz_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {

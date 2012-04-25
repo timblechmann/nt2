@@ -11,7 +11,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::maximum_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( maximum_, tag::cpu_
                             , (A0)
                             , (scalar_< fundamental_<A0> >)
                             )
@@ -20,7 +20,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1){ return a0; }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::maximum_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( maximum_, tag::cpu_
                                      , (A0)(A1)
                                      , (scalar_< fundamental_<A0> >)
                                      (scalar_< integer_<A1> > )        

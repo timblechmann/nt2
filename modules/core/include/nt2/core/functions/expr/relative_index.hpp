@@ -19,7 +19,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // When indexing an expression, return the evaluation of said expression
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( relative_index_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)
                             , (ast_<A0>)
                               (scalar_< unspecified_<A1> >)
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // When indexing a scalar, evaluate as scalar type of expression then convert
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( relative_index_, tag::cpu_
                             , (A0)(Arity)(A1)(A2)(A3)(A4)
                             , ((expr_ < scalar_< unspecified_<A0> >
                                       , nt2::tag::terminal_
@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // When indexing on _, return the consecutive positions
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( relative_index_, tag::cpu_
                             , (A0)(Arity)(A1)(A2)(A3)(A4)
                             , ((expr_ < colon_< A0 >
                                       , nt2::tag::terminal_
@@ -91,7 +91,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // When indexing on _(a, b), return the consecutive positions
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( relative_index_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)
                             , ((node_<A0, nt2::tag::colon_, boost::mpl::long_<3> >))
                               (scalar_< unspecified_<A1> >)

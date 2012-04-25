@@ -20,7 +20,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::remquo_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(remquo_, tag::cpu_,
                              (A0)(X),
                              ((simd_<arithmetic_<A0>,X>))
                              ((simd_<arithmetic_<A0>,X>))
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
       }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(  boost::simd::tag::remquo_, tag::cpu_,(A0)(A1)(A2)(A3)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(  remquo_, tag::cpu_,(A0)(A1)(A2)(A3)(X)
                                   ,( boost::mpl::and_ <
                                      boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
                                                           , boost::simd::meta::cardinal_of<A1> >, 
@@ -64,7 +64,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(  boost::simd::tag::remquo_, tag::cpu_,(A0)(A1)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(  remquo_, tag::cpu_,(A0)(A1)(X)
                                   ,( boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
                                                           , boost::simd::meta::cardinal_of<A1> >)
                                   , ((simd_<floating_<A0>,X>))

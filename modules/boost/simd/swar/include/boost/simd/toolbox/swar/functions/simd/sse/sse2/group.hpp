@@ -22,7 +22,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::group_, boost::simd::tag::sse2_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(group_, boost::simd::tag::sse2_,
                         (A0),
                         ((simd_<double_<A0>,boost::simd::tag::sse_>))
                         ((simd_<double_<A0>,boost::simd::tag::sse_>))
@@ -46,7 +46,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::group_, boost::simd::tag::sse2_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(group_, boost::simd::tag::sse2_,
                         (A0),
                         ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
                         ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
@@ -98,7 +98,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::group_, boost::simd::tag::sse2_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(group_, boost::simd::tag::sse2_,
                         (A0),
                         ((simd_<int16_<A0>,boost::simd::tag::sse_>))
                         ((simd_<int16_<A0>,boost::simd::tag::sse_>))
@@ -120,7 +120,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::group_, boost::simd::tag::sse2_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(group_, boost::simd::tag::sse2_,
                         (A0),
                         ((simd_<uint32_<A0>,boost::simd::tag::sse_>))
                         ((simd_<uint32_<A0>,boost::simd::tag::sse_>))
@@ -145,7 +145,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::group_, boost::simd::tag::sse2_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(group_, boost::simd::tag::sse2_,
                         (A0),
                         ((simd_<uint16_<A0>,boost::simd::tag::sse_>))
                         ((simd_<uint16_<A0>,boost::simd::tag::sse_>))
@@ -167,7 +167,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::group_, boost::simd::tag::sse2_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(group_, boost::simd::tag::sse2_,
                         (A0),
                         ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
                         ((simd_<ints64_<A0>,boost::simd::tag::sse_>))

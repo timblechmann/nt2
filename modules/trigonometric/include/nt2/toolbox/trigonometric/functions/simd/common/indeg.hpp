@@ -20,7 +20,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indeg_, boost::simd::tag::simd_
+  NT2_FUNCTOR_IMPLEMENTATION( indeg_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )

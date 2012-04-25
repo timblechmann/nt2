@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( enumerate_
                                     , boost::simd::tag::altivec_
                                     , (A0)(T)
                                     , (scalar_< arithmetic_<A0> >)

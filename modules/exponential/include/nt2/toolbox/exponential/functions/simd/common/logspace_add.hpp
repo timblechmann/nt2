@@ -17,7 +17,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logspace_add_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( logspace_add_, tag::cpu_
                             , (A0)(X)
                             , ((simd_< arithmetic_<A0>, X>))((simd_< arithmetic_<A0>, X >))
                             )
@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logspace_add_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( logspace_add_, tag::cpu_
                             , (A0)(X)
                             , ((simd_< floating_<A0>, X >))((simd_< floating_<A0>, X >))
                             )

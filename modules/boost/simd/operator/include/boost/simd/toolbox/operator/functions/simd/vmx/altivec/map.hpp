@@ -32,7 +32,7 @@
 #define M0(z,n,t)                                                             \
 namespace boost { namespace simd { namespace ext                              \
 {                                                                             \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_,boost::simd::tag::altivec_                      \
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( map_,boost::simd::tag::altivec_                      \
                             , BOOST_PP_REPEAT(BOOST_PP_INC(n), M5,t)          \
                             , (unspecified_<A0>)BOOST_PP_REPEAT(n,M2,t)       \
                             )                                                 \

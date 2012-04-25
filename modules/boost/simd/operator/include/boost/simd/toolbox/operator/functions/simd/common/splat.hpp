@@ -19,7 +19,7 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   // With no idea what we're doing, just fill the vector piecewise
   //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( splat_, tag::cpu_
                             , (A0)(A1)(X)
                             , (unspecified_<A0>)
                               ((target_< simd_< arithmetic_<A1>, X > >))
@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   // Splatting a SIMD value is identity
   //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( splat_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_< arithmetic_<A0>, X >))
                               ((target_< simd_< arithmetic_<A1>, X > >))

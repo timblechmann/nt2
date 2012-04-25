@@ -13,7 +13,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, boost::simd::tag::sse4_1_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( is_equal_, boost::simd::tag::sse4_1_
                             , (A0)
                             , ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
                               ((simd_<ints64_<A0>,boost::simd::tag::sse_>))

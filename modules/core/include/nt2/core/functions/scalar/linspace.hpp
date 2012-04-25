@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates linspace from a pair of [low,up]
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::linspace_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( linspace_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
                               (scalar_< floating_<A0> >)
@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates linspace from a pair of [low,up] and a number of elements
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::linspace_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( linspace_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< floating_<A0> >)
                               (scalar_< floating_<A0> >)

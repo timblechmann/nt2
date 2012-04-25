@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::laguerre_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( laguerre_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)(scalar_< arithmetic_<A1> >)
                             )
@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A1 is floating_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::laguerre_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(laguerre_, tag::cpu_,
 			    (A0)(A1),
 			    ((scalar_<integer_<A0> >))((scalar_<floating_<A1> > ))
 			    )

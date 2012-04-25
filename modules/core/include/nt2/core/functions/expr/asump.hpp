@@ -15,7 +15,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asump_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( asump_, tag::cpu_,
                               (A0)(A1),
                               (ast_<A0>)
                               (scalar_<arithmetic_<A1> > )
@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asump_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( asump_, tag::cpu_,
                               (A0)(A1)(A2),
                               (ast_<A0>)
                               (scalar_<arithmetic_<A1> > )

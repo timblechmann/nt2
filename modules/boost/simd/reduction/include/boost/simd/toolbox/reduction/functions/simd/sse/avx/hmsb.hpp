@@ -18,7 +18,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type8_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::avx_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(hmsb_, boost::simd::tag::avx_,
                               (A0),
                               ((simd_<type8_<A0>,boost::simd::tag::avx_>))
                             )
@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type32
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::avx_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(hmsb_, boost::simd::tag::avx_,
                               (A0),
                               ((simd_<type32_<A0>,boost::simd::tag::avx_>))
                             )
@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type64
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::avx_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(hmsb_, boost::simd::tag::avx_,
                               (A0),
                               ((simd_<type64_<A0>,boost::simd::tag::avx_>))
                             )
@@ -70,7 +70,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type16
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::avx_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(hmsb_, boost::simd::tag::avx_,
                               (A0),
                               ((simd_<type16_<A0>,boost::simd::tag::avx_>))
                             )

@@ -15,7 +15,7 @@
 // make forces evaluation due to arity limitations
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_ , tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( make_ , tag::cpu_
                             , (Target)
                             , (target_< ast_<Target> >)
                             )

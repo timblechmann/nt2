@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splatted_maximum_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( splatted_maximum_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
                             )
@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is double
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_maximum_, boost::simd::tag::sse2_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(splatted_maximum_, boost::simd::tag::sse2_,
 			     (A0),
 			     ((simd_<double_<A0>,boost::simd::tag::sse_>))
 			     )
@@ -60,7 +60,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int64_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splatted_maximum_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( splatted_maximum_, boost::simd::tag::sse2_
 			      , (A0)
 			      , ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
 			      )
@@ -79,7 +79,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is float
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_maximum_, boost::simd::tag::sse2_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(splatted_maximum_, boost::simd::tag::sse2_,
 			     (A0),
 			     ((simd_<single_<A0>,boost::simd::tag::sse_>))
 			     )
@@ -98,7 +98,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int8_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_maximum_, boost::simd::tag::sse2_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(splatted_maximum_, boost::simd::tag::sse2_,
 			     (A0),
 			     ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
 			     )
@@ -113,7 +113,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int32_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_maximum_, boost::simd::tag::sse2_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(splatted_maximum_, boost::simd::tag::sse2_,
                                    (A0),
                                    ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
                                   )

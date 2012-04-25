@@ -20,7 +20,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::split_, boost::simd::tag::avx_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(split_, boost::simd::tag::avx_,
                                     (A0)(A1),
                                     ((simd_<single_<A0>,boost::simd::tag::avx_>))
                                     ((simd_<double_<A1>,boost::simd::tag::avx_>))
@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::split_, boost::simd::tag::avx_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(split_, boost::simd::tag::avx_,
                                     (A0),
                                     ((simd_<single_<A0>,boost::simd::tag::avx_>))
                                     )
@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_, boost::simd::tag::avx_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( split_, boost::simd::tag::avx_
                                       , (A0)(A1)
                                       , (boost::mpl::and_ <
                                             boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::upgrade<A0>::type> >,
@@ -85,7 +85,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::split_, boost::simd::tag::avx_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(split_, boost::simd::tag::avx_,
                                     (A0),
                                     ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                                     )

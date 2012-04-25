@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acscd_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( acscd_, tag::cpu_
                             , (A0)
                             , (scalar_< fundamental_<A0> >)
                             )

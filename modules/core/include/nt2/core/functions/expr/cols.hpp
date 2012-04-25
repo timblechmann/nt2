@@ -22,7 +22,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates cols from expression (support size(a) + type calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cols_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( cols_, tag::cpu_
                             , (A0)(T)
                             , (ast_<A0>)
                               (scalar_< arithmetic_<T> >)

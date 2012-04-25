@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_store_ , boost::simd::tag::altivec_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( unaligned_store_ , boost::simd::tag::altivec_
                             , (A0)(A1)(A2)
                             , ((simd_< arithmetic_<A0>, boost::simd::tag::altivec_ >))
                               (iterator_< scalar_< arithmetic_<A1> > >)
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_store_ , boost::simd::tag::altivec_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( unaligned_store_ , boost::simd::tag::altivec_
                             , (A0)(A1)
                             , ((simd_< arithmetic_<A0>, boost::simd::tag::altivec_ >))
                               (iterator_< scalar_< arithmetic_<A1> > >)

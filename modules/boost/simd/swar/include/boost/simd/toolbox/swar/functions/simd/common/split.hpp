@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is upgradeable
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( split_, tag::cpu_,
                               (A0)(A1)(X),
                               (boost::mpl::and_ <
                                 boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::upgrade<A0>::type> >,
@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( split_, tag::cpu_,
                               (A0)(X),
                               (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::upgrade<A0>::type> >),
                               ((simd_<arithmetic_<A0>,X>))

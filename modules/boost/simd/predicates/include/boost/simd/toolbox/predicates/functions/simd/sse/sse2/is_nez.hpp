@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_nez_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( is_nez_
                                     , boost::simd::tag::sse2_
                                     , (A0)
                                     , ((simd_ < int64_<A0>

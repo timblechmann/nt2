@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // nD element-wise operation
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, nt2::tag::openmp_<Site>
+  NT2_FUNCTOR_IMPLEMENTATION( transform_, nt2::tag::openmp_<Site>
                             , (A0)(A1)(S1)(T1)(N1)(Site)
                             , (ast_<A0>)
                               ((expr_< table_< unspecified_<A1>, S1 >
@@ -101,7 +101,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // 1D element-wise operation
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::transform_, nt2::tag::openmp_<Site>
+  NT2_FUNCTOR_IMPLEMENTATION_TPL( transform_, nt2::tag::openmp_<Site>
                             , (class A0)
                               (class A1)(class T1)(class N1)
                               (class Shape)(class StorageKind)(std::ptrdiff_t Sz)
@@ -176,7 +176,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Element-wise operation
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, nt2::tag::openmp_<Site>
+  NT2_FUNCTOR_IMPLEMENTATION( transform_, nt2::tag::openmp_<Site>
                             , (A0)(A1)(S1)(T1)(N1)(Site)
                             , (ast_<A0>)
                               ((expr_< table_< unspecified_<A1>, S1 >

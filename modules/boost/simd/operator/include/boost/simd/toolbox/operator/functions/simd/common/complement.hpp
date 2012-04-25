@@ -16,14 +16,14 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::complement_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( complement_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) { return b_xor(boost::simd::Allbits<A0>(), a0); }
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::complement_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( complement_, tag::cpu_, (A0)(X)
                             , ((simd_<logical_<A0>,X>))
                             )
   {

@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates freqspace1 from n to a given floating type
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace1_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( freqspace1_, tag::cpu_
                               , (A0)(T)
                               , (scalar_< integer_<A0> >)
                               ((target_<scalar_< floating_<T> > > ))   
@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates freqspace1 from n to double
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace1_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( freqspace1_, tag::cpu_
                               , (A0)
                               , (scalar_< integer_<A0> >)
                               )
@@ -85,7 +85,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates freqspace1 from to a given type as 'whole'
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace1_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( freqspace1_, tag::cpu_
                               , (A0)(A1)(T)
                               , (scalar_< integer_<A0> >)
                               ((target_<unspecified_<A1> >))
@@ -117,7 +117,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates freqspace1 from to double as 'whole'
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace1_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( freqspace1_, tag::cpu_
                               , (A0)(A1)
                               , (scalar_< integer_<A0> >)
                               ((target_<unspecified_<A1> >))

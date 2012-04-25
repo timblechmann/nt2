@@ -18,7 +18,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::optimize_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( plus_ , boost::simd::tag::optimize_, (A0)(A1)
                                    , ((node_<A0, boost::simd::tag::multiplies_, mpl::long_<2> >))(unspecified_<A1>)
                                    )
   {
@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::optimize_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( plus_ , boost::simd::tag::optimize_, (A0)(A1)
                                    , (unspecified_<A0>)((node_<A1, boost::simd::tag::multiplies_, mpl::long_<2> >))
                                    )
   {
@@ -50,7 +50,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::optimize_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( plus_ , boost::simd::tag::optimize_, (A0)(A1)
                                    , ((node_<A0, boost::simd::tag::multiplies_, mpl::long_<2> >))((node_<A1, boost::simd::tag::multiplies_, mpl::long_<2> >))
                                    )
   {

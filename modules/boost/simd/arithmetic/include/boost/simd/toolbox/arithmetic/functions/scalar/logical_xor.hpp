@@ -14,7 +14,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( logical_xor_, tag::cpu_
                                  , (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< arithmetic_<A1> >)
@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
       return static_cast<result_type>(b_xor(is_nez(a0), is_nez(a1)));
     }
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( logical_xor_, tag::cpu_
                                  , (A0)(A1)
                             , (scalar_< logical_<A0> >)
                               (scalar_< logical_<A1> >)

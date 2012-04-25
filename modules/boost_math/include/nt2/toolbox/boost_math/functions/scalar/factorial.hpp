@@ -14,7 +14,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::boost_math::tag::factorial_<T>, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION_GEN(nt2::boost_math::tag::factorial_<T>, tag::cpu_,
 		      (A0)(T),
 		      (scalar_<integer_<A0> >)
 		      )

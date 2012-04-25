@@ -17,7 +17,7 @@ namespace boost { namespace simd { namespace ext
 //==============================================================================
 // load_ without offset
 //==============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( load_ , tag::cpu_
                             , (A0)(A1)(A2)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
 //==============================================================================
 // load_ with offset
 //==============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(  boost::simd::tag::load_ , tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(  load_ , tag::cpu_
                             , (A0)(A1)(A2)(A3)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)

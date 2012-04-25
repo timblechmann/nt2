@@ -12,7 +12,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::seladd_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( seladd_, tag::cpu_, (A0)(A1)
                             , (scalar_< logical_<A0> >)
                               (scalar_< arithmetic_<A1> >)
                               (scalar_< arithmetic_<A1> >)

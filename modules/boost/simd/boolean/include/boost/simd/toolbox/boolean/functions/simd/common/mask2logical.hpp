@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::mask2logical_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( mask2logical_, tag::cpu_, (A0)(X)
                             , (mpl::equal_to< mpl::sizeof_<A0>, mpl::sizeof_<typename simd::meta::as_logical<A0>::type> >)
                             , ((simd_< arithmetic_<A0>, X >))
                             )

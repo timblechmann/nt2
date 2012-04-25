@@ -18,7 +18,7 @@
 namespace boost { namespace simd { namespace ext
 {
   // regular store
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_ , tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( store_ , tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , ((simd_< fundamental_<A0>, X >))
                               (iterator_< scalar_< fundamental_<A1> > >)
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
   };
   
   // scatter
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::store_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( store_, tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , (mpl::equal_to< boost::simd::meta::cardinal_of<A0>
                                             , boost::simd::meta::cardinal_of<A2>

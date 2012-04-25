@@ -28,7 +28,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::group_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION_IF( group_, tag::cpu_,
                           (A0)(X),
                           (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::downgrade<A0>::type> >),
                           ((simd_<complex_<arithmetic_<A0> >,X>))
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::group_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION_IF( group_, tag::cpu_,
                           (A0)(X),
                           (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::downgrade<A0>::type> >),
                           ((simd_<imaginary_<arithmetic_<A0> >,X>))
@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
       return result_type(group(imag(a0), imag(a1))); 
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::group_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION_IF( group_, tag::cpu_,
                           (A0)(X),
                           (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::downgrade<A0>::type> >),
                           ((simd_<dry_<arithmetic_<A0> >,X>))

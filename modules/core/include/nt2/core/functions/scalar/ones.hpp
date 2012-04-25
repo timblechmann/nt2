@@ -23,15 +23,15 @@ namespace nt2 { namespace ext
   BOOST_PP_REPEAT_FROM_TO ( 2
                           , BOOST_PP_INC(NT2_MAX_DIMENSIONS)
                           , NT2_PP_GENERATIVE_MAKE_FROM_SIZE
-                          , (nt2::tag::ones_,nt2::tag::One)
+                          , (ones_,nt2::tag::One)
                           )
 
-  NT2_PP_GENERATIVE_MAKE_FROM_SINGLE( (nt2::tag::ones_,nt2::tag::One) )
+  NT2_PP_GENERATIVE_MAKE_FROM_SINGLE( (ones_,nt2::tag::One) )
 
   //============================================================================
   // Generates ones from fusion sequence (support of_size calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ones_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( ones_, tag::cpu_
                             , (Seq)
                             , (fusion_sequence_<Seq>)
                             )
@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates ones from fusion sequence + types (support of_size calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ones_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( ones_, tag::cpu_
                             , (Seq)(T)
                             , (fusion_sequence_<Seq>)
                               (target_< scalar_< unspecified_<T> > >)

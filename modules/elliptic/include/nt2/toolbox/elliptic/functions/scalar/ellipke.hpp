@@ -27,7 +27,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(ellipke_, tag::cpu_,
                              (A0),
                              (scalar_<arithmetic_<A0> > )
                              )
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(ellipke_, tag::cpu_,
                              (A0),
                              (scalar_<arithmetic_<A0> >)
                              (scalar_<arithmetic_<A0> >)
@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is floating_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(ellipke_, tag::cpu_,
                              (A0),
                              (scalar_<floating_<A0> >)
                              (scalar_<floating_<A0> >)
@@ -80,7 +80,7 @@ namespace nt2 { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementations 1 input
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(  ellipke_, tag::cpu_,
                                (A0), 
                                (scalar_<floating_<A0> >)
                                (scalar_<floating_<A0> >)
@@ -98,7 +98,7 @@ namespace nt2 { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementations 2 inputs
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipke_, tag::cpu_,(A0), 
+  NT2_FUNCTOR_IMPLEMENTATION(  ellipke_, tag::cpu_,(A0), 
                                (scalar_<floating_<A0> >)
                                (scalar_<floating_<A0> >)
                                (scalar_<floating_<A0> >)

@@ -12,7 +12,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abss_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( abss_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<unsigned_<A0>,X>))
                             )
@@ -21,7 +21,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abss_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( abss_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1) { return boost::simd::abs(a0); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abss_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( abss_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<signed_<A0>,X>))
                             )

@@ -13,7 +13,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::twopower_, tag::cpu_,(A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( twopower_, tag::cpu_,(A0)(X)
                             , ((simd_<integer_<A0>,X>))
                             )
   {

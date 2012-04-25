@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_or_, boost::simd::tag::avx_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( logical_or_, boost::simd::tag::avx_
                             , (A0)(A1)
                             , ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                               ((simd_<arithmetic_<A1>,boost::simd::tag::avx_>))
@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<result_type>(b_or(genmask(a0), genmask(a1)));
     }
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_or_, boost::simd::tag::avx_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( logical_or_, boost::simd::tag::avx_
                             , (A0)(A1)
                             , ((simd_<logical_<A0>,boost::simd::tag::avx_>))
                               ((simd_<logical_<A1>,boost::simd::tag::avx_>))

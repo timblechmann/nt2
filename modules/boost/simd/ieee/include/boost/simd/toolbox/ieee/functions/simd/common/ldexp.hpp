@@ -22,7 +22,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::ldexp_, tag::cpu_,(A0)(A1)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( ldexp_, tag::cpu_,(A0)(A1)(X)
                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
                                                         , boost::mpl::sizeof_<A1>
                                                         >
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2) { return rshl(a0, a1); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ldexp_, tag::cpu_, (A0)(A1)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( ldexp_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_<arithmetic_<A0>,X>))(scalar_< integer_<A1> >)
                             )
   {
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2) { return rshl(a0, a1); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::ldexp_, tag::cpu_,(A0)(A1)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( ldexp_, tag::cpu_,(A0)(A1)(X)
                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
                                                         , boost::mpl::sizeof_<A1>
                                                         >
@@ -73,7 +73,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ldexp_, tag::cpu_, (A0)(A1)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( ldexp_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_<floating_<A0>,X>))(scalar_< integer_<A1> >)
                             )
   {

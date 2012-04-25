@@ -14,7 +14,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::depth_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( depth_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)
                             )

@@ -13,7 +13,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::reverse_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( reverse_, tag::cpu_
                                     , (A0)(X)
                                       , ((simd_< arithmetic_<A0>, X>))
                                     )

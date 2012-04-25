@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sec_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( sec_, tag::cpu_
                             , (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )

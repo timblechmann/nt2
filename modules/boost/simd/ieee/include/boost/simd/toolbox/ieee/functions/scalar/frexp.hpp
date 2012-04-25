@@ -22,7 +22,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::frexp_, tag::cpu_, (A0)(A2)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( frexp_, tag::cpu_, (A0)(A2)
                             , (scalar_< double_<A0> >)
                               (scalar_< double_<A0> >)
                               (scalar_< int64_<A2> >)
@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::frexp_, tag::cpu_, (A0)(A2)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( frexp_, tag::cpu_, (A0)(A2)
                             , (scalar_< floating_<A0> >)
                               (scalar_< integer_<A2> >)
                             )
@@ -77,7 +77,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::frexp_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( frexp_, tag::cpu_, (A0)
                             , (scalar_< floating_<A0> >)
                             )
   {
@@ -103,7 +103,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::frexp_, tag::cpu_, (A0)(A2), 
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( frexp_, tag::cpu_, (A0)(A2), 
                                      (scalar_< single_<A0> >)
                                      (scalar_< single_<A0> >)
                                      (scalar_< int32_<A2> >)
@@ -144,7 +144,7 @@ namespace boost { namespace simd { namespace ext
       }
   };
   
-//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::frexp_, tag::cpu_, (A0)(A2)
+//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( frexp_, tag::cpu_, (A0)(A2)
 //                             , (scalar_< single_<A0> >)
 //                               (scalar_< int32_<A2> >)
 //                             )
@@ -162,7 +162,7 @@ namespace boost { namespace simd { namespace ext
 //   };
 
 
-//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::frexp_, tag::cpu_, (A0)
+//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( frexp_, tag::cpu_, (A0)
 //                             , (scalar_< single_<A0> >)
 //                             )
 //   {

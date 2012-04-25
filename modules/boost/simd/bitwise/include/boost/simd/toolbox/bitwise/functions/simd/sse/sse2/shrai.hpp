@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( shrai_, boost::simd::tag::sse2_
                             , (A0)(A1)
                             , ((simd_<int32_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)
@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( shrai_, boost::simd::tag::sse2_
                             , (A0)(A1)
                             , ((simd_<int16_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)
@@ -49,7 +49,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( shrai_, boost::simd::tag::sse2_
                             , (A0)(A1)
                             , ((simd_<int8_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)
@@ -65,7 +65,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( shrai_, boost::simd::tag::sse2_
                             , (A0)(A1)
                             , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)

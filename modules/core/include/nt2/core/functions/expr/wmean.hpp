@@ -21,7 +21,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::wmean_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( wmean_, tag::cpu_,
                               (A0),
                               (ast_<A0>)
                               (ast_<A1>)
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::wmean_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( wmean_, tag::cpu_,
                               (A0)(A1),
                               (ast_<A0>)
                               (ast_<A1>)

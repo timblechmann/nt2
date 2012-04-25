@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::isqrt_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(isqrt_, tag::cpu_,
                        (A0),
                        (generic_< floating_<A0> >)
                       )

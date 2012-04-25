@@ -12,7 +12,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_real_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( is_real_, tag::cpu_
                             , (A0)
                             , (generic_< arithmetic_<A0> >)
                             )

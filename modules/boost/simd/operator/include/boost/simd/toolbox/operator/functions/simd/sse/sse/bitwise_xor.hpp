@@ -14,7 +14,7 @@
 
 // namespace boost { namespace simd { namespace ext
 // {
-//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_xor_, boost::simd::tag::sse_,
+//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(bitwise_xor_, boost::simd::tag::sse_,
 //                                 (A0),
 //                                 ((simd_<logical_<A0>,boost::simd::tag::sse_>))
 //                                 ((simd_<logical_<A0>,boost::simd::tag::sse_>))

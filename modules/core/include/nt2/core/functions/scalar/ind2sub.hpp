@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Case for no base index
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ind2sub_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( ind2sub_, tag::cpu_
                             , (A0)(A1)
                             , (fusion_sequence_<A0>)
                               (generic_< unspecified_<A1> >)
@@ -73,7 +73,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Case for specific base index
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ind2sub_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( ind2sub_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (fusion_sequence_<A0>)
                               (generic_< unspecified_<A1> >)

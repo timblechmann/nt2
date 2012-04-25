@@ -20,7 +20,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates cif from a pair of integers
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cif_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( cif_, tag::cpu_
                             , (A0)
                             , (scalar_< integer_<A0> >)
                               (scalar_< integer_<A0> >)
@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates cif from one integer return doubles
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cif_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( cif_, tag::cpu_
                               , (A0)
                               , (scalar_< integer_<A0> >)
                               )
@@ -73,7 +73,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates cif from a pair of integers
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cif_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( cif_, tag::cpu_
                             , (A0)(T)
                             , (scalar_< integer_<A0> >)
                               (scalar_< integer_<A0> >)
@@ -101,7 +101,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates cif from one integer
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cif_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( cif_, tag::cpu_
                               , (A0)(T)
                               , (scalar_< integer_<A0> >)
                               (target_< scalar_< unspecified_<T> > >)
@@ -129,7 +129,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates cif from fusion sequence (support of_size calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cif_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( cif_, tag::cpu_
                             , (Seq)
                             , (fusion_sequence_<Seq>)
                             )
@@ -158,7 +158,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates cif from fusion sequence + types (support of_size calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cif_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( cif_, tag::cpu_
                             , (Seq)(T)
                             , (fusion_sequence_<Seq>)
                               (target_< scalar_< unspecified_<T> > >)

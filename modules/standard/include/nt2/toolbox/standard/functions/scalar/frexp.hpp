@@ -22,7 +22,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // reference Implementation 
 /////////////////////////////////////////////////////////////////////////////
-NT2_FUNCTOR_IMPLEMENTATION(nt2::standard::tag::frexp_, tag::cpu_,
+NT2_FUNCTOR_IMPLEMENTATION_GEN(nt2::standard::tag::frexp_, tag::cpu_,
 			   (A0)(A1),
 			   (scalar_<floating_<A0> >)
 			   (scalar_<int32_<A1> >)	     
@@ -35,7 +35,7 @@ NT2_FUNCTOR_IMPLEMENTATION(nt2::standard::tag::frexp_, tag::cpu_,
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::standard::tag::frexp_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION_GEN(nt2::standard::tag::frexp_, tag::cpu_,
                        (A0),
                        (scalar_<floating_<A0> >)
                       )

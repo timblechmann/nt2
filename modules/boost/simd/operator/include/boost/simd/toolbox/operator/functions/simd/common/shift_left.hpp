@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::shift_left_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( shift_left_, tag::cpu_,
                                   (A0)(A1)(X),
                                   ( boost::mpl::and_<
                                     boost::mpl::not_< boost::is_same<A0, A1> >

@@ -22,7 +22,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::average_, boost::simd::tag::sse2_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(average_, boost::simd::tag::sse2_,
                           (A0),
                           ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                           ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::average_, boost::simd::tag::sse2_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(average_, boost::simd::tag::sse2_,
                           (A0),
                           ((simd_<uint16_<A0>,boost::simd::tag::sse_>))
                           ((simd_<uint16_<A0>,boost::simd::tag::sse_>))
@@ -48,7 +48,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::average_, boost::simd::tag::sse2_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(average_, boost::simd::tag::sse2_,
                           (A0),
                           ((simd_<uint8_<A0>,boost::simd::tag::sse_>))
                           ((simd_<uint8_<A0>,boost::simd::tag::sse_>))
@@ -61,7 +61,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::average_, boost::simd::tag::sse2_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(average_, boost::simd::tag::sse2_,
                           (A0),
                           ((simd_<floating_<A0>,boost::simd::tag::sse_>))
                           ((simd_<floating_<A0>,boost::simd::tag::sse_>))

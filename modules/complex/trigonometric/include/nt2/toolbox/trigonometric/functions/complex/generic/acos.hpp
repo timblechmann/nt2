@@ -61,7 +61,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acos_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( acos_, tag::cpu_, (A0)
                             , (generic_< complex_< floating_<A0> > >)
                             )
   {
@@ -212,7 +212,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acos_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( acos_, tag::cpu_, (A0)
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                             )
   {
@@ -225,7 +225,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acos_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( acos_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {

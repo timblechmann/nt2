@@ -18,7 +18,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::Sqrti, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION_GEN ( nt2::tag::Sqrti, tag::cpu_, (A0)
                              , ((target_< generic_< complex_< arithmetic_<A0> > > >))
                              )
   {
@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::Sqrti, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION_GEN ( nt2::tag::Sqrti, tag::cpu_, (A0)
                              , ((target_< generic_< imaginary_< arithmetic_<A0> > > >))
                              )
   {
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::Sqrti, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION_GEN ( nt2::tag::Sqrti, tag::cpu_, (A0)
                              , ((target_< generic_< dry_< arithmetic_<A0> > > >))
                              )
   {
@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::Sqrti, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION_GEN ( nt2::tag::Sqrti, tag::cpu_, (A0)
                              , ((target_< scalar_< arithmetic_<A0> > >))
                              )
   {
@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::Sqrti, tag::cpu_, (A0)(X)
+  NT2_FUNCTOR_IMPLEMENTATION_GEN ( nt2::tag::Sqrti, tag::cpu_, (A0)(X)
                              , ((target_< simd_< arithmetic_<A0>, X> >))
                              )
   {

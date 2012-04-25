@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::definitely_less_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION_IF(definitely_less_, tag::cpu_,
                          (A0)(A1)(X),
                          (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
                          ((simd_<integer_<A0>,X>))
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::definitely_less_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION_IF(definitely_less_, tag::cpu_,
                          (A0)(A1)(X),
                          (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
                          ((simd_<floating_<A0>,X>))

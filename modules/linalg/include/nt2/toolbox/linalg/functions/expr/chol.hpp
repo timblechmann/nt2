@@ -16,7 +16,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( assign_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0>))
                               ((node_ < A1
@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( assign_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0>))
                               ((node_ < A1
@@ -62,7 +62,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( run_assign_, tag::cpu_
                             , (A0)(T0)(N0)(A1)
                             , ((node_<A0, elementwise_<T0>, N0>))
                               ((node_ < A1
@@ -85,7 +85,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( run_assign_, tag::cpu_
                             , (A0)(T0)(N0)(A1)
                             , ((node_<A0, elementwise_<T0>, N0>))
                               ((node_ < A1

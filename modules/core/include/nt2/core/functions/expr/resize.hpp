@@ -22,7 +22,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates linearize_ from expression + of_size
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::resize_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( resize_, tag::cpu_
                             , (A0)(A1)
                             , (ast_<A0>)
                               (fusion_sequence_<A1>)
@@ -48,7 +48,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates linearize_ from expression + expression containing size
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::resize_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( resize_, tag::cpu_
                             , (A0)(A1)
                             , (ast_<A0>)
                               (ast_<A1>)

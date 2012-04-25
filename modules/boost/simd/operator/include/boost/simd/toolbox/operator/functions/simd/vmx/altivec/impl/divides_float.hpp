@@ -14,7 +14,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, boost::simd::tag::altivec_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( divides_, boost::simd::tag::altivec_, (A0)
                             , ((simd_<single_<A0>,boost::simd::tag::altivec_>))
                               ((simd_<single_<A0>,boost::simd::tag::altivec_>))
                             )

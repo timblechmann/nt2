@@ -25,7 +25,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates zeros from expression (support size(a) + type calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::zeros_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( zeros_, tag::cpu_
                             , (A0)
                             , (ast_<A0>)
                             )
@@ -62,7 +62,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates zeros from expression (support size(a) + type calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::zeros_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( zeros_, tag::cpu_
                             , (A0)(T)
                             , (ast_<A0>)
                               (target_< scalar_< unspecified_<T> > >)

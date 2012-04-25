@@ -12,7 +12,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tolerant_ceil_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( tolerant_ceil_, tag::cpu_
                             , (A0)
                             , (generic_< floating_<A0> >)
                             )

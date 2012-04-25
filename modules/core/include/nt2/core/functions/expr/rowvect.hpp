@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates linearize_ from expression + of_size
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rowvect_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( rowvect_, tag::cpu_
                             , (A0)
                             , (ast_<A0>)
                             )

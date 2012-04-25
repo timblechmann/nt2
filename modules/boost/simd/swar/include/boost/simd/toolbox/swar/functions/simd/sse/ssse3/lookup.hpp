@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::lookup_, boost::simd::tag::ssse3_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(lookup_, boost::simd::tag::ssse3_,
                          (A0)(A1),
                          ((simd_<type8_<A0>,boost::simd::tag::sse_>))
                          ((simd_<ints8_<A1>,boost::simd::tag::sse_>))
@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::lookup_, boost::simd::tag::ssse3_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(lookup_, boost::simd::tag::ssse3_,
                          (A0)(A1),
                          ((simd_<type32_<A0>,boost::simd::tag::sse_>))
                          ((simd_<ints32_<A1>,boost::simd::tag::sse_>))
@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::lookup_, boost::simd::tag::ssse3_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(lookup_, boost::simd::tag::ssse3_,
                          (A0)(A1),
                          ((simd_<type64_<A0>,boost::simd::tag::sse_>))
                          ((simd_<ints64_<A1>,boost::simd::tag::sse_>))
@@ -87,7 +87,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::lookup_, boost::simd::tag::ssse3_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(lookup_, boost::simd::tag::ssse3_,
                          (A0)(A1),
                          ((simd_<type16_<A0>,boost::simd::tag::sse_>))
                          ((simd_<ints16_<A1>,boost::simd::tag::sse_>))

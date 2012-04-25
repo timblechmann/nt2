@@ -22,7 +22,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates cic from expression (support size(a) + type calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cic_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( cic_, tag::cpu_
                             , (A0)
                             , (ast_<A0>)
                             )
@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates cic from expression (support size(a) + type calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cic_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( cic_, tag::cpu_
                             , (A0)(T)
                             , (ast_<A0>)
                               (target_< scalar_< unspecified_<T> > >)

@@ -18,7 +18,7 @@
 
 namespace nt2  { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ldexp_, tag::cpu_, (A0)(A1)
+  NT2_FUNCTOR_IMPLEMENTATION( ldexp_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_ < floating_<A0> > >)
                               (generic_< integer_<A1> >)
                             )
@@ -30,7 +30,7 @@ namespace nt2  { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ldexp_, tag::cpu_, (A0)(A1)
+  NT2_FUNCTOR_IMPLEMENTATION( ldexp_, tag::cpu_, (A0)(A1)
                             , (generic_< imaginary_ < floating_<A0> > >)
                               (generic_< integer_<A1> >)
                             )
@@ -42,7 +42,7 @@ namespace nt2  { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ldexp_, tag::cpu_, (A0)(A1)
+  NT2_FUNCTOR_IMPLEMENTATION( ldexp_, tag::cpu_, (A0)(A1)
                             , (generic_< dry_ < floating_<A0> > >)
                               (generic_< integer_<A1> >)
                             )

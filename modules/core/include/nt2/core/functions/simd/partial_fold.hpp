@@ -19,7 +19,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates partial_fold
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::partial_fold_, boost::simd::tag::simd_, (A0)(S0)(T0)(N0)(A1)(A2)(A3)(A4)
+  NT2_FUNCTOR_IMPLEMENTATION( partial_fold_, boost::simd::tag::simd_, (A0)(S0)(T0)(N0)(A1)(A2)(A3)(A4)
                             , ((expr_< table_< unspecified_<A0>, S0 >
                                      , T0
                                      , N0

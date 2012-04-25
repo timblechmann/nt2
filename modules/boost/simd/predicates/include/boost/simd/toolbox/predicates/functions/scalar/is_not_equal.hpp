@@ -12,7 +12,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( is_not_equal_, tag::cpu_
                             , (A0)
                             , (scalar_< fundamental_<A0> >)
                               (scalar_< fundamental_<A0> >)
@@ -21,7 +21,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return result_type(a0 != a1); }
   };
-   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_, tag::cpu_
+   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( is_not_equal_, tag::cpu_
                             , (A0)
                             , (scalar_< logical_<A0> >)
                               (scalar_< logical_<A0> >)

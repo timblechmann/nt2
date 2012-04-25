@@ -19,7 +19,7 @@
 #include <boost/simd/include/constants/digits.hpp>
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( split_, boost::simd::tag::sse2_
                                       , (A0)(A1)
                                       , (boost::mpl::and_ <
                                             boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::upgrade<A0>::type> >,
@@ -96,7 +96,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(boost::simd::tag::split_, boost::simd::tag::sse2_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(split_, boost::simd::tag::sse2_,
                                        (A0),
                                        (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::upgrade<A0>::type> >), 
                                        ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))

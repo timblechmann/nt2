@@ -20,7 +20,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, boost::simd::tag::ssse3_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( abs_, boost::simd::tag::ssse3_
                             , (A0)
                             , ((simd_<int32_<A0>,boost::simd::tag::sse_>))
                             )
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     { A0 that = {_mm_abs_epi32(a0) }; return that; }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, boost::simd::tag::ssse3_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( abs_, boost::simd::tag::ssse3_
                             , (A0)
                             , ((simd_<int8_<A0>,boost::simd::tag::sse_>))
                             )
@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace ext
     { A0 that = {_mm_abs_epi8(a0) }; return that; }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, boost::simd::tag::ssse3_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( abs_, boost::simd::tag::ssse3_
                             , (A0)
                             , ((simd_<int16_<A0>,boost::simd::tag::sse_>))
                             )
@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
     { A0 that = {_mm_abs_epi16(a0) };return that; }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, boost::simd::tag::ssse3_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( abs_, boost::simd::tag::ssse3_
                             , (A0)
                             , ((simd_<floating_<A0>,boost::simd::tag::sse_>))
                             )
@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace ext
     { return b_notand(boost::simd::Mzero<A0>(),a0); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, boost::simd::tag::ssse3_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( abs_, boost::simd::tag::ssse3_
                             , (A0)
                             , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                             )
@@ -77,7 +77,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, boost::simd::tag::ssse3_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( abs_, boost::simd::tag::ssse3_
                             , (A0)
                             , ((simd_<unsigned_<A0>,boost::simd::tag::sse_>))
                             )

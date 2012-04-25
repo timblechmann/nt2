@@ -21,7 +21,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_ , boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( store_ , boost::simd::tag::sse2_
                             , (A0)(A1)(A2)
                             , ((simd_< double_<A0>, boost::simd::tag::sse_ >))
                               (iterator_< scalar_< double_<A1> > >)
@@ -46,7 +46,7 @@ namespace boost { namespace simd { namespace ext
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_ , boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( store_ , boost::simd::tag::sse2_
                             , (A0)(A1)(A2)
                             , ((simd_< single_<A0>, boost::simd::tag::sse_ >))
                               (iterator_< scalar_< single_<A1> > >)
@@ -71,7 +71,7 @@ namespace boost { namespace simd { namespace ext
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_ , boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( store_ , boost::simd::tag::sse2_
                             , (A0)(A1)(A2)
                             , ((simd_< integer_<A0>, boost::simd::tag::sse_ >))
                               (iterator_< scalar_< integer_<A1> > >)

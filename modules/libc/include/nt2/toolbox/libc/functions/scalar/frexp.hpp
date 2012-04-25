@@ -19,7 +19,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type is single_
 /////////////////////////////////////////////////////////////////////////////
-NT2_FUNCTOR_IMPLEMENTATION(nt2::libc::tag::frexp_, tag::cpu_,
+NT2_FUNCTOR_IMPLEMENTATION_GEN(nt2::libc::tag::frexp_, tag::cpu_,
 			   (A0)(A1),
 			   (scalar_<single_<A0> >)
 			   (scalar_<int32_<A1> >)	     
@@ -35,7 +35,7 @@ NT2_FUNCTOR_IMPLEMENTATION(nt2::libc::tag::frexp_, tag::cpu_,
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type is double_
 /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::libc::tag::frexp_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION_GEN(nt2::libc::tag::frexp_, tag::cpu_,
 			     (A0)(A1),
 			     (scalar_<double_<A0> >)
 			     (scalar_<int32_<A1> >)	     
@@ -53,7 +53,7 @@ NT2_FUNCTOR_IMPLEMENTATION(nt2::libc::tag::frexp_, tag::cpu_,
 /////////////////////////////////////////////////////////////////////////////
 
 
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::libc::tag::frexp_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION_GEN(nt2::libc::tag::frexp_, tag::cpu_,
                        (A0),
                        (scalar_<floating_<A0> >)
                       )

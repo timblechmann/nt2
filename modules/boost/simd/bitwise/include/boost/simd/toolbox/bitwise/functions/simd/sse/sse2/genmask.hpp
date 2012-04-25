@@ -21,7 +21,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, boost::simd::tag::sse2_, 
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( genmask_, boost::simd::tag::sse2_, 
                                      (A0), 
                                      ((simd_<double_<A0>,boost::simd::tag::sse_>))
                                    )
@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( genmask_, boost::simd::tag::sse2_
                                    , (A0)
                                    , ((simd_<single_<A0>,boost::simd::tag::sse_>))
                                    )
@@ -47,7 +47,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( genmask_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
                             )
@@ -60,7 +60,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( genmask_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
                             )
@@ -73,7 +73,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( genmask_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
                             )
@@ -86,7 +86,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( genmask_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
                             )

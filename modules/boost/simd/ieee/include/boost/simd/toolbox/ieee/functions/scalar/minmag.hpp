@@ -12,7 +12,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minmag_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( minmag_, tag::cpu_
                             , (A0)
                             , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A0> >)
                             )

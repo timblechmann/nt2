@@ -18,7 +18,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::splatted_minimum_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(splatted_minimum_, tag::cpu_,
                                    (A0)(X),
                                    ((simd_<complex_<arithmetic_<A0> >,X>))
                                   )
@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::splatted_minimum_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(splatted_minimum_, tag::cpu_,
                                    (A0)(X),
                                    ((simd_<imaginary_<arithmetic_<A0> >,X>))
                                   )
@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
       return splat<A0>(minimum(a0));
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::splatted_minimum_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(splatted_minimum_, tag::cpu_,
                                    (A0)(X),
                                    ((simd_<dry_<arithmetic_<A0> >,X>))
                                   )

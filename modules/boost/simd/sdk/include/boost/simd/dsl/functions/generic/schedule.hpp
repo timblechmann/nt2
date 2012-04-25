@@ -50,7 +50,7 @@ namespace boost { namespace simd { namespace ext
   //==============================================================================
   // Jump to schedule_assign if assign node
   //==============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::schedule_, tag::formal_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( schedule_, tag::formal_
                                    , (A0)(F)
                                    , ((node_<A0, boost::simd::tag::assign_, mpl::long_<2> >))
                                      (unspecified_<F>)
@@ -70,7 +70,7 @@ namespace boost { namespace simd { namespace ext
   //==============================================================================
   // Elementwise
   //==============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::schedule_assign_, tag::formal_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( schedule_assign_, tag::formal_
                                    , (A0)(A1)(T1)(N1)(F)
                                    , (unspecified_<A0>)
                                      ((node_<A1, elementwise_<T1>, N1>))
@@ -88,7 +88,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::schedule_, tag::formal_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( schedule_, tag::formal_
                                    , (A0)(T)(N)(F)
                                    , ((node_<A0, elementwise_<T>, N>))
                                      (unspecified_<F>)
@@ -106,7 +106,7 @@ namespace boost { namespace simd { namespace ext
   //==============================================================================
   // Reduction
   //==============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::schedule_assign_, tag::formal_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( schedule_assign_, tag::formal_
                                    , (A0)(A1)(T1)(N1)(F)
                                    , (unspecified_<A0>)
                                      ((node_<A1, unspecified_<T1>, N1>))
@@ -125,7 +125,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::schedule_, tag::formal_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( schedule_, tag::formal_
                                    , (A0)(T)(N)(F)
                                    , ((node_<A0, unspecified_<T>, N>))
                                      (unspecified_<F>)

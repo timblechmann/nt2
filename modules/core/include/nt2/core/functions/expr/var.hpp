@@ -22,7 +22,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::var_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( var_, tag::cpu_,
                               (A0),
                               (ast_<A0>) )
   {
@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
       return nt2::multiplies(f, asum2(nt2::bsxfun(tag::minus_, a0, mean(a0)))); 
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::var_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( var_, tag::cpu_,
                               (A0)(A1),
                               (ast_<A0>)
                               (scalar_<integer_<A1> > )
@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::var_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( var_, tag::cpu_,
                               (A0)(A1)(A2),
                               (ast_<A0>)
                               (scalar_<integer_<A1> > )
@@ -76,7 +76,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::var_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( var_, tag::cpu_,
                               (A0)(A1),
                               (ast_<A0>)
                               (ast_<A1>)
@@ -94,7 +94,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::var_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( var_, tag::cpu_,
                               (A0)(A1)(A2),
                               (ast_<A0>)
                               (ast_<A1>)

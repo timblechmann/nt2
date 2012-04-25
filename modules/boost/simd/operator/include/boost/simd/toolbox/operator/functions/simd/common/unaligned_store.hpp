@@ -20,7 +20,7 @@
 namespace boost { namespace simd { namespace ext
 {
   // regular store
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_store_ , tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( unaligned_store_ , tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , ((simd_< arithmetic_<A0>, X >))
                               (iterator_< scalar_< arithmetic_<A1> > >)
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
   };
   
   // logical
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_store_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( unaligned_store_, tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , ((simd_< logical_<A0>, X >))
                               (iterator_<scalar_< logical_<A1> > >)
@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
   };
   
   // scatter
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::unaligned_store_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( unaligned_store_, tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , (mpl::equal_to< boost::simd::meta::cardinal_of<A0>
                                             , boost::simd::meta::cardinal_of<A2>

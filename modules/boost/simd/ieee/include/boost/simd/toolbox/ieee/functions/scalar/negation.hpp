@@ -13,7 +13,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::negation_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( negation_, tag::cpu_
                             , (A0)
                             , (scalar_< signed_<A0> >)(scalar_< signed_<A0> >)
                             )
@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::negation_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( negation_, tag::cpu_
                             , (A0)
                             , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A0> >)
                             )

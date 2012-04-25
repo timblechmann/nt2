@@ -12,7 +12,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::floor_, boost::simd::tag::avx_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( floor_, boost::simd::tag::avx_
                             , (A0)
                             , ((simd_<double_<A0>,boost::simd::tag::avx_>))
                             )
@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::floor_, boost::simd::tag::avx_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( floor_, boost::simd::tag::avx_
                             , (A0)
                             , ((simd_<single_<A0>,boost::simd::tag::avx_>))
                             )

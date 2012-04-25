@@ -33,7 +33,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(ellipke_, tag::cpu_,
                        (A0)(X),
                        ((simd_<arithmetic_<A0>,X>))
                       )
@@ -50,7 +50,7 @@ namespace nt2 { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   //Implementation when type A0 is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(ellipke_, tag::cpu_,
                              (A0)(A1)(X),
                              ((simd_<arithmetic_<A0>,X>))
                              ((scalar_<floating_<A1> >))
@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(ellipke_, tag::cpu_,
                              (A0)(A1)(X),
                              ((simd_<floating_<A0>,X>))
                              ((scalar_<floating_<A1> >))
@@ -86,7 +86,7 @@ namespace nt2 { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementations 1 input
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(  ellipke_, tag::cpu_,
                                (A0)(A1)(X), 
                                ((simd_<arithmetic_<A0>,X >))
                                ((simd_<floating_<A1>,X>))
@@ -104,7 +104,7 @@ namespace nt2 { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementations 2 inputs
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION_IF(ellipke_, tag::cpu_,
                                 (A0)(A1)(A2)(X), 
                                 (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0> 
                                                         , boost::simd::meta::cardinal_of<A2>
@@ -127,7 +127,7 @@ namespace nt2 { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementations 2 inputs
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(  ellipke_, tag::cpu_,
                                 (A0)(A1)(X), 
                                 ((simd_<floating_<A0>,X >))
                                 ((scalar_<floating_<A1> >))

@@ -69,7 +69,7 @@ namespace nt2
     {
     };
 
-    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+    NT2_FUNCTOR_IMPLEMENTATION( run_, tag::cpu_
                               , (Expr)(State)(Data)(Arity)
                               , ((expr_< unspecified_<Expr>
                                        , nt2::tag::function_

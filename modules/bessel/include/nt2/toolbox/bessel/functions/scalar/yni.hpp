@@ -30,7 +30,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::yni_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( yni_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)(scalar_< arithmetic_<A1> >)
                             )
@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::yni_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( yni_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)(scalar_< double_<A1> >)
                             )
@@ -76,7 +76,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::yni_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( yni_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)(scalar_< single_<A1> >)
                             )

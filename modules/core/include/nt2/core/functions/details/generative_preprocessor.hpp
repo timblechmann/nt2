@@ -30,7 +30,7 @@ NT2_FUNCTOR_IMPLEMENTATION( BOOST_PP_TUPLE_ELEM(2,0,Tag), tag::cpu_           \
                           )                                                   \
 {                                                                             \
   typedef boost::proto::result_of::                                           \
-          make_expr < BOOST_PP_TUPLE_ELEM(2,0,Tag)                            \
+          make_expr < tag::BOOST_PP_TUPLE_ELEM(2,0,Tag)                       \
                     , container::domain                                       \
                     , box<BOOST_PP_CAT(_,BOOST_PP_CAT(n,D))>                  \
                     , box< meta::constant_<BOOST_PP_TUPLE_ELEM(2,1,Tag)> >    \
@@ -41,7 +41,7 @@ NT2_FUNCTOR_IMPLEMENTATION( BOOST_PP_TUPLE_ELEM(2,0,Tag), tag::cpu_           \
   operator()(BOOST_PP_ENUM_BINARY_PARAMS(n,const A,& a) ) const               \
   {                                                                           \
     return  boost::proto::                                                    \
-            make_expr<  BOOST_PP_TUPLE_ELEM(2,0,Tag)                          \
+            make_expr<  tag::BOOST_PP_TUPLE_ELEM(2,0,Tag)                     \
                       , container::domain                                     \
                       >                                                       \
             ( boxify(of_size(BOOST_PP_ENUM_PARAMS(n,a)))                      \
@@ -58,7 +58,7 @@ NT2_FUNCTOR_IMPLEMENTATION( BOOST_PP_TUPLE_ELEM(2,0,Tag), tag::cpu_           \
                           )                                                   \
 {                                                                             \
   typedef typename boost::proto::result_of::                                  \
-          make_expr < BOOST_PP_TUPLE_ELEM(2,0,Tag)                            \
+          make_expr < tag::BOOST_PP_TUPLE_ELEM(2,0,Tag)                       \
                     , container::domain                                       \
                     , box<BOOST_PP_CAT(_,BOOST_PP_CAT(n,D))>                  \
                     , box< meta::constant_<BOOST_PP_TUPLE_ELEM(2,1,Tag)> >    \
@@ -69,7 +69,7 @@ NT2_FUNCTOR_IMPLEMENTATION( BOOST_PP_TUPLE_ELEM(2,0,Tag), tag::cpu_           \
   operator()(BOOST_PP_ENUM_BINARY_PARAMS(n,const A,& a), T const& t) const    \
   {                                                                           \
     return  boost::proto::                                                    \
-            make_expr<  BOOST_PP_TUPLE_ELEM(2,0,Tag)                          \
+            make_expr<  tag::BOOST_PP_TUPLE_ELEM(2,0,Tag)                     \
                       , container::domain                                     \
                       >                                                       \
             ( boxify(of_size(BOOST_PP_ENUM_PARAMS(n,a)))                      \
@@ -89,7 +89,7 @@ NT2_FUNCTOR_IMPLEMENTATION( BOOST_PP_TUPLE_ELEM(2,0,Tag), tag::cpu_           \
                           )                                                   \
 {                                                                             \
   typedef boost::proto::result_of::                                           \
-          make_expr < BOOST_PP_TUPLE_ELEM(2,0,Tag)                            \
+          make_expr < tag::BOOST_PP_TUPLE_ELEM(2,0,Tag)                       \
                     , container::domain                                       \
                     , box<_2D>                                                \
                     , box< meta::constant_<BOOST_PP_TUPLE_ELEM(2,1,Tag)> >    \
@@ -99,7 +99,7 @@ NT2_FUNCTOR_IMPLEMENTATION( BOOST_PP_TUPLE_ELEM(2,0,Tag), tag::cpu_           \
   BOOST_FORCEINLINE result_type operator()(A0 const& a0) const                \
   {                                                                           \
     return  boost::proto::                                                    \
-            make_expr < BOOST_PP_TUPLE_ELEM(2,0,Tag)                          \
+            make_expr < tag::BOOST_PP_TUPLE_ELEM(2,0,Tag)                     \
                       , container::domain                                     \
                       >                                                       \
             ( boxify(of_size(a0,a0))                                          \
@@ -116,7 +116,7 @@ NT2_FUNCTOR_IMPLEMENTATION( BOOST_PP_TUPLE_ELEM(2,0,Tag), tag::cpu_           \
                           )                                                   \
 {                                                                             \
   typedef typename  boost::proto::result_of::                                 \
-          make_expr < BOOST_PP_TUPLE_ELEM(2,0,Tag)                            \
+          make_expr < tag::BOOST_PP_TUPLE_ELEM(2,0,Tag)                       \
                     , container::domain                                       \
                     , box<_2D>                                                \
                     , box< meta::constant_<BOOST_PP_TUPLE_ELEM(2,1,Tag)> >    \
@@ -126,7 +126,7 @@ NT2_FUNCTOR_IMPLEMENTATION( BOOST_PP_TUPLE_ELEM(2,0,Tag), tag::cpu_           \
   BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& tgt) const  \
   {                                                                           \
     return  boost::proto::                                                    \
-            make_expr<  BOOST_PP_TUPLE_ELEM(2,0,Tag)                          \
+            make_expr<  tag::BOOST_PP_TUPLE_ELEM(2,0,Tag)                     \
                       , container::domain                                     \
                       >                                                       \
             ( boxify(of_size(a0,a0))                                          \

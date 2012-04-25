@@ -16,7 +16,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::length_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( length_, tag::cpu_
                             , (A0)
                             , (ast_<A0>)
                             )

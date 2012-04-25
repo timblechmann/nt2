@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( enumerate_
                                     , boost::simd::tag::sse2_
                                     , (A0)(T)
                                     , (scalar_< arithmetic_<A0> >)
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
   };
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( enumerate_
                                     , boost::simd::tag::sse2_
                                     , (A0)(T)
                                     , (scalar_< arithmetic_<A0> >)
@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( enumerate_
                                     , boost::simd::tag::sse2_
                                     , (A0)(T)
                                     , (scalar_< arithmetic_<A0> >)
@@ -73,7 +73,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( enumerate_
                                     , boost::simd::tag::sse2_
                                     , (A0)(T)
                                     , (scalar_< arithmetic_<A0> >)
@@ -96,7 +96,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( enumerate_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)(T)
                                     , (scalar_< arithmetic_<A0> >)
@@ -117,7 +117,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( enumerate_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)(T)
                                     , (scalar_< arithmetic_<A0> >)
@@ -138,7 +138,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( enumerate_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)(T)
                                     , (scalar_< arithmetic_<A0> >)
@@ -158,7 +158,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( enumerate_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)(T)
                                     , (scalar_< arithmetic_<A0> >)
@@ -179,7 +179,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( enumerate_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)(T)
                                     , (scalar_< arithmetic_<A0> >)
@@ -200,7 +200,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( enumerate_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)(T)
                                     , (scalar_< arithmetic_<A0> >)

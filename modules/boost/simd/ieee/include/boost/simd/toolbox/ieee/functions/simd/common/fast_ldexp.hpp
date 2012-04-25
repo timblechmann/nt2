@@ -22,7 +22,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
- BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::fast_ldexp_, tag::cpu_,(A0)(A1)(X)
+ BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( fast_ldexp_, tag::cpu_,(A0)(A1)(X)
                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
                                                         , boost::mpl::sizeof_<A1>
                                                         >
@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is arithmetic_ and A1 scalar
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_ldexp_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( fast_ldexp_, tag::cpu_
                               , (A0)(A1)(X)
                               , ((simd_<arithmetic_<A0>,X>))(scalar_< integer_<A1> >)
                               )
@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is floating_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(boost::simd::tag::fast_ldexp_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(fast_ldexp_, tag::cpu_,
                                 (A0)(A1)(X),
                                 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,
                                                         boost::mpl::sizeof_<A1>
@@ -86,7 +86,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is floating_ and A1 is scalar
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_ldexp_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( fast_ldexp_, tag::cpu_
                               , (A0)(A1)(X)
                               , ((simd_<floating_<A0>,X>))(scalar_< integer_<A1> >)
                               )

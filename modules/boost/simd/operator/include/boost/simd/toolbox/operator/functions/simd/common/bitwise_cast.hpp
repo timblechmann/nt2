@@ -14,7 +14,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_cast_, tag::cpu_, (A0)(A1)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( bitwise_cast_, tag::cpu_, (A0)(A1)(X)
                             , (unspecified_<A0>)
                               ((target_<simd_<unspecified_<A1>, X> >))
                             )

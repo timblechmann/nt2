@@ -14,7 +14,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( arith_, tag::cpu_
                                     , (T)
                                     , (target_< scalar_< arithmetic_<T> > >)
                                     )
@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_, tag::cpu_
+   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( arith_, tag::cpu_
                                     , (A0)(T)
                                     , (scalar_< arithmetic_<A0> >)
                                       (target_< scalar_< arithmetic_<T> > >)
@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( arith_, tag::cpu_
                                       , (A0)(A1)(T)
                                       , (scalar_< arithmetic_<A0> >)
                                         (scalar_< arithmetic_<A1> >)

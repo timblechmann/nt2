@@ -11,7 +11,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( if_else_, tag::cpu_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
                               (scalar_< fundamental_<A1> >)
                               (scalar_< fundamental_<A1> >)

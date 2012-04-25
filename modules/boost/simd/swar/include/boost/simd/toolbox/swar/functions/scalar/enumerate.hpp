@@ -13,7 +13,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( enumerate_, tag::cpu_
                                     , (A0)(T)
                                     , (scalar_< arithmetic_<A0> >)
                                       (target_< scalar_< arithmetic_<T> > >)

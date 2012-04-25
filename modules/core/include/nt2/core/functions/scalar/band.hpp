@@ -17,7 +17,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates band from a pair of a, k and l
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_band2_, tag::cpu_, (A0)(A1)(A2)
+  NT2_FUNCTOR_IMPLEMENTATION( offset_band2_, tag::cpu_, (A0)(A1)(A2)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< integer_<A1> >)
                               (scalar_< integer_<A2> >)
@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates band from a pair of a and k
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_band1_, tag::cpu_, (A0)(A1)
+  NT2_FUNCTOR_IMPLEMENTATION( offset_band1_, tag::cpu_, (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< integer_<A1> >)
                             )
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::band_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( band_, tag::cpu_, (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
   {

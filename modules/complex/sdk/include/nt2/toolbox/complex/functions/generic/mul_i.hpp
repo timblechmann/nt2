@@ -18,7 +18,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mul_i_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( mul_i_, tag::cpu_, (A0)
                             , (generic_< complex_ < arithmetic_<A0> > >)
                             )
   {
@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
       return result_type(-imag(a0), real(a0));
     }
   }; 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mul_i_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( mul_i_, tag::cpu_, (A0)
                             , (generic_< arithmetic_<A0> >)
                             )
   {
@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mul_i_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( mul_i_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > > )
                             )
   {
@@ -50,7 +50,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mul_i_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( mul_i_, tag::cpu_, (A0)
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                             )
   {

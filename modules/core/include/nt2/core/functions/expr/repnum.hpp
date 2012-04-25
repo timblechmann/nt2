@@ -25,7 +25,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates repnum from expression (support size(a) + type calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( repnum_, tag::cpu_,
                               (A0)(A1),
                               (scalar_<unspecified_<A0> > )
                               (ast_<A1>)
@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
 //   //============================================================================
 //   // Generates repnum from expression (support size(a) + type calls)
 //   //============================================================================
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_
+//   NT2_FUNCTOR_IMPLEMENTATION( repnum_, tag::cpu_
 //                             , (A0)(T)
 //                             , (ast_<A0>)
 //                               (target_< scalar_< unspecified_<T> > >)

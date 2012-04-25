@@ -24,7 +24,7 @@
 // TODO pb simd_ is not recognized here !?
 namespace nt2 { namespace ext
 {
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::split_, tag::cpu_,
+//   NT2_FUNCTOR_IMPLEMENTATION( split_, tag::cpu_,
 //                               (A0)(A1)(X),
 //                               ((simd_<complex_<arithmetic_<A0> >,X>))
 //                               ((simd_<complex_<arithmetic_<A1> >,X>))
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
 //     }
 //   };
 
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::split_, tag::cpu_,
+//   NT2_FUNCTOR_IMPLEMENTATION( split_, tag::cpu_,
 //                               (A0)(X),
 //                               ((simd_<complex_<arithmetic_<A0> >,X>))
 //                             )
@@ -62,7 +62,7 @@ namespace nt2 { namespace ext
 //     }
 //   };
 
-//    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::split_, tag::cpu_,
+//    NT2_FUNCTOR_IMPLEMENTATION( split_, tag::cpu_,
 //                               (A0)(A1)(X),
 //                               ((simd_<imaginary_<arithmetic_<A0> >,X>))
 //                               ((simd_<imaginary_<arithmetic_<A1> >,X>))
@@ -81,7 +81,7 @@ namespace nt2 { namespace ext
 //     }
 //   };
 
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::split_, tag::cpu_,
+//   NT2_FUNCTOR_IMPLEMENTATION( split_, tag::cpu_,
 //                               (A0)(X),
 //                               ((simd_<imaginary_<arithmetic_<A0> >,X>))
 //                             )
@@ -99,7 +99,7 @@ namespace nt2 { namespace ext
 //     }
 //   };
   
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::split_, tag::cpu_,
+//   NT2_FUNCTOR_IMPLEMENTATION( split_, tag::cpu_,
 //                               (A0)(A1)(X),
 //                               ((simd_<dry_<arithmetic_<A0> >,X>))
 //                               ((simd_<dry_<arithmetic_<A1> >,X>))
@@ -118,7 +118,7 @@ namespace nt2 { namespace ext
 //     }
 //   };
 
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::split_, tag::cpu_,
+//   NT2_FUNCTOR_IMPLEMENTATION( split_, tag::cpu_,
 //                               (A0)(X),
 //                               ((simd_<dry_<arithmetic_<A0> >,X>))
 //                             )

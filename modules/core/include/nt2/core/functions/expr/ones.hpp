@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates ones from expression (support size(a) + type calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ones_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( ones_, tag::cpu_
                             , (A0)
                             , (ast_<A0>)
                             )
@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates ones from expression (support size(a) + type calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ones_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( ones_, tag::cpu_
                             , (A0)(T)
                             , (ast_<A0>)
                               (target_< scalar_< unspecified_<T> > >)

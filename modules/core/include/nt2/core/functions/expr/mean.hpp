@@ -19,7 +19,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mean_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( mean_, tag::cpu_,
                               (A0),
                               (ast_<A0>) )
   {
@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
       return nt2::multiplies(f, nt2::sum(a0));
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mean_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( mean_, tag::cpu_,
                               (A0)(A1),
                               (ast_<A0>)
                               (scalar_<integer_<A1> > )

@@ -19,7 +19,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::splatted_sum_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(splatted_sum_, tag::cpu_,
                                (A0)(X),
                                ((simd_<complex_<arithmetic_<A0> >,X>))
                               )
@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
       return nt2::splat<A0>(sum(a0));
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::splatted_sum_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(splatted_sum_, tag::cpu_,
                                (A0)(X),
                                ((simd_<imaginary_<arithmetic_<A0> >,X>))
                               )
@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
       return nt2::splat<A0>(sum(a0));
     }
   };
-   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::splatted_sum_, tag::cpu_,
+   NT2_FUNCTOR_IMPLEMENTATION(splatted_sum_, tag::cpu_,
                                (A0)(X),
                                ((simd_<dry_<arithmetic_<A0> >,X>))
                               )

@@ -18,7 +18,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Compute indexing size using any expression in the non 1D cases
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_size_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( relative_size_, tag::cpu_
                             , (Idx)(Tag)(Arity)(Size)(Current)(Dims)
                             , ((expr_ < unspecified_<Idx>
                                       , Tag
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Compute indexing size using _
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_size_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( relative_size_, tag::cpu_
                             , (Idx)(Arity)(Size)(Current)(Dims)
                             , ((expr_ < colon_< Idx >
                                       , nt2::tag::terminal_

@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
   // This version of lu is called whenever a tie(l,u,p) = lu(...) is captured
   // before assign is resolved
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lu_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( lu_, tag::cpu_
                               , (A0)(A1)(A2)(A3)
                               , (ast_<A0>)
                               (ast_<A1>)
@@ -53,7 +53,7 @@ namespace nt2 { namespace ext
 //   //============================================================================
 //   // Capture a tie(l, u, p) = lu(...) at assign time and resolve to optimized call
 //   //============================================================================
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
+//   NT2_FUNCTOR_IMPLEMENTATION( assign_, tag::cpu_
 //                             , (A0)(A1)
 //                             , ((node_<A0,nt2::tag::tie_,boost::mpl::long_<3>  >))
 //                               ((node_<A1,nt2::tag::lu_ >))

@@ -15,7 +15,7 @@
 // store forces evaluation due to side-effect
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_ , tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( store_ , tag::cpu_
                             , (A0)(A1)(A2)
                             , (ast_<A0>)
                               (iterator_< scalar_< fundamental_<A1> > >)

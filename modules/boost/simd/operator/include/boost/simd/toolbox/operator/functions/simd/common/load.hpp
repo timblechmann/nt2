@@ -19,7 +19,7 @@
 namespace boost { namespace simd { namespace ext
 {
   // regular load
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( load_, tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , (iterator_<scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   // shifted load
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( load_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(X)
                             , (iterator_<scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -66,7 +66,7 @@ namespace boost { namespace simd { namespace ext
 
   // gather
   //TODO Why not a proper gather functor ?
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::load_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( load_, tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , (mpl::equal_to< boost::simd::meta::cardinal_of<A1>
                                             , boost::simd::meta::cardinal_of<typename A2::type>
@@ -91,7 +91,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   // logical
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( load_, tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , (iterator_<scalar_< logical_<A0> > >)
                               (scalar_< fundamental_<A1> >)

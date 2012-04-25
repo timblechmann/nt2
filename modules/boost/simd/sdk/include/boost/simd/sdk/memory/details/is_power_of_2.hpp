@@ -18,7 +18,7 @@
 //==============================================================================
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_power_of_2_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( is_power_of_2_, tag::cpu_
                                    , (A0), (scalar_< integer_<A0> >)
                                    )
   {
@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
 //==============================================================================
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_power_of_2_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( is_power_of_2_, tag::cpu_
                                    , (A0), (mpl_integral_< scalar_< arithmetic_<A0> > >)
                                    )
   {

@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_left_, boost::simd::tag::altivec_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( shift_left_, boost::simd::tag::altivec_, (A0)(A1)
                             , ((simd_<integer_<A0>,boost::simd::tag::altivec_>))
                               ((simd_<integer_<A1>,boost::simd::tag::altivec_>))
                             )
@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_left_, boost::simd::tag::altivec_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( shift_left_, boost::simd::tag::altivec_, (A0)(A1)
                             , ((simd_<single_<A0>,boost::simd::tag::altivec_>))
                               ((simd_<ints32_<A1>,boost::simd::tag::altivec_>))
                             )

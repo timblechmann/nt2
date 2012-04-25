@@ -24,7 +24,7 @@
 //==============================================================================
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_ , boost::simd::tag::avx_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( unaligned_load_ , boost::simd::tag::avx_
                             , (A0)(A1)(A2)
                             , (iterator_< scalar_< double_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace ext
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_ , boost::simd::tag::avx_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( unaligned_load_ , boost::simd::tag::avx_
                             , (A0)(A1)
                             , (iterator_< scalar_< double_<A0> > >)
                               ((target_< simd_< double_<A1>, boost::simd::tag::avx_ > >))
@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace ext
 //==============================================================================
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_ , boost::simd::tag::avx_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( unaligned_load_ , boost::simd::tag::avx_
                             , (A0)(A1)(A2)
                             , (iterator_< scalar_< single_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -80,7 +80,7 @@ namespace boost { namespace simd { namespace ext
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_ , boost::simd::tag::avx_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( unaligned_load_ , boost::simd::tag::avx_
                             , (A0)(A1)
                             , (iterator_< scalar_< single_<A0> > >)
                               ((target_< simd_< single_<A1>, boost::simd::tag::avx_ > >))
@@ -100,7 +100,7 @@ namespace boost { namespace simd { namespace ext
 //==============================================================================
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_ , boost::simd::tag::avx_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( unaligned_load_ , boost::simd::tag::avx_
                             , (A0)(A1)(A2)
                             , (iterator_< scalar_< integer_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -118,7 +118,7 @@ namespace boost { namespace simd { namespace ext
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_ , boost::simd::tag::avx_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( unaligned_load_ , boost::simd::tag::avx_
                             , (A0)(A1)
                             , (iterator_< scalar_< integer_<A0> > >)
                               ((target_< simd_< integer_<A1>, boost::simd::tag::avx_ > >))

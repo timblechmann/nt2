@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitofsign_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( bitofsign_, tag::cpu_, (A0)(X)
                             , ((simd_<signed_<A0>,X>))
                             )
   {
@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1) { return b_and(a0, boost::simd::Signmask<A0>()); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitofsign_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( bitofsign_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
     inline result_type operator()(const A0&)const { return Zero<A0>(); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitofsign_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( bitofsign_, tag::cpu_, (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )
   {

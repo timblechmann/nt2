@@ -23,15 +23,15 @@ namespace nt2 { namespace ext
   BOOST_PP_REPEAT_FROM_TO ( 2
                           , BOOST_PP_INC(NT2_MAX_DIMENSIONS)
                           , NT2_PP_GENERATIVE_MAKE_FROM_SIZE
-                          , (nt2::tag::zeros_,nt2::tag::Zero)
+                          , (zeros_,nt2::tag::Zero)
                           )
 
-  NT2_PP_GENERATIVE_MAKE_FROM_SINGLE( (nt2::tag::zeros_,nt2::tag::Zero) )
+  NT2_PP_GENERATIVE_MAKE_FROM_SINGLE( (zeros_,nt2::tag::Zero) )
 
   //============================================================================
   // Generates zeros from fusion sequence (support of_size calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::zeros_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( zeros_, tag::cpu_
                             , (Seq)
                             , (fusion_sequence_<Seq>)
                             )
@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates zeros from fusion sequence + types (support of_size calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::zeros_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( zeros_, tag::cpu_
                             , (Seq)(T)
                             , (fusion_sequence_<Seq>)
                               (target_< scalar_< unspecified_<T> > >)

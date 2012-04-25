@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::all_, boost::simd::tag::avx_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(all_, boost::simd::tag::avx_,
                               (A0),
                               ((simd_<type16_<A0>,boost::simd::tag::avx_>))
                             )

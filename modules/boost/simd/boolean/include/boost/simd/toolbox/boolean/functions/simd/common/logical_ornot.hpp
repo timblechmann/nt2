@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_ornot_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( logical_ornot_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                               ((simd_<arithmetic_<A1>,X>))
@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
       return is_nez(b_ornot(genmask(a0), genmask(a1)));
     }
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_ornot_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( logical_ornot_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<logical_<A0>,X>))
                               ((simd_<logical_<A1>,X>))

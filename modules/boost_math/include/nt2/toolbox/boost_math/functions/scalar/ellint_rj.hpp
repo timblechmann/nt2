@@ -14,7 +14,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::boost_math::tag::ellint_rj_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION_GEN(nt2::boost_math::tag::ellint_rj_, tag::cpu_,
                            (A0)(A1)(A2)(A3),
                            (scalar_<arithmetic_<A0> >)(scalar_<arithmetic_<A1> >)
                            (scalar_<arithmetic_<A2> >)(scalar_<arithmetic_<A3> >)
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-NT2_FUNCTOR_IMPLEMENTATION(nt2::boost_math::tag::ellint_rj_, tag::cpu_,
+NT2_FUNCTOR_IMPLEMENTATION_GEN(nt2::boost_math::tag::ellint_rj_, tag::cpu_,
                            (A0)(A1)(A2)(A3),
                            (scalar_<floating_<A0> >)(scalar_<floating_<A1> >)
                            (scalar_<floating_<A2> >)(scalar_<floating_<A3> >)

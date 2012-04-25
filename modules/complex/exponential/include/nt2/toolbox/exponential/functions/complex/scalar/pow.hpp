@@ -17,7 +17,7 @@
 
 // namespace nt2 { namespace ext
 // {
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+//   NT2_FUNCTOR_IMPLEMENTATION( pow_, tag::cpu_
 //                               , (A0)
 //                             , (scalar_< complex_<floating_<A0> > >)
 //                               (scalar_< complex_<floating_<A0> > >)
@@ -30,7 +30,7 @@
 //     }
 //   };
   
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+//   NT2_FUNCTOR_IMPLEMENTATION( pow_, tag::cpu_
 //                               , (A0)(A1)
 //                               , (scalar_< complex_<floating_<A0> > >)
 //                                 (scalar_< floating_<A1> >)
@@ -44,7 +44,7 @@
 //     }
 //   };
   
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+//   NT2_FUNCTOR_IMPLEMENTATION( pow_, tag::cpu_
 //                               , (A0)(A1)
 //                               , (scalar_< floating_<A0> >)
 //                                 (scalar_< complex_<floating_<A1> > >)
@@ -58,7 +58,7 @@
 //     }
 //   };
 
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+//   NT2_FUNCTOR_IMPLEMENTATION( pow_, tag::cpu_
 //                             , (A0)(A1)
 //                             , (scalar_< complex_<floating_<A0> > >)
 //                               (scalar_< imaginary_<floating_<A1> > >)
@@ -72,7 +72,7 @@
 //      }
 //    };
 
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+//   NT2_FUNCTOR_IMPLEMENTATION( pow_, tag::cpu_
 //                             , (A0)(A1)
 //                             , (scalar_< imaginary_<floating_<A0> > >)
 //                               (scalar_< complex_<floating_<A1> > >)
@@ -86,7 +86,7 @@
 //      }
 //    };
 
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+//   NT2_FUNCTOR_IMPLEMENTATION( pow_, tag::cpu_
 //                             , (A0)(A1)
 //                             , (scalar_< imaginary_<floating_<A0> > >)
 //                               (scalar_< floating_<A1> >)
@@ -101,7 +101,7 @@
 //       }
 //    };
   
-//    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+//    NT2_FUNCTOR_IMPLEMENTATION( pow_, tag::cpu_
 //                             , (A0)(A1)
 //                             ,  (scalar_< floating_<A0> >)
 //                                (scalar_< imaginary_<floating_<A1> > >)

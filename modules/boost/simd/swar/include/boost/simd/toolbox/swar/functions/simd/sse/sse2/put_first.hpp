@@ -20,7 +20,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( put_first_, boost::simd::tag::sse2_
 			      , (A0)(A1)
 			      , ((simd_<double_<A0>,boost::simd::tag::sse_>))
 		  	        ((scalar_< integer_<A1> >))  
@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type8_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( put_first_, boost::simd::tag::sse2_
 			      , (A0)(A1)
 			      , ((simd_<type8_<A0>,boost::simd::tag::sse_>))
 			        ((scalar_< integer_<A1> >))
@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type64_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( put_first_, boost::simd::tag::sse2_
 			      , (A0)(A1)
 			      , ((simd_<type64_<A0>,boost::simd::tag::sse_>))
 			        ((scalar_< integer_<A1> >))
@@ -84,7 +84,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type16_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( put_first_, boost::simd::tag::sse2_
 			      , (A0)(A1)
 			      , ((simd_<type16_<A0>,boost::simd::tag::sse_>))
 			        ((scalar_< integer_<A1> >))
@@ -107,7 +107,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type32_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( put_first_, boost::simd::tag::sse2_
 			      , (A0)(A1)
 			      , ((simd_<type32_<A0>,boost::simd::tag::sse_>))
 			        ((scalar_< integer_<A1> >))

@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_with_equal_nans_, boost::simd::tag::altivec_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( is_not_equal_with_equal_nans_, boost::simd::tag::altivec_, (A0)
                             , ((simd_<floating_<A0>, boost::simd::tag::altivec_>))
                               ((simd_<floating_<A0>, boost::simd::tag::altivec_>))
                             )
@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_with_equal_nans_, boost::simd::tag::altivec_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( is_not_equal_with_equal_nans_, boost::simd::tag::altivec_, (A0)
                             , ((simd_<integer_<A0>, boost::simd::tag::altivec_>))
                               ((simd_<integer_<A0>, boost::simd::tag::altivec_>))
                             )

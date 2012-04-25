@@ -21,7 +21,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( genmask_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<fundamental_<A0>,X>))
                             )
@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( genmask_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::genmask_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( genmask_, tag::cpu_
                             , (A0)(X)
                             , (mpl::equal_to< mpl::sizeof_<A0>, mpl::sizeof_<typename A0::type> >)
                             , ((simd_<logical_<A0>,X>))

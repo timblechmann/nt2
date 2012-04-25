@@ -17,7 +17,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type8
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::sse2_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(hmsb_, boost::simd::tag::sse2_,
                        (A0),
                        ((simd_<type8_<A0>,boost::simd::tag::sse_>))
                       )
@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type32
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::sse2_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(hmsb_, boost::simd::tag::sse2_,
                        (A0),
                        ((simd_<type32_<A0>,boost::simd::tag::sse_>))
                       )
@@ -48,7 +48,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type64
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::sse2_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(hmsb_, boost::simd::tag::sse2_,
                        (A0),
                        ((simd_<type64_<A0>,boost::simd::tag::sse_>))
                       )

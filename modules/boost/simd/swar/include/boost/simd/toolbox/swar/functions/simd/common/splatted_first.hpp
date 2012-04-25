@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_first_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(splatted_first_, tag::cpu_,
                                  (A0)(X),
                                  ((simd_<arithmetic_<A0>,X>))
                                 )

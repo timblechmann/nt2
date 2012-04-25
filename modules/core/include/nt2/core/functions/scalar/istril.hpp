@@ -13,7 +13,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::istril_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( istril_, tag::cpu_
                             , (A0)
                             , (scalar_< unspecified_<A0> >)
                             )

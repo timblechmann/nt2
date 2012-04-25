@@ -17,7 +17,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, boost::simd::tag::avx_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(none_, boost::simd::tag::avx_,
                         (A0),
                         ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                        )
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
       return result_type(_mm256_testz_si256(bitwise_cast<itype>(a0), Allbits<itype>()));
     }
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, boost::simd::tag::avx_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(none_, boost::simd::tag::avx_,
                         (A0),
                         ((simd_<logical_<A0>,boost::simd::tag::avx_>))
                        )

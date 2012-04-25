@@ -17,7 +17,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( logical_not_
                                    , boost::simd::tag::optimize_, (A0)(Arity)
                                    , ((node_<A0, boost::simd::tag::is_less_, Arity>))
                                    )

@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_eqz_, boost::simd::tag::sse3_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( is_eqz_, boost::simd::tag::sse3_, (A0)
                             , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                             )
   {
@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1) { return eq(a0,Zero<A0>()); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_eqz_, boost::simd::tag::sse3_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( is_eqz_, boost::simd::tag::sse3_, (A0)
                             , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                             )
   {

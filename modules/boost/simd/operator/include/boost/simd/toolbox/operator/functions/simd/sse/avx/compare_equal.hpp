@@ -16,7 +16,7 @@
 #include <boost/simd/include/constants/false.hpp>
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, boost::simd::tag::avx_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( compare_equal_, boost::simd::tag::avx_
                             , (A0)
                             , ((simd_<double_<A0>,boost::simd::tag::avx_>))
                               ((simd_<double_<A0>,boost::simd::tag::avx_>))
@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return  result_type(_mm256_movemask_pd(eq(a0,a1)) == 0X0F); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, boost::simd::tag::avx_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( compare_equal_, boost::simd::tag::avx_
                             , (A0)
                             , ((simd_<single_<A0>,boost::simd::tag::avx_>))
                               ((simd_<single_<A0>,boost::simd::tag::avx_>))
@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return  result_type(_mm256_movemask_ps(eq(a0,a1)) == 0X0FF); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, boost::simd::tag::avx_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( compare_equal_, boost::simd::tag::avx_
                             , (A0)
                             , ((simd_<integer_<A0>,boost::simd::tag::avx_>))
                               ((simd_<integer_<A0>,boost::simd::tag::avx_>))

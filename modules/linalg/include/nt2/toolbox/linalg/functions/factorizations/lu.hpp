@@ -17,7 +17,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::lu_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION_GEN( nt2::tag::factorization::lu_, tag::cpu_
                             , (A0)
                             , (ast_<A0>)
                             )
@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::lu_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION_GEN( nt2::tag::factorization::lu_, tag::cpu_
                             , (A0)(IP)
                             , (ast_<A0>)
                               (unspecified_< IP >)

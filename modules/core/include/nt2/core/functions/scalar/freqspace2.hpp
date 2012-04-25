@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates freqspace2 from m and n to a given floating type
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace2_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( freqspace2_, tag::cpu_
                               , (A0)(A1)(T)
                               , (scalar_< integer_<A0> >)
                                 (scalar_< integer_<A1> >)
@@ -85,7 +85,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates freqspace2 from n to a given floating type
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace2_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( freqspace2_, tag::cpu_
                               , (A0)(T)
                               , (scalar_< integer_<A0> >)
                               ((target_<scalar_< floating_<T> > > ))   
@@ -127,7 +127,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates freqspace2 from m and n to double
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace2_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( freqspace2_, tag::cpu_
                               , (A0)(A1)
                               , (scalar_< integer_<A0> >)
                                 (scalar_< integer_<A1> >)
@@ -153,7 +153,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates freqspace2 from n to double
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace2_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( freqspace2_, tag::cpu_
                               , (A0)
                               , (scalar_< integer_<A0> >)
                               )

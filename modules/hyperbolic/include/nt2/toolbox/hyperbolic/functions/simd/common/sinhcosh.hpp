@@ -27,7 +27,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION_IF(  nt2::tag::sinhcosh_, tag::cpu_,(A0)(A1)(X)
+  NT2_FUNCTOR_IMPLEMENTATION_IF(  sinhcosh_, tag::cpu_,(A0)(A1)(X)
                                   , (boost::mpl::equal_to < nt2::meta::cardinal_of<A0> 
                                                         , nt2::meta::cardinal_of<A1>
                                                         >
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
     }
   };
  
-  NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::sinhcosh_, tag::cpu_,(A0)(A1)(X),
+  NT2_FUNCTOR_IMPLEMENTATION_IF(sinhcosh_, tag::cpu_,(A0)(A1)(X),
                                 (boost::mpl::equal_to<nt2::meta::cardinal_of<A0>, 
                                                  nt2::meta::cardinal_of<A1>
                                         >
@@ -70,7 +70,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::sinhcosh_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(sinhcosh_, tag::cpu_,
                          (A0)(X),
                          ((simd_<arithmetic_<A0>,X>))
                         )

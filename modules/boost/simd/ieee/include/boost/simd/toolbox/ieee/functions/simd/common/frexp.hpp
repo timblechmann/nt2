@@ -24,7 +24,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::frexp_, tag::cpu_, (A0)(A1)(A2)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( frexp_, tag::cpu_, (A0)(A1)(A2)(X)
                                   ,( boost::mpl::and_ <
                                      boost::is_same<A0,A1>, 
                                      boost::is_same<typename dispatch::meta::as_integer<A0>::type, A2>
@@ -61,7 +61,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::frexp_, tag::cpu_, (A0)(A2)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( frexp_, tag::cpu_, (A0)(A2)(X)
                                  , ( boost::is_same<typename dispatch::meta::as_integer<A0>::type, A2>)
                                  , ((simd_< floating_<A0>, X>))
                                    ((simd_< integer_<A2>, X>))
@@ -76,7 +76,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::frexp_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( frexp_, tag::cpu_, (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )
   {

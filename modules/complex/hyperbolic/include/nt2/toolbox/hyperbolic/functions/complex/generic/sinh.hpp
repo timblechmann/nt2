@@ -26,7 +26,7 @@
 //sinh(x+iy)=sinh(x)cos(y)+i.cosh(x)sin(y).
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinh_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( sinh_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinh_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( sinh_, tag::cpu_, (A0)
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                             )
   {
@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinh_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( sinh_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {

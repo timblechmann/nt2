@@ -19,7 +19,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( transform_, tag::cpu_
                             , (A0)(A1)(T1)(N1)
                             , (ast_<A0>)
                               ((expr_< scalar_< unspecified_<A1> >
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( transform_, tag::cpu_
                             , (A0)(A1)(S1)(T1)(N1)
                             , (ast_<A0>)
                               ((expr_< table_< unspecified_<A1>, S1 >

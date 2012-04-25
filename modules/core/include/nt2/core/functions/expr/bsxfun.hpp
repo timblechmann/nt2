@@ -16,7 +16,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::bsxfun_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( bsxfun_, tag::cpu_,
                               (A0)(A1)(A2),
                                (unspecified_<A0>)
                                (ast_<A1>)

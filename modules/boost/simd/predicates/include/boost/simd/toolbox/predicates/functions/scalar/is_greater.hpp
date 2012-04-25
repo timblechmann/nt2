@@ -12,7 +12,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_greater_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( is_greater_, tag::cpu_
                             , (A0)
                             , (scalar_< fundamental_<A0> >)
                               (scalar_< fundamental_<A0> >)

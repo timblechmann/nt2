@@ -16,7 +16,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is unsigned integer 64
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::isqrt_, boost::simd::tag::avx_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(isqrt_, boost::simd::tag::avx_,
                        (A0),
                        ((simd_<uint64_<A0>,boost::simd::tag::avx_>))
                       )
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is integer 64
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::isqrt_, boost::simd::tag::avx_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(isqrt_, boost::simd::tag::avx_,
                        (A0),
                        ((simd_<int64_<A0>,boost::simd::tag::avx_>))
                       )

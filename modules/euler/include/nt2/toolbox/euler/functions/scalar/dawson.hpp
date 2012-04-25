@@ -24,7 +24,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dawson_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( dawson_, tag::cpu_
                             , (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dawson_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( dawson_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
                             )

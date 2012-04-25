@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::extract_, tag::cpu_, (A0)(A1)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( extract_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_< fusion_sequence_<A0>, X >))
                               (scalar_< integer_<A1> >)
                             )
@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::extract_, tag::cpu_, (A0)(A1)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( extract_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_< arithmetic_<A0>, X >))
                               (scalar_< integer_<A1> >)
                             )
@@ -69,7 +69,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::extract_, tag::cpu_, (A0)(A1)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( extract_, tag::cpu_, (A0)(A1)(X)
                             , (mpl::equal_to< mpl::sizeof_<A0>, mpl::sizeof_<typename A0::type> >)
                             , ((simd_< logical_<A0>, X >))
                               (scalar_< integer_<A1> >)

@@ -14,8 +14,8 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::saturate_<T>, tag::cpu_,
-		      (A0)(T)(X),
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_GEN(boost::simd::tag::saturate_<T>, tag::cpu_,
+                        (A0)(T)(X),
                        ((simd_<arithmetic_<A0>,X>))
                       )
   {

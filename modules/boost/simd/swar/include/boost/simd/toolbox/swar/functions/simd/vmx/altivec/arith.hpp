@@ -15,7 +15,7 @@
 // Is there nothing to do for float vectors ? TO DO
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( arith_
                                     , boost::simd::tag::altivec_
                                     , (T)
                                     , ((target_
@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
       return that;
     }
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( arith_
                                     , boost::simd::tag::altivec_
                                     , (A0)(T)
                                     , (scalar_< arithmetic_<A0> >)
@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
   // I am not sure as don't know altivec well and have not support available (JTL). Does vec_madd is to be used here ?
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( arith_
                                     , boost::simd::tag::altivec_
                                       , (A0)(A1)(T)
                                     , (scalar_< arithmetic_<A0> >)

@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_and_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( logical_and_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                               ((simd_<arithmetic_<A1>,X>))
@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_and_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( logical_and_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<logical_<A0>,X>))
                               ((simd_<logical_<A1>,X>))
@@ -46,7 +46,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   //TODO why the assert is never taken ?
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_and_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( logical_and_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<fundamental_<A0>,X>))
                               ((simd_<fundamental_<A1>,X>))

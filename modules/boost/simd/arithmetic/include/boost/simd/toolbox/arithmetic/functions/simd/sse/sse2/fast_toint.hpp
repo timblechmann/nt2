@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_toint_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( fast_toint_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_toint_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( fast_toint_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<single_<A0>,boost::simd::tag::sse_>))
                             )

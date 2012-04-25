@@ -19,7 +19,7 @@
 namespace boost { namespace simd { namespace ext
 {
   // regular load
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( unaligned_load_, tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , (iterator_<scalar_< arithmetic_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   // logical
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( unaligned_load_, tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , (iterator_<scalar_< logical_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   // shifted
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( unaligned_load_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(X)
                             , (iterator_<scalar_< arithmetic_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -71,7 +71,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   // gather
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::unaligned_load_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( unaligned_load_, tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , (mpl::equal_to< boost::simd::meta::cardinal_of<A1>
                                             , boost::simd::meta::cardinal_of<typename A2::type>

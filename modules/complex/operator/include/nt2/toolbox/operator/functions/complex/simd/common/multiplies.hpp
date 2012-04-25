@@ -32,7 +32,7 @@
 // {
 //   //These  versions are erroneous
 //   // complex/complex
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(X)
+//   NT2_FUNCTOR_IMPLEMENTATION( multiplies_, tag::cpu_, (A0)(X)
 //                                      , ((simd_< complex_< arithmetic_<A0> >, X>))
 //                                      ((simd_< complex_< arithmetic_<A0> >, X >))
 //                                      )
@@ -63,7 +63,7 @@
 //   };
   
 //   // complex/real
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)(X)
+//   NT2_FUNCTOR_IMPLEMENTATION( multiplies_, tag::cpu_, (A0)(A1)(X)
 //                                      , ((simd_< arithmetic_<A0>, X >))
 //                                        ((simd_< complex_< arithmetic_<A1> >, X >))
 //                                      )
@@ -81,7 +81,7 @@
 //       }
 //   };
   
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)(X)
+//   NT2_FUNCTOR_IMPLEMENTATION( multiplies_, tag::cpu_, (A0)(A1)(X)
 //                                      , ((simd_< complex_< arithmetic_<A0> >, X >))
 //                                      ((simd_< arithmetic_<A1>, X >))
 //                                      )
@@ -100,7 +100,7 @@
 //   };
   
 //   // complex/imaginary
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)(X)
+//   NT2_FUNCTOR_IMPLEMENTATION( multiplies_, tag::cpu_, (A0)(A1)(X)
 //                                      , ((simd_< imaginary_< arithmetic_<A0> >, X >))
 //                                      ((simd_< complex_< arithmetic_<A1> >, X >))
 //                                      )
@@ -119,7 +119,7 @@
 //       }
 //   };
   
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)(X)
+//   NT2_FUNCTOR_IMPLEMENTATION( multiplies_, tag::cpu_, (A0)(A1)(X)
 //                                      , ((simd_< complex_< arithmetic_<A0> >, X >))
 //                                      ((simd_< imaginary_< arithmetic_<A1> >, X >))
 //                                      )
@@ -142,7 +142,7 @@
 //   };
   
 //   // imaginary/real
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)(X)
+//   NT2_FUNCTOR_IMPLEMENTATION( multiplies_, tag::cpu_, (A0)(A1)(X)
 //                                      , ((simd_< arithmetic_<A0>, X >))
 //                                      ((simd_< imaginary_< arithmetic_<A1> >, X >))
 //                                      )
@@ -154,7 +154,7 @@
 //       }
 //   };
   
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)(X)
+//   NT2_FUNCTOR_IMPLEMENTATION( multiplies_, tag::cpu_, (A0)(A1)(X)
 //                                      , ((simd_< imaginary_< arithmetic_<A0> >, X >))
 //                                      ((simd_< arithmetic_<A1>, X >))
 //                                      )
@@ -167,7 +167,7 @@
 //   };
   
 //   // imaginary/imaginary
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)(X)
+//   NT2_FUNCTOR_IMPLEMENTATION( multiplies_, tag::cpu_, (A0)(A1)(X)
 //                                      , ((simd_< imaginary_< arithmetic_<A0> >, X >))
 //                                      ((simd_< imaginary_< arithmetic_<A1> >, X >))
 //                                      )

@@ -15,7 +15,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::flipud_, tag::cpu_, (A0), (ast_<A0>) )
+  NT2_FUNCTOR_IMPLEMENTATION( flipud_, tag::cpu_, (A0), (ast_<A0>) )
   {
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::flipud_

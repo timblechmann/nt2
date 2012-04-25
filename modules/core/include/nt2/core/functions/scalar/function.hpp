@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
 #define M1(z,n,t) (scalar_< integer_<I##n> >)
 
 #define M2(z,n,t)                                                              \
-NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                     \
+NT2_FUNCTOR_IMPLEMENTATION( function_, tag::cpu_                     \
                           , (A0)BOOST_PP_REPEAT(n,M0,~)                        \
                           , (ast_<A0>)BOOST_PP_REPEAT(n,M1,~)                  \
                           )                                                    \

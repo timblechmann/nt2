@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
   // This version of chol is called whenever a tie(a,p) = chol(...) is captured
   // before assign is resolved
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::chol_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( chol_, tag::cpu_
                             , (A0)(A1)(A2)(A3)
                             , (ast_<A0>)
                               (scalar_< type8_<A1> >)
@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Capture a tie(a) = chol(...) at assign time and resolve to optimized call
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( assign_, tag::cpu_
                             , (A0)(A1)(N1)
                             , ((node_<A0,nt2::tag::tie_,boost::mpl::long_<1> >))
                               ((node_<A1,nt2::tag::chol_,N1>))
@@ -81,7 +81,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Capture a tie(a,p) = chol(...) at assign time and resolve to optimized call
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( assign_, tag::cpu_
                             , (A0)(A1)(N1)
                             , ((node_<A0,nt2::tag::tie_,boost::mpl::long_<2> >))
                               ((node_<A1,nt2::tag::chol_,N1>))

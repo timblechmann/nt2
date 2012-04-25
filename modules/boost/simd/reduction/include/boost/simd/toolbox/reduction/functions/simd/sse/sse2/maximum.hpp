@@ -14,7 +14,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::maximum_, boost::simd::tag::sse2_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( maximum_, boost::simd::tag::sse2_, (A0)
                             , ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
                             )
   {
@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::maximum_, boost::simd::tag::sse2_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( maximum_, boost::simd::tag::sse2_, (A0)
                             , ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
   {
@@ -46,7 +46,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::maximum_, boost::simd::tag::sse2_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(maximum_, boost::simd::tag::sse2_, (A0)
                             , ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
                             )
   {
@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1) { return boost::simd::max(a0[0], a0[1]); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::maximum_, boost::simd::tag::sse2_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( maximum_, boost::simd::tag::sse2_, (A0)
                             , ((simd_<single_<A0>,boost::simd::tag::sse_>))
                             )
   {
@@ -67,7 +67,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::maximum_, boost::simd::tag::sse2_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( maximum_, boost::simd::tag::sse2_, (A0)
                             , ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
                             )
   {
@@ -84,7 +84,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::maximum_, boost::simd::tag::sse2_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( maximum_, boost::simd::tag::sse2_, (A0)
                             , ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
                             )
   {

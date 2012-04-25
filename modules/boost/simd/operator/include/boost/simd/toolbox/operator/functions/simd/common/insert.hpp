@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace tag
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::insert_, tag::cpu_, (A0)(A1)(A2)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( insert_, tag::cpu_, (A0)(A1)(A2)(X)
                             , (fusion_sequence_<A0>)
                               ((simd_< fusion_sequence_<A1>, X >))
                               (scalar_< integer_<A2> >)
@@ -68,7 +68,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::insert_, tag::cpu_, (A0)(A1)(A2)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( insert_, tag::cpu_, (A0)(A1)(A2)(X)
                             , (scalar_< arithmetic_<A0> >)
                               ((simd_< arithmetic_<A1>, X >))
                               (scalar_< integer_<A2> >)
@@ -83,7 +83,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::insert_, tag::cpu_, (A0)(A1)(A2)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( insert_, tag::cpu_, (A0)(A1)(A2)(X)
                             , (mpl::equal_to< mpl::sizeof_<A1>, mpl::sizeof_<typename A1::type> >)
                             , (scalar_< logical_<A0> >)
                               ((simd_< logical_<A1>, X >))

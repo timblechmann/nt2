@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace ext
     static inline int_type M1() { return (0xffffffff00000000ll);};
   };
 
- BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hypot_, tag::cpu_,
+ BOOST_SIMD_FUNCTOR_IMPLEMENTATION(hypot_, tag::cpu_,
                        (A0),
                        (scalar_<arithmetic_<A0> >)(scalar_<arithmetic_<A0> >)
                       )
