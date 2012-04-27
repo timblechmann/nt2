@@ -52,6 +52,7 @@ namespace nt2
     {
       typedef ext::unspecified_<ismatrix_> parent;
     };
+    NT2_FUNCTION_DECLARE(ismatrix_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ismatrix_, ismatrix, 1)

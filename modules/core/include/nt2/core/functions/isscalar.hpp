@@ -50,6 +50,7 @@ namespace nt2
     {
       typedef ext::unspecified_<isscalar_> parent;
     };
+    NT2_FUNCTION_DECLARE(isscalar_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::isscalar_, isscalar, 1)

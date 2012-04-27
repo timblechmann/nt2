@@ -22,6 +22,7 @@ namespace nt2
     {
       typedef ext::generative_<rows_> parent;
     };
+    NT2_FUNCTION_DECLARE(rows_)
   }
 
 

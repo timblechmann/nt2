@@ -52,12 +52,13 @@
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag erf_ of functor erf 
      *        in namespace nt2::tag for toolbox euler
     **/
     struct erf_ : ext::elementwise_<erf_> { typedef ext::elementwise_<erf_> parent; };
+    NT2_FUNCTION_DECLARE(erf_)
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::erf_, erf, 1)
 }

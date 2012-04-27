@@ -57,6 +57,7 @@ namespace nt2 {
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct asech1m_ : ext::elementwise_<asech1m_> { typedef ext::elementwise_<asech1m_> parent; };
+    NT2_FUNCTION_DECLARE(asech1m_)
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::asech1m_, asech1m, 1)
 }

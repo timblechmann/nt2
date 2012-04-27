@@ -24,6 +24,7 @@ namespace nt2
   {
     struct  ones_
           : ext::generative_<ones_> { typedef ext::generative_<ones_> parent; };
+    NT2_FUNCTION_DECLARE(ones_)
   }
 
   #define M0(z,n,t)                                       \

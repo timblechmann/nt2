@@ -53,12 +53,13 @@
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag pow_absi_ of functor pow_absi 
      *        in namespace nt2::tag for toolbox exponential
     **/
     struct pow_absi_ : ext::elementwise_<pow_absi_> { typedef ext::elementwise_<pow_absi_> parent; };
+    NT2_FUNCTION_DECLARE(pow_absi_)
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::pow_absi_, pow_absi, 2)
 }

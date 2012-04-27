@@ -24,6 +24,7 @@ namespace nt2
   {
     struct  repnum_
           : ext::generative_<repnum_> { typedef ext::generative_<repnum_> parent; };
+    NT2_FUNCTION_DECLARE(repnum_)
   }
 
   #define M0(z,n,t)                                         \

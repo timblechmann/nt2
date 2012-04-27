@@ -67,6 +67,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct multiplies_ : ext::elementwise_<multiplies_> { typedef ext::elementwise_<multiplies_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(multiplies_)
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::multiplies_             , multiplies      , 2 )

@@ -58,6 +58,7 @@ namespace boost { namespace simd {
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct divfloor_ : ext::elementwise_<divfloor_> { typedef ext::elementwise_<divfloor_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(divfloor_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divfloor_, divfloor, 2)
 } }

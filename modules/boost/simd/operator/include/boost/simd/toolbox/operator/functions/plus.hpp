@@ -66,6 +66,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct plus_ : ext::elementwise_<plus_> { typedef ext::elementwise_<plus_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(plus_)
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::plus_             , plus            , 2 )

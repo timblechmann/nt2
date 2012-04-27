@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_DSL_FUNCTIONS_TERMINAL_HPP_INCLUDED
 #define BOOST_SIMD_DSL_FUNCTIONS_TERMINAL_HPP_INCLUDED
 
-#include <boost/dispatch/functor/preprocessor/function.hpp>
+#include <boost/simd/sdk/functor/preprocessor/function.hpp>
 #include <boost/dispatch/dsl/call.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/sdk/functor/hierarchy.hpp>
@@ -20,8 +20,13 @@ namespace boost { namespace simd
   namespace tag
   {
     struct terminal_ : ext::elementwise_<terminal_> { typedef ext::elementwise_<terminal_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(terminal_)
+
     struct box_ : terminal_{ typedef terminal_ parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(box_)
+
     struct dereference_ : box_ { typedef box_ parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(dereference_)
   }
 
   template<class Expr>

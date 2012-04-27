@@ -52,6 +52,7 @@ namespace nt2
     {
       typedef ext::unspecified_<issquare_> parent;
     };
+    NT2_FUNCTION_DECLARE(issquare_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::issquare_, issquare, 1)

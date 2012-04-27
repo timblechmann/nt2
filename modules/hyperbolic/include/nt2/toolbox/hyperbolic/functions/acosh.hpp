@@ -50,12 +50,13 @@
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag acosh_ of functor acosh 
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct acosh_ : ext::elementwise_<acosh_> { typedef ext::elementwise_<acosh_> parent; };
+    NT2_FUNCTION_DECLARE(acosh_)
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::acosh_, acosh, 1)
 }

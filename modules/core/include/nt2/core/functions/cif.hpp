@@ -22,6 +22,7 @@ namespace nt2
     {
       typedef ext::generative_<cif_> parent;
     };
+    NT2_FUNCTION_DECLARE(cif_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::cif_, cif, 1)

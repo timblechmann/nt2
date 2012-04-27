@@ -52,6 +52,7 @@ namespace nt2
     {
       typedef ext::unspecified_<istriangular_> parent;
     };
+    NT2_FUNCTION_DECLARE(istriangular_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::istriangular_, istriangular, 1)

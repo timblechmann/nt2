@@ -60,6 +60,7 @@ namespace nt2
      *        in namespace nt2::tag for toolbox complex
     **/
     struct pure_ : ext::elementwise_<pure_> { typedef ext::elementwise_<pure_> parent; };
+    NT2_FUNCTION_DECLARE(pure_)
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::pure_, pure, 1)

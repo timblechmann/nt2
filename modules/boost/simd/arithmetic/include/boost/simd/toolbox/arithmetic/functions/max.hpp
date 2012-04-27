@@ -51,12 +51,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag max_ of functor max 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct max_ : ext::elementwise_<max_> { typedef ext::elementwise_<max_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(max_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::max_, max, 2)
 } }

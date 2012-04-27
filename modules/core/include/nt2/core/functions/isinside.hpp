@@ -19,6 +19,7 @@ namespace nt2
     {
       typedef ext::unspecified_<isinside_> parent;
     };
+    NT2_FUNCTION_DECLARE(isinside_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::isinside_, isinside, 2)

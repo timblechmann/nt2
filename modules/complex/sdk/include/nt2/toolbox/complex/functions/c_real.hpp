@@ -60,6 +60,7 @@ namespace nt2
      *        in namespace nt2::tag for toolbox complex
     **/
     struct c_real_ : ext::elementwise_<c_real_> { typedef ext::elementwise_<c_real_> parent; };
+    NT2_FUNCTION_DECLARE(c_real_)
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::c_real_, c_real, 1)

@@ -58,12 +58,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag splatted_sum_ of functor splatted_sum 
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct splatted_sum_ : ext::unspecified_<splatted_sum_> { typedef ext::unspecified_<splatted_sum_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(splatted_sum_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::splatted_sum_, splatted_sum, 1)
 } }

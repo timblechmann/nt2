@@ -23,6 +23,7 @@ namespace nt2
     {
       typedef ext::generative_<eye_> parent;
     };
+    NT2_FUNCTION_DECLARE(eye_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::eye_, eye, 1)

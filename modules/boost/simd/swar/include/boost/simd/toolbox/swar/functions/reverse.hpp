@@ -59,12 +59,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag reverse_ of functor reverse 
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct reverse_ : ext::unspecified_<reverse_> { typedef ext::unspecified_<reverse_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(reverse_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::reverse_, reverse, 1)
 } }

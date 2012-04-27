@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_DSL_FUNCTIONS_SCHEDULE_HPP_INCLUDED
 #define BOOST_SIMD_DSL_FUNCTIONS_SCHEDULE_HPP_INCLUDED
 
-#include <boost/dispatch/functor/preprocessor/function.hpp>
+#include <boost/simd/sdk/functor/preprocessor/function.hpp>
 #include <boost/simd/sdk/functor/hierarchy.hpp>
 
 namespace boost { namespace simd
@@ -17,7 +17,10 @@ namespace boost { namespace simd
   namespace tag
   {
     struct schedule_ : dispatch::tag::formal_ { typedef dispatch::tag::formal_ parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(schedule_)
+
     struct schedule_assign_ : dispatch::tag::formal_ { typedef dispatch::tag::formal_ parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(schedule_assign_)
   }
 
   // Tree + function + top mark

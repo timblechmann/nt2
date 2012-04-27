@@ -76,6 +76,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct logical_notand_ : ext::elementwise_<logical_notand_> { typedef ext::elementwise_<logical_notand_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(logical_notand_)
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_notand_      , logical_notand     , 2 )

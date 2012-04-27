@@ -52,6 +52,7 @@ namespace nt2
     {
       typedef ext::unspecified_<isempty_> parent;
     };
+    NT2_FUNCTION_DECLARE(isempty_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::isempty_, isempty, 1)

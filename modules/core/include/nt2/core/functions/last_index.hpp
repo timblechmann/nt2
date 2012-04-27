@@ -24,6 +24,7 @@ namespace nt2
     {
       typedef ext::unspecified_<last_index_> parent;
     };
+    NT2_FUNCTION_DECLARE(last_index_)
   }
 
   //============================================================================

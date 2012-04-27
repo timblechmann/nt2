@@ -50,12 +50,13 @@
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag fast_cos_ of functor fast_cos 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_cos_ : ext::elementwise_<fast_cos_> { typedef ext::elementwise_<fast_cos_> parent; };
+    NT2_FUNCTION_DECLARE(fast_cos_)
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::fast_cos_, fast_cos, 1)
 }

@@ -64,12 +64,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag is_negative_ of functor is_negative 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_negative_ : ext::elementwise_<is_negative_> { typedef ext::elementwise_<is_negative_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(is_negative_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_negative_, is_negative, 1)
 } }

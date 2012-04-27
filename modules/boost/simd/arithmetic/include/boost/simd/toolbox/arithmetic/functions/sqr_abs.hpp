@@ -60,6 +60,7 @@ namespace boost { namespace simd { namespace tag
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct sqr_abs_ : ext::elementwise_<sqr_abs_> { typedef ext::elementwise_<sqr_abs_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(sqr_abs_)
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqr_abs_, sqr_abs, 1)

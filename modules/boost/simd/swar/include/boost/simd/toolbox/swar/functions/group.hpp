@@ -64,12 +64,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag group_ of functor group 
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct group_ : ext::unspecified_<group_> { typedef ext::unspecified_<group_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(group_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::group_, group, 2)
 } }

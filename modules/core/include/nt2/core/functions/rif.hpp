@@ -22,6 +22,7 @@ namespace nt2
     {
       typedef ext::generative_<rif_> parent;
     };
+    NT2_FUNCTION_DECLARE(rif_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::rif_, rif, 1)

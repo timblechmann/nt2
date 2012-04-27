@@ -26,6 +26,7 @@ namespace nt2
     {
       typedef ext::reshaping_<squeeze_> parent;
     };
+    NT2_FUNCTION_DECLARE(squeeze_)
   }
 
   //============================================================================

@@ -51,12 +51,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag floor_ of functor floor 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct floor_ : ext::elementwise_<floor_> { typedef ext::elementwise_<floor_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(floor_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::floor_, floor, 1)
 } }

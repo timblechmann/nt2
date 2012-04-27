@@ -52,12 +52,13 @@
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag spence_ of functor spence 
      *        in namespace nt2::tag for toolbox euler
     **/
     struct spence_ : ext::elementwise_<spence_> { typedef ext::elementwise_<spence_> parent; };
+    NT2_FUNCTION_DECLARE(spence_)
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::spence_, spence, 1)
 }

@@ -79,12 +79,13 @@
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag tolerant_round_ of functor tolerant_round 
      *        in namespace nt2::tag for toolbox fuzzy
     **/
     struct tolerant_round_ : ext::elementwise_<tolerant_round_> { typedef ext::elementwise_<tolerant_round_> parent; };
+    NT2_FUNCTION_DECLARE(tolerant_round_)
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::tolerant_round_, tolerant_round, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::tolerant_round_, tround, 1)

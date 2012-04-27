@@ -53,12 +53,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag toint_ of functor toint 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct toint_ : ext::elementwise_<toint_> { typedef ext::elementwise_<toint_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(toint_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toint_, toint, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toint_, ifix, 1)

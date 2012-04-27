@@ -56,12 +56,13 @@
 namespace nt2 
 { 
   namespace tag 
-  {         
+  {
     /*!
      * \brief Define the tag beta_ of functor beta 
      *        in namespace nt2::tag for toolbox euler
     **/
     struct beta_ : ext::elementwise_<beta_> { typedef ext::elementwise_<beta_> parent; };
+    NT2_FUNCTION_DECLARE(beta_)
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::beta_, beta, 2)
 }

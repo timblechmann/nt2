@@ -52,6 +52,7 @@ namespace nt2
     {
       typedef ext::unspecified_<isrow_> parent;
     };
+    NT2_FUNCTION_DECLARE(isrow_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::isrow_, isrow, 1)

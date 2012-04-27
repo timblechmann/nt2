@@ -50,12 +50,13 @@
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag ellpk_ of functor ellpk 
      *        in namespace nt2::tag for toolbox elliptic
     **/
     struct ellpk_ : ext::elementwise_<ellpk_> { typedef ext::elementwise_<ellpk_> parent; };
+    NT2_FUNCTION_DECLARE(ellpk_)
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::ellpk_, ellpk, 1)
 }

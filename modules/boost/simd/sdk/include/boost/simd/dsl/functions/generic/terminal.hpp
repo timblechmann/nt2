@@ -27,14 +27,14 @@ namespace boost { namespace simd { namespace ext
                             , identity
                             )
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_GEN( nt2::tag::box_, tag::formal_, (A0), (ast_<A0>) )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_GEN( boost::simd::tag::box_, tag::formal_, (A0), (ast_<A0>) )
   {
     typedef typename boost::remove_const<A0>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const { return a0; }
   };
 
   // When evaluating a terminal, get its value
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_GEN( nt2::tag::terminal_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_GEN( boost::simd::tag::terminal_, tag::cpu_
                             , (A0)
                             , (ast_<A0>)
                             )

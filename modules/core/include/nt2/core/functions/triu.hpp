@@ -26,6 +26,7 @@ namespace nt2
       typedef ext::elementwise_<triu_> parent;
       typedef upper_triangular_        shape_type;
     };
+    NT2_FUNCTION_DECLARE(triu_)
 
     struct offset_triu_ : ext::elementwise_<offset_triu_>
     {

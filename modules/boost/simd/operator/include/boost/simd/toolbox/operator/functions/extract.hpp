@@ -55,6 +55,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct extract_ : ext::unspecified_<extract_> { typedef ext::unspecified_<extract_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(extract_)
   }
 
   template<class A0,class A1>

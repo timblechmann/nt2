@@ -51,12 +51,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag safe_max_ of functor safe_max 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct safe_max_ : ext::elementwise_<safe_max_> { typedef ext::elementwise_<safe_max_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(safe_max_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::safe_max_, safe_max, 1)
 } }

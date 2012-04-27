@@ -54,12 +54,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag average_ of functor average 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct average_ : ext::elementwise_<average_> { typedef ext::elementwise_<average_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(average_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::average_, average, 2)
 } }

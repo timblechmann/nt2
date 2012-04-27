@@ -69,6 +69,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct load_ : ext::elementwise_<load_> { typedef ext::elementwise_<load_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(load_)
   }
   //////////////////////////////////////////////////////////////////////////////
   // Load a data of type T from the memory zone given by (a0,a1)

@@ -59,7 +59,7 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag all_ of functor all 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
@@ -68,6 +68,7 @@ namespace boost { namespace simd { namespace tag
     { 
       typedef ext::reduction_<all_, tag::logical_and_, tag::True> parent;  
     };
+    BOOST_SIMD_FUNCTION_DECLARE(all_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::all_, all, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::all_, all, 2)

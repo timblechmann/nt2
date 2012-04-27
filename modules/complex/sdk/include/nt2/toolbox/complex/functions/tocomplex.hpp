@@ -63,6 +63,7 @@ namespace nt2
      *        in namespace nt2::tag for toolbox complex
     **/
     struct tocomplex_ : ext::elementwise_<tocomplex_> { typedef ext::elementwise_<tocomplex_> parent; };
+    NT2_FUNCTION_DECLARE(tocomplex_)
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::tocomplex_, tocomplex, 1)

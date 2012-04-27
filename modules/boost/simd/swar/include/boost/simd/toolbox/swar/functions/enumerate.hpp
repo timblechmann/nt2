@@ -60,6 +60,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.enumerate
     **/
     struct enumerate_ : ext::unspecified_<enumerate_> { typedef ext::unspecified_<enumerate_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(enumerate_)
   }
 
   template<class T,class A0> BOOST_FORCEINLINE

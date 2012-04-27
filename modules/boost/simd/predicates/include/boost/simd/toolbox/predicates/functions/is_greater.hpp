@@ -68,6 +68,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_greater_ : ext::elementwise_<is_greater_> { typedef ext::elementwise_<is_greater_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(is_greater_)
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_greater_, is_greater , 2 )

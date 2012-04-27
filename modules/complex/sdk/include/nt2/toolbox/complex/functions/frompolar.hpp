@@ -59,6 +59,7 @@ namespace nt2
      *        in namespace nt2::tag for toolbox complex
     **/
     struct frompolar_ : ext::elementwise_<frompolar_> { typedef ext::elementwise_<frompolar_> parent; };
+    NT2_FUNCTION_DECLARE(frompolar_)
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::frompolar_, frompolar, 2)

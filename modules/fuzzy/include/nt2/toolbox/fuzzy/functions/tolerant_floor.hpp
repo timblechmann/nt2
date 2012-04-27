@@ -79,12 +79,13 @@
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag tolerant_floor_ of functor tolerant_floor 
      *        in namespace nt2::tag for toolbox fuzzy
     **/
     struct tolerant_floor_ : ext::elementwise_<tolerant_floor_> { typedef ext::elementwise_<tolerant_floor_> parent; };
+    NT2_FUNCTION_DECLARE(tolerant_floor_)
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::tolerant_floor_, tolerant_floor, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::tolerant_floor_, tfloor, 1)

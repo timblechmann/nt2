@@ -26,6 +26,7 @@ namespace nt2
     {
       typedef ext::reshaping_<reshape_> parent;
     };
+    NT2_FUNCTION_DECLARE(reshape_)
   }
 
   //============================================================================

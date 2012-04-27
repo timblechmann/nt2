@@ -57,12 +57,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag bitwise_select_ of functor bitwise_select 
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct bitwise_select_ : ext::elementwise_<bitwise_select_> { typedef ext::elementwise_<bitwise_select_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(bitwise_select_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_select_, bitwise_select, 3)
 } }

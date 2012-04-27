@@ -9,12 +9,16 @@
 #ifndef BOOST_SIMD_DSL_FUNCTIONS_EVALUATE_HPP_INCLUDED
 #define BOOST_SIMD_DSL_FUNCTIONS_EVALUATE_HPP_INCLUDED
 
-#include <boost/dispatch/functor/preprocessor/function.hpp>
+#include <boost/simd/sdk/functor/preprocessor/function.hpp>
 #include <boost/simd/sdk/functor/hierarchy.hpp>
 
 namespace boost { namespace simd
 {
-  namespace tag { struct evaluate_ : dispatch::tag::formal_ { typedef dispatch::tag::formal_ parent; }; }
+  namespace tag
+  {
+    struct evaluate_ : dispatch::tag::formal_ { typedef dispatch::tag::formal_ parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(optimize_)
+  }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::evaluate_, evaluate, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::evaluate_, evaluate, (A0&), 1)

@@ -59,12 +59,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag lookup_ of functor lookup 
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct lookup_ : ext::unspecified_<lookup_> { typedef ext::unspecified_<lookup_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(lookup_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::lookup_, lookup, 2)
 } }

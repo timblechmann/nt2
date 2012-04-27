@@ -69,6 +69,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_not_equal_ : ext::elementwise_<is_not_equal_> { typedef ext::elementwise_<is_not_equal_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(is_not_equal_)
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_equal_, is_not_equal , 2 )

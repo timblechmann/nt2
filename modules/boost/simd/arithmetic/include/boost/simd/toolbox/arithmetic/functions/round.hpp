@@ -51,12 +51,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag round_ of functor round 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct round_ : ext::elementwise_<round_> { typedef ext::elementwise_<round_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(round_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::round_, round, 1)
 } }

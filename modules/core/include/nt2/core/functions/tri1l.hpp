@@ -26,6 +26,7 @@ namespace nt2
       typedef ext::elementwise_<tri1l_> parent;
       typedef lower_triangular_       shape_type;
     };
+    NT2_FUNCTION_DECLARE(tri1l_)
 
     struct offset_tri1l_ : ext::elementwise_<offset_tri1l_>
     {

@@ -68,6 +68,7 @@ namespace boost { namespace simd { namespace tag
     {
       typedef ext::reduction_<prod_, tag::multiplies_, tag::One> parent;
     };
+    BOOST_SIMD_FUNCTION_DECLARE(prod_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::prod_, prod, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::prod_, prod, 2)

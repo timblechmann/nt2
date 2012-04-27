@@ -53,6 +53,7 @@ namespace nt2
     {
       typedef ext::unspecified_<istril_> parent;
     };
+    NT2_FUNCTION_DECLARE(istril_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::istril_, istril, 1)

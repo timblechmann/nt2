@@ -26,6 +26,7 @@ namespace nt2
       typedef ext::elementwise_<flipud_> parent;
       typedef rectangular_           shape_type;
     };
+    NT2_FUNCTION_DECLARE(flipud_)
   }
 
   //============================================================================

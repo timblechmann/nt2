@@ -54,12 +54,13 @@
 
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag negif_ of functor negif 
      *        in namespace boost::simd::tag for toolbox boost.simd.boolean
     **/
      struct negif_ : ext::elementwise_<negif_> { typedef ext::elementwise_<negif_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(negif_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::negif_, negif, 2)
 } }

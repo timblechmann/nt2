@@ -70,6 +70,7 @@ namespace nt2
     { 
       typedef tag::formal_ parent; 
     };
+    NT2_FUNCTION_DECLARE(norm2_)
   }
 
   //============================================================================

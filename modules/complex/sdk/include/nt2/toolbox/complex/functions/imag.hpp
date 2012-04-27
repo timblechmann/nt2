@@ -59,6 +59,7 @@ namespace nt2
      *        in namespace nt2::tag for toolbox complex
     **/
     struct imag_ : ext::elementwise_<imag_> { typedef ext::elementwise_<imag_> parent; };
+    NT2_FUNCTION_DECLARE(imag_)
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::imag_, imag, 1)

@@ -50,12 +50,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag round2even_ of functor round2even 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct round2even_ : ext::elementwise_<round2even_> { typedef ext::elementwise_<round2even_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(round2even_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::round2even_, round2even, 1)
 } }

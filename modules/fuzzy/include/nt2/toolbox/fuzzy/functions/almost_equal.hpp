@@ -59,12 +59,13 @@
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag almost_equal_ of functor almost_equal 
      *        in namespace nt2::tag for toolbox fuzzy
     **/
     struct almost_equal_ : ext::elementwise_<almost_equal_> { typedef ext::elementwise_<almost_equal_> parent; };
+    NT2_FUNCTION_DECLARE(almost_equal_)
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::almost_equal_, almost_equal, 3)
 }

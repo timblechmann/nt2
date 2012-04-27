@@ -59,7 +59,7 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag none_ of functor none 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
@@ -68,6 +68,7 @@ namespace boost { namespace simd { namespace tag
     { 
       typedef ext::reduction_<none_, tag::logical_and_, tag::True> parent; 
     };
+    BOOST_SIMD_FUNCTION_DECLARE(none_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::none_, none, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::none_, none, 2)

@@ -57,12 +57,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag fast_ldexp_ of functor fast_ldexp 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct fast_ldexp_ : ext::elementwise_<fast_ldexp_> { typedef ext::elementwise_<fast_ldexp_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(fast_ldexp_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fast_ldexp_, fast_ldexp, 2)
 } }

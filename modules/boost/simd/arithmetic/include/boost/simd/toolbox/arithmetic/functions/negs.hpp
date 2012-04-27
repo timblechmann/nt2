@@ -59,6 +59,7 @@ namespace boost { namespace simd {
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct negs_ : ext::elementwise_<negs_> { typedef ext::elementwise_<negs_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(negs_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::negs_, negs, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::negs_, saturated_neg, 1)

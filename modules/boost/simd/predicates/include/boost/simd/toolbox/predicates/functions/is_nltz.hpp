@@ -59,12 +59,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag is_nltz_ of functor is_nltz 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_nltz_ : ext::elementwise_<is_nltz_> { typedef ext::elementwise_<is_nltz_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(is_nltz_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_nltz_, is_nltz, 1)
 } }

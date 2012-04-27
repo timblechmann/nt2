@@ -70,6 +70,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct bitwise_and_ : ext::elementwise_<bitwise_and_> { typedef ext::elementwise_<bitwise_and_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(bitwise_and_)
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_and_      , bitwise_and     , 2 )

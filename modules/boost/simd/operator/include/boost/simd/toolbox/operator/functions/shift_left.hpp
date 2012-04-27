@@ -68,6 +68,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct shift_left_ : ext::elementwise_<shift_left_> { typedef ext::elementwise_<shift_left_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(shift_left_)
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_left_             , shift_left     , 2 )

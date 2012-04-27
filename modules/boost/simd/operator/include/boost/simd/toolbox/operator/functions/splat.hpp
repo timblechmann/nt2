@@ -58,6 +58,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct splat_ : ext::elementwise_<splat_> { typedef ext::elementwise_<splat_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(splat_)
   }
 
   template<class T, class A0> inline

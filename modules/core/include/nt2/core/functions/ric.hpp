@@ -22,6 +22,7 @@ namespace nt2
     {
       typedef ext::generative_<ric_> parent;
     };
+    NT2_FUNCTION_DECLARE(ric_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ric_, ric, 1)

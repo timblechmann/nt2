@@ -22,6 +22,7 @@ namespace nt2
     {
       typedef ext::elementwise_<function_> parent;
     };
+    NT2_FUNCTION_DECLARE(function_)
   }
 
   //============================================================================

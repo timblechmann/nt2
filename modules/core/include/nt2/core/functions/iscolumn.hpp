@@ -51,6 +51,7 @@ namespace nt2
     {
       typedef ext::unspecified_<iscolumn_> parent;
     };
+    NT2_FUNCTION_DECLARE(iscolumn_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::iscolumn_, iscolumn, 1)

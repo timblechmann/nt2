@@ -25,6 +25,7 @@ namespace nt2
     {
       typedef ext::reshaping_<colvect_> parent;
     };
+    NT2_FUNCTION_DECLARE(colvect_)
   }
 
   //============================================================================

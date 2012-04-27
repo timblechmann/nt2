@@ -49,6 +49,7 @@ namespace nt2
     {
       typedef ext::unspecified_<isvector_> parent;
     };
+    NT2_FUNCTION_DECLARE(isvector_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::isvector_, isvector, 1)

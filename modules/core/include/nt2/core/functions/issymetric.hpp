@@ -52,6 +52,7 @@ namespace nt2
     {
       typedef ext::unspecified_<issymetric_> parent;
     };
+    NT2_FUNCTION_DECLARE(issymetric_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::issymetric_, issymetric, 1)

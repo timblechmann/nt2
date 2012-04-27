@@ -64,6 +64,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct comma_ : ext::elementwise_<comma_> { typedef ext::elementwise_<comma_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(comma_)
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::comma_ , comma  , 2 )

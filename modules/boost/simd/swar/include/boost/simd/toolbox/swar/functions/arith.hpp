@@ -67,6 +67,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.arith
     **/
     struct arith_ : ext::unspecified_<arith_> { typedef ext::unspecified_<arith_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(arith_)
   }
 
   template<class T> BOOST_FORCEINLINE

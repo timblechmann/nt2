@@ -52,6 +52,7 @@ namespace nt2
     {
       typedef ext::unspecified_<ishermitian_> parent;
     };
+    NT2_FUNCTION_DECLARE(ishermitian_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ishermitian_, ishermitian, 1)

@@ -52,12 +52,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag shrai_ of functor shrai 
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct shrai_ : ext::elementwise_<shrai_> { typedef ext::elementwise_<shrai_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(shrai_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shrai_, shrai, 2)
 } }

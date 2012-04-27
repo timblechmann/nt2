@@ -60,12 +60,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag is_not_less_ of functor is_not_less 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_not_less_ : ext::elementwise_<is_not_less_> { typedef ext::elementwise_<is_not_less_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(is_not_less_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_less_, is_not_less, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_less_, is_nlt, 2)

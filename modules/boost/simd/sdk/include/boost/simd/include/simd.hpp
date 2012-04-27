@@ -15,4 +15,6 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/native_tuple.hpp>
 
+#include <boost/simd/sdk/functor/preprocessor/function.hpp>
+
 #endif

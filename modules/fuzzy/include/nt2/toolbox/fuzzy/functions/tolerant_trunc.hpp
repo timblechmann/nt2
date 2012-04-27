@@ -79,12 +79,13 @@
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag tolerant_trunc_ of functor tolerant_trunc 
      *        in namespace nt2::tag for toolbox fuzzy
     **/
     struct tolerant_trunc_ : ext::elementwise_<tolerant_trunc_> { typedef ext::elementwise_<tolerant_trunc_> parent; };
+    NT2_FUNCTION_DECLARE(tolerant_trunc_)
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::tolerant_trunc_, tolerant_trunc, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::tolerant_trunc_, ttrunc, 1)

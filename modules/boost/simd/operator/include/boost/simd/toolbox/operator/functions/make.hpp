@@ -61,6 +61,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct make_ : ext::unspecified_<make_> { typedef ext::unspecified_<make_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(make_)
   }
 } }
 

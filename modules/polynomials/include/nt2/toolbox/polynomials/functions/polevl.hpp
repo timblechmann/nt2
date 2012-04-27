@@ -12,8 +12,9 @@
 #include <nt2/include/functor.hpp>
 
 namespace nt2 { namespace tag
-  {         
+  {
     struct polevl_ : ext::elementwise_<polevl_> { typedef ext::elementwise_<polevl_> parent; };
+    NT2_FUNCTION_DECLARE(polevl_)
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::polevl_, polevl, 2)
 }

@@ -54,12 +54,13 @@
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag gcd_ of functor gcd 
      *        in namespace nt2::tag for toolbox combinatorial
     **/
     struct gcd_ : ext::elementwise_<gcd_> { typedef ext::elementwise_<gcd_> parent; };
+    NT2_FUNCTION_DECLARE(gcd_)
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::gcd_, gcd, 2)
 }

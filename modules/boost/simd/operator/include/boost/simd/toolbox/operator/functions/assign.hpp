@@ -19,6 +19,7 @@ namespace boost { namespace simd
   namespace tag
   {
     struct assign_ : ext::elementwise_<assign_> { typedef ext::elementwise_<assign_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(assign_)
   }
   
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF(tag::assign_ , assign , 2 )

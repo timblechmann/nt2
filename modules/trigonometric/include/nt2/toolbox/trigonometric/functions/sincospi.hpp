@@ -60,12 +60,13 @@
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag sincospi_ of functor sincospi 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct sincospi_ : ext::elementwise_<sincospi_> { typedef ext::elementwise_<sincospi_> parent; };
+    NT2_FUNCTION_DECLARE(sincospi_)
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::sincospi_, sincospi, 1)
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sincospi_, sincospi,(A0 const&)(A1&),2)

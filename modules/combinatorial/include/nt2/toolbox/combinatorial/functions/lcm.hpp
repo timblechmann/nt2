@@ -54,12 +54,13 @@
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag lcm_ of functor lcm 
      *        in namespace nt2::tag for toolbox combinatorial
     **/
     struct lcm_ : ext::elementwise_<lcm_> { typedef ext::elementwise_<lcm_> parent; };
+    NT2_FUNCTION_DECLARE(lcm_)
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::lcm_, lcm, 2)
 }

@@ -26,6 +26,7 @@ namespace nt2
       typedef ext::elementwise_<band_> parent;
       typedef diagonal_       shape_type;
     };
+    NT2_FUNCTION_DECLARE(band_)
 
     struct offset_band1_ : ext::elementwise_<offset_band1_>
     {

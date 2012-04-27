@@ -12,8 +12,9 @@
 #include <nt2/include/functor.hpp>
 
 namespace nt2 { namespace tag
-  {         
+  {
     struct laguerre_ : ext::elementwise_<laguerre_> { typedef ext::elementwise_<laguerre_> parent; };
+    NT2_FUNCTION_DECLARE(laguerre_)
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::laguerre_, laguerre, 2)
 }

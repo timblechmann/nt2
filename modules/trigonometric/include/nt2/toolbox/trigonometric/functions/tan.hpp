@@ -50,12 +50,13 @@
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag tan_ of functor tan 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct tan_ : ext::elementwise_<tan_> { typedef ext::elementwise_<tan_> parent; };
+    NT2_FUNCTION_DECLARE(tan_)
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::tan_, tan, 1)
 }

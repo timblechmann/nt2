@@ -77,6 +77,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct compare_greater_ : ext::unspecified_<compare_greater_> { typedef ext::unspecified_<compare_greater_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(compare_greater_)
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compare_greater_, compare_greater , 2 )

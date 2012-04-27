@@ -51,12 +51,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag minnummag_ of functor minnummag 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct minnummag_ : ext::elementwise_<minnummag_> { typedef ext::elementwise_<minnummag_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(minnummag_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minnummag_, minnummag, 2)
 } }

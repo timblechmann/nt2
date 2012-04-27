@@ -24,6 +24,7 @@ namespace nt2
   {
     struct  zeros_
           : ext::generative_<zeros_> { typedef ext::generative_<zeros_> parent; };
+    NT2_FUNCTION_DECLARE(zeros_)
   }
 
   #define M0(z,n,t)                                       \

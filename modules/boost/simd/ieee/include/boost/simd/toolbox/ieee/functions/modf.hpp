@@ -59,12 +59,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag modf_ of functor modf 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct modf_ : ext::elementwise_<modf_> { typedef ext::elementwise_<modf_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(modf_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::modf_, modf, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::modf_, modf,(A0 const&)(A1&)(A1&),2)

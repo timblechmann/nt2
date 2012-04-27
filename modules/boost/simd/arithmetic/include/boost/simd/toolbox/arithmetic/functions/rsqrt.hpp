@@ -51,12 +51,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag rsqrt_ of functor rsqrt 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct rsqrt_ : ext::elementwise_<rsqrt_> { typedef ext::elementwise_<rsqrt_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(rsqrt_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rsqrt_, rsqrt, 1)
 } }

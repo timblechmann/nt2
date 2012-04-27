@@ -24,6 +24,7 @@ namespace nt2
     {
       typedef ext::generative_<colon_> parent;
     };
+    NT2_FUNCTION_DECLARE(colon_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::colon_, colon, 2)

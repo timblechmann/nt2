@@ -51,12 +51,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag ceil_ of functor ceil 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct ceil_ : ext::elementwise_<ceil_> { typedef ext::elementwise_<ceil_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(ceil_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::ceil_, ceil, 1)
 } }

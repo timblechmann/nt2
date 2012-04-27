@@ -65,6 +65,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct unary_minus_ : ext::elementwise_<unary_minus_> { typedef ext::elementwise_<unary_minus_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(unary_minus_)
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_minus_, unary_minus , 1 )

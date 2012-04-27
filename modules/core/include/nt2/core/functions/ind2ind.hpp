@@ -24,6 +24,7 @@ namespace nt2
     {
       typedef ext::unspecified_<ind2ind_> parent;
     };
+    NT2_FUNCTION_DECLARE(ind2ind_)
   }
 
   //============================================================================

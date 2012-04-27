@@ -51,12 +51,13 @@
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag negation_ of functor negation 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct negation_ : ext::elementwise_<negation_> { typedef ext::elementwise_<negation_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(negation_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::negation_, negation, 2)
 } }

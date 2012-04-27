@@ -22,6 +22,7 @@ namespace nt2
     {
       typedef ext::generative_<cols_> parent;
     };
+    NT2_FUNCTION_DECLARE(cols_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::cols_, cols, 2)

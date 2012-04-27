@@ -25,6 +25,7 @@ namespace nt2
     {
       typedef ext::reshaping_<fill_pattern_> parent;
     };
+    NT2_FUNCTION_DECLARE(fill_pattern_)
   }
 
   //============================================================================

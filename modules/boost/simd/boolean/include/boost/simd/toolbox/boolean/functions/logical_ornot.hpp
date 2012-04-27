@@ -76,6 +76,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct logical_ornot_ : ext::elementwise_<logical_ornot_> { typedef ext::elementwise_<logical_ornot_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(logical_ornot_)
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_ornot_      , logical_ornot     , 2 )

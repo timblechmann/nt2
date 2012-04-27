@@ -82,6 +82,7 @@ namespace boost { namespace simd
     { 
       typedef ext::unspecified_<compare_equal_> parent; 
     };
+    BOOST_SIMD_FUNCTION_DECLARE(compare_equal_)
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compare_equal_, compare_equal , 2 )
