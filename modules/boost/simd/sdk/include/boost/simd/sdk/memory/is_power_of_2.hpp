@@ -12,14 +12,18 @@
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/dispatch/functor/functor.hpp>
 #include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
-#include <boost/dispatch/functor/preprocessor/function.hpp>
+#include <boost/simd/sdk/functor/preprocessor/function.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Check if a value is a power of 2
 ////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd
 {
-  namespace tag { struct is_power_of_2_ : dispatch::meta::unspecified_<is_power_of_2_> {}; }
+  namespace tag
+  {
+    struct is_power_of_2_ : dispatch::meta::unspecified_<is_power_of_2_> {};
+    BOOST_SIMD_FUNCTION_DECLARE(is_power_of_2_)
+  }
   namespace memory
   {
     BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_power_of_2_, is_power_of_2, 1);

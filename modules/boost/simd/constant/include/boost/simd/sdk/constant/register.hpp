@@ -29,7 +29,7 @@
  * \param DOUBLE Double value of the constant
  */
 //==============================================================================
-#define BOOST_SIMD_CONSTANT_REGISTER(TAG,TYPE,INT,FLOAT,DOUBLE)           \
+#define BOOST_SIMD_CONSTANT_REGISTER_IMPL(TAG,TYPE,INT,FLOAT,DOUBLE)      \
 struct TAG : ext::constant_<TAG>                                          \
 {                                                                         \
   typedef TYPE default_type;                                              \
@@ -40,6 +40,11 @@ template<class D> struct TAG::apply<float,D>                              \
   : boost::simd::meta::single_<FLOAT> {};                                 \
 template<class D> struct TAG::apply<double,D>                             \
   : boost::simd::meta::double_<DOUBLE> {};                                \
+/**/
+
+#define BOOST_SIMD_CONSTANT_REGISTER(TAG,TYPE,INT,FLOAT,DOUBLE)           \
+BOOST_SIMD_CONSTANT_REGISTER_IMPL(TAG,TYPE,INT,FLOAT,DOUBLE)              \
+BOOST_SIMD_FUNCTION_DECLARE(TAG)                                          \
 /**/
 
 #endif

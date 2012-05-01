@@ -69,6 +69,7 @@
 namespace boost { namespace simd {
   struct ascending_ {};
   struct descending_{};
+
   namespace tag
   {         
     /*!
@@ -76,6 +77,7 @@ namespace boost { namespace simd {
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct comparator_ : ext::unspecified_<comparator_> { typedef ext::unspecified_<comparator_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(comparator_)
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::comparator_, comparator, 3)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::comparator_, comparator, (A0 const&)(A0 const&)(A1 const&)(A0&)(A0&), 2)

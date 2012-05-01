@@ -51,11 +51,16 @@
 
 namespace boost { namespace simd
 {
-  namespace tag { struct store_ : ext::elementwise_<store_> { typedef ext::elementwise_<store_> parent; }; }
+  namespace tag
+  {
     /*!
      * \brief Define the tag store_ of functor store 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
+    struct store_ : ext::elementwise_<store_> { typedef ext::elementwise_<store_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(store_)
+  }
+
   template<class A0, class A1, class A2>
   BOOST_FORCEINLINE
   typename boost::dispatch::meta::call<tag::store_(A0 const&, A1 const&, A2 const&)>::type

@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_CONSTANT_CONSTANT_HPP_INCLUDED
 #define NT2_SDK_CONSTANT_CONSTANT_HPP_INCLUDED
 
+#include <nt2/sdk/functor/preprocessor/function.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 #include <boost/simd/sdk/constant/register.hpp>
 
@@ -16,7 +17,9 @@
 BOOST_SIMD_CONSTANT_IMPLEMENTATION(TAG,NAME)
 
 #define NT2_CONSTANT_REGISTER(TAG,TYPE,INT,FLOAT,DOUBLE)               \
-BOOST_SIMD_CONSTANT_REGISTER(TAG,TYPE,INT,FLOAT,DOUBLE)
+BOOST_SIMD_CONSTANT_REGISTER_IMPL(TAG,TYPE,INT,FLOAT,DOUBLE)           \
+NT2_FUNCTION_DECLARE(TAG)                                              \
+/**/
 
 #define NT2_MAKE_STD_CONSTANT(NAME,HEXDOUBLE,HEXFLOAT,INT)             \
 namespace tag                                                          \

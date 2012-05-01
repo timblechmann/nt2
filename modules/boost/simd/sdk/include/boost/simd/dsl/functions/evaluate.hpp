@@ -17,7 +17,7 @@ namespace boost { namespace simd
   namespace tag
   {
     struct evaluate_ : dispatch::tag::formal_ { typedef dispatch::tag::formal_ parent; };
-    BOOST_SIMD_FUNCTION_DECLARE(optimize_)
+    BOOST_SIMD_FUNCTION_DECLARE(evaluate_)
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::evaluate_, evaluate, 1)

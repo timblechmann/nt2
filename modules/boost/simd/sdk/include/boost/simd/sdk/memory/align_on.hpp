@@ -13,11 +13,15 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/dispatch/functor/functor.hpp>
 #include <boost/simd/sdk/memory/is_power_of_2.hpp>
-#include <boost/dispatch/functor/preprocessor/function.hpp>
+#include <boost/simd/sdk/functor/preprocessor/function.hpp>
 
 namespace boost { namespace simd
 {
-  namespace tag { struct align_on_ : dispatch::meta::unspecified_<align_on_> {}; }
+  namespace tag
+  {
+    struct align_on_ : dispatch::meta::unspecified_<align_on_> {};
+    BOOST_SIMD_FUNCTION_DECLARE(align_on_)
+  }
 
   namespace memory
   {

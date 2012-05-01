@@ -18,7 +18,11 @@
 
 namespace nt2 
 { 
-  namespace tag { struct numel_ : ext::unspecified_<numel_> { typedef ext::unspecified_<numel_> parent; }; }
+  namespace tag
+  {
+    struct numel_ : ext::unspecified_<numel_> { typedef ext::unspecified_<numel_> parent; };
+    NT2_FUNCTION_DECLARE(numel_)
+  }
 
   //============================================================================
   /*!
