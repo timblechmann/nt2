@@ -18,7 +18,11 @@
 
 namespace nt2 
 { 
-  namespace tag { struct depth_ : ext::unspecified_<depth_> { typedef ext::unspecified_<depth_> parent; }; }
+  namespace tag
+  {
+    struct depth_ : ext::unspecified_<depth_> { typedef ext::unspecified_<depth_> parent; };
+    NT2_FUNCTION_DECLARE(depth_)
+  }
 
   //============================================================================
   /*!

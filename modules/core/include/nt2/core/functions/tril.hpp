@@ -33,6 +33,7 @@ namespace nt2
       typedef ext::elementwise_<offset_tril_>  parent;
       typedef rectangular_                    shape_type;
     };
+    NT2_FUNCTION_DECLARE(offset_tril_)
   }
 
   //============================================================================

@@ -48,6 +48,7 @@ namespace nt2
     {
       typedef ext::generative_<freqspace1_> parent;
     };
+    NT2_FUNCTION_DECLARE(freqspace1_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::freqspace1_, freqspace1, 3)

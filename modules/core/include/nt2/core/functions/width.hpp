@@ -18,7 +18,11 @@
 
 namespace nt2 
 { 
-  namespace tag { struct width_ : ext::unspecified_<width_> { typedef ext::unspecified_<width_> parent; }; }
+  namespace tag
+  {
+    struct width_ : ext::unspecified_<width_> { typedef ext::unspecified_<width_> parent; };
+    NT2_FUNCTION_DECLARE(width_)
+  }
 
   //============================================================================
   /*!

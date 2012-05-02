@@ -42,12 +42,14 @@ namespace nt2
 {
   struct regular_t {};
   const meta::as_<regular_t> regular_ = {};
+
   namespace tag
   {
     struct logspace_ : ext::generative_<logspace_>
     {
       typedef ext::generative_<logspace_> parent;
     };
+    NT2_FUNCTION_DECLARE(logspace_)
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::logspace_, logspace, 2)

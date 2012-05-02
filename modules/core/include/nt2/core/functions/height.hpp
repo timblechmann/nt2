@@ -18,7 +18,11 @@
 
 namespace nt2 
 { 
-  namespace tag { struct height_ : ext::unspecified_<height_> { typedef ext::unspecified_<height_> parent; }; }
+  namespace tag
+  {
+    struct height_ : ext::unspecified_<height_> { typedef ext::unspecified_<height_> parent; };
+    NT2_FUNCTION_DECLARE(height_)
+  }
 
   //============================================================================
   /*!
