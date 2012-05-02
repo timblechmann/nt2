@@ -42,7 +42,7 @@
 #define M6(z,n,t)                                                            \
 namespace boost { namespace simd { namespace ext                             \
 {                                                                            \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( map_, boost::simd::tag::sse2_       \
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( map_, boost::simd::tag::sse2_           \
                             , (Func)BOOST_PP_REPEAT(n, M4, ~)                \
                             , (unspecified_<Func>)                           \
                               BOOST_PP_REPEAT(n,M0,BOOST_PP_TUPLE_ELEM(2, 0, t)) \

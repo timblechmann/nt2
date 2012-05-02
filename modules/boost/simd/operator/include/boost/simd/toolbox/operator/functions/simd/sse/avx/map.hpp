@@ -50,7 +50,7 @@ a##1##n = _mm256_extractf128_##t(a##n,1); \
 namespace boost { namespace simd { namespace ext                               \
 {                                                                              \
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION                                            \
-  ( boost::simd::tag::map_, boost::simd::tag::avx_                             \
+  ( map_, boost::simd::tag::avx_                                               \
   , (Func)BOOST_PP_REPEAT(n, M2, ~)                                            \
   , (unspecified_<Func>)                                                       \
     BOOST_PP_REPEAT(n,M0,BOOST_PP_TUPLE_ELEM(2, 0, t))                         \

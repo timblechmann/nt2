@@ -22,7 +22,11 @@
 
 namespace boost { namespace simd
 {
-  namespace tag { struct unaligned_store_ : ext::elementwise_<unaligned_store_> { typedef ext::elementwise_<unaligned_store_> parent; }; }
+  namespace tag
+  {
+    struct unaligned_store_ : ext::elementwise_<unaligned_store_> { typedef ext::elementwise_<unaligned_store_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(unaligned_store_)
+  }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unaligned_store_, unaligned_store,2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unaligned_store_, unaligned_store,3)

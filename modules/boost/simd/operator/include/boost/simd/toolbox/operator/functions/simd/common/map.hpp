@@ -37,7 +37,7 @@
 #define M5(z,n,t)                                                              \
 namespace boost { namespace simd { namespace ext                               \
 {                                                                              \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( map_, tag::cpu_         \
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( map_, tag::cpu_                           \
                             , (Func)BOOST_PP_REPEAT(n, M4, ~)(X)               \
                             , (unspecified_<Func>)BOOST_PP_REPEAT(n,M0,~)      \
                             )                                                  \
