@@ -89,7 +89,7 @@ namespace boost { namespace dispatch { namespace meta
 template< class Tag, class Site                                                \
           BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n,class A)                 \
         >                                                                      \
-struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>                     \
+struct dispatch_default<int, Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>             \
 {                                                                              \
   typedef BOOST_DISPATCH_TYPEOF                                                \
   ( dispatching ( (typename meta::hierarchy_of<Tag>::type())                   \
@@ -107,7 +107,8 @@ namespace boost { namespace dispatch { namespace meta
   // dispatch_call finds the proper call overload for evaluating a given
   // functor over a set of types on a given site
   //==============================================================================
-  template<class Sig, class Site> struct dispatch_call; 
+  template<class T, class Sig, class Site> struct dispatch_default { typedef T type; };
+  template<class Sig, class Site> struct dispatch_call : dispatch_default<int, Sig, Site> {};
   BOOST_PP_REPEAT(BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),BOOST_DISPATCH_DISPATCH_CALL,~)
 
 } } }
@@ -134,16 +135,13 @@ namespace boost { namespace dispatch { namespace meta
 template< class Tag, class Site                                                 \
           BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n,class A)>                 \
 BOOST_FORCEINLINE                                                               \
-boost::dispatch::meta::                                                         \
-implement<tag::unknown_, Site, Tag(BOOST_PP_ENUM(n,BOOST_DISPATCH_WITH_DEFAULT_DISPATCH_M2,~))>                      \
-t ( meta::unknown_<Tag>, meta::unknown_<Site> BOOST_PP_REPEAT(n,BOOST_DISPATCH_WITH_DEFAULT_DISPATCH_M0,~) \
-            , adl_helper = adl_helper()                                         \
-            )                                                                   \
+int                                                                             \
+t ( meta::unknown_<Tag>, meta::unknown_<Site>                                   \
+    BOOST_PP_REPEAT(n,BOOST_DISPATCH_WITH_DEFAULT_DISPATCH_M0,~)                \
+  , adl_helper = adl_helper()                                                   \
+  )                                                                             \
 {                                                                               \
-  boost::dispatch::meta::implement<tag::unknown_, Site                          \
-                      , Tag(BOOST_PP_ENUM(n,BOOST_DISPATCH_WITH_DEFAULT_DISPATCH_M2,~))                              \
-                      > that;                                                   \
-  return that;                                                                  \
+  return 0;                                                                     \
 }                                                                               \
 /**/
 
@@ -167,14 +165,7 @@ struct dispatch_call<BOOST_PP_TUPLE_ELEM(2, 0, t)(BOOST_PP_ENUM_PARAMS(n,A)), Si
                                  , adl_helper()                                                    \
                                  )                                                                 \
   ) type0;                                                                                          \
-  typedef BOOST_DISPATCH_TYPEOF                                                                    \
-  ( dispatching ( (typename meta::hierarchy_of<BOOST_PP_TUPLE_ELEM(2, 0, t)>::type()) \
-                                 , (typename meta::hierarchy_of<Site>::type())                     \
-                                   BOOST_PP_REPEAT(n, BOOST_DISPATCH_WITH__, ~)                    \
-                                 , adl_helper()                                                    \
-                                 )                                                                 \
-  ) type1;                                                                                          \
-  typedef typename boost::mpl::if_< is_unsupported<type0>, type1, type0 >::type type; \
+  typedef typename dispatch_default<type0, BOOST_PP_TUPLE_ELEM(2, 0, t)(BOOST_PP_ENUM_PARAMS(n, A)),  Site>::type type; \
 };                                                                                                 \
 /**/
 
