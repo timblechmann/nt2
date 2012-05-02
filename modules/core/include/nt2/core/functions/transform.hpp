@@ -18,7 +18,11 @@
 
 namespace nt2
 {
-  namespace tag { struct transform_ : ext::unspecified_<transform_> { typedef ext::unspecified_<transform_> parent; }; }
+  namespace tag
+  {
+    struct transform_ : ext::unspecified_<transform_> { typedef ext::unspecified_<transform_> parent; };
+    NT2_FUNCTION_DECLARE(transform_)
+  }
 
   //============================================================================
   /*!

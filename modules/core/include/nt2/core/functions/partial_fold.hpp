@@ -18,7 +18,11 @@
 
 namespace nt2
 {
-  namespace tag { struct partial_fold_ : ext::unspecified_<partial_fold_> { typedef ext::unspecified_<partial_fold_> parent; }; }
+  namespace tag
+  {
+    struct partial_fold_ : ext::unspecified_<partial_fold_> { typedef ext::unspecified_<partial_fold_> parent; };
+    NT2_FUNCTION_DECLARE(partial_fold_)
+  }
 
   //============================================================================
   /*!

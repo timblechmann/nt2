@@ -18,7 +18,11 @@
 
 namespace nt2
 {
-  namespace tag { struct fold_ : ext::unspecified_<fold_> { typedef ext::unspecified_<fold_> parent; }; }
+  namespace tag
+  {
+    struct fold_ : ext::unspecified_<fold_> { typedef ext::unspecified_<fold_> parent; };
+    NT2_FUNCTION_DECLARE(fold_)
+  }
   //============================================================================
   /*!
    * Folds elements of \c a1, possibly in parallel, and returns the result.

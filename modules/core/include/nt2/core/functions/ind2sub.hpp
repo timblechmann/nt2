@@ -18,7 +18,11 @@
 
 namespace nt2
 {
-  namespace tag { struct ind2sub_ : ext::unspecified_<ind2sub_> { typedef ext::unspecified_<ind2sub_> parent; }; }
+  namespace tag
+  {
+    struct ind2sub_ : ext::unspecified_<ind2sub_> { typedef ext::unspecified_<ind2sub_> parent; };
+    NT2_FUNCTION_DECLARE(ind2sub_)
+  }
 
   //============================================================================
   /*!

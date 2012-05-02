@@ -13,7 +13,11 @@
 
 namespace nt2 
 { 
-  namespace tag { struct construct_ : ext::unspecified_<construct_> { typedef ext::unspecified_<construct_> parent; }; }
+  namespace tag
+  {
+    struct construct_ : ext::unspecified_<construct_> { typedef ext::unspecified_<construct_> parent; };
+    NT2_FUNCTION_DECLARE(construct_)
+  }
   
   NT2_FUNCTION_IMPLEMENTATION_SELF(nt2::tag::construct_, construct, 2)  
   NT2_FUNCTION_IMPLEMENTATION_SELF(nt2::tag::construct_, construct, 3)  

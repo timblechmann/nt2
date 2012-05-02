@@ -18,7 +18,11 @@
 
 namespace nt2
 {
-  namespace tag { struct inner_fold_ : boost::dispatch::tag::formal_ { typedef boost::dispatch::tag::formal_ parent; }; }
+  namespace tag
+  {
+    struct inner_fold_ : boost::dispatch::tag::formal_ { typedef boost::dispatch::tag::formal_ parent; };
+    NT2_FUNCTION_DECLARE(inner_fold_)
+  }
 
   //============================================================================
   /*!

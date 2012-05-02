@@ -18,7 +18,11 @@
 
 namespace nt2
 {
-  namespace tag { struct outer_fold_ : ext::unspecified_<outer_fold_> { typedef ext::unspecified_<outer_fold_> parent; }; }
+  namespace tag
+  {
+    struct outer_fold_ : ext::unspecified_<outer_fold_> { typedef ext::unspecified_<outer_fold_> parent; };
+    NT2_FUNCTION_DECLARE(outer_fold_)
+  }
 
   //============================================================================
   /*!
