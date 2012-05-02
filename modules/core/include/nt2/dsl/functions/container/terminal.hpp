@@ -23,7 +23,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // table terminal with a position in scalar read mode
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( terminal_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION_GEN( nt2::tag::terminal_, tag::cpu_
                             , (A0)(T0)(S0)(State)(Data)
                             , ((expr_< table_< unspecified_<A0>, S0 >
                                      , T0
@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // table terminal with a position in scalar write mode
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( terminal_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION_GEN( nt2::tag::terminal_, tag::cpu_
                             , (A0)(T0)(S0)(State)(Data)
                             , ((expr_< table_< unspecified_<A0>, S0 >
                                      , T0
@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // table terminal with a position in SIMD read mode
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( terminal_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION_GEN( nt2::tag::terminal_, tag::cpu_
                             , (A0)(T0)(S0)(State)(Data)(X)
                             , ((expr_< table_< unspecified_<A0>, S0 >
                                      , T0
@@ -101,7 +101,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // table terminal with a position in SIMD write mode
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( terminal_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION_GEN( nt2::tag::terminal_, tag::cpu_
                             , (A0)(T0)(S0)(State)(Data)(X)
                             , ((expr_< table_< unspecified_<A0>, S0 >
                                      , T0
@@ -124,7 +124,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // scalar terminal, return value in scalar mode (LHS not allowed)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( terminal_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION_GEN( nt2::tag::terminal_, tag::cpu_
                             , (A0)(T0)(State)(Data)
                             , ((expr_< scalar_< unspecified_<A0> >
                                      , T0
@@ -147,7 +147,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // scalar terminal, splat value in SIMD read mode (LHS not allowed)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( terminal_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION_GEN( nt2::tag::terminal_, tag::cpu_
                             , (A0)(T0)(State)(Data)(X)
                             , ((expr_< scalar_< unspecified_<A0> >
                                      , T0
