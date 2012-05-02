@@ -7,6 +7,8 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(unit)
-ADD_SUBDIRECTORY(meta)
-ADD_SUBDIRECTORY(functor)
+SET( SOURCES
+    dispatch.cpp
+   )
+
+nt2_module_add_tests(boost.dispatch.functor.unit ${SOURCES})
