@@ -35,7 +35,13 @@ BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF(TAG,NAME,N) \
 BOOST_DISPATCH_FUNCTION_METHOD_SELF(NAME,TAG,SELF)  \
 /**/
 
-#define NT2_FUNCTION_DECLARE(Tag)                           \
+#define NT2_FUNCTION_DECLARE(Tag)                                              \
+} }                                                                            \
+namespace boost { namespace dispatch { namespace meta                          \
+{                                                                              \
+  BOOST_DISPATCH_WITH(nt2::tag::Tag, BOOST_PP_CAT(dispatching_, Tag))          \
+} } }                                                                          \
+namespace nt2 { namespace tag {
 /**/
 
 #endif

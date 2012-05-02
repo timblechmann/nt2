@@ -60,6 +60,7 @@ namespace boost { namespace simd
   namespace tag
   {
     struct map_ : ext::elementwise_<map_> { typedef ext::elementwise_<map_> parent; };
+    BOOST_SIMD_FUNCTION_DECLARE(map_)
   }
 } }
 

@@ -20,7 +20,6 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 // Local macro to generate the dispatch selector
 //==============================================================================
-/**/
 namespace boost { namespace dispatch { namespace meta
 {
   //==============================================================================

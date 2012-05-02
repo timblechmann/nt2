@@ -24,6 +24,8 @@
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/seq/elem.hpp>
+#include <boost/preprocessor/seq/first_n.hpp>
 
 // Helpers that strips each element of a sequence
 #define BOOST_DISPATCH_TYPE_TPL(z,n,t) BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
@@ -38,8 +40,11 @@
 #define BOOST_DISPATCH_CLOSE_(s,data,elem) }
 #define BOOST_DISPATCH_CLOSE(seq) BOOST_PP_SEQ_FOR_EACH(BOOST_DISPATCH_CLOSE_, ~, seq)
 
-#define BOOST_DISPATCH_REOPEN_(s,data,elem) namespace elem {
-#define BOOST_DISPATCH_REOPEN(seq) BOOST_PP_SEQ_FOR_EACH(BOOST_DISPATCH_REOPEN_, ~, seq)
+#define BOOST_DISPATCH_OPEN_(s,data,elem) namespace elem {
+#define BOOST_DISPATCH_OPEN(seq) BOOST_PP_SEQ_FOR_EACH(BOOST_DISPATCH_OPEN_, ~, seq)
+
+#define BOOST_DISPATCH_SEQ_RTAIL(seq) BOOST_PP_SEQ_FIRST_N(BOOST_PP_DEC(BOOST_PP_SEQ_SIZE(seq)), seq)
+#define BOOST_DISPATCH_SEQ_RHEAD(seq) BOOST_PP_SEQ_ELEM(BOOST_PP_DEC(BOOST_PP_SEQ_SIZE(seq)), seq)
 
 //==============================================================================
 /*!
@@ -49,34 +54,38 @@
  *
  * \param Tag Function tag to register
  * \param Site Evaluation context to use in this overload
+ * \param With Function to dispatch to (fully qualified, as sequence)
  * \param Types Preprocessor sequence of template types used in the hierarchy
  * \param Ret Implementation target to select if \c Cond is verified
  * \param Seq Sequence of hierarchy defining the overload
  */
 //==============================================================================
-#define BOOST_DISPATCH_REGISTER_TO(NS, Tag, Site, Types, Seq, Ret)             \
+#define BOOST_DISPATCH_REGISTER_TO_WITH(NS, Tag, Site, With, Types, Seq, Ret)  \
 BOOST_DISPATCH_CLOSE(NS)                                                       \
-namespace boost { namespace dispatch { namespace meta                          \
+BOOST_DISPATCH_OPEN(BOOST_DISPATCH_SEQ_RTAIL(With))                            \
+template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                              \
+                       , BOOST_DISPATCH_TYPE                                   \
+                       , Types                                                 \
+                       )                                                       \
+        >                                                                      \
+BOOST_FORCEINLINE                                                              \
+BOOST_DISPATCH_PP_STRIP(Ret)                                                   \
+BOOST_DISPATCH_SEQ_RHEAD(With)( Tag, Site                                      \
+                                BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)        \
+                                               , BOOST_DISPATCH_ARG            \
+                                               , Seq                           \
+                                               )                               \
+                              , adl_helper = adl_helper()                      \
+                              )                                                \
 {                                                                              \
-  template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                            \
-                         , BOOST_DISPATCH_TYPE                                 \
-                         , Types                                               \
-                         )                                                     \
-          >                                                                    \
-  BOOST_DISPATCH_FORCE_INLINE                                                  \
-  BOOST_DISPATCH_PP_STRIP(Ret)                                                 \
-  dispatching( Tag, Site                                                       \
-               BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                         \
-                              , BOOST_DISPATCH_ARG                             \
-                              , Seq                                            \
-                            )                                                  \
-            , adl_helper = adl_helper()                                        \
-            )                                                                  \
-  {                                                                            \
-    return BOOST_DISPATCH_PP_STRIP(Ret)();                                     \
-  }                                                                            \
-} } }                                                                          \
-BOOST_DISPATCH_REOPEN(NS)                                                      \
+  return BOOST_DISPATCH_PP_STRIP(Ret)();                                       \
+}                                                                              \
+BOOST_DISPATCH_CLOSE(BOOST_DISPATCH_SEQ_RTAIL(With))                           \
+BOOST_DISPATCH_OPEN(NS)                                                        \
+/**/
+
+#define BOOST_DISPATCH_REGISTER_TO(NS, Tag, Site, Types, Seq, Ret)  \
+BOOST_DISPATCH_REGISTER_TO_WITH(NS, Tag, Site, (boost)(dispatch)(meta)(dispatching), Types, Seq, Ret) \
 /**/
 
 //==============================================================================
@@ -88,34 +97,38 @@ BOOST_DISPATCH_REOPEN(NS)                                                      \
  *
  * \param Tag Function tag to register
  * \param Site Evaluation context to use in this overload
+ * \param With Function to dispatch to (fully qualified, as sequence)
  * \param Types Preprocessor sequence of template types used in the hierarchy
  * \param Ret Implementation target to select if \c Cond is verified
  * \param Seq Sequence of hierarchy defining the overload
  */
 //==============================================================================
-#define BOOST_DISPATCH_REGISTER_TPL_TO(NS, Tag, Site, Types, Seq, Ret)         \
+#define BOOST_DISPATCH_REGISTER_TPL_TO_WITH(NS, Tag, Site, With, Types, Seq, Ret)  \
 BOOST_DISPATCH_CLOSE(NS)                                                       \
-namespace boost { namespace dispatch { namespace meta                          \
-{                                                                              \
-  template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                            \
-                         , BOOST_DISPATCH_TYPE_TPL                             \
-                         , Types                                               \
-                         )                                                     \
-          >                                                                    \
-  BOOST_DISPATCH_FORCE_INLINE                                                  \
-  BOOST_DISPATCH_PP_STRIP(Ret)                                                 \
-  dispatching( Tag, Site                                                       \
-               BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                         \
-                              , BOOST_DISPATCH_ARG                             \
-                              , Seq                                            \
+BOOST_DISPATCH_OPEN(BOOST_DISPATCH_SEQ_RTAIL(With))                            \
+template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                              \
+                       , BOOST_DISPATCH_TYPE_TPL                               \
+                       , Types                                                 \
+                       )                                                       \
+        >                                                                      \
+BOOST_FORCEINLINE                                                              \
+BOOST_DISPATCH_PP_STRIP(Ret)                                                   \
+BOOST_DISPATCH_SEQ_RHEAD(With)( Tag, Site                                      \
+                                BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)        \
+                                               , BOOST_DISPATCH_ARG            \
+                                               , Seq                           \
+                                               )                               \
+                              , adl_helper = adl_helper()                      \
                               )                                                \
-            , adl_helper = adl_helper()                                        \
-            )                                                                  \
-  {                                                                            \
-    return BOOST_DISPATCH_PP_STRIP(Ret)();                                     \
-  }                                                                            \
-} } }                                                                          \
-BOOST_DISPATCH_REOPEN(NS)                                                      \
+{                                                                              \
+  return BOOST_DISPATCH_PP_STRIP(Ret)();                                       \
+}                                                                              \
+BOOST_DISPATCH_CLOSE(BOOST_DISPATCH_SEQ_RTAIL(With))                           \
+BOOST_DISPATCH_OPEN(NS)                                                        \
+/**/
+
+#define BOOST_DISPATCH_REGISTER_TPL_TO(NS, Tag, Site, Types, Seq, Ret)  \
+BOOST_DISPATCH_REGISTER_TPL_TO_WITH(NS, Tag, Site, (boost)(dispatch)(meta)(dispatching), Types, Seq, Ret) \
 /**/
 
 //==============================================================================
@@ -127,37 +140,25 @@ BOOST_DISPATCH_REOPEN(NS)                                                      \
  *
  * \param Tag Function tag to register
  * \param Site Evaluation context to use in this overload
+ * \param With Function to dispatch to (fully qualified, as sequence)
  * \param Types Preprocessor sequence of template types used in the hierarchy
  * \param Cond Compile-time predicates to verify
  * \param Ret Implementation target to select if \c Cond is verified
  * \param Seq Sequence of hierarchy defining the overload
  */
 //==============================================================================
+#define BOOST_DISPATCH_REGISTER_TO_IF_WITH(NS, Tag, Site, With, Types, Cond, Seq, Ret) \
+BOOST_DISPATCH_REGISTER_TO_WITH(                                               \
+  NS, Tag, Site, With, Types, Seq,                                             \
+  ( typename boost::enable_if< BOOST_DISPATCH_PP_STRIP(Cond)                   \
+                             , BOOST_DISPATCH_PP_STRIP(Ret)                    \
+                             >::type                                           \
+  )                                                                            \
+)                                                                              \
+/**/
+
 #define BOOST_DISPATCH_REGISTER_TO_IF(NS, Tag, Site, Types, Cond, Seq, Ret)    \
-BOOST_DISPATCH_CLOSE(NS)                                                       \
-namespace boost { namespace dispatch { namespace meta                          \
-{                                                                              \
-  template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                            \
-                         , BOOST_DISPATCH_TYPE                                 \
-                         , Types                                               \
-                         )                                                     \
-          >                                                                    \
-  BOOST_DISPATCH_FORCE_INLINE                                                  \
-  typename boost::enable_if< BOOST_DISPATCH_PP_STRIP(Cond)                     \
-                           , BOOST_DISPATCH_PP_STRIP(Ret)                      \
-                           >::type                                             \
-  dispatching( Tag, Site                                                       \
-               BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                         \
-                              , BOOST_DISPATCH_ARG                             \
-                              , Seq                                            \
-                              )                                                \
-            , adl_helper = adl_helper()                                        \
-            )                                                                  \
-  {                                                                            \
-    return BOOST_DISPATCH_PP_STRIP(Ret)();                                     \
-  }                                                                            \
-} } }                                                                          \
-BOOST_DISPATCH_REOPEN(NS)                                                      \
+BOOST_DISPATCH_REGISTER_TO_IF_WITH(NS, Tag, Site, (boost)(dispatch)(meta)(dispatching), Types, Cond, Seq, Ret) \
 /**/
 
 //==============================================================================
@@ -170,37 +171,25 @@ BOOST_DISPATCH_REOPEN(NS)                                                      \
  *
  * \param Tag Function tag to register
  * \param Site Evaluation context to use in this overload
+ * \param With Function to dispatch to (fully qualified, as sequence)
  * \param Types Preprocessor sequence of template types used in the hierarchy
  * \param Cond Compile-time predicates to verify
  * \param Ret Implementation target to select if \c Cond is verified
  * \param Seq Sequence of hierarchy defining the overload
  */
 //==============================================================================
-#define BOOST_DISPATCH_REGISTER_TPL_TO_IF(NS, Tag, Site, Types, Cond, Seq, Ret) \
-BOOST_DISPATCH_CLOSE(NS)                                                       \
-namespace boost { namespace dispatch { namespace meta                          \
-{                                                                              \
-  template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                            \
-                         , BOOST_DISPATCH_TYPE_TPL                             \
-                         , Types                                               \
-                         )                                                     \
-          >                                                                    \
-  BOOST_DISPATCH_FORCE_INLINE                                                  \
-  typename boost::enable_if< BOOST_DISPATCH_PP_STRIP(Cond)                     \
-                           , BOOST_DISPATCH_PP_STRIP(Ret)                      \
-                           >::type                                             \
-  dispatching( Tag, Site                                                       \
-               BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                         \
-                              , BOOST_DISPATCH_ARG                             \
-                              , Seq                                            \
-                              )                                                \
-            , adl_helper = adl_helper()                                        \
-            )                                                                  \
-  {                                                                            \
-    return BOOST_DISPATCH_PP_STRIP(Ret)();                                     \
-  }                                                                            \
-} } }                                                                          \
-BOOST_DISPATCH_REOPEN(NS)                                                      \
+#define BOOST_DISPATCH_REGISTER_TPL_TO_IF_WITH(NS, Tag, Site, With, Types, Cond, Seq, Ret) \
+BOOST_DISPATCH_REGISTER_TPL_TO_WITH(                                           \
+  NS, Tag, Site, With, Types, Seq,                                             \
+  ( typename boost::enable_if< BOOST_DISPATCH_PP_STRIP(Cond)                   \
+                             , BOOST_DISPATCH_PP_STRIP(Ret)                    \
+                             >::type                                           \
+  )                                                                            \
+)                                                                              \
+/**/
+
+#define BOOST_DISPATCH_REGISTER_TPL_TO_IF(NS, Tag, Site, Types, Cond, Seq, Ret)    \
+BOOST_DISPATCH_REGISTER_TPL_TO_IF_WITH(NS, Tag, Site, (boost)(dispatch)(meta)(dispatching), Types, Cond, Seq, Ret) \
 /**/
 
 //==============================================================================

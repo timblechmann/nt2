@@ -17,7 +17,13 @@ BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(TAG,NAME,N)
 #define BOOST_SIMD_FUNCTION_IMPLEMENTATION_TPL(TAG,NAME,ARGS,N)               \
 BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(TAG,NAME,ARGS,N)
 
-#define BOOST_SIMD_FUNCTION_DECLARE(Tag)                                      \
+#define BOOST_SIMD_FUNCTION_DECLARE(Tag)                                       \
+} }                                                                            \
+namespace dispatch { namespace meta                                            \
+{                                                                              \
+  BOOST_DISPATCH_WITH(boost::simd::tag::Tag, BOOST_PP_CAT(dispatching_, Tag))  \
+} }                                                                            \
+namespace simd { namespace tag {                                               \
 /**/
 
 #endif

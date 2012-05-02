@@ -83,7 +83,7 @@ namespace boost { namespace dispatch
     struct result<This(Args...)>
       : meta::
         result_of< typename meta::
-                   dispatch_call< Tag(typename meta::as_ref<Args>::type...)
+                   dispatch_call< typename meta::hierarchy_of<Tag>::type(typename meta::as_ref<Args>::type...)
                                 , EvalContext
                                 >::type(typename meta::as_ref<Args>::type...)
                  >
@@ -104,7 +104,7 @@ namespace boost { namespace dispatch
     operator()( Args&& ...args ) const
     {
       return typename meta::
-             dispatch_call< Tag(typename meta::as_ref<Args>::type...)
+             dispatch_call< typename meta::hierarchy_of<Tag>::type(typename meta::as_ref<Args>::type...)
                           , EvalContext
                           >::type()
              ( static_cast<typename meta::as_ref<Args>::type>(args)... );
@@ -127,7 +127,7 @@ namespace boost { namespace dispatch
     struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                            \
       : meta::                                                                \
         result_of< typename meta::                                            \
-                   dispatch_call< Tag(BOOST_PP_ENUM(n,M2,~))                  \
+                   dispatch_call< typename meta::hierarchy_of<Tag>::type(BOOST_PP_ENUM(n,M2,~))                  \
                                 , EvalContext                                 \
                                 >::type(BOOST_PP_ENUM(n,M2,~))                \
                  >                                                            \
@@ -138,7 +138,7 @@ namespace boost { namespace dispatch
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, && a)) const                 \
     {                                                                         \
       return typename meta::                                                  \
-             dispatch_call< Tag(BOOST_PP_ENUM(n, M2, ~))                      \
+             dispatch_call< typename meta::hierarchy_of<Tag>::type(BOOST_PP_ENUM(n, M2, ~))                      \
                           , EvalContext                                       \
                           >::type()                                           \
              ( BOOST_PP_ENUM(n, M1, ~) );                                     \
@@ -186,7 +186,7 @@ namespace boost { namespace dispatch
     operator()(BOOST_PP_SEQ_FOR_EACH_I_R(r,param,~,constness)) const          \
     {                                                                         \
       return typename meta::                                                  \
-             dispatch_call< Tag(BOOST_PP_SEQ_FOR_EACH_I_R(r,arg_type,~,constness)) \
+             dispatch_call< typename meta::hierarchy_of<Tag>::type(BOOST_PP_SEQ_FOR_EACH_I_R(r,arg_type,~,constness)) \
                           , EvalContext                                       \
                           >::type()                                           \
              ( BOOST_PP_ENUM_PARAMS(n_size(constness),a) );                   \
@@ -198,7 +198,7 @@ namespace boost { namespace dispatch
     struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                            \
       : meta::                                                                \
         result_of< typename meta::                                            \
-                   dispatch_call< Tag(BOOST_PP_ENUM(n,M1,~))                  \
+                   dispatch_call< typename meta::hierarchy_of<Tag>::type(BOOST_PP_ENUM(n,M1,~))                  \
                                 , EvalContext                                 \
                                 >::type(BOOST_PP_ENUM(n,M1,~))                \
                  >                                                            \

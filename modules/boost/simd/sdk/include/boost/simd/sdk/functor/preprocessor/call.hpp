@@ -15,14 +15,38 @@
 #define BOOST_SIMD_FUNCTOR_CALL(N) BOOST_DISPATCH_CALL(N)
 #define BOOST_SIMD_FUNCTOR_CALL_REPEAT(N) BOOST_DISPATCH_CALL_REPEAT(N)
 
-#define BOOST_SIMD_FUNCTOR_IMPLEMENTATION(Tag,Site,Types,Seq)                 \
-BOOST_DISPATCH_IMPLEMENT((boost)(simd)(ext),boost::simd::tag::Tag,Site,Types,Seq)
+#define BOOST_SIMD_FUNCTOR_IMPLEMENTATION(Tag, Site, Types, Seq)                                   \
+BOOST_DISPATCH_REGISTER_TO_WITH( (boost)(simd)(ext), boost::simd::tag::Tag, Site                   \
+                               , (boost)(dispatch)(meta)(BOOST_PP_CAT(dispatching_, Tag))          \
+                               , Types, Seq                                                        \
+                               , ( boost::simd::ext::                                              \
+                                   BOOST_DISPATCH_IMPLEMENT_(boost::simd::tag::Tag, Site, Seq)     \
+                                 )                                                                 \
+                               )                                                                   \
+BOOST_DISPATCH_IMPLEMENT_BODY(boost::simd::tag::Tag, Site, Types, Seq, BOOST_DISPATCH_TYPE)        \
+/**/
 
-#define BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL(Tag,Site,Types,Seq)             \
-BOOST_DISPATCH_IMPLEMENT_TPL((boost)(simd)(ext),boost::simd::tag::Tag,Site,Types,Seq)
+#define BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL(Tag, Site, Types, Seq)                               \
+BOOST_DISPATCH_REGISTER_TPL_TO_WITH( (boost)(simd)(ext), boost::simd::tag::Tag, Site               \
+                               , (boost)(dispatch)(meta)(BOOST_PP_CAT(dispatching_, Tag))          \
+                               , Types, Seq                                                        \
+                               , ( boost::simd::ext::                                              \
+                                   BOOST_DISPATCH_IMPLEMENT_(boost::simd::tag::Tag, Site, Seq)     \
+                                 )                                                                 \
+                               )                                                                   \
+BOOST_DISPATCH_IMPLEMENT_BODY(boost::simd::tag::Tag, Site, Types, Seq, BOOST_DISPATCH_TYPE_TPL)    \
+/**/
 
-#define BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(Tag,Site,Types,Cond,Seq)         \
-BOOST_DISPATCH_IMPLEMENT_IF((boost)(simd)(ext),boost::simd::tag::Tag,Site,Types,Cond,Seq)
+#define BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(Tag, Site, Types, Cond, Seq)                          \
+BOOST_DISPATCH_REGISTER_TO_IF_WITH( (boost)(simd)(ext), boost::simd::tag::Tag, Site                \
+                               , (boost)(dispatch)(meta)(BOOST_PP_CAT(dispatching_, Tag))          \
+                               , Types, Cond, Seq                                                  \
+                               , ( boost::simd::ext::                                              \
+                                   BOOST_DISPATCH_IMPLEMENT_(boost::simd::tag::Tag, Site, Seq)     \
+                                 )                                                                 \
+                               )                                                                   \
+BOOST_DISPATCH_IMPLEMENT_BODY(boost::simd::tag::Tag, Site, Types, Seq, BOOST_DISPATCH_TYPE)        \
+/**/
 
 #define BOOST_SIMD_FUNCTOR_IMPLEMENTATION_GEN(Tag,Site,Types,Seq)             \
 BOOST_DISPATCH_IMPLEMENT((boost)(simd)(ext),Tag,Site,Types,Seq)

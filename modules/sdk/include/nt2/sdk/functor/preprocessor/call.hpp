@@ -15,19 +15,43 @@
 #define NT2_FUNCTOR_CALL(N) BOOST_DISPATCH_CALL(N)
 #define NT2_FUNCTOR_CALL_REPEAT(N) BOOST_DISPATCH_CALL_REPEAT(N)
 
-#define NT2_FUNCTOR_IMPLEMENTATION(Tag,Site,Types,Seq)                         \
-BOOST_DISPATCH_IMPLEMENT((nt2)(ext),nt2::tag::Tag,Site,Types,Seq)
+#define NT2_FUNCTOR_IMPLEMENTATION(Tag, Site, Types, Seq)                                          \
+BOOST_DISPATCH_REGISTER_TO_WITH( (nt2)(ext), nt2::tag::Tag, Site                                   \
+                               , (boost)(dispatch)(meta)(BOOST_PP_CAT(dispatching_, Tag))          \
+                               , Types, Seq                                                        \
+                               , ( nt2::ext::                                                      \
+                                   BOOST_DISPATCH_IMPLEMENT_(nt2::tag::Tag, Site, Seq)             \
+                                 )                                                                 \
+                               )                                                                   \
+BOOST_DISPATCH_IMPLEMENT_BODY(nt2::tag::Tag, Site, Types, Seq, BOOST_DISPATCH_TYPE)                \
+/**/
 
-#define NT2_FUNCTOR_IMPLEMENTATION_TPL(Tag,Site,Types,Seq)                     \
-BOOST_DISPATCH_IMPLEMENT_TPL((nt2)(ext),nt2::tag::Tag,Site,Types,Seq)
+#define NT2_FUNCTOR_IMPLEMENTATION_TPL(Tag, Site, Types, Seq)                                      \
+BOOST_DISPATCH_REGISTER_TPL_TO_WITH( (nt2)(ext), nt2::tag::Tag, Site                               \
+                               , (boost)(dispatch)(meta)(BOOST_PP_CAT(dispatching_, Tag))          \
+                               , Types, Seq                                                        \
+                               , ( nt2::ext::                                                      \
+                                   BOOST_DISPATCH_IMPLEMENT_(nt2::tag::Tag, Site, Seq)             \
+                                 )                                                                 \
+                               )                                                                   \
+BOOST_DISPATCH_IMPLEMENT_BODY(nt2::tag::Tag, Site, Types, Seq, BOOST_DISPATCH_TYPE_TPL)            \
+/**/
 
-#define NT2_FUNCTOR_IMPLEMENTATION_IF(Tag,Site,Types,Cond,Seq)                 \
-BOOST_DISPATCH_IMPLEMENT_IF((nt2)(ext),nt2::tag::Tag,Site,Types,Cond,Seq)
+#define NT2_FUNCTOR_IMPLEMENTATION_IF(Tag, Site, Types, Cond, Seq)                                 \
+BOOST_DISPATCH_REGISTER_TO_IF_WITH( (nt2)(ext), nt2::tag::Tag, Site                                \
+                               , (boost)(dispatch)(meta)(BOOST_PP_CAT(dispatching_, Tag))          \
+                               , Types, Cond, Seq                                                  \
+                               , ( nt2::ext::                                                      \
+                                   BOOST_DISPATCH_IMPLEMENT_(nt2::tag::Tag, Site, Seq)             \
+                                 )                                                                 \
+                               )                                                                   \
+BOOST_DISPATCH_IMPLEMENT_BODY(nt2::tag::Tag, Site, Types, Seq, BOOST_DISPATCH_TYPE)                \
+/**/
 
-#define NT2_FUNCTOR_IMPLEMENTATION_GEN(Tag,Site,Types,Seq)                     \
-BOOST_DISPATCH_IMPLEMENT((nt2)(ext),Tag,Site,Types,Seq)
+#define NT2_FUNCTOR_IMPLEMENTATION_GEN(Tag, Site, Types, Seq)                                      \
+BOOST_DISPATCH_IMPLEMENT((nt2)(ext), Tag, Site, Types, Seq)
 
-#define NT2_FUNCTOR_IMPLEMENTATION_IF_GEN(Tag,Site,Types,Cond,Seq)             \
-BOOST_DISPATCH_IMPLEMENT_IF((nt2)(ext),Tag,Site,Types,Cond,Seq)
+#define NT2_FUNCTOR_IMPLEMENTATION_IF_GEN(Tag, Site, Types, Cond, Seq)                             \
+BOOST_DISPATCH_IMPLEMENT_IF((nt2)(ext), Tag, Site, Types, Cond, Seq)
 
 #endif

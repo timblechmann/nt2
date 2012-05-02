@@ -9,6 +9,8 @@
 #ifndef BOOST_DISPATCH_FUNCTOR_DETAILS_CALL_HPP_INCLUDED
 #define BOOST_DISPATCH_FUNCTOR_DETAILS_CALL_HPP_INCLUDED
 
+#include <boost/mpl/bool.hpp>
+
 // Forward declare the unknown_ tag
 namespace boost { namespace dispatch { namespace tag { struct unknown_;    } } }
 
@@ -25,6 +27,18 @@ struct BOOST_DISPATCH_UNSUPPORTED_FUNCTION_CALL;
 
 namespace boost { namespace dispatch { namespace meta
 {
+  template<class T>
+  struct is_unsupported
+   : boost::mpl::false_
+  {
+  };
+
+  template<class Site, class Dummy>
+  struct is_unsupported< implement<tag::unknown_, Site, Dummy> >
+   : boost::mpl::true_
+  {
+  };
+
   // Calls to unknown functions end up as errors or as SFINAE
   template<class Site, class Dummy>
   struct implement<tag::unknown_, Site, Dummy>
