@@ -12,6 +12,8 @@
 #include <nt2/core/functions/extent.hpp>
 #include <nt2/core/utility/of_size.hpp>
 
+#include <cstring>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::extent_, tag::cpu_
@@ -22,6 +24,17 @@ namespace nt2 { namespace ext
 
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0&) const { return result_type(); }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::extent_, tag::cpu_, (A0)
+                            , (is_same< typename remove_const<A0>::type, char>)
+                            , (unspecified_<A0*>)
+                            )
+  {
+    typedef _2D result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(A0* a0) const { return result_type(1,strlen(a0)); }
   };
 } }
 

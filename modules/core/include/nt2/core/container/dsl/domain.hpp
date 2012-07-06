@@ -19,6 +19,77 @@
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/is_const.hpp>
 
+#include <nt2/sdk/meta/container_traits.hpp>
+namespace nt2 { namespace meta
+{
+  template<class T, std::size_t N>
+  struct value_type_< T[N] >
+  {
+    typedef T type;
+  };
+
+  template<class T, std::size_t N>
+  struct reference_< T[N] >
+  {
+    typedef T& type;
+  };
+
+  template<class T, std::size_t N>
+  struct const_reference_< T[N] >
+  {
+    typedef T const& type;
+  };
+
+  template<class T, std::size_t N>
+  struct pointer_< T[N] >
+  {
+    typedef T* type;
+  };
+
+  template<class T, std::size_t N>
+  struct const_pointer_< T[N] >
+  {
+    typedef T const* type;
+  };
+} }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<class T, std::size_t N>
+  struct value_of< T[N] >
+  {
+    typedef T type;
+  };
+
+  template<class T, std::size_t N>
+  struct value_of< T const[N] >
+  {
+    typedef T type;
+  };
+
+  template<class T, std::size_t N>
+  struct model_of< T[N] >
+  {
+    struct type
+    {
+      template<class X>
+      struct apply
+      {
+        typedef X type[N];
+      };
+    };
+  };
+} } }
+
+namespace nt2 { namespace meta
+{
+  template<class T, std::size_t N>
+  struct is_container< T[N] >
+   : boost::mpl::true_
+  {
+  };
+} }
+
 namespace nt2 { namespace container
 {
   template<class T>
@@ -27,6 +98,17 @@ namespace nt2 { namespace container
     typedef T type;
     static BOOST_FORCEINLINE typename boost::add_reference<T>::type
     call(typename boost::add_reference<T>::type t)
+    {
+      return t;
+    }
+  };
+
+  template<class T, std::size_t N>
+  struct as_container_ref< T[N] >
+  {
+    typedef T* const type;
+    static BOOST_FORCEINLINE type
+    call(T (&t)[N])
     {
       return t;
     }
@@ -58,6 +140,13 @@ namespace nt2 { namespace container
   struct as_container_noref
   {
     typedef T type;
+  };
+
+  template<class T>
+  struct as_container_noref< T* >
+  {
+    typedef nt2::memory::container<typename boost::remove_const<T>::type, nt2::settings()> type0;
+    typedef typename boost::mpl::if_< boost::is_const<T>, type0 const&, type0&>::type type;
   };
 
   template<class T, class S>

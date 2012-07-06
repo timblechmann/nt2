@@ -70,11 +70,11 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE void
     choice(A0 const & a0, bool& up, size_t & dim, boost::mpl::long_<3> const &) const
     {
-      const char * mode = boost::proto::value(boost::proto::child_c<1>(a0)); 
+      const char * mode = boost::proto::value(boost::proto::child_c<2>(a0)); 
       BOOST_ASSERT_MSG( std::strcmp("descend", mode) == 0 || std::strcmp("ascend", mode) == 0,
                         "sorting direction must be 'ascend' or 'descend'"); 
       up = mode[0] == 'a';
-      dim = boost::proto::value(boost::proto::child_c<2>(a0)); 
+      dim = boost::proto::value(boost::proto::child_c<1>(a0)); 
     }
     
     //==============================================================================================
@@ -112,6 +112,12 @@ namespace nt2 { namespace ext
     void compute(A0 const& , A1 & a1, bool up, size_t dim, boost::mpl::long_<2> const&, boost::mpl::long_<1> const&) const
     {
       dosort(boost::proto::child_c<0>(a1), up, dim);
+    }
+
+    BOOST_FORCEINLINE
+    void compute(A0 const& a0, A1 & a1, bool up, size_t dim, boost::mpl::long_<3> const&, boost::mpl::long_<1> const&) const
+    {
+      std::cout << "foo = " << boost::proto::child_c<2>(a0) << std::endl;
     }
 
     template <class T> BOOST_FORCEINLINE
