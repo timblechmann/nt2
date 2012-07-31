@@ -27,8 +27,16 @@ namespace boost { namespace dispatch
 {
   namespace meta
   {
+    /// INTERNAL ONLY
     template<class Sig, class Enable = void>
-    struct result_of {};
+    struct result_of3 {};
+
+    /// INTERNAL ONLY
+    template<class Sig, class Enable = void>
+    struct result_of2 : result_of3<Sig> {};
+
+    template<class Sig, class Enable = void>
+    struct result_of : result_of2<Sig> {};
     
     template<class T>
     struct is_function
@@ -42,7 +50,7 @@ namespace boost { namespace dispatch
 namespace boost { namespace dispatch { namespace meta
 {
   template<class F, class... Args>
-  struct result_of<F(Args...), typename boost::enable_if< is_function<F> >::type>
+  struct result_of3<F(Args...), typename boost::enable_if< is_function<F> >::type>
     : boost::function_types::result_type<typename boost::remove_pointer<typename meta::strip<F>::type>::type>
   {
   };
@@ -54,7 +62,7 @@ namespace boost { namespace dispatch { namespace meta
   };
   
   template<class F, class... Args>
-  struct result_of<F(Args...), typename enable_if_type< typename F::template result<F(Args...)>::type >::type>
+  struct result_of2<F(Args...), typename enable_if_type< typename F::template result<F(Args...)>::type >::type>
   {
     typedef typename F::template result<F(Args...)>::type type;
   };
@@ -72,7 +80,7 @@ namespace boost { namespace dispatch { namespace meta
     
     #define M0(z, n, t)                                                                    \
     template<class F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, class A)>                \
-    struct result_of<F(BOOST_PP_ENUM_PARAMS(n, A)), typename boost::enable_if< is_function<F> >::type>\
+    struct result_of3<F(BOOST_PP_ENUM_PARAMS(n, A)), typename boost::enable_if< is_function<F> >::type>\
       : boost::function_types::result_type<typename boost::remove_pointer<typename meta::strip<F>::type>::type>\
     {                                                                                      \
     };                                                                                     \
@@ -84,7 +92,7 @@ namespace boost { namespace dispatch { namespace meta
     };                                                                                     \
                                                                                            \
     template<class F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, class A)>                \
-    struct result_of<F(BOOST_PP_ENUM_PARAMS(n, A)), typename enable_if_type< typename F::template result<F(BOOST_PP_ENUM_PARAMS(n, A))>::type >::type>\
+    struct result_of2<F(BOOST_PP_ENUM_PARAMS(n, A)), typename enable_if_type< typename F::template result<F(BOOST_PP_ENUM_PARAMS(n, A))>::type >::type>\
     {                                                                                      \
       typedef typename F::template result<F(BOOST_PP_ENUM_PARAMS(n, A))>::type type;       \
     };
