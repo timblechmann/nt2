@@ -19,25 +19,26 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(                                    \
                        boost::simd::tag::TAG, boost::simd::tag::xop_    \
                        , (A0)                                           \
-                       , ((simd_<TYPE_TAG<A0>,boost::simd::tag::xop_>)) \
-                       ((simd_<TYPE_TAG<A0>,boost::simd::tag::xop_>))   \
+                       , ((simd_<TYPE_TAG<A0>,boost::simd::tag::sse_>)) \
+                       ((simd_<TYPE_TAG<A0>,boost::simd::tag::sse_>))   \
                        )                                                \
   {                                                                     \
-    result_type operator()(__m256i const a0, __m256i const a1) const    \
+    typedef typename meta::as_logical<A0>::type result_type;            \
+    result_type operator()(__m128i const a0, __m128i const a1) const    \
       {                                                                 \
         return  INTRIN(a0,a1);                                          \
       }                                                                 \
   };                                                                    \
     /**/
   
-  NT2_XOP_COMP(is_less_equal_, int8_, _mmcmple_epi8)
-  NT2_XOP_COMP(is_less_equal_, int16_, _mmcmple_epi16)
-  NT2_XOP_COMP(is_less_equal_, int32_, _mmcmple_epi32)
-  NT2_XOP_COMP(is_less_equal_, int64_, _mmcmple_epi64)
-  NT2_XOP_COMP(is_less_equal_, uint8_, _mmcmple_epu8)
-  NT2_XOP_COMP(is_less_equal_, uint16_, _mmcmple_epu16)
-  NT2_XOP_COMP(is_less_equal_, uint32_, _mmcmple_epu32)
-  NT2_XOP_COMP(is_less_equal_, uint64_, _mmcmple_epu64)
+  NT2_XOP_COMP(is_less_equal_, int8_, _mm_comle_epi8)
+  NT2_XOP_COMP(is_less_equal_, int16_, _mm_comle_epi16)
+  NT2_XOP_COMP(is_less_equal_, int32_, _mm_comle_epi32)
+  NT2_XOP_COMP(is_less_equal_, int64_, _mm_comle_epi64)
+  NT2_XOP_COMP(is_less_equal_, uint8_, _mm_comle_epu8)
+  NT2_XOP_COMP(is_less_equal_, uint16_, _mm_comle_epu16)
+  NT2_XOP_COMP(is_less_equal_, uint32_, _mm_comle_epu32)
+  NT2_XOP_COMP(is_less_equal_, uint64_, _mm_comle_epu64)
 
 #undef NT2_XOP_COMP
 } } }

@@ -10,10 +10,11 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_XOP_RSHL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_XOP_SUPPORT
 
-#include <boost/simd/toolbox/operator/functions/rshl.hpp>
+#include <boost/simd/include/functions/rshl.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
 #include <boost/simd/include/functions/simd/genmask.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

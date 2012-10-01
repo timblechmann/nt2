@@ -19,26 +19,26 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(                                    \
                        boost::simd::tag::TAG, boost::simd::tag::xop_    \
                        , (A0)                                           \
-                       , ((simd_<TYPE_TAG<A0>,boost::simd::tag::xop_>)) \
-                       ((simd_<TYPE_TAG<A0>,boost::simd::tag::xop_>))   \
+                       , ((simd_<TYPE_TAG<A0>,boost::simd::tag::sse_>)) \
+                       ((simd_<TYPE_TAG<A0>,boost::simd::tag::sse_>))   \
                        )                                                \
   {                                                                     \
     typedef typename meta::as_logical<A0>::type result_type;            \
-    result_type operator()(__m256i const a0, __m256i const a1) const    \
+    result_type operator()(__m128i const a0, __m128i const a1) const    \
       {                                                                 \
         return  INTRIN(a0,a1);                                          \
       }                                                                 \
   };                                                                    \
     /**/
   
-  NT2_XOP_COMP(is_equal_, int8_, _mmcmpeq_epi8)
-  NT2_XOP_COMP(is_equal_, int16_, _mmcmpeq_epi16)
-  NT2_XOP_COMP(is_equal_, int32_, _mmcmpeq_epi32)
-  NT2_XOP_COMP(is_equal_, int64_, _mmcmpeq_epi64)
-  NT2_XOP_COMP(is_equal_, uint8_, _mmcmpeq_epu8)
-  NT2_XOP_COMP(is_equal_, uint16_, _mmcmpeq_epu16)
-  NT2_XOP_COMP(is_equal_, uint32_, _mmcmpeq_epu32)
-  NT2_XOP_COMP(is_equal_, uint64_, _mmcmpeq_epu64)
+  NT2_XOP_COMP(is_equal_, int8_, _mm_comeq_epi8)
+  NT2_XOP_COMP(is_equal_, int16_, _mm_comeq_epi16)
+  NT2_XOP_COMP(is_equal_, int32_, _mm_comeq_epi32)
+  NT2_XOP_COMP(is_equal_, int64_, _mm_comeq_epi64)
+  NT2_XOP_COMP(is_equal_, uint8_, _mm_comeq_epu8)
+  NT2_XOP_COMP(is_equal_, uint16_, _mm_comeq_epu16)
+  NT2_XOP_COMP(is_equal_, uint32_, _mm_comeq_epu32)
+  NT2_XOP_COMP(is_equal_, uint64_, _mm_comeq_epu64)
 
 #undef NT2_XOP_COMP
 

@@ -8,6 +8,9 @@
 ##############################################################################
 
 SET( SOURCES
+  roti.cpp
+  rot.cpp
+  sha.cpp
   ctz.cpp
   clz.cpp
   ilog2.cpp

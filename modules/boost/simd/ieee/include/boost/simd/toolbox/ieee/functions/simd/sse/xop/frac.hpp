@@ -19,7 +19,8 @@ namespace boost { namespace simd { namespace ext
                                     , ((simd_<single_<A0>,boost::simd::tag::xop_>)) 
                                     ((simd_<single_<A0>,boost::simd::tag::xop_>))   
                        )                                                
-  {                                                                     
+  {
+    typedef A0 result_type; 
     result_type operator()(__m256 const a0, __m256 const a1) const    
       {                                                                 
         return  _mm256_frcz_ps(a0);                                          
@@ -31,6 +32,7 @@ namespace boost { namespace simd { namespace ext
                                     ((simd_<double_<A0>,boost::simd::tag::xop_>))   
                        )                                                
   {                                                                     
+    typedef A0 result_type; 
     result_type operator()(__m256d const a0, __m256d const a1) const    
       {                                                                 
         return  _mm256_frcz_pd(a0);                                          

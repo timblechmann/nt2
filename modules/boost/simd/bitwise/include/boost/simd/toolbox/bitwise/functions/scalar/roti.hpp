@@ -12,6 +12,8 @@
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/simd/include/functions/scalar/ror.hpp>
 #include <boost/simd/include/functions/scalar/rol.hpp>
+#include <boost/simd/include/functions/scalar/unary_minus.hpp>
+
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext

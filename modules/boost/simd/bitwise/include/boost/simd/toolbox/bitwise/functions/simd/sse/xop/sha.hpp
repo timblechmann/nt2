@@ -10,13 +10,14 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_XOP_SHA_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_XOP_SUPPORT
 
-#include <boost/simd/toolbox/operator/functions/sha.hpp>
+#include <boost/simd/include/functions/sha.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-#define BOOST_SIMD_XOP_SHA(TYPE_TAG, INTRIN)                           \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sha_,           \
+#define BOOST_SIMD_XOP_SHA(TYPE_TAG, INTRIN)                            \
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sha_,            \
     boost::simd::tag::xop_                                              \
  , (A0)(A1)                                                             \
  , ((simd_<TYPE_TAG<A0>,boost::simd::tag::sse_>))                       \
@@ -26,8 +27,8 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;                                             \
     inline result_type operator()(A0 const& a0,A1 const& a1) const      \
       {                                                                 \
-        typedef typename meta::as_integer<A0>::type sitype;             \
-        return INTRIN(a0, unary_minus(bitwise_cast<itype>(a1)));        \
+        typedef typename dispatch::meta::as_integer<A0>::type sitype;   \
+        return INTRIN(a0, unary_minus(bitwise_cast<sitype>(a1)));       \
       }                                                                 \
   }                                                                     \
     /**/

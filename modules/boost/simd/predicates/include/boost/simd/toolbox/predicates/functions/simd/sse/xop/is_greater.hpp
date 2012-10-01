@@ -19,25 +19,26 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(                                    \
                        boost::simd::tag::TAG, boost::simd::tag::xop_    \
                        , (A0)                                           \
-                       , ((simd_<TYPE_TAG<A0>,boost::simd::tag::xop_>)) \
-                       ((simd_<TYPE_TAG<A0>,boost::simd::tag::xop_>))   \
+                       , ((simd_<TYPE_TAG<A0>,boost::simd::tag::sse_>)) \
+                       ((simd_<TYPE_TAG<A0>,boost::simd::tag::sse_>))   \
                        )                                                \
   {                                                                     \
-    result_type operator()(__m256i const a0, __m256i const a1) const    \
+    typedef typename meta::as_logical<A0>::type result_type;            \
+    result_type operator()(__m128i const a0, __m128i const a1) const    \
       {                                                                 \
         return  INTRIN(a0,a1);                                          \
       }                                                                 \
   };                                                                    \
     /**/
   
-  NT2_XOP_COMP(is_greater_, int8_, _mmcmpgt_epi8)
-  NT2_XOP_COMP(is_greater_, int16_, _mmcmpgt_epi16)
-  NT2_XOP_COMP(is_greater_, int32_, _mmcmpgt_epi32)
-  NT2_XOP_COMP(is_greater_, int64_, _mmcmpgt_epi64)
-  NT2_XOP_COMP(is_greater_, uint8_, _mmcmpgt_epu8)
-  NT2_XOP_COMP(is_greater_, uint16_, _mmcmpgt_epu16)
-  NT2_XOP_COMP(is_greater_, uint32_, _mmcmpgt_epu32)
-  NT2_XOP_COMP(is_greater_, uint64_, _mmcmpgt_epu64)
+  NT2_XOP_COMP(is_greater_, int8_, _mm_comgt_epi8)
+  NT2_XOP_COMP(is_greater_, int16_, _mm_comgt_epi16)
+  NT2_XOP_COMP(is_greater_, int32_, _mm_comgt_epi32)
+  NT2_XOP_COMP(is_greater_, int64_, _mm_comgt_epi64)
+  NT2_XOP_COMP(is_greater_, uint8_, _mm_comgt_epu8)
+  NT2_XOP_COMP(is_greater_, uint16_, _mm_comgt_epu16)
+  NT2_XOP_COMP(is_greater_, uint32_, _mm_comgt_epu32)
+  NT2_XOP_COMP(is_greater_, uint64_, _mm_comgt_epu64)
 
 #undef NT2_XOP_COMP
 } } }

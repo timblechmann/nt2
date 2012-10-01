@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_XOP_ROTI_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_XOP_SUPPORT
 
-#include <boost/simd/toolbox/operator/functions/roti.hpp>
+#include <boost/simd/include/functions/roti.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
 #include <boost/simd/include/functions/simd/genmask.hpp>
@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
     boost::simd::tag::xop_                                              \
  , (A0)(A1)                                                             \
  , ((simd_<TYPE_TAG<A0>,boost::simd::tag::sse_>))                       \
-   ((scalar_<integer_<A1>,boost::simd::tag::sse_>))                     \
+   ((scalar_<integer_<A1> >))                                           \
    )                                                                    \
   {                                                                     \
     typedef A0 result_type;                                             \
