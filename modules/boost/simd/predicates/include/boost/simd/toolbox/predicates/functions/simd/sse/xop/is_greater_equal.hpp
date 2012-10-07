@@ -12,12 +12,14 @@
 #include <boost/simd/toolbox/predicates/functions/is_greater_equal.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
+#include <boost/simd/sdk/meta/make_dependent.hpp>
+#include <boost/simd/sdk/simd/meta/retarget.hpp>
 
 namespace boost { namespace simd { namespace ext
-{
-#define NT2_XOP_COMP(TAG, TYPE_TAG, INTRIN)                             \
+                                   {
+#define NT2_XOP_COMP(TYPE_TAG, SUFFIX)                                  \
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(                                    \
-                       boost::simd::tag::TAG, boost::simd::tag::xop_    \
+                       boost::simd::tag::is_greater_equal_, boost::simd::tag::xop_    \
                        , (A0)                                           \
                        , ((simd_<TYPE_TAG<A0>,boost::simd::tag::sse_>)) \
                        ((simd_<TYPE_TAG<A0>,boost::simd::tag::sse_>))   \
@@ -26,20 +28,43 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;            \
     result_type operator()(__m128i const a0, __m128i const a1) const    \
       {                                                                 \
-        return  INTRIN(a0,a1);                                          \
+        return  BOOST_PP_CAT(_mm_comge_ep, SUFFIX)(a0,a1);              \
       }                                                                 \
   };                                                                    \
     /**/
   
-  NT2_XOP_COMP(is_greater_equal_, int8_, _mm_comge_epi8)
-  NT2_XOP_COMP(is_greater_equal_, int16_, _mm_comge_epi16)
-  NT2_XOP_COMP(is_greater_equal_, int32_, _mm_comge_epi32)
-  NT2_XOP_COMP(is_greater_equal_, int64_, _mm_comge_epi64)
-  NT2_XOP_COMP(is_greater_equal_, uint8_, _mm_comge_epu8)
-  NT2_XOP_COMP(is_greater_equal_, uint16_, _mm_comge_epu16)
-  NT2_XOP_COMP(is_greater_equal_, uint32_, _mm_comge_epu32)
-  NT2_XOP_COMP(is_greater_equal_, uint64_, _mm_comge_epu64)
+  NT2_XOP_COMP(int8_,   i8)
+  NT2_XOP_COMP(int16_,  i16)
+  NT2_XOP_COMP(int32_,  i32)
+  NT2_XOP_COMP(int64_,  i64)
+  NT2_XOP_COMP(uint8_,  u8)
+  NT2_XOP_COMP(uint16_, u16)
+  NT2_XOP_COMP(uint32_, u32)
+  NT2_XOP_COMP(uint64_, u64)
 #undef NT2_XOP_COMP
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_greater_equal_, boost::simd::tag::xop_    
+                                      , (A0)                                           
+                                      , ((simd_<integer_<A0>,boost::simd::tag::xop_>)) 
+                                      ((simd_<integer_<A0>,boost::simd::tag::xop_>))   
+                                      )                                                
+  {                                                                     
+    typedef typename meta::as_logical<A0>::type result_type;            
+    typedef typename meta::retarget<A0,simd::tag::sse_>::type          htype;
+    typedef typename meta::retarget<result_type,simd::tag::sse_>::type btype;
+    result_type operator()(__m256i const a0, __m256i const a1) const    
+    {
+      htype a00 = _mm256_extractf128_si256(a0, 0);
+      htype a01 = _mm256_extractf128_si256(a0, 1);
+      btype r0 = is_greater_equal(a00, a01); 
+      htype a10 = _mm256_extractf128_si256(a1, 0);
+      htype a11 = _mm256_extractf128_si256(a1, 1);
+      btype r1 = is_greater_equal(a10, a11); 
+      __m256i r = _mm256_castsi128_si256(r0);
+      return _mm256_insertf128_si256(r, r1, 1);      
+    }                                                                 
+  };                                                                    
+      
 } } }
 
 #endif
