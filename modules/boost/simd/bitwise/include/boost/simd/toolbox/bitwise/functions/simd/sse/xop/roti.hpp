@@ -17,7 +17,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-#define BOOST_SIMD_XOP_ROTI(TYPE_TAG, INTRIN)                           \
+#define BOOST_SIMD_XOP_ROTI(TYPE_TAG, SUFFIX)                           \
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::roti_,           \
     boost::simd::tag::xop_                                              \
  , (A0)(A1)                                                             \
@@ -28,18 +28,42 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;                                             \
     inline result_type operator()(A0 const& a0,A1 const& a1) const      \
       {                                                                 \
-        return INTRIN(a0, a1);                                          \
+        return BOOST_PP_CAT(_mm_rot_ep, SUFFIX)(a0, a1);                \
       }                                                                 \
   }                                                                     \
     /**/
   
-  BOOST_SIMD_XOP_ROTI(ints8_  , _mm_roti_epi8); 
-  BOOST_SIMD_XOP_ROTI(ints16_ , _mm_roti_epi16); 
-  BOOST_SIMD_XOP_ROTI(ints32_ , _mm_roti_epi32); 
-  BOOST_SIMD_XOP_ROTI(ints64_ , _mm_roti_epi64); 
+  BOOST_SIMD_XOP_ROTI(ints8_  , i8); 
+  BOOST_SIMD_XOP_ROTI(ints16_ , i16); 
+  BOOST_SIMD_XOP_ROTI(ints32_ , i32); 
+  BOOST_SIMD_XOP_ROTI(ints64_ , i64); 
   
 
 #undef BOOST_SIMD_XOP_ROTI
+
+
+    BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::roti_, boost::simd::tag::xop_    
+                                      , (A0)                                           
+                                      , ((simd_<integer_<A0>,boost::simd::tag::xop_>)) 
+                                        ((scalar_<integer_<A1> >))      
+                                      )                                                
+  {                                                                     
+    typedef typename meta::as_logical<A0>::type result_type;            
+    typedef typename meta::retarget<A0,simd::tag::sse_>::type          htype;
+    typedef typename meta::retarget<result_type,simd::tag::sse_>::type btype;
+    result_type operator()(__m256i const a0, __m256i const a1) const    
+    {
+      htype a00 = _mm256_extractf128_si256(a0, 0);
+      htype a10 = _mm256_extractf128_si256(a1, 0);  
+      btype r0 = roti(a00, a1); 
+      btype r1 = roti(a10, a1); 
+      __m256i r = _mm256_castsi128_si256(r0);
+      return _mm256_insertf128_si256(r, r1, 1);      
+    }                                                                 
+  };                                                                    
+
+
+  
 } } }
 
 #endif

@@ -19,7 +19,7 @@ namespace boost { namespace simd { namespace ext
 {
 #define NT2_XOP_COMP(TYPE_TAG, SUFFIX)                                  \
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(                                    \
-                       boost::simd::tag::is_less_, boost::simd::tag::xop_    \
+                  boost::simd::tag::is_less_, boost::simd::tag::xop_    \
                        , (A0)                                           \
                        , ((simd_<TYPE_TAG<A0>,boost::simd::tag::sse_>)) \
                        ((simd_<TYPE_TAG<A0>,boost::simd::tag::sse_>))   \
@@ -57,10 +57,10 @@ namespace boost { namespace simd { namespace ext
     {
       htype a00 = _mm256_extractf128_si256(a0, 0);
       htype a01 = _mm256_extractf128_si256(a0, 1);
-      btype r0 = is_less(a00, a01); 
       htype a10 = _mm256_extractf128_si256(a1, 0);
       htype a11 = _mm256_extractf128_si256(a1, 1);
-      btype r1 = is_less(a10, a11); 
+      btype r0 = is_less(a00, a10); 
+      btype r1 = is_less(a01, a11); 
       __m256i r = _mm256_castsi128_si256(r0);
       return _mm256_insertf128_si256(r, r1, 1);      
     }                                                                 
