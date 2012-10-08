@@ -14,6 +14,8 @@
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
 #include <boost/simd/include/functions/simd/genmask.hpp>
+#include <boost/simd/sdk/meta/make_dependent.hpp>
+#include <boost/simd/sdk/simd/meta/retarget.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -43,7 +45,7 @@ namespace boost { namespace simd { namespace ext
 
 
     BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::roti_, boost::simd::tag::xop_    
-                                      , (A0)                                           
+                                      , (A0)(A1)                                           
                                       , ((simd_<integer_<A0>,boost::simd::tag::xop_>)) 
                                         ((scalar_<integer_<A1> >))      
                                       )                                                

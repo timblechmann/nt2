@@ -13,6 +13,8 @@
 #include <boost/simd/include/functions/sha.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/sdk/meta/make_dependent.hpp>
+#include <boost/simd/sdk/simd/meta/retarget.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -47,7 +49,7 @@ namespace boost { namespace simd { namespace ext
                                       ((simd_<integer_<A0>,boost::simd::tag::xop_>))   
                                       )                                                
   {                                                                     
-    typedef typename meta::as_logical<A0>::type result_type;            
+    typedef A0 result_type;            
     typedef typename meta::retarget<A0,simd::tag::sse_>::type          htype;
     typedef typename meta::retarget<result_type,simd::tag::sse_>::type btype;
     result_type operator()(__m256i const a0, __m256i const a1) const    

@@ -15,6 +15,8 @@
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
 #include <boost/simd/include/functions/simd/genmask.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/sdk/meta/make_dependent.hpp>
+#include <boost/simd/sdk/simd/meta/retarget.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

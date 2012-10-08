@@ -14,6 +14,8 @@
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
 #include <boost/simd/include/functions/simd/genmask.hpp>
+#include <boost/simd/sdk/meta/make_dependent.hpp>
+#include <boost/simd/sdk/simd/meta/retarget.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -28,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;                                             \
     inline result_type operator()(A0 const& a0,A1 const& a1) const      \
       {                                                                 \
-        return BOOST_PP_CAT(_mm_rot_ep, SUFFIX)(a0, a1);                                          \
+        return BOOST_PP_CAT(_mm_rot_ep, SUFFIX)(a0, a1);                \
       }                                                                 \
   }                                                                     \
     /**/

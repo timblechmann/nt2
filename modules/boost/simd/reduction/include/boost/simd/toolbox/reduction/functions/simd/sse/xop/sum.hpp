@@ -67,13 +67,32 @@ namespace boost { namespace simd { namespace ext
                 ((simd_<ints64_<A0>,boost::simd::tag::sse_>)) 
                                     )                           
   {                                                             
-    typedef A0                 result_type;                
+    typedef  uint64_t                 result_type;                
                                                                 
     inline result_type operator()(const A0 & a0) const             
       {                                                         
         return first(a0)+second(a0);                                        
       }                                                         
   };                                                             
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_,     
+                                    boost::simd::tag::xop_,     
+                                    (A0),                       
+                ((simd_<integer_<A0>,boost::simd::tag::xop_>)) 
+                                    )                           
+  {                                                             
+    typedef uint64_t                result_type;                
+    typedef typename meta::retarget<A0,simd::tag::sse_>::type          htype;
+                                                                
+    inline result_type operator()(const A0 & a0) const             
+      {                                                         
+        htype a00 = _mm256_extractf128_si256(a0, 0);
+        htype a01 = _mm256_extractf128_si256(a0, 1);
+        return sum(a00)+sum(a01);                                        
+      }                                                         
+  };                                                             
+
+
 
 } } }
 #endif

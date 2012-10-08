@@ -42,6 +42,29 @@ namespace boost { namespace simd { namespace ext
   
 
 #undef BOOST_SIMD_XOP_SHIFT_RIGHT
+
+     BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::shift_right_, boost::simd::tag::xop_    
+                                      , (A0)                                           
+                                      , ((simd_<integer_<A0>,boost::simd::tag::xop_>)) 
+                                      ((simd_<integer_<A0>,boost::simd::tag::xop_>))   
+                                      )                                                
+  {                                                                     
+    typedef typename meta::as_logical<A0>::type result_type;            
+    typedef typename meta::retarget<A0,simd::tag::sse_>::type          htype;
+    typedef typename meta::retarget<result_type,simd::tag::sse_>::type btype;
+    result_type operator()(__m256i const a0, __m256i const a1) const    
+    {
+      htype a00 = _mm256_extractf128_si256(a0, 0);
+      htype a01 = _mm256_extractf128_si256(a0, 1);
+      htype a10 = _mm256_extractf128_si256(a1, 0);
+      htype a11 = _mm256_extractf128_si256(a1, 1);
+      btype r0 = shift_right(a00, a10); 
+      btype r1 = shift_right(a01, a11); 
+      __m256i r = _mm256_castsi128_si256(r0);
+      return _mm256_insertf128_si256(r, r1, 1);      
+    }                                                                 
+  };
+  
 } } }
 
 #endif
