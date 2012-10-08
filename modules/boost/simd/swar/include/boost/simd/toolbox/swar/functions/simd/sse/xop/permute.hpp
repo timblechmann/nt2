@@ -80,10 +80,10 @@ namespace boost { namespace simd { namespace ext
     {
 #define H0(i) ((V(i) & 3) << 2)
       typedef typename meta::retarget<A0,simd::tag::sse_>::type          htype;
-      htype a0 = _mm256_extractf128_si256(a0, 0);
-      htype a1 = _mm256_extractf128_si256(a0, 1);
+      htype a0 = _mm256_extractf128_si256(a, 0);
+      htype a1 = _mm256_extractf128_si256(a, 1);
       htype r0 =  bitwise_cast<A0>
-        ( _mm_permute_epi8( bitwise_cast<__m128i>(a)
+        ( _mm_permute_epi8( bitwise_cast<__m128i>(a0)
                             , _mm_setr_epi8
                             ( H1(0, 0), H1(0, 1) ,H1(0, 2), H1(0, 3)
                               , H1(1, 0), H1(1, 1) ,H1(1, 2), H1(1, 3)
@@ -93,7 +93,7 @@ namespace boost { namespace simd { namespace ext
                             )
           ); 
       htype r1 =  bitwise_cast<A0>
-        ( _mm_permute_epi8( bitwise_cast<__m128i>(a)
+        ( _mm_permute_epi8( bitwise_cast<__m128i>(a1)
                             , _mm_setr_epi8
                             ( H1(4, 0), H1(4, 1) ,H1(4, 2), H1(4, 3)
                               , H1(5, 0), H1(5, 1) ,H1(5, 2), H1(5, 3)
@@ -123,10 +123,10 @@ namespace boost { namespace simd { namespace ext
     {
 #define H0(i) ((V(i) & 7) << 1)
       typedef typename meta::retarget<A0,simd::tag::sse_>::type          htype;
-      htype a0 = _mm256_extractf128_si256(a0, 0);
-      htype a1 = _mm256_extractf128_si256(a0, 1);
+      htype a0 = _mm256_extractf128_si256(a, 0);
+      htype a1 = _mm256_extractf128_si256(a, 1);
       htype r0 =  bitwise_cast<A0>
-              ( _mm_permute_epi8( bitwise_cast<__m128i>(a)
+              ( _mm_permute_epi8( bitwise_cast<__m128i>(a0)
                                 , _mm_setr_epi8
                                   ( H1(0, 0), H1(0, 1) ,H1(1, 0), H1(1, 1)
                                   , H1(2, 0), H1(2, 1) ,H1(3, 0), H1(3, 1)
@@ -136,7 +136,7 @@ namespace boost { namespace simd { namespace ext
                                 )
               );
       htype r1 =  bitwise_cast<A0>
-              ( _mm_permute_epi8( bitwise_cast<__m128i>(a)
+              ( _mm_permute_epi8( bitwise_cast<__m128i>(a1)
                                 , _mm_setr_epi8
                                   ( H1(8,  0), H1(8,  1) ,H1(9,  0), H1(9,  1)
                                   , H1(10, 0), H1(10, 1) ,H1(11, 0), H1(11, 1)
@@ -165,10 +165,10 @@ namespace boost { namespace simd { namespace ext
     {
 #define H(i) ((V(i) < 0) ? -1 : V(i))
       typedef typename meta::retarget<A0,simd::tag::sse_>::type          htype;
-      htype a0 = _mm256_extractf128_si256(a0, 0);
-      htype a1 = _mm256_extractf128_si256(a0, 1);
+      htype a0 = _mm256_extractf128_si256(a, 0);
+      htype a1 = _mm256_extractf128_si256(a, 1);
       htype r0 =  bitwise_cast<A0>
-        ( _mm_permute_epi8( bitwise_cast<__m128i>(a)
+        ( _mm_permute_epi8( bitwise_cast<__m128i>(a0)
                             , _mm_setr_epi8
                             ( H( 0), H( 1), H( 2), H(3)
                             , H( 4), H( 5), H( 6), H(7)
@@ -178,7 +178,7 @@ namespace boost { namespace simd { namespace ext
                           )
           );
       htype r0 =  bitwise_cast<A0>
-        ( _mm_permute_epi8( bitwise_cast<__m128i>(a)
+        ( _mm_permute_epi8( bitwise_cast<__m128i>(a1)
                             , _mm_setr_epi8
                             ( H(16), H(17), H(18), H(19)
                             , H(20), H(21), H(22), H(23)
