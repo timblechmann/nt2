@@ -195,12 +195,18 @@ namespace nt2 { namespace container
     typedef typename meta::size_type_<Result>::type         size_type;
 
     typedef typename meta::settings_of<Result>::type        settings_type;
-    typedef typename meta::option< settings_type
-                                 , nt2::tag::index_
-                                 >::type                    index_type;
-    typedef typename meta::option< settings_type
-                                , nt2::tag::storage_order_
-                                >::type                     storage_order_type;
+    typedef typename meta::option < settings_type
+                                  , nt2::tag::semantic_
+                                  , nt2::tag::no_semantic_
+                                  >::type                    semantic_type;
+    typedef typename meta::option < settings_type
+                                  , nt2::tag::index_
+                                  , typename semantic_type::index_t
+                                  >::type                    index_type;
+    typedef typename meta::option < settings_type
+                                  , nt2::tag::storage_order_
+                                  , typename semantic_type::storage_order_t
+                                  >::type                     storage_order_type;
 
     //==========================================================================
     // Make the expression MPL-compatible

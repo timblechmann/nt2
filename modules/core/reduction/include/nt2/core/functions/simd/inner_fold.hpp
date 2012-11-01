@@ -19,18 +19,23 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates inner_fold
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::inner_fold_, boost::simd::tag::simd_, (A0)(S0)(A1)(A2)(A3)(A4)
-                               , (boost::simd::meta::is_vectorizable<typename A0::value_type, BOOST_SIMD_DEFAULT_EXTENSION>)
-                               , ((expr_< table_< unspecified_<A0>, S0 >
-                                        , nt2::tag::terminal_
-                                        , boost::mpl::long_<0>
-                                        >
-                                 ))
-                                 ((ast_< A1, nt2::container::domain>))
-                                 (unspecified_<A2>)
-                                 (unspecified_<A3>)
-                                 (unspecified_<A4>)
-                               )
+  NT2_FUNCTOR_IMPLEMENTATION_IF ( nt2::tag::inner_fold_, boost::simd::tag::simd_
+                                , (A0)(S0)(L0)(A1)(A2)(A3)(A4)
+                                , ( boost::simd::meta::
+                                    is_vectorizable < typename A0::value_type
+                                                    , BOOST_SIMD_DEFAULT_EXTENSION
+                                                    >
+                                  )
+                                , ((expr_ < container_<unspecified_<A0>,S0,L0>
+                                          , nt2::tag::terminal_
+                                          , boost::mpl::long_<0>
+                                          >
+                                  ))
+                                  ((ast_< A1, nt2::container::domain>))
+                                  (unspecified_<A2>)
+                                  (unspecified_<A3>)
+                                  (unspecified_<A4>)
+                                )
   {
     typedef void                                                              result_type;
     typedef typename A0::value_type                                           value_type;
@@ -58,8 +63,8 @@ namespace nt2 { namespace ext
 
         for(std::size_t i = ibound; i < bound; ++i)
           nt2::run( out, j
-                  , bop( nt2::run(out, j, meta::as_<value_type>())
-                       , nt2::run(in, i+k, meta::as_<value_type>())
+                  , bop( nt2::run(out, j  , meta::as_<value_type>())
+                       , nt2::run(in , i+k, meta::as_<value_type>())
                        )
                   );
 

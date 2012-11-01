@@ -32,7 +32,7 @@ namespace nt2
     //==========================================================================
     // If specified, use Alloc as an allocator
     //==========================================================================
-    template<typename T, typename S, typename Alloc = void> struct apply
+    template<typename Container, typename Alloc = void> struct apply
     {
       //========================================================================
       // Make the allocator aligned if needed
@@ -43,17 +43,20 @@ namespace nt2
       //========================================================================
       // Make me an buffer sandwich with a proper allocator
       //========================================================================
-      typedef typename alloc_t::template rebind<T>::other allocator_type;
-      typedef memory::buffer<T,allocator_type>            type;
+      typedef typename alloc_t::template rebind<typename Container::raw_value_type>::other allocator_type;
+      typedef memory::buffer<typename Container::raw_value_type,allocator_type> type;
     };
 
     //==========================================================================
     // By default, ask for the settings allocator type
     //==========================================================================
-    template<typename T, typename S> struct apply<T,S>
+    template<typename Container> struct apply<Container>
     {
-      typedef typename meta::option<S,tag::allocator_>::type  allocator_type;
-      typedef typename apply<T,S,allocator_type>::type        type;
+      typedef typename meta::option < typename Container::settings_type
+                                    , tag::allocator_
+                                    , typename Container::semantic_t::allocator_t
+                                    >::type         allocator_type;
+      typedef typename apply<Container,allocator_type>::type        type;
     };
   };
 
@@ -62,10 +65,13 @@ namespace nt2
   //============================================================================
   struct automatic_
   {
-    template <typename T, typename S, typename D = void>
+    template <typename Container, typename D = void>
     struct apply
     {
-      typedef typename meta::option<S,tag::of_size_>::type  size_;
+      typedef typename meta::option < typename Container::settings_type
+                                    , tag::of_size_
+                                    , typename Container::semantic_t::of_size_t
+                                    >::type         size_;
 
       //========================================================================
       // If you trigger this assertion, you specified an automatic storage for
@@ -86,7 +92,7 @@ namespace nt2
                                                             , boost::mpl::_2
                                                             >
                                         >::type           dims_t;
-      typedef memory::array_buffer<T,dims_t>              type;
+      typedef memory::array_buffer<typename Container::raw_value_type,dims_t>              type;
     };
   };
 }

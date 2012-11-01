@@ -11,16 +11,35 @@
 
 #include <nt2/core/settings/forward/semantic.hpp>
 #include <nt2/core/settings/option.hpp>
+#include <nt2/core/settings/index.hpp>
+#include <nt2/core/settings/alignment.hpp>
+#include <nt2/core/settings/storage_order.hpp>
 
 namespace nt2
 {
-  namespace tag { struct table_; }
+  namespace tag
+  {
+    struct table_;
+
+    struct no_semantic_
+    {
+      typedef matlab_index_ index_t;
+      typedef _0D           of_size_t;
+      typedef matlab_order_ storage_order_t;
+      typedef unaligned_    alignment_t;
+    };
+  }
 
   namespace meta
   {
     template<class Default> struct option<tag::table_, tag::semantic_, Default>
     {
       typedef tag::table_ type;
+    };
+
+    template<class Default> struct option<tag::no_semantic_, tag::semantic_, Default>
+    {
+      typedef tag::no_semantic_ type;
     };
   }
 }

@@ -23,16 +23,19 @@ namespace nt2
     //==========================================================================
     // rectangular_ just use the buffer we asked for
     //==========================================================================
-    template<class T, class S> struct apply
+    template<class Container> struct apply
     {
-      typedef typename meta::option<S,tag::buffer_>::type   buffer_t;
-      typedef typename buffer_t::template apply<T,S>::type  type;
+      typedef typename meta::option < typename Container::settings_type
+                                    , tag::buffer_
+                                    , typename Container::semantic_t::buffer_t
+                                    >::type                     buffer_t;
+      typedef typename buffer_t::template apply<Container>::type  type;
     };
 
     template<class Size> static
     BOOST_FORCEINLINE std::size_t nnz(Size const& sz)
     {
-      return numel(sz);
+      return nt2::numel(sz);
     }
   };
 }

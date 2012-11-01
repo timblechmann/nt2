@@ -68,8 +68,10 @@ namespace boost { namespace dispatch { namespace meta
   template<class T, class S, class Origin>
   struct hierarchy_of< nt2::memory::container<T, S>, Origin >
   {
-    typedef typename nt2::memory::container<T, S>::semantic_t     semantic_t;
-    typedef typename semantic_t::template apply<T,S,Origin>::type type;
+    typedef typename nt2::memory::container<T, S>::semantic_t semantic_t;
+    typedef container_< typename boost::dispatch::meta::property_of<T,Origin>::type
+                      , semantic_t,S
+                      >                   type;
   };
 
   template<class T, class S>

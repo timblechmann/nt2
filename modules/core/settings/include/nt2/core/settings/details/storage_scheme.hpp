@@ -19,9 +19,9 @@ namespace nt2
   //============================================================================
   struct conventional_
   {
-    template<class T, class S> struct apply
+    template<class Container> struct apply
     {
-      typedef typename rectangular_::apply<T,S>::type type;
+      typedef typename rectangular_::apply<Container>::type type;
 
       template<class Size> static
       BOOST_FORCEINLINE std::size_t nnz(Size const& sz)
@@ -36,10 +36,13 @@ namespace nt2
   //============================================================================
   struct packed_
   {
-    template<class T, class S> struct apply
+    template<class Container> struct apply
     {
-      typedef typename meta::option<S,tag::shape_>::type  shape_t;
-      typedef typename shape_t::template apply<T,S>::type type;
+      typedef typename meta::option < typename Container::settings_type
+                                    , tag::shape_
+                                    , typename Container::semantic_t::shape_t
+                                    >::type                     shape_t;
+      typedef typename shape_t::template apply<Container>::type type;
 
       template<class Size> static
       BOOST_FORCEINLINE std::size_t nnz(Size const& sz)

@@ -20,10 +20,11 @@ namespace nt2
   //============================================================================
   struct shared_
   {
-    template<class T, class S> struct apply
+    template<class Container> struct apply
     {
-      typedef allocator_< memory::fixed_allocator<T> >              alloc_t;
-      typedef typename dynamic_::template apply<T,S,alloc_t>::type  type;
+      typedef typename Container::raw_value_type value_type;
+      typedef allocator_< memory::fixed_allocator<value_type> >                 alloc_t;
+      typedef typename dynamic_::template apply<Container,alloc_t>::type  type;
     };
   };
 
@@ -32,10 +33,13 @@ namespace nt2
   //============================================================================
   struct owned_
   {
-    template<class T, class S> struct apply
+    template<class Container> struct apply
     {
-      typedef typename meta::option<S,tag::storage_duration_>::type sd_t;
-      typedef typename sd_t::template apply<T,S>::type              type;
+      typedef typename meta::option < typename Container::settings_type
+                                    , tag::storage_duration_
+                                    , typename Container::semantic_t::storage_duration_t
+                                    >::type                         sd_t;
+      typedef typename sd_t::template apply<Container>::type              type;
     };
   };
 }

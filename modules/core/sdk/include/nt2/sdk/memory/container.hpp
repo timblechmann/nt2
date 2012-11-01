@@ -14,7 +14,6 @@
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/semantic.hpp>
 #include <nt2/core/settings/interleaving.hpp>
-#include <nt2/core/settings/normalize.hpp>
 #include <nt2/core/settings/storage_order.hpp>
 #include <nt2/core/settings/specific_data.hpp>
 #include <nt2/sdk/memory/composite_buffer.hpp>
@@ -42,24 +41,21 @@ namespace nt2 { namespace memory
   {
   public:
     //==========================================================================
-    // Find out how to normalize this container settings
-    //  - if no semantic is given, we infers it behaves as a simple table.
-    // Once semantic normalization occured, every options is present in
-    // settings_type.
+    // Find out this container semantic
+    // If no semantic is given, we infers it behaves as a simple table.
     //==========================================================================
-    typedef typename meta::option < S
-                                  , tag::semantic_
-                                  , tag::table_
-                                  >::type                   semantic_t;
-    typedef typename meta::normalize<semantic_t,T,S>::type  settings_type;
+    typedef S                                                         settings_type;
+    typedef T                                                         raw_value_type;
+    typedef typename meta::option<S,tag::semantic_,tag::table_>::type semantic_t;
 
     //==========================================================================
     // Compute buffer type from storage_scheme
     //==========================================================================
     typedef typename meta::option < settings_type
                                   , tag::storage_scheme_
+                                  , typename semantic_t::storage_scheme_t
                                   >::type                       scheme_t;
-    typedef typename scheme_t::template apply<T,settings_type>  scheme_type;
+    typedef typename scheme_t::template apply<container>        scheme_type;
     typedef typename scheme_type::type                          base_buffer_t;
 
     //========================================================================
@@ -67,6 +63,7 @@ namespace nt2 { namespace memory
     //========================================================================
     typedef typename meta::option < settings_type
                                   , tag::interleaving_
+                                  , typename semantic_t::interleaving_t
                                   >::type                       interleaving_t;
     typedef typename boost::mpl::if_< boost::mpl::and_
                                       < boost::fusion::traits::is_sequence<T>
@@ -101,23 +98,30 @@ namespace nt2 { namespace memory
     //==========================================================================
     // size_type is the type used to store the container dimensions set
     //==========================================================================
-    typedef typename meta::option<settings_type, tag::of_size_>::type extent_type;
+    typedef typename meta::option < settings_type, tag::of_size_
+                                  , typename semantic_t::of_size_t
+                                  >::type       extent_type;
 
     //==========================================================================
     // index_type is the type used to store the container base index
     //==========================================================================
-    typedef typename meta::option<settings_type,tag::index_>::type    index_type;
+    typedef typename meta::option < settings_type,tag::index_
+                                  , typename semantic_t::index_t
+                                  >::type       index_type;
 
     //==========================================================================
     // order_type is the type used to represent the container storage order
     //==========================================================================
-    typedef typename meta::option<settings_type,tag::storage_order_>::type  order_type;
+    typedef typename meta::option < settings_type,tag::storage_order_
+                                  , typename semantic_t::storage_order_t
+                                  >::type       order_type;
 
     //==========================================================================
     // require_static_init detects if container is initialized in default ctor
     //==========================================================================
-    typedef typename
-            meta::option<settings_type,tag::storage_duration_>::type duration_t;
+    typedef typename meta::option < settings_type,tag::storage_duration_
+                                  , typename semantic_t::storage_duration_t
+                                  >::type       duration_t;
     typedef boost::mpl::
             bool_ <   !( boost::mpl::at_c<typename extent_type::values_type, 0>::type::value <= 0 )
                   &&  !boost::is_same<duration_t,automatic_>::value
@@ -192,7 +196,9 @@ namespace nt2 { namespace memory
       // dimensions. Fix your code to remove such constructor call.
       //       ****INVALID_CONSTRUCTOR_FOR_STATICALLY_SIZED_CONTAINER****
       //========================================================================
-      BOOST_ASSERT_MSG( !has_static_size::value || sz == extent_type(), "Invalid constructor for statically sized container" );
+      BOOST_ASSERT_MSG( !has_static_size::value || sz == extent_type()
+                      , "Invalid constructor for statically sized container"
+                      );
 
       init(sizes_);
     }

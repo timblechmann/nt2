@@ -9,9 +9,7 @@
 #ifndef NT2_CORE_SETTINGS_DETAILS_BUFFER_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_DETAILS_BUFFER_HPP_INCLUDED
 
-#include <boost/mpl/int.hpp>
 #include <boost/mpl/apply.hpp>
-#include <nt2/core/settings/size.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/sharing.hpp>
 
@@ -22,7 +20,7 @@ namespace nt2
   //============================================================================
   template<class Buffer> struct buffer_
   {
-    template<class T,class S> struct apply { typedef Buffer type; };
+    template<class Container> struct apply { typedef Buffer type; };
   };
 
   //============================================================================
@@ -30,10 +28,13 @@ namespace nt2
   //============================================================================
   template<> struct buffer_<void>
   {
-    template<class T,class S> struct apply
+    template<class Container> struct apply
     {
-      typedef typename meta::option<S, tag::sharing_>::type mode;
-      typedef typename mode::template apply<T,S>::type      type;
+      typedef typename meta::option < typename Container::settings_type
+                                    , tag::sharing_
+                                    , typename Container::semantic_t::sharing_t
+                                    >::type                     sharing_t;
+      typedef typename sharing_t::template apply<Container>::type      type;
     };
   };
 }

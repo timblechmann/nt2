@@ -23,7 +23,7 @@ namespace nt2
     template<class T, class Enable = void>
     struct  settings_of
     {
-      typedef settings type(matlab_index_,_0D,matlab_order_,unaligned_);
+      typedef tag::no_semantic_ type;
     };
 
     template<class T>

@@ -23,7 +23,7 @@
  **/
 //==============================================================================
 #ifndef NT2_META_MAX_OPTIONS_NB
-#define NT2_META_MAX_OPTIONS_NB 16
+#define NT2_META_MAX_OPTIONS_NB 6
 #endif
 
 namespace nt2 { namespace meta
