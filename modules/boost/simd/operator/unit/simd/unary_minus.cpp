@@ -20,9 +20,6 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
 
 
@@ -30,7 +27,6 @@ NT2_TEST_CASE_TPL ( unary_minus_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::unary_minus;
   using boost::simd::tag::unary_minus_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -55,7 +51,6 @@ NT2_TEST_CASE_TPL ( unary_minus_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNE
 {
   using boost::simd::unary_minus;
   using boost::simd::tag::unary_minus_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

@@ -21,16 +21,12 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/include/functions/divides.hpp>
 
 NT2_TEST_CASE_TPL ( group_groupable__2_0, BOOST_SIMD_SIMD_GROUPABLE_TYPES)
 {
   using boost::simd::group;
   using boost::simd::tag::group_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   using boost::simd::Two;
@@ -63,7 +59,6 @@ NT2_TEST_CASE_TPL ( group_groupable__2_1,  BOOST_SIMD_SIMD_GROUPABLE_TYPES)
 {
   using boost::simd::group;
   using boost::simd::tag::group_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   using boost::simd::Two;
@@ -96,7 +91,6 @@ NT2_TEST_CASE_TPL ( group_groupable__3_1,  BOOST_SIMD_SIMD_GROUPABLE_TYPES)
 {
   using boost::simd::group;
   using boost::simd::tag::group_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   using boost::simd::Two;
@@ -129,7 +123,6 @@ NT2_TEST_CASE_TPL ( group_groupable__4_1,  (int32_t))
 {
   using boost::simd::group;
   using boost::simd::tag::group_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   using boost::simd::Two;

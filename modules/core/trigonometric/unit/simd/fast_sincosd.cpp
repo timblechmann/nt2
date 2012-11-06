@@ -36,14 +36,12 @@
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
 
 
 NT2_TEST_CASE_TPL ( fast_sincosd_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::fast_sincosd;
   using nt2::tag::fast_sincosd_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
@@ -90,7 +88,6 @@ NT2_TEST_CASE_TPL ( fast_sincosd_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {
   using nt2::fast_sincosd;
   using nt2::tag::fast_sincosd_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
@@ -137,7 +134,6 @@ NT2_TEST_CASE_TPL ( fast_sincosd_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES
 {
   using nt2::fast_sincosd;
   using nt2::tag::fast_sincosd_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename boost::dispatch::meta::as_floating<T>::type ftype;

@@ -36,7 +36,6 @@ extern "C" {long double cephes_ellikl(long double,long double);}
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/divides.hpp>
 
-#include <nt2/include/functions/load.hpp>
 
 
 
@@ -45,7 +44,6 @@ NT2_TEST_CASE_TPL ( ellipke_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::ellipke;
   using nt2::tag::ellipke_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename boost::dispatch::meta::as_floating<T>::type etype;
@@ -96,7 +94,6 @@ NT2_TEST_CASE_TPL ( ellipke_real__2_1,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::ellipke;
   using nt2::tag::ellipke_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef T scalar;

@@ -10,8 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SPLIT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/toolbox/swar/functions/split.hpp>
-//#include <boost/simd/sdk/memory/aligned_type.hpp>
-
 #include <boost/fusion/tuple.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/simd/sdk/meta/make_dependent.hpp>

@@ -27,8 +27,8 @@
 #include <boost/simd/include/functions/simd/make.hpp>
 
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
-#include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
+#include <boost/simd/meta/is_power_of_2.hpp>
+#include <boost/simd/memory/is_aligned.hpp>
 
 #include <boost/dispatch/meta/is_iterator.hpp>
 #include <boost/type_traits/is_same.hpp>

@@ -9,9 +9,7 @@
 #ifndef NT2_TOOLBOX_SWAR_FUNCTIONS_COMPLEX_SIMD_COMMON_SPLIT_HPP_INCLUDED
 #define NT2_TOOLBOX_SWAR_FUNCTIONS_COMPLEX_SIMD_COMMON_SPLIT_HPP_INCLUDED
 #include <nt2/toolbox/swar/functions/split.hpp>
-#include <nt2/include/functions/load.hpp>
 #include <nt2/include/functions/store.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/fusion/tuple.hpp>

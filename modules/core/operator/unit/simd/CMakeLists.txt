@@ -9,16 +9,12 @@
 
 SET( SOURCES
   unary_plus.cpp
-#  store.cpp
   map.cpp
-#  make.cpp
-#  load.cpp
   if_else.cpp
   is_less_equal.cpp
   is_less.cpp
   is_greater_equal.cpp
   is_greater.cpp
-  access.cpp
   bitwise_and.cpp
   bitwise_or.cpp
   bitwise_xor.cpp
@@ -37,7 +33,6 @@ SET( SOURCES
   plus.cpp
   shift_left.cpp
   shift_right.cpp
-#  splat.cpp
   )
 
 nt2_module_add_tests(core.operator.simd.unit ${SOURCES})

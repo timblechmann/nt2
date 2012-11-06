@@ -7,7 +7,6 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 swar toolbox - split/simd Mode"
-//COMMENTED
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
@@ -22,8 +21,6 @@
 
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
-
-//COMMENTED
 
 NT2_TEST_CASE_TPL ( split_lt_64__1_0, BOOST_SIMD_SIMD_SPLITABLE_TYPES)
 {

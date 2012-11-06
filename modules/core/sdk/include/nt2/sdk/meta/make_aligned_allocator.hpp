@@ -10,7 +10,7 @@
 #define NT2_SDK_META_MAKE_ALIGNED_ALLOCATOR_HPP_INCLUDED
 
 #include <boost/mpl/bool.hpp>
-#include <boost/simd/sdk/memory/allocator_adaptor.hpp>
+#include <boost/simd/memory/allocator_adaptor.hpp>
 #include <nt2/sdk/meta/perform_aligned_allocation.hpp>
 
 namespace nt2 {  namespace details

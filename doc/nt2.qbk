@@ -17,4 +17,6 @@
 [xinclude users_manual.xml]
 [xinclude developers_manual.xml]
 [xinclude tools.xml]
+[xinclude boost.dispatch.xml]
+[xinclude boost.simd.doc.xml]
 [xinclude appendix.xml]

@@ -28,16 +28,12 @@
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/include/functions/load.hpp>
 
 //COMMENTED
 NT2_TEST_CASE_TPL ( comparator_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::comparator;
   using boost::simd::tag::comparator_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

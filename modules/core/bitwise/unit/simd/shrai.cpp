@@ -35,14 +35,12 @@
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 
-#include <nt2/include/functions/load.hpp>
 
 
 NT2_TEST_CASE_TPL ( shrai_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::shrai;
   using nt2::tag::shrai_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef T r_type;
@@ -71,7 +69,6 @@ NT2_TEST_CASE_TPL ( shrai_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::shrai;
   using nt2::tag::shrai_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef T r_type;

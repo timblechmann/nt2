@@ -23,9 +23,6 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>
 
@@ -34,7 +31,6 @@ NT2_TEST_CASE_TPL ( is_gez_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::is_gez;
   using boost::simd::tag::is_gez_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -63,7 +59,6 @@ NT2_TEST_CASE_TPL ( is_gez_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYP
 {
   using boost::simd::is_gez;
   using boost::simd::tag::is_gez_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -87,7 +82,6 @@ NT2_TEST_CASE_TPL ( is_gez_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::is_gez;
   using boost::simd::tag::is_gez_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

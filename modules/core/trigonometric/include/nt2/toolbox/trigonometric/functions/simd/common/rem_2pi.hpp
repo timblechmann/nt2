@@ -23,7 +23,6 @@
 #include <nt2/include/constants/pix2_3.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/fusion/tuple.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

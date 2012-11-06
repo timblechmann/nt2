@@ -7,4 +7,5 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+# operator for splat
 SET(NT2_BOOST.SIMD.CONSTANT_DEPENDENCIES_EXTRA boost.simd.sdk boost.simd.operator)

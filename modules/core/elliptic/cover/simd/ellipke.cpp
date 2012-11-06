@@ -37,7 +37,6 @@ extern "C" {long double cephes_ellikl(long double,long double);}
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 
-#include <nt2/include/functions/load.hpp>
 
 
 

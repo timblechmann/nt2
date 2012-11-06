@@ -7,7 +7,10 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.SDK_DEPENDENCIES_EXTRA sdk.meta sdk.functor sdk.error
-                                      core.settings core.container.table sdk.dsl
+SET ( NT2_CORE.SDK_DEPENDENCIES_EXTRA sdk.meta sdk.functor
+                                      sdk.error sdk.dsl
+                                      boost.simd.memory
+                                      core.settings
                                       core.operator
+                                      core.container.table
     )

@@ -15,7 +15,7 @@
  */
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/functor/functor.hpp>
-#include <boost/simd/toolbox/operator/functions/map.hpp>
+#include <boost/simd/sdk/simd/category.hpp>
 
 //==============================================================================
 // Define hierarchy for constant tags
@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace ext
 #if defined(NT2_DOXYGEN_ONLY)
 #define BOOST_SIMD_CONSTANT_IMPLEMENTATION(TAG,NAME)                \
 template<class Target> BOOST_DISPATCH_FORCE_INLINE                  \
-unspecified NAME();                                                 \
+Target NAME();                                                      \
 /**/
 #else
 #define BOOST_SIMD_CONSTANT_IMPLEMENTATION(TAG,NAME)                \

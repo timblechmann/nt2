@@ -24,8 +24,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/memory/is_aligned.hpp>
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>

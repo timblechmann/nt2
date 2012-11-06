@@ -31,7 +31,6 @@
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
 
 
 NT2_TEST_CASE_TPL ( saturate_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)

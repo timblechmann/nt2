@@ -34,7 +34,6 @@ extern "C" {extern long double cephes_sincl(long double);}
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
 
 
 NT2_TEST_CASE_TPL ( sinc_real__1_0,  NT2_SIMD_REAL_TYPES)
