@@ -48,8 +48,8 @@ if(NOT Boost_FOUND)
   message(FATAL_ERROR "NT2 requires a recent version of Boost but none recent enough was found")
 endif()
 
+nt2_postconfigure_global_init()
 nt2_configure_tests()
-nt2_postconfigure_init()
 
 ################################################################################
 # Module inclusion
@@ -130,17 +130,10 @@ if(NT2_MODULES_EXTRA)
 endif()
 
 ################################################################################
-# Set include directories
-################################################################################
-foreach(module ${NT2_MODULES})
-  string(REPLACE "." "/" module_path ${module})
-  include_directories(${PROJECT_SOURCE_DIR}/modules/${module_path}/include)
-endforeach()
-
-################################################################################
 # Load modules
 ################################################################################
 set(stage_inputs)
+set(loaded_modules)
 foreach(module ${NT2_MODULES})
   string(REPLACE "." "/" module_path ${module})
   if(NOT IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${module_path})
@@ -149,12 +142,18 @@ foreach(module ${NT2_MODULES})
     message(STATUS "[nt2] loading module ${module}")
     add_subdirectory(modules/${module_path})
     list(APPEND stage_inputs ${CMAKE_SOURCE_DIR}/modules/${module_path}/include)
+    list(APPEND stage_inputs ${CMAKE_BINARY_DIR}/modules/${module_path}/include)
+    list(APPEND loaded_modules ${module})
   endif()
 endforeach()
 
 ################################################################################
 # Merge include directories in stage target
 ################################################################################
+nt2_postconfigure_init()
+set(NT2_FOUND_COMPONENTS ${loaded_modules})
+nt2_postconfigure_run()
+
 add_custom_target(stage
                   COMMAND ${CMAKE_COMMAND}
                           "-DOUTPUT=${CMAKE_BINARY_DIR}/include"
@@ -183,5 +182,5 @@ endforeach()
 ################################################################################
 # Post-config phase
 ################################################################################
-nt2_postconfigure_run()
+nt2_postconfigure_global_run()
 include(nt2.directive)

@@ -164,6 +164,7 @@ endmacro()
 
 # define various variables to select which tests to enable
 macro(nt2_configure_tests)
+
   if(CMAKE_GENERATOR MATCHES "Ninja")
     set(NT2_WITH_TESTS_FULL_ 1)
   else()
@@ -199,7 +200,9 @@ macro(nt2_configure_tests)
         set_property(TARGET ${target} PROPERTY FOLDER ${target})
       endif()
     endforeach()
+
   endif()
+
 endmacro()
 
 # main function to call in a module's root CMakeLists file
@@ -216,7 +219,6 @@ macro(nt2_module_main module)
     endif()
     project(NT2_${NT2_CURRENT_MODULE_U})
     set(NT2_BINARY_DIR ${PROJECT_BINARY_DIR})
-    nt2_postconfigure_init()
   endif()
 
   include(nt2.compiler.options)
@@ -243,7 +245,6 @@ macro(nt2_module_main module)
   endif()
 
   if(PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
-    nt2_postconfigure_run()
   endif()
 endmacro()
 
@@ -552,7 +553,8 @@ endmacro()
 # same as configure_file, but puts it in the right location and marks
 # the generated header for installation
 macro(nt2_module_configure_file cmake_file header)
-  configure_file(${cmake_file} ${NT2_BINARY_DIR}/include_tmp/${header})
+  string(REPLACE "." "/" module_path ${NT2_CURRENT_MODULE})
+  configure_file(${cmake_file} ${NT2_BINARY_DIR}/modules/${module_path}/include_tmp/${header})
   nt2_module_install_file(${header})
 endmacro()
 
@@ -560,6 +562,7 @@ endmacro()
 # for each function in the Boost.SIMD toolbox, an associated header is generated in NT2
 # unless it already exists in the source.
 macro(nt2_module_simd_toolbox name)
+  string(REPLACE "." "/" current_module_path ${NT2_CURRENT_MODULE})
   string(TOUPPER ${name} name_U)
   set(INCLUDE_DIRECTORIES)
   foreach(module core.${name} boost.simd.${name})
@@ -578,7 +581,7 @@ macro(nt2_module_simd_toolbox name)
       if(NOT already_there)
         string(REGEX REPLACE ".hpp" "" file ${file})
         string(TOUPPER ${file} file_U)
-        file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/functions/${file}.hpp
+        file(WRITE ${NT2_BINARY_DIR}/modules/${current_module_path}/include_tmp/nt2/toolbox/${name}/functions/${file}.hpp
                    "//==============================================================================\n"
                    "//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II\n"
                    "//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI\n"
@@ -624,7 +627,7 @@ macro(nt2_module_simd_toolbox name)
         string(SUBSTRING ${file_U} 0 1 file_1)
         string(SUBSTRING ${file} 1 ${len} file_2)
         set(file_c "${file_1}${file_2}")
-        file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/constants/${file}.hpp
+        file(WRITE ${NT2_BINARY_DIR}/modules/${current_module_path}/include_tmp/nt2/toolbox/${name}/constants/${file}.hpp
                    "//==============================================================================\n"
                    "//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II\n"
                    "//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI\n"
@@ -661,7 +664,7 @@ macro(nt2_module_simd_toolbox name)
       string(REPLACE "BOOST_SIMD_" "NT2_" file_content "${file_content}")
       string(REPLACE "namespace boost { namespace simd" "namespace nt2" file_content "${file_content}")
       string(REPLACE "} }" "}" file_content "${file_content}")
-      file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/include/functions/${file} "${file_content}")
+      file(WRITE ${NT2_BINARY_DIR}/modules/${current_module_path}/include_tmp/nt2/toolbox/${name}/include/functions/${file} "${file_content}")
     endforeach()
 
     file(GLOB include_files2 RELATIVE ${dir}/boost/simd/toolbox/${name}/include/constants ${dir}/boost/simd/toolbox/${name}/include/constants/*.hpp)
@@ -671,7 +674,7 @@ macro(nt2_module_simd_toolbox name)
       string(REPLACE "BOOST_SIMD_" "NT2_" file_content "${file_content}")
       string(REPLACE "namespace boost { namespace simd" "namespace nt2" file_content "${file_content}")
       string(REPLACE "} }" "}" file_content "${file_content}")
-      file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/include/constants/${file} "${file_content}")
+      file(WRITE ${NT2_BINARY_DIR}/modules/${current_module_path}/include_tmp/nt2/toolbox/${name}/include/constants/${file} "${file_content}")
     endforeach()
   endforeach()
 
@@ -680,75 +683,87 @@ endmacro()
 
 # build a tool
 macro(nt2_module_tool_setup tool)
+  string(TOUPPER ${tool} tool_U)
 
-  if(NOT NT2_SOURCE_ROOT)
-    message(FATAL_ERROR "[nt2] tool ${tool} was not found and cannot be built")
-  endif()
+  if(NOT NT2_TOOL_${tool_U})
 
-  get_property(NT2_TOOL_${tool}_BUILT GLOBAL PROPERTY NT2_TOOL_${tool}_BUILT)
-  if(NOT NT2_TOOL_${tool}_BUILT)
-
-    define_property(GLOBAL PROPERTY NT2_TOOL_${tool}_BUILT
-                    BRIEF_DOCS "Whether nt2 tool ${tool} has already been built"
-                    FULL_DOCS "Global flag to avoid building nt2 tool ${tool} multiple times"
-                   )
-    set_property(GLOBAL PROPERTY NT2_TOOL_${tool}_BUILT 1)
-
-    message(STATUS "[nt2] building tool ${tool}")
-    file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/tools/${tool})
-
-    if(NOT DEFINED NT2_TOOL_DEBUG)
-      set(NT2_TOOL_DEBUG $ENV{NT2_TOOL_DEBUG})
-    endif()
-    if(NT2_TOOL_DEBUG)
-      set(NT2_TOOL_CONFIG Debug)
-    else()
-      set(NT2_TOOL_CONFIG Release)
+    if(NOT NT2_SOURCE_ROOT)
+      message(FATAL_ERROR "[nt2] tool ${tool} was not found and cannot be built")
     endif()
 
-    set(BUILD_OPTION)
-    if(NOT CMAKE_CONFIGURATION_TYPES)
-      set(BUILD_OPTION -DCMAKE_BUILD_TYPE=${NT2_TOOL_CONFIG})
-    endif()
-    if(Boost_INCLUDE_DIR)
-      list(APPEND BUILD_OPTION -DBoost_INCLUDE_DIR=${Boost_INCLUDE_DIR})
-    endif()
-    if(NOT CMAKE_CROSSCOMPILING)
-      list(APPEND BUILD_OPTION -G ${CMAKE_GENERATOR})
-    else()
-      unset(ENV{${CMAKE_C_COMPILER_ENV_VAR}})
-      unset(ENV{${CMAKE_CXX_COMPILER_ENV_VAR}})
-    endif()
+    get_property(NT2_TOOL_${tool_U}_BUILT GLOBAL PROPERTY NT2_TOOL_${tool_U}_BUILT)
+    if(NOT NT2_TOOL_${tool_U}_BUILT)
 
-    execute_process(COMMAND ${CMAKE_COMMAND}
-                            ${BUILD_OPTION}
-                            ${NT2_SOURCE_ROOT}/tools/${tool}
-                    WORKING_DIRECTORY ${NT2_BINARY_DIR}/tools/${tool}
-                    OUTPUT_VARIABLE tool_configure_out
-                    RESULT_VARIABLE tool_configure
-                   )
+      define_property(GLOBAL PROPERTY NT2_TOOL_${tool_U}_BUILT
+                      BRIEF_DOCS "Whether nt2 tool ${tool} has already been built"
+                      FULL_DOCS "Global flag to avoid building nt2 tool ${tool} multiple times"
+                     )
+      set_property(GLOBAL PROPERTY NT2_TOOL_${tool_U}_BUILT 1)
 
-    if(tool_configure)
-      message("${tool_configure_out}")
-      message(FATAL_ERROR "[nt2] configuring tool ${tool} failed")
-    endif()
+      message(STATUS "[nt2] building tool ${tool}")
+      file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/tools/${tool})
 
-    execute_process(COMMAND ${CMAKE_COMMAND} --build . --config ${NT2_TOOL_CONFIG}
-                    WORKING_DIRECTORY ${NT2_BINARY_DIR}/tools/${tool}
-                    OUTPUT_VARIABLE tool_build_out
-                    RESULT_VARIABLE tool_build
-                   )
+      if(NOT DEFINED NT2_TOOL_DEBUG)
+        set(NT2_TOOL_DEBUG $ENV{NT2_TOOL_DEBUG})
+      endif()
+      if(NT2_TOOL_DEBUG)
+        set(NT2_TOOL_CONFIG Debug)
+      else()
+        set(NT2_TOOL_CONFIG Release)
+      endif()
 
-    if(tool_build)
-      message("${tool_build_out}")
-      message(FATAL_ERROR "[nt2] building tool ${tool} failed")
-    endif()
+      set(BUILD_OPTION)
+      if(NOT CMAKE_CONFIGURATION_TYPES)
+        set(BUILD_OPTION -DCMAKE_BUILD_TYPE=${NT2_TOOL_CONFIG})
+      endif()
+      foreach(etool postconfigure gather_includes move_reuse)
+        string(TOUPPER ${etool} etool_U)
+        get_property(NT2_TOOL_${etool_U}_BUILT GLOBAL PROPERTY NT2_TOOL_${etool_U}_BUILT)
+        if(NT2_TOOL_${etool_U}_BUILT AND ${tool} MATCHES "is_supported|is_multicore")
+          list(APPEND BUILD_OPTION -DNT2_TOOL_${etool_U}=${NT2_BINARY_DIR}/tools/${etool}/${etool}${CMAKE_EXECUTABLE_SUFFIX})
+        endif()
+      endforeach()
+      if(Boost_INCLUDE_DIR)
+        list(APPEND BUILD_OPTION -DBoost_INCLUDE_DIR=${Boost_INCLUDE_DIR})
+      endif()
+      if(NOT CMAKE_CROSSCOMPILING)
+        list(APPEND BUILD_OPTION -G ${CMAKE_GENERATOR})
+      else()
+        unset(ENV{${CMAKE_C_COMPILER_ENV_VAR}})
+        unset(ENV{${CMAKE_CXX_COMPILER_ENV_VAR}})
+      endif()
 
-    if(PROJECT_NAME MATCHES "^NT2")
-      install( PROGRAMS ${NT2_BINARY_DIR}/tools/${tool}/${tool}${CMAKE_EXECUTABLE_SUFFIX}
-               DESTINATION tools/${tool}
-               COMPONENT tools
-             )
+      execute_process(COMMAND ${CMAKE_COMMAND}
+                              ${BUILD_OPTION}
+                              ${NT2_SOURCE_ROOT}/tools/${tool}
+                      WORKING_DIRECTORY ${NT2_BINARY_DIR}/tools/${tool}
+                      OUTPUT_VARIABLE tool_configure_out
+                      RESULT_VARIABLE tool_configure
+                     )
+
+      if(tool_configure)
+        message("${tool_configure_out}")
+        message(FATAL_ERROR "[nt2] configuring tool ${tool} failed")
+      endif()
+
+      execute_process(COMMAND ${CMAKE_COMMAND} --build . --config ${NT2_TOOL_CONFIG}
+                      WORKING_DIRECTORY ${NT2_BINARY_DIR}/tools/${tool}
+                      OUTPUT_VARIABLE tool_build_out
+                      RESULT_VARIABLE tool_build
+                     )
+
+      if(tool_build)
+        message("${tool_build_out}")
+        message(FATAL_ERROR "[nt2] building tool ${tool} failed")
+      endif()
+
+      if(PROJECT_NAME MATCHES "^NT2")
+        install( PROGRAMS ${NT2_BINARY_DIR}/tools/${tool}/${tool}${CMAKE_EXECUTABLE_SUFFIX}
+                 DESTINATION tools/${tool}
+                 COMPONENT tools
+               )
+      endif()
+
     endif()
 
   endif()
@@ -773,24 +788,22 @@ endmacro()
 # nt2_postconfigure_init must be called before calling this function
 macro(nt2_module_postconfigure)
 
+  nt2_module_tool_setup(postconfigure)
+  nt2_module_tool_setup(${ARGV0})
+
   string(REPLACE ";" " " args "${ARGN}")
   file(APPEND ${NT2_BINARY_DIR}/modules/${NT2_CURRENT_MODULE}.manifest "${args}\n")
 
 endmacro()
 
-# initialize the post-configuration system
-macro(nt2_postconfigure_init)
-
-  include(nt2.doc)
-
-  define_property(GLOBAL PROPERTY NT2_POSTCONFIGURE_INITED
-                  BRIEF_DOCS "Whether nt2_postconfigure_init has already been called"
-                  FULL_DOCS "Global flag to avoid running postconfigure multiple times"
-                 )
-  set_property(GLOBAL PROPERTY NT2_POSTCONFIGURE_INITED 1)
-  set(NT2_FOUND_COMPONENTS "" CACHE INTERNAL "" FORCE)
+macro(nt2_postconfigure_global_init)
+  foreach(etool postconfigure gather_includes move_reuse)
+    nt2_module_tool_setup(${etool})
+  endforeach()
 
   if(PROJECT_NAME MATCHES "^NT2")
+    include(nt2.doc)
+
     set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "ExecWait '\\\"$INSTDIR\\\\tools\\\\postconfigure\\\\postconfigure.exe\\\" \\\"$INSTDIR\\\"'")
     include(CPack)
     cpack_add_component(tools REQUIRED)
@@ -804,23 +817,34 @@ macro(nt2_postconfigure_init)
                             PATTERN "*.cpp"
            )
   endif()
+  set(NT2_POSTCONFIGURE_GLOBAL_INITED 1)
+endmacro()
 
+# initialize the post-configuration system
+macro(nt2_postconfigure_init)
+  set(NT2_POSTCONFIGURE_INITED 1)
 endmacro()
 
 # run the post-configuration step.
 # runs all tool commands registered with nt2_module_postconfigure
 macro(nt2_postconfigure_run)
 
-  message(STATUS "[nt2] running post-configuration commands")
+  message(STATUS "[nt2] running post-configuration commands in ${CMAKE_CURRENT_BINARY_DIR}")
 
   foreach(module ${NT2_FOUND_COMPONENTS})
     string(TOUPPER ${module} module_U)
     if(NT2_${module_U}_ROOT)
-      list(APPEND postconfigure_prefix "-I${NT2_${module_U}_ROOT}/include")
+      string(REPLACE "." "/" module_path ${module})
+      if(IS_DIRECTORY ${NT2_BINARY_DIR}/modules/${module_path}/include_tmp)
+        nt2_module_tool(move_reuse ${NT2_BINARY_DIR}/modules/${module_path}/include_tmp ${NT2_BINARY_DIR}/modules/${module_path}/include)
+      endif()
+      list(APPEND postconfigure_prefix "-I${NT2_${module_U}_ROOT}/include" "-I${NT2_BINARY_DIR}/modules/${module_path}/include")
     endif()
   endforeach()
-  list(APPEND postconfigure_prefix "${NT2_BINARY_DIR}/include_tmp")
+  list(REMOVE_DUPLICATES postconfigure_prefix)
+  list(APPEND postconfigure_prefix "${CMAKE_CURRENT_BINARY_DIR}/nt2_post_include_tmp")
 
+if(0)
   foreach(module ${NT2_FOUND_COMPONENTS})
     if(EXISTS ${NT2_BINARY_DIR}/modules/${module}.manifest)
       set(file "${NT2_BINARY_DIR}/modules/${module}.manifest")
@@ -838,11 +862,20 @@ macro(nt2_postconfigure_run)
 
     endforeach()
   endforeach()
+else()
+  string(REPLACE ";" "|" FOUND_COMPONENTS "${NT2_FOUND_COMPONENTS}")
+  nt2_module_tool(postconfigure --root ${NT2_BINARY_DIR} --modules ${FOUND_COMPONENTS} ${postconfigure_prefix})
+endif()
 
-  if(IS_DIRECTORY ${NT2_BINARY_DIR}/include_tmp)
-    nt2_module_tool(move_reuse ${NT2_BINARY_DIR}/include_tmp ${NT2_BINARY_DIR}/include)
+  if(IS_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/nt2_post_include_tmp)
+    nt2_module_tool(move_reuse ${CMAKE_CURRENT_BINARY_DIR}/nt2_post_include_tmp ${CMAKE_CURRENT_BINARY_DIR}/nt2_post_include)
   endif()
 
+  set(NT2_POSTCONFIGURE_INITED 0)
+
+endmacro()
+
+macro(nt2_postconfigure_global_run)
   if(PROJECT_NAME MATCHES "^NT2")
 
     cpack_add_component(postconfigured
@@ -857,4 +890,5 @@ macro(nt2_postconfigure_run)
 
   endif()
 
+  set(NT2_POSTCONFIGURE_GLOBAL_INITED 0)
 endmacro()

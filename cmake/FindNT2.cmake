@@ -170,7 +170,8 @@ function(nt2_find_module_location _COMPONENT)
       mark_as_advanced(NT2_MODULE_PATH)
     endif()
 
-    set(NT2_${_COMPONENT_U}_INCLUDE_ROOT ${NT2_BINARY_DIR}/include ${NT2_${_COMPONENT_U}_ROOT}/include PARENT_SCOPE)
+    string(REPLACE "." "/" COMPONENT_PATH ${COMPONENT})
+    set(NT2_${_COMPONENT_U}_INCLUDE_ROOT ${NT2_BINARY_DIR}/modules/${COMPONENT_PATH}/include ${NT2_${_COMPONENT_U}_ROOT}/include PARENT_SCOPE)
     set(NT2_${_COMPONENT_U}_LIBRARY_ROOT ${NT2_BINARY_DIR}/lib PARENT_SCOPE)
 
   # Look for module in install
@@ -261,6 +262,7 @@ endmacro()
 function(nt2_find_modules)
 
   nt2_find_log("nt2_find_modules ${ARGN}")
+  set(FOUND_COMPONENTS)
 
   # load dependencies for all required components
   # build queue of all indirect dependencies
@@ -274,6 +276,8 @@ function(nt2_find_modules)
     get_property(NT2_${COMPONENT_U}_FOUND GLOBAL PROPERTY NT2_${COMPONENT_U}_FOUND)
     if(NOT NT2_${COMPONENT_U}_FOUND)
       nt2_find_module_dependencies(${COMPONENT})
+    else()
+      list(APPEND FOUND_COMPONENTS ${NT2_${COMPONENT_U}_EXTRA})
     endif()
 
     # remove current module from queue, add to list of processed modules
@@ -295,7 +299,6 @@ function(nt2_find_modules)
   topological_sort_u(EXTRA "NT2_" "_DEPENDENCIES_EXTRA")
 
   # load each module, aggregate results
-  set(FOUND_COMPONENTS)
   foreach(COMPONENT ${EXTRA})
     string(TOUPPER ${COMPONENT} COMPONENT_U)
     nt2_find_module(${COMPONENT})
@@ -316,16 +319,17 @@ function(nt2_find_modules)
 
     nt2_copy_parent(NT2_${COMPONENT_U}_FOUND)
   endforeach()
+  set(NT2_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/nt2_post_include ${NT2_INCLUDE_DIR})
 
   set(NT2_FOUND_COMPONENTS ${NT2_FOUND_COMPONENTS} ${FOUND_COMPONENTS})
   nt2_remove_duplicates(NT2_FOUND_COMPONENTS)
-  set(NT2_FOUND_COMPONENTS ${NT2_FOUND_COMPONENTS} CACHE INTERNAL "")
 
   nt2_copy_parent( NT2_FOUND
                    NT2_INCLUDE_DIR NT2_LIBRARY_DIR
                    NT2_LIBRARIES
                    NT2_COMPILE_FLAGS NT2_LINK_FLAGS
                    NT2_BINARY_DIR
+                   NT2_FOUND_COMPONENTS
                  )
 
 endfunction()
@@ -407,6 +411,7 @@ function(nt2_find_module COMPONENT)
   set(NT2_${COMPONENT_U}_LIBRARIES ${LIBRARIES} CACHE INTERNAL "Libraries for NT2 module ${COMPONENT}" FORCE)
   set(NT2_${COMPONENT_U}_COMPILE_FLAGS ${COMPILE_FLAGS} CACHE INTERNAL "Compilation flags for NT2 module ${COMPONENT}" FORCE)
   set(NT2_${COMPONENT_U}_LINK_FLAGS ${LINK_FLAGS} CACHE INTERNAL "Linking flags for NT2 module ${COMPONENT}" FORCE)
+  set(NT2_${COMPONENT_U}_EXTRA ${EXTRA} CACHE INTERNAL "Other NT2 modules ${COMPONENT} depends on" FORCE)
 
   mark_as_advanced(NT2_${COMPONENT_U}_INCLUDE_DIR NT2_${COMPONENT_U}_LIBRARY_DIR
                    NT2_${COMPONENT_U}_LIBRARIES
@@ -574,8 +579,12 @@ function(nt2_find)
   endif()
 
   # Initialize post-configuration engine if needed
-  get_property(NT2_POSTCONFIGURE_INITED GLOBAL PROPERTY NT2_POSTCONFIGURE_INITED)
-  if(NOT NT2_POSTCONFIGURE_INITED AND NT2_SOURCE_ROOT)
+  set(NT2_POSTCONFIGURE_NOTTOINIT ${NT2_POSTCONFIGURE_INITED})
+  set(NT2_POSTCONFIGURE_GLOBAL_NOTTOINIT ${NT2_POSTCONFIGURE_GLOBAL_INITED})
+  if(NOT NT2_POSTCONFIGURE_GLOBAL_NOTTOINIT)
+    nt2_postconfigure_global_init()
+  endif()
+  if(NOT NT2_POSTCONFIGURE_NOTTOINIT)
     nt2_postconfigure_init()
   endif()
 
@@ -586,11 +595,15 @@ function(nt2_find)
                    NT2_LIBRARIES
                    NT2_COMPILE_FLAGS NT2_LINK_FLAGS
                    NT2_BINARY_DIR
+                   NT2_FOUND_COMPONENTS
                  )
 
   # Run post-configuration commands if needed
-  if(NOT NT2_POSTCONFIGURE_INITED AND NT2_SOURCE_ROOT)
+  if(NOT NT2_POSTCONFIGURE_NOTTOINIT)
     nt2_postconfigure_run()
+  endif()
+  if(NOT NT2_POSTCONFIGURE_GLOBAL_NOTTOINIT)
+    nt2_postconfigure_global_run()
   endif()
 
   find_file(NT2_USE_FILE UseNT2.cmake PATHS ${NT2_MODULE_PATH})
