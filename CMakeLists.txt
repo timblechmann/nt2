@@ -138,6 +138,14 @@ foreach(module ${NT2_MODULES})
 endforeach()
 
 ################################################################################
+# Global modules
+################################################################################
+set(NT2_CURRENT_MODULE main)
+expand_submodules(NT2_MODULES_GLOBAL)
+nt2_module_use_modules(${NT2_MODULES_GLOBAL})
+set(NT2_CURRENT_MODULE)
+
+################################################################################
 # Load modules
 ################################################################################
 set(stage_inputs)

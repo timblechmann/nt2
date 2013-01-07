@@ -7,26 +7,5 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(nt2.info)
-
-if(NOT DEFINED NT2_SIMD_FLAGS)
-
-  # x86 family
-  if(NT2_ARCH_X86)
-    include(arch/Findx86)
-  endif()
-
-  # ARM family
-  if(NT2_ARCH_ARM)
-    include(arch/FindARM)
-  endif()
-
-endif()
-
-set( NT2_SIMD_FLAGS ${NT2_SIMD_FLAGS}
-     CACHE STRING "SIMD extensions compiler flags"
-   )
-set( NT2_SIMD_EXT ${NT2_SIMD_EXT}
-     CACHE STRING "SIMD extension being built for (informative)"
-   )
-message(STATUS "[boost.simd.sdk] SIMD flag: ${NT2_SIMD_FLAGS}")
+include(nt2.simd.powerpc)
+set(NT2_ARCH.POWERPC.SDK_COMPILE_FLAGS ${NT2_SIMD_FLAGS})
