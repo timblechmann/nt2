@@ -10,6 +10,7 @@
 #define BOOST_SIMD_SDK_CONFIG_DETAILS_ARM_DETECT_HPP_INCLUDED
 
 #include <boost/simd/sdk/config/arch/arm.hpp>
+#include <boost/simd/sdk/config/os/nix.hpp>
 
 #if defined(BOOST_SIMD_ARCH_ARM)
 #include <boost/simd/sdk/config/details/detector/linux_auxv.hpp>

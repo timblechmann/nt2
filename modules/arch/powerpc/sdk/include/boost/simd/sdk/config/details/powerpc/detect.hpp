@@ -13,6 +13,7 @@
 
 #if defined(BOOST_SIMD_ARCH_POWERPC)
 #include <boost/simd/sdk/config/details/detector/linux_auxv.hpp>
+#include <boost/simd/sdk/config/os/nix.hpp>
 #include <boost/simd/sdk/config/os/macos.hpp>
 
 #if defined(BOOST_SIMD_OS_LINUX)
