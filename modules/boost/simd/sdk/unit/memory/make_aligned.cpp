@@ -9,11 +9,16 @@
 #define NT2_UNIT_MODULE "boost::simd::memory::make_aligned"
 
 #include <boost/simd/sdk/config/types.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/memory/allocate.hpp>
+#include <boost/simd/sdk/memory/deallocate.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/sdk/memory/meta/make_aligned.hpp>
+#include <boost/simd/sdk/memory/make_aligned.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test make_aligned on simple type
@@ -77,4 +82,36 @@ NT2_TEST_CASE(make_aligned_array)
   NT2_TEST( is_aligned(&ai16[0])  );
   NT2_TEST( is_aligned(&ai8[0])   );
   NT2_TEST( is_aligned(&ab[0])    );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test make_aligned metafunction
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL(make_aligned_meta, BOOST_SIMD_TYPES)
+{
+  using boost::simd::is_aligned;
+  using boost::simd::memory::allocate;
+  using boost::simd::memory::deallocate;
+
+  typename boost::simd::meta::make_aligned<T, 32>::type test__;
+  NT2_TEST( is_aligned(&test__, 32) );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test make_aligned metafunction
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(make_aligned_ptr)
+{
+  using boost::simd::memory::byte;
+  using boost::simd::memory::make_aligned;
+  using boost::simd::is_aligned;
+  using boost::simd::memory::allocate;
+  using boost::simd::memory::deallocate;
+
+  byte* ptr = allocate(15, 32);
+  boost::simd::meta::make_aligned<byte, 32>::type* p = make_aligned<32>(ptr);
+  NT2_TEST( is_aligned(p, 32) );
+  NT2_TEST_EQUAL(p, ptr);
+
+  deallocate(ptr);
 }
