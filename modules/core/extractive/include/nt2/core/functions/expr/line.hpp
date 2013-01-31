@@ -11,9 +11,9 @@
 #define NT2_CORE_FUNCTIONS_EXPR_LINE_HPP_INCLUDED
 
 #include <nt2/core/functions/line.hpp>
-#include <nt2/include/functions/ind2sub.hpp>
-#include <nt2/include/functions/sub2ind.hpp>
 #include <nt2/core/container/dsl.hpp>
+#include <nt2/core/utility/as_index.hpp>
+#include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/include/functions/linesstride.hpp>
 
 namespace nt2 { namespace ext
@@ -32,29 +32,23 @@ namespace nt2 { namespace ext
                                           , std::size_t
                                           , std::size_t
                                           , std::size_t
-                                          , std::size_t
                                           >::type             result_type;
 
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a0, A1 const& ind, A2 const& dim) const
     {
-      typedef typename A0::extent_type ext_t;
-      typedef typename meta::call<nt2::tag::ind2sub_(ext_t,size_t)>::type  sub_t;
-
-      ext_t ex1 = a0.extent();
       std::size_t along = dim-1;
+      typename A0::extent_type ex1 = a0.extent();
       ex1[along] = 1;
-      sub_t pos = ind2sub(ex1, ind);
-      std::size_t start = sub2ind(a0.extent(), pos);
-      std::size_t stride = nt2::linesstride(a0, dim);
 
       return boost::proto::make_expr< nt2::tag::line_
                                     , container::domain
                                     > ( boost::cref(a0)
                                       , along
-                                      , std::size_t(ind)
-                                      , start
-                                      , stride
+                                      , as_index( a0.extent()
+                                                , as_subscript(ex1, ind)
+                                                )
+                                      , nt2::linesstride(a0, dim)
                                       );
     }
   };

@@ -12,8 +12,8 @@
 
 #include <nt2/core/functions/adjfun.hpp>
 #include <nt2/include/functions/run.hpp>
-#include <nt2/include/functions/ind2sub.hpp>
-#include <nt2/include/functions/sub2ind.hpp>
+#include <nt2/core/utility/as_index.hpp>
+#include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/include/functions/enumerate.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
@@ -27,29 +27,21 @@ namespace nt2 { namespace ext
                               ((unspecified_<Data>))
                             )
   {
-    typedef boost::proto::result_of::child_c<A0&, 0>                  child0_t;
-    typedef typename  boost::dispatch::meta::
-                      call< nt2::tag::run_( typename child0_t::type
-                                          , State const&
-                                          , Data const&
-                                          )
-                          >::type                                     value_t;
-    typedef typename  boost::proto::result_of::
-                      child_c<A0&, 2>::value_type::value_type         func_t;
-
-    typedef typename  boost::dispatch::meta::
-                      result_of<func_t(value_t,value_t)>::type      result_type;
+    typedef boost::proto::result_of::child_c<A0&, 0>              child0_t;
+    typedef typename child0_t::value_type::value_type             v_t;
+    typedef typename boost::simd::ext::adapt_data<v_t,Data>::type target_t;
+    typedef typename Data::type                                   result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
       // Types for indices computation
-      typedef typename child0_t::value_type::extent_type                ext_t;
-      typedef typename meta::as_index<result_type>::type                i_t;
-      typedef typename meta::call<nt2::tag::ind2sub_(ext_t,i_t)>::type  sub_t;
+      typedef typename child0_t::value_type::extent_type        ext_t;
+      typedef typename meta::as_index<result_type>::type        i_t;
+      typedef typename result_of::as_subscript<ext_t,i_t>::type sub_t;
 
       // Compute position and shifted position
-      sub_t pos0 = ind2sub(a0.extent(),enumerate<i_t>(p));
+      sub_t pos0 = as_subscript(a0.extent(),enumerate<i_t>(p));
 
       sub_t pos1 = pos0;
       ++pos1[boost::proto::child_c<1>(a0)];
@@ -57,12 +49,12 @@ namespace nt2 { namespace ext
       // Run the functor on shifted data and original data
       return boost::proto::value(boost::proto::child_c<2>(a0))
             ( nt2::run( boost::proto::child_c<0>(a0)
-                      , sub2ind(boost::proto::child_c<0>(a0).extent(), pos1)
-                      , t
+                      , as_index(boost::proto::child_c<0>(a0).extent(), pos1)
+                      , target_t()
                       )
             , nt2::run( boost::proto::child_c<0>(a0)
-                      , sub2ind(boost::proto::child_c<0>(a0).extent(), pos0)
-                      , t
+                      , as_index(boost::proto::child_c<0>(a0).extent(), pos0)
+                      , target_t()
                       )
             );
     }

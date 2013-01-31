@@ -18,9 +18,10 @@
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/enumerate.hpp>
 #include <nt2/include/functions/logical_and.hpp>
-#include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
+#include <nt2/core/utility/as_index.hpp>
+#include <nt2/core/utility/as_subscript.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -35,13 +36,13 @@ namespace nt2 { namespace ext
     typedef typename meta::as_index<result_type>::type                      i_t;
     typedef typename meta::
                      call<nt2::tag::enumerate_(State,meta::as_<i_t>)>::type p_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(_2D,p_t)>::type          s_t;
+    typedef typename result_of::as_subscript<_2D,p_t>::type                 s_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
       // Retrieve 2D position from the linear index
-      s_t const pos = ind2sub(_2D(a0.extent()),enumerate<i_t>(p));
+      s_t const pos = as_subscript(_2D(a0.extent()),enumerate<i_t>(p));
 
       // Return the upper triangular section with 1 on the diagonal
       return nt2::if_else ( nt2::eq(pos[0],pos[1])
@@ -62,14 +63,14 @@ namespace nt2 { namespace ext
     typedef typename meta::as_index<result_type>::type                    i_t;
     typedef typename meta::
                      call<nt2::tag::enumerate_(State,meta::as_<i_t>)>::type p_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(_2D,p_t)>::type          s_t;
+    typedef typename result_of::as_subscript<_2D,p_t>::type                 s_t;
     typedef typename s_t::value_type                                       sp_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
       // Retrieve 2D position from the linear index
-      s_t  const pos = ind2sub(_2D(a0.extent()), nt2::enumerate<i_t>(p) );
+      s_t  const pos = as_subscript(_2D(a0.extent()), nt2::enumerate<i_t>(p) );
       sp_t const is  = pos[0];
       sp_t const ju  = pos[1] + boost::proto::value(boost::proto::child_c<1>(a0));
       sp_t const jd  = pos[1] - boost::proto::value(boost::proto::child_c<1>(a0));
@@ -93,14 +94,14 @@ namespace nt2 { namespace ext
     typedef typename meta::as_index<result_type>::type              i_t;
     typedef typename meta::
                      call<nt2::tag::enumerate_(State,meta::as_<i_t>)>::type p_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(_2D,p_t)>::type          s_t;
+    typedef typename result_of::as_subscript<_2D,p_t>::type                 s_t;
     typedef typename s_t::value_type                                       sp_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
       // Retrieve 2D position from the linear index
-      s_t  const pos = ind2sub(_2D(a0.extent()),nt2::enumerate<i_t>(p) );
+      s_t  const pos = as_subscript(_2D(a0.extent()),nt2::enumerate<i_t>(p) );
       sp_t const is  = pos[0];
       sp_t const ju  = pos[1] + boost::proto::value(boost::proto::child_c<2>(a0));
       sp_t const jd  = pos[1] - boost::proto::value(boost::proto::child_c<1>(a0));
