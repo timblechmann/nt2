@@ -21,7 +21,7 @@
 #include <boost/assert.hpp>
 #include <boost/foreach.hpp>
 #include <boost/noncopyable.hpp>
-#if !defined( BOOST_NO_EXCEPTIONS ) || defined( _MSC_VER )
+#if defined( BOOST_NO_EXCEPTIONS ) || !defined( _MSC_VER )
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_real_distribution.hpp>
 #else
@@ -106,7 +106,7 @@ namespace bench
     private:
         void randomize( aligned_array & data )
         {
-            #if defined( BOOST_NO_EXCEPTIONS ) && !defined( _MSC_VER )
+            #if !defined( BOOST_NO_EXCEPTIONS ) && defined( _MSC_VER )
                 BOOST_FOREACH( T & scalar, data ) { scalar = roll<T>( constants::test_data_range_minimum, constants::test_data_range_maximum ); }
             #else
                 boost::random::uniform_real_distribution<T> const distribution( constants::test_data_range_minimum, constants::test_data_range_maximum );
@@ -119,7 +119,7 @@ namespace bench
         aligned_array real_data_;
         aligned_array imag_data_;
 
-    #if defined( BOOST_NO_EXCEPTIONS ) && !defined( _MSC_VER )
+    #if defined( BOOST_NO_EXCEPTIONS ) || !defined( _MSC_VER )
         boost::random::mt19937 prng_;
     #endif
     } random_data;
