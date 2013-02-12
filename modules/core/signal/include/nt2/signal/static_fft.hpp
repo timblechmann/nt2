@@ -72,7 +72,6 @@
 #include <boost/simd/toolbox/constant/constants/half.hpp>
 #include <boost/simd/toolbox/constant/constants/mzero.hpp>
 #include <boost/simd/toolbox/constant/constants/zero.hpp>
-#include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
 #include <boost/simd/include/functions/scalar/ffs.hpp>
 #include <boost/simd/include/functions/scalar/ilog2.hpp>
 #include <boost/simd/include/functions/simd/deinterleave_first.hpp>
@@ -88,6 +87,7 @@
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
 #include <boost/simd/include/functions/simd/unaligned_load.hpp>
 #include <boost/simd/include/functions/simd/unaligned_store.hpp>
+#include <boost/simd/include/functions/simd/shuffle.hpp>
 
 /// \note control/switch.hpp needs to be included before control/case.hpp
 /// because case.hpp uses the default_construct struct template (from
@@ -117,64 +117,64 @@ namespace details
     //
     ////////////////////////////////////////////////////////////////////////////
 
-#ifdef BOOST_SIMD_HAS_SSE_SUPPORT
-    template <> BOOST_FORCEINLINE __m128 shuffle<0, 1, 0, 1>( __m128 const lower, __m128 const upper ) { return _mm_movelh_ps( lower, upper ); }
-    template <> BOOST_FORCEINLINE __m128 shuffle<2, 3, 2, 3>( __m128 const lower, __m128 const upper ) { return _mm_movehl_ps( upper, lower ); }
+// #ifdef BOOST_SIMD_HAS_SSE_SUPPORT
+//     template <> BOOST_FORCEINLINE __m128 shuffle<0, 1, 0, 1>( __m128 const lower, __m128 const upper ) { return _mm_movelh_ps( lower, upper ); }
+//     template <> BOOST_FORCEINLINE __m128 shuffle<2, 3, 2, 3>( __m128 const lower, __m128 const upper ) { return _mm_movehl_ps( upper, lower ); }
 
-    template <> BOOST_FORCEINLINE __m128 shuffle<0, 0, 1, 1>( __m128 const single_vector ) { return _mm_unpacklo_ps( single_vector, single_vector ); }
-    template <> BOOST_FORCEINLINE __m128 shuffle<2, 2, 3, 3>( __m128 const single_vector ) { return _mm_unpackhi_ps( single_vector, single_vector ); }
+//     template <> BOOST_FORCEINLINE __m128 shuffle<0, 0, 1, 1>( __m128 const single_vector ) { return _mm_unpacklo_ps( single_vector, single_vector ); }
+//     template <> BOOST_FORCEINLINE __m128 shuffle<2, 2, 3, 3>( __m128 const single_vector ) { return _mm_unpackhi_ps( single_vector, single_vector ); }
 
-    #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-        template <> BOOST_FORCEINLINE __m128 shuffle<0, 1, 2, 3>( __m128 const lower, __m128 const upper )
-        {
-            return _mm_castpd_ps( _mm_move_sd( _mm_castps_pd( upper ), _mm_castps_pd( lower ) ) );
-        }
-    #endif // BOOST_SIMD_HAS_SSE2_SUPPORT
+//     #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+//         template <> BOOST_FORCEINLINE __m128 shuffle<0, 1, 2, 3>( __m128 const lower, __m128 const upper )
+//         {
+//             return _mm_castpd_ps( _mm_move_sd( _mm_castps_pd( upper ), _mm_castps_pd( lower ) ) );
+//         }
+//     #endif // BOOST_SIMD_HAS_SSE2_SUPPORT
 
-    #ifdef BOOST_SIMD_HAS_SSE3_SUPPORT
-        template <> BOOST_FORCEINLINE __m128 shuffle<0, 1, 0, 1>( __m128 const single_vector )
-        {
-            return _mm_castpd_ps( _mm_movedup_pd( _mm_castps_pd( single_vector ) ) );
-        }
+//     #ifdef BOOST_SIMD_HAS_SSE3_SUPPORT
+//         template <> BOOST_FORCEINLINE __m128 shuffle<0, 1, 0, 1>( __m128 const single_vector )
+//         {
+//             return _mm_castpd_ps( _mm_movedup_pd( _mm_castps_pd( single_vector ) ) );
+//         }
 
-        template <> BOOST_FORCEINLINE __m128 shuffle<0, 0, 2, 2>( __m128 const single_vector ) { return _mm_moveldup_ps( single_vector ); }
-        template <> BOOST_FORCEINLINE __m128 shuffle<1, 1, 3, 3>( __m128 const single_vector ) { return _mm_movehdup_ps( single_vector ); }
-    #endif // BOOST_SIMD_HAS_SSE3_SUPPORT
+//         template <> BOOST_FORCEINLINE __m128 shuffle<0, 0, 2, 2>( __m128 const single_vector ) { return _mm_moveldup_ps( single_vector ); }
+//         template <> BOOST_FORCEINLINE __m128 shuffle<1, 1, 3, 3>( __m128 const single_vector ) { return _mm_movehdup_ps( single_vector ); }
+//     #endif // BOOST_SIMD_HAS_SSE3_SUPPORT
 
-    //...zzz...to be continued...
-    //_mm_insert_*
-    //_mm_move_ss
-    //_mm_unpackhi_*
-    //_mm_unpacklo_*
-#else
-    template
-    <
-        unsigned int lower_i0, unsigned int lower_i1,
-        unsigned int upper_i0, unsigned int upper_i1,
-        typename Vector
-    >
-    BOOST_FORCEINLINE
-    Vector shuffle( Vector const & lower, Vector const & upper )
-    {
-        Vector result;
-        result[ 0 ] = lower[ lower_i0 ];
-        result[ 1 ] = lower[ lower_i1 ];
-        result[ 2 ] = upper[ upper_i0 ];
-        result[ 3 ] = upper[ upper_i1 ];
-        return result;
-    }
+//     //...zzz...to be continued...
+//     //_mm_insert_*
+//     //_mm_move_ss
+//     //_mm_unpackhi_*
+//     //_mm_unpacklo_*
+// #else
+//     template
+//     <
+//         unsigned int lower_i0, unsigned int lower_i1,
+//         unsigned int upper_i0, unsigned int upper_i1,
+//         typename Vector
+//     >
+//     BOOST_FORCEINLINE
+//     Vector shuffle( Vector const & lower, Vector const & upper )
+//     {
+//         Vector result;
+//         result[ 0 ] = lower[ lower_i0 ];
+//         result[ 1 ] = lower[ lower_i1 ];
+//         result[ 2 ] = upper[ upper_i0 ];
+//         result[ 3 ] = upper[ upper_i1 ];
+//         return result;
+//     }
 
-    template
-    <
-        unsigned int i0, unsigned int i1, unsigned int i2, unsigned int i3,
-        typename Vector
-    >
-    BOOST_FORCEINLINE
-    Vector shuffle( Vector const & vector )
-    {
-        return shuffle<i0, i1, i2, i3>( vector, vector );
-    }
-#endif // BOOST_SIMD_HAS_SSE_SUPPORT
+//     template
+//     <
+//         unsigned int i0, unsigned int i1, unsigned int i2, unsigned int i3,
+//         typename Vector
+//     >
+//     BOOST_FORCEINLINE
+//     Vector shuffle( Vector const & vector )
+//     {
+//         return shuffle<i0, i1, i2, i3>( vector, vector );
+//     }
+// #endif // BOOST_SIMD_HAS_SSE_SUPPORT
 
 //...zzz...actually BOOST_SIMD_HAS_MMX_SUPPORT
 #if defined( BOOST_SIMD_HAS_SSE_SUPPORT ) && !defined( BOOST_SIMD_ARCH_X86_64 )
@@ -2017,8 +2017,8 @@ namespace detail
         // Real:
         vector_t const real( real_in );
 
-        vector_t const r0033( boost::simd::details::shuffle<idx0, idx0, idx3, idx3>( real ) );
-        vector_t const r1122( boost::simd::details::shuffle<idx1, idx1, idx2, idx2>( real ) );
+        vector_t const r0033( boost::simd::shuffle<idx0, idx0, idx3, idx3>( real ) );
+        vector_t const r1122( boost::simd::shuffle<idx1, idx1, idx2, idx2>( real ) );
 
         vector_t const r_combined( r0033 + ( r1122 ^ odd_negate ) );
 
@@ -2027,8 +2027,8 @@ namespace detail
         // Imaginary:
         vector_t const imag( imag_in );
 
-        vector_t const i0022( boost::simd::details::shuffle<idx0, idx0, idx2, idx2>( imag ) );
-        vector_t const i1133( boost::simd::details::shuffle<idx1, idx1, idx3, idx3>( imag ) );
+        vector_t const i0022( boost::simd::shuffle<idx0, idx0, idx2, idx2>( imag ) );
+        vector_t const i1133( boost::simd::shuffle<idx1, idx1, idx3, idx3>( imag ) );
 
         vector_t const i_combined( i0022 + ( i1133 ^ odd_negate ) );
 
@@ -2038,7 +2038,7 @@ namespace detail
         vector_t right;
         right = boost::simd::interleave_second( r_combined, i_combined );
         // right = [ r3pr2, i2pi3, r3mr2, i2mi3 ]
-        right = boost::simd::details::shuffle<0, 3, 1, 2>( right );
+        right = boost::simd::shuffle<0, 3, 1, 2>( right );
         // right = [ r3pr2, i2mi3, i2pi3, r3mr2 ]
 
         vector_t const r_right( boost::simd::repeat_lower_half( right ) );
@@ -2102,21 +2102,21 @@ namespace detail
 
     #else // BOOST_SIMD_DETECTED
 
-        using boost::simd::details::shuffle;
+        using boost::simd::shuffle;
 
         vector_t const real( real_in ); vector_t const imag( imag_in );
 
         vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_upper ( sign_flipper<vector_t, false, false, true, true >() );
         vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_middle( sign_flipper<vector_t, false, true , true, false>() );
 
-        vector_t const r01i01( shuffle<idx0, idx1, idx0, idx1>( real, imag ) );
-        vector_t const r23i23( shuffle<idx2, idx3, idx2, idx3>( real, imag ) );
+        vector_t const r01i01( shuffle<idx0, idx1, idx0+4, idx1+4>( real, imag ) );
+        vector_t const r23i23( shuffle<idx2, idx3, idx2+4, idx3+4>( real, imag ) );
 
         vector_t const ri_plus ( r01i01 + r23i23 );
         vector_t const ri_minus( r01i01 - r23i23 );
 
-        vector_t const r_left ( shuffle<idx0, idx0, idx0, idx0>( ri_plus, ri_minus ) ); vector_t const i_left ( shuffle<idx2, idx2, idx2, idx2>( ri_plus, ri_minus ) );
-        vector_t       r_right( shuffle<idx1, idx1, idx3, idx3>( ri_plus, ri_minus ) ); vector_t const i_right( shuffle<idx3, idx3, idx1, idx1>( ri_plus, ri_minus ) );
+        vector_t const r_left ( shuffle<idx0, idx0, idx0+4, idx0+4>( ri_plus, ri_minus ) ); vector_t const i_left ( shuffle<idx2, idx2, idx2+4, idx2+4>( ri_plus, ri_minus ) );
+        vector_t       r_right( shuffle<idx1, idx1, idx3+4, idx3+4>( ri_plus, ri_minus ) ); vector_t const i_right( shuffle<idx3, idx3, idx1+4, idx1+4>( ri_plus, ri_minus ) );
         r_right ^= *p_negate_upper;
 
         real_out = r_left + ( r_right ^ *p_negate_middle );
@@ -2231,7 +2231,7 @@ namespace detail
         using boost::simd::make;
         using boost::simd::repeat_lower_half;
         using boost::simd::repeat_upper_half;
-        using boost::simd::details::shuffle;
+        using boost::simd::shuffle;
 
         vector_t upper_r; vector_t upper_i;
 
@@ -2256,14 +2256,14 @@ namespace detail
                 //    lower_real     , lower_imag
                 //);
 
-                vector_t const r01i01( shuffle<0, 1, 0, 1>( lower_p_upper_r, lower_p_upper_i ) );
-                vector_t const r23i23( shuffle<2, 3, 2, 3>( lower_p_upper_r, lower_p_upper_i ) );
+                vector_t const r01i01( shuffle<0, 1, 4, 5>( lower_p_upper_r, lower_p_upper_i ) );
+                vector_t const r23i23( shuffle<2, 3, 6, 7>( lower_p_upper_r, lower_p_upper_i ) );
 
                 vector_t const ri_plus ( r01i01 + r23i23 );
                 vector_t const ri_minus( r01i01 - r23i23 );
 
-                vector_t const r_left ( shuffle<0, 0, 0, 0>( ri_plus, ri_minus ) ); vector_t const i_left ( shuffle<2, 2, 2, 2>( ri_plus, ri_minus ) );
-                vector_t       r_right( shuffle<1, 1, 3, 3>( ri_plus, ri_minus ) ); vector_t const i_right( shuffle<3, 3, 1, 1>( ri_plus, ri_minus ) );
+                vector_t const r_left ( shuffle<0, 0, 4, 4>( ri_plus, ri_minus ) ); vector_t const i_left ( shuffle<2, 2, 6, 6>( ri_plus, ri_minus ) );
+                vector_t       r_right( shuffle<1, 1, 7, 7>( ri_plus, ri_minus ) ); vector_t const i_right( shuffle<3, 3, 5, 5>( ri_plus, ri_minus ) );
                 r_right ^= *p_negate_upper;
 
                 vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_middle( sign_flipper<vector_t, false, true, true , false>() );
@@ -2274,8 +2274,8 @@ namespace detail
             {
                 // multiplication by i:
                 vector_t const lower_m_upper_r_copy( lower_m_upper_r );
-                lower_m_upper_r = shuffle<0, 1, 2, 3>( lower_m_upper_r, lower_m_upper_i      );
-                lower_m_upper_i = shuffle<0, 1, 2, 3>( lower_m_upper_i, lower_m_upper_r_copy );
+                lower_m_upper_r = shuffle<0, 1, 6, 7>( lower_m_upper_r, lower_m_upper_i      );
+                lower_m_upper_i = shuffle<0, 1, 6, 7>( lower_m_upper_i, lower_m_upper_r_copy );
                 lower_m_upper_r ^= *p_negate_upper;
             }
 
