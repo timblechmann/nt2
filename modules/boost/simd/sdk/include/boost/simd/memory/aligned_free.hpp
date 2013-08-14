@@ -13,7 +13,7 @@
 #include <boost/simd/memory/details/posix.hpp>
 #include <boost/simd/memory/details/aligned_stash.hpp>
 #include <boost/dispatch/attributes.hpp>
-#include <new>
+#include <cstdlib>
 
 namespace boost { namespace simd
 {
