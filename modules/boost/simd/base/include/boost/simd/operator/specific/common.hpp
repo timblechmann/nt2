@@ -101,6 +101,7 @@ namespace boost { namespace simd { namespace ext                               \
     result_type;                                                               \
                                                                                \
     result_type                                                                \
+    BOOST_FORCEINLINE                                                          \
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const & a)) const             \
     {                                                                          \
       return boost::simd::                                                     \
