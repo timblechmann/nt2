@@ -51,7 +51,7 @@ Temp
 Testing
 Debug
 Release
-build
+build*
 
 ################################################################################
 # Ignore buidl files and python compilation
