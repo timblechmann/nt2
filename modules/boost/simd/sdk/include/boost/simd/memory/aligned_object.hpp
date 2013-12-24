@@ -64,8 +64,12 @@ namespace boost { namespace simd
     BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE(Alignment)
     #endif
   }
-#if !defined(BOOST_SIMD_HAS_ALIGNAS) && (defined(BOOST_GCC) || defined(BOOST_CLANG) )
+#if !defined(BOOST_SIMD_HAS_ALIGNAS)
+# if defined(BOOST_CLANG) || (BOOST_GCC >= 40800)
   __attribute__ ((aligned (Alignment)))
+# elif defined(BOOST_GCC)
+  __attribute__ ((aligned (32))) // Note: cannot depend on a template argument, therefore we pessimize
+# endif
 #endif
   ;
 } }
