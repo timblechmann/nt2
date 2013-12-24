@@ -14,6 +14,18 @@
 #include <boost/simd/preprocessor/parameters.hpp>
 #include <cstddef>
 
+#if defined(BOOST_CLANG) && ( (__clang_major__ * 100 + __clang_minor__) >= 302 ) && (__cplusplus >= 201103L)
+#define BOOST_SIMD_HAS_ALIGNAS
+#endif
+
+#if BOOST_GCC >= 40800 && (__cplusplus >= 201103L)
+#define BOOST_SIMD_HAS_ALIGNAS
+#endif
+
+// msvc does not implement alignas, yet
+
+
+
 namespace boost { namespace simd
 {
   /*!
@@ -29,7 +41,14 @@ namespace boost { namespace simd
             of child type.
   **/
   template<std::size_t Alignment = BOOST_SIMD_CONFIG_ALIGNMENT>
-  struct aligned_object
+#if defined(BOOST_MSVC)
+  __declspec(align(32)) // Note: cannot depend on a template argument, therefore we pessimize
+#endif
+  struct
+#ifdef BOOST_SIMD_HAS_ALIGNAS
+  alignas(Alignment)
+#endif
+  aligned_object
   {
     public:
 
@@ -44,7 +63,11 @@ namespace boost { namespace simd
     #if !defined(DOXYGEN_ONLY)
     BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE(Alignment)
     #endif
-  };
+  }
+#if !defined(BOOST_SIMD_HAS_ALIGNAS) && (defined(BOOST_GCC) || defined(BOOST_CLANG) )
+  __attribute__ ((aligned (Alignment)))
+#endif
+  ;
 } }
 
 #endif

@@ -51,3 +51,35 @@ NT2_TEST_CASE(overload_new_delete_array)
   delete[] ptr;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// Test static alignemnt of foo
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(static_alignment)
+{
+  using boost::simd::is_aligned;
+
+  foo f;
+
+  foo* ptr = &f;
+
+  NT2_TEST( is_aligned(ptr,16) );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test static alignemnt of foo
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(static_member_alignment)
+{
+  using boost::simd::is_aligned;
+
+  struct bar : boost::simd::aligned_object<16> {
+      int dummy;
+      foo f;
+  };
+
+  bar b;
+
+  foo* ptr = &b.f;
+
+  NT2_TEST( is_aligned(ptr,16) );
+}
